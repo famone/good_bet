@@ -1,8 +1,8 @@
 <template>
 	<section class="news-row">
 		<div class="row">
-				<swiper ref="mySwiper2" :options="swiperOptions">
-				    <swiper-slide v-for="item in 6">
+				<swiper ref="mySwiper2" :options="swiperOptions" v-if="news">
+				    <swiper-slide v-for="item in news">
 				    	<div class="news-card">
 				    		<div class="news-img">
 				    			<div class="read-news">
@@ -12,9 +12,9 @@
 				    			</div>
 				    		</div>
 				    		<div class="news-body">
-				    			<div class="date">10.01.2020</div>
-				    			<h3>NEWS NAME</h3>
-				    			<p class="news-descr">“Come race with Booongo on Rajbet: this time you need to collect multipliers to score points and climb up the leaderboard.”</p>
+				    			<div class="date">{{ new Date(item.publish_date  * 1000).toLocaleDateString()}}</div>
+				    			<h3>{{item.name}}</h3>
+				    			<p class="news-descr" v-html="item.preview.substring(0,100) + '...' "></p>
 				    		</div>
 				    	</div>
 				    </swiper-slide>
@@ -28,6 +28,8 @@
 
 
 <script>
+import {mapGetters} from 'vuex'
+
 	export default{
 		data(){
 			return{
@@ -46,6 +48,7 @@
 			swiper(){
 	       		return this.$refs.mySwiper2.$swiper
 	    	},
+	    	...mapGetters({ news: "auth/getNews"}),
 		}
 	}
 </script>

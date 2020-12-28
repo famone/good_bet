@@ -25,7 +25,9 @@ import axios from 'axios'
   export default{
   	components: {Header, Footer, Copyright},
   	created(){
-      this.$store.dispatch('auth/getToken')
+      this.$store.dispatch('auth/getAppToken')
+      this.$store.dispatch('auth/getInfo')
+      this.$store.dispatch('auth/loadNews')
     }
   }
 </script>

@@ -2,6 +2,7 @@ import VueRouter from 'vue-router'
 import routes from './routes.js';
 
 import store from '../store'
+import axios from 'axios'
 
 const router = new VueRouter({
     routes,
@@ -12,19 +13,23 @@ const router = new VueRouter({
 });
 
 
-// router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
 
-//     if (store.getters["smeta/getAuthenticated"]) {
-//          next()
-//     }else{
-//         if (to.path != "/login") {
-//              next("/login")
-//          }
-//          else {
-//              next()
-//          }
-//     }
-// })
+
+	if (localStorage.getItem('appToken')) {
+
+		 let appToken = JSON.parse(localStorage.getItem('appToken'));
+
+ 		 axios.defaults.headers.common['Authorization'] = 'Bearer ' + appToken.appToken
+
+ 		 next()
+	}else{
+		store.dispatch("auth/getAppToken");
+		next()
+
+	}
+    
+})
 
 
 

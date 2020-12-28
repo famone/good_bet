@@ -6,13 +6,13 @@
 					<router-link tag="div" :to="game.id.toString()" class="play-btn">
 						<img src="../../assets/img/play.svg" alt="">
 					</router-link>
-					<router-link tag="span" :to="game.id.toString()" >Demo</router-link>
+					<router-link tag="span" :to="'/demo-game/' + game.id.toString()" >Demo</router-link>
 				</div>
 			</div>
 			<div class="game-body">
 				<div>
 					<h3>{{game.name}}</h3>
-					<p class="grey-txt">Popular game</p>
+					<p class="grey-txt">Slot games</p>
 				</div>
 				<div class="like">
 					<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

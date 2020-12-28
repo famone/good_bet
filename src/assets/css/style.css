@@ -391,6 +391,17 @@ h3{
 }
 
 /*news*/
+#news{
+	padding-bottom: 60px;
+}
+#newsBg{
+	height: 400px;
+	background-image: url(../img/slider1.png);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	margin-bottom: 60px;
+}
 
 .news-row{
 	overflow-x: hidden; 
@@ -670,6 +681,23 @@ footer li:hover{
 	margin-bottom: 28px;
 	font-size: 16px;
 }
+.form-box select{
+	padding:19px 30px;
+	border-radius: 15px;
+	border:none;
+	background: #1A1840!important;
+	color: #fff;
+	width: 100%;
+	margin-bottom: 28px;
+	font-size: 16px;
+	-webkit-appearance: none!important;
+    -moz-appearance: none!important;
+    background-image: url('../img/downarr.svg')!important;
+    background-repeat: no-repeat!important;
+    -webkit-background-size: 16px!important;
+    background-size: 16px!important;
+    background-position: right 30px center!important;
+}
 .form-box .reg-btn{
 	padding:18px 50px;
 }
@@ -730,6 +758,12 @@ footer li:hover{
 .just-center{
 	justify-content: center;
 }
+label{
+	color: #fff;
+	font-weight: 400;
+	font-size: 14px;
+	margin-top: 0;
+}
 
 /*policy*/
 #policy{
@@ -751,6 +785,7 @@ footer li:hover{
 	width: 100%;
 	margin-bottom: 28px;
 	font-size: 16px;
+	transition: all .3s ease;
 }
 .contact-us select{
 	padding:19px 30px;
@@ -781,8 +816,21 @@ footer li:hover{
 	margin-bottom: 28px;
 	font-size: 16px;
 }
-
-
+/*spin*/
+.spin{
+	animation-name: spin;
+  animation-duration: 5000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear; 
+}
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
 /*404*/
 
 
@@ -801,6 +849,78 @@ footer li:hover{
 	margin-bottom: 30px;
 }
 
+
+/*faq*/
+
+#faq{
+	padding-bottom: 60px;
+}
+
+
+
+/*demo game louncher*/
+.game-louncher{
+	min-height: 460px;
+	width: 100%;
+	margin-top: 30px;
+}
+iframe{
+	min-height: 460px;
+	width: 100%;
+}
+#gameSec{
+	padding-bottom: 60px;
+}
+.to-upper{
+	text-transform: uppercase;
+	opacity: .6;
+}
+.to-upper2{
+	text-transform: uppercase;
+}
+.br-link{
+	cursor: pointer;
+}
+.br-link:hover{
+	text-decoration: underline;
+}
+
+
+/*accordeons*/
+
+.accordeons{
+	margin-top: 56px;
+}
+.acc-btn{
+	border-radius: 15px;
+	background-color: #272459;
+	padding:20px;
+	color: #fff;
+	font-size: 16px;
+	display:flex;
+	justify-content: space-between;
+	align-items: center;
+	cursor: pointer;
+	margin-bottom: 10px;
+}
+.acc-btn img{
+	height: 10px;
+	transition: all .3s ease;
+	cursor: pointer;
+}
+.acc-item{
+	transition: all .3s ease;
+	margin-bottom: 20px;
+	overflow: hidden;
+	max-height: 0;
+	padding:0px 10px;
+}
+.accActive .acc-item{
+	max-height: 800px;
+}
+.accActive .acc-btn img{
+	transform: rotate(180deg);
+}
 
 
 

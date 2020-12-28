@@ -7,8 +7,8 @@
 				<img src="../assets/img/blur-pastic.svg" class="blur-plastic">
 
 				<swiper ref="mySwiper" :options="swiperOptions">
-		    		<swiper-slide v-for="item in slides">
-			    		<div class="slider-banner" :style="{'background-image': 'url(' + item.img + ')'}">
+		    		<swiper-slide v-for="item in slider">
+			    		<div class="slider-banner" :style="{'background-image': 'url(' + item.image.url + ')'}">
 			    		</div>
 		    		</swiper-slide>
 		    <div class="swiper-pagination"></div>
@@ -27,6 +27,8 @@
 
 
 <script>
+import {mapGetters} from 'vuex'
+
 	export default{
 		data(){
 			return{
@@ -70,6 +72,7 @@
 			swiper(){
 	       		return this.$refs.mySwiper.$swiper
 	    	},
+	    	...mapGetters({ slider: "auth/getSlider"}),
 		}
 	}
 </script>

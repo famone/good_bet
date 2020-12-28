@@ -5,6 +5,10 @@ import Signup from '../pages/Signup.vue'
 import Policy from '../pages/Policy.vue'
 import About from '../pages/About.vue'
 import Notfound from '../pages/404.vue'
+import Faq from '../pages/Faq.vue'
+import DemoGame from '../pages/DemoGame.vue'
+import News from '../pages/News.vue'
+import Newspage from '../pages/Newspage.vue'
 
 const routes = [
 		{
@@ -26,6 +30,22 @@ const routes = [
 		{
 			path: '/about',
 			component: About
+		},
+		{
+			path: '/faq',
+			component: Faq
+		},
+		{
+			path: '/news',
+			component: News
+		},
+		{
+			path: '/news/:id',
+			component: Newspage
+		},
+		{
+			path: '/demo-game/:id',
+			component: DemoGame
 		},
 		{
 			path: '*',

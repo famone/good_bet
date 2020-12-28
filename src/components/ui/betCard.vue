@@ -10,6 +10,6 @@
 			<img src="../../assets/img/teleph.svg" alt="">
 			<a href="mailto:guest.relation@mail.com" class="mail">guest.relation@mail.com</a>
 		</div>
-		<button class="btn-cont">CONTACTS</button>
+		<router-link tag="button" to="/about" class="btn-cont">CONTACTS</router-link>
 	</div>
 </template>
