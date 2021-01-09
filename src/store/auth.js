@@ -83,7 +83,7 @@ const auth = {
 		 	axios
 		 	.get('http://api.casinoplatform.site/v3/players?expand=avatars,accounts,country,timezone')
 		 	.then(response =>{
-		 		// console.log(response.data)
+		 		console.log(response.data)
 		 		commit('SET_PLAYER', response.data[0])
 		 		localStorage.setItem("player", JSON.stringify(response.data[0]));
 

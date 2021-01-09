@@ -44,7 +44,7 @@ import axios from 'axios'
 					grant_type: "password" ,
 					username: this.login,
 					password: btoa(this.password),
-					scope: "casino:read bonus:read bonus.settings:read bonus:write lab:read lab:write game:read game:write game.history:read game.wallet:write player:read message:read"
+					scope: "casino:read bonus:read bonus.settings:read bonus:write lab:read lab:write game:read game:write game.history:read game.wallet:write player:read message:read player:write:all message:write"
 
 				}
 				console.log(userLog)
@@ -72,7 +72,7 @@ import axios from 'axios'
 	  		})
 	  		.then(() => {
 	        		this.$router.replace("/profile");
-	      		});
+	      	});
 
 
 

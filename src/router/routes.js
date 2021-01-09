@@ -47,7 +47,8 @@ const routes = [
 		},
 		{
 			path: '/game-groups/:id',
-			component: groupPage
+			component: groupPage,
+			props: true
 		},
 		{
 			path: '/demo-game/:id',

@@ -2,7 +2,7 @@
 	<div>
 		<Navbar />
 
-		<!-- <section id="about">
+		<section id="about">
 			<div class="container">
 				<div class="col-lg-6">
 					<h2 class="mb-30">KING’S CASINO</h2>
@@ -19,47 +19,40 @@
 					<br><br>
 					And if that wasn't enough, you also get access to regular promotions, special offers and extra bonuses, giving you the best chances of scoring even more on all your favourite games at Rajbet.</p>
 				</div>
-
 				<div class="col-lg-6">
 					<h2 class="mb-30">CONTACT US</h2>
-					<form class="contact-us">
+					<form class="contact-us" method="post" @submit.prevent="validate">
 						<input type="text" placeholder="Name" :class="{errorInp : $v.name.$dirty && !$v.name.required}" v-model="name">
 						<input type="text" placeholder="E-mail" v-model="email"
 						:class="{errorInp : ($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)}">
 						<input type="text" placeholder="Topic" v-model="topic">
 						<select name="" id="" v-model="category">
 							<option value="">Select category</option>
-							<option value="Category 1">Category 1</option>
-							<option value="Category 2">Category 2</option>
+							<option value="Payment problem">Payment problem</option>
+							<option value="Payment problem">Payment problem</option>
 						</select>
 						<textarea placeholder="Message text" v-model="message"></textarea>
-						<button type="submit" class="reg-btn" @click.prevent="submiitForm()">SEND</button>
+						 <vue-recaptcha
+			                ref="recaptcha"
+			                size="invisible"
+			                :sitekey="sitekey"
+			                @verify="register"
+			                @expired="onCaptchaExpired"
+			              />
+						<button type="submit" class="reg-btn">SEND</button>
 					</form>
 				</div>
 			</div>
-		</section> -->
-
+		</section>
+<!-- 
 
 		<section>
 			  <form
               method="post"
               @submit.prevent="validate">
-            <div class="form-group">
-              <input 
-                   type="email" 
-                   name="email" 
-                   class="form-control" 
-                   placeholder="Enter your e-mail address"
-                   required />
-            </div>
-            <div class="form-group">
-              <input 
-                   type="password" 
-                   name="password" 
-                   class="form-control" 
-                   placeholder="Enter your password"
-                   required />
-            </div>
+            
+              
+            
             <div class="form-group">
               <vue-recaptcha
                 ref="recaptcha"
@@ -75,56 +68,86 @@
               </button>
             </div>
           </form>
-		</section>
+		</section> -->
 	</div>
 </template>
 
 <script>
 import Navbar from '../components/ui/Navbar.vue'
 import VueRecaptcha from 'vue-recaptcha'
+import { required, email, minLength } from "vuelidate/lib/validators";
+import axios from 'axios'
 
-export default {
-  name: 'Register',
+	export default {
+  		name: 'Register',
+  		components: { VueRecaptcha, Navbar },
 
-  components: { VueRecaptcha, Navbar },
+		data () {
+		    return {
+		     	email: '',
+				name: '',
+				topic: '',
+				category: '',
+				message: '',
+		      	sitekey: '6Lf59iYaAAAAACvTI3maSsNb2udNgdNBiugzbj11'
+		    }
+	},
+  	methods: {
+	    register (recaptchaToken) {
+	    	this.$refs.recaptcha.execute()
+	    	console.log(recaptchaToken)
+	    	
 
-  data () {
-    return {
-      email: null,
-      password: null,
-      sitekey: '6LfC-RcaAAAAAP1t0-jDEuEX3Gl6AX9TqhmFmOZ4'
-    }
+		    	let feedback = {
+		    	name: this.name,
+		    	email: this.email,
+		    	section: this.category,
+		    	subject: this.topic,
+		    	message: this.message,
+		    	recaptcha_response: recaptchaToken
+		    	}
+				
+				console.log(feedback)
+				axios
+		  		.post('http://api.casinoplatform.site/v3/feedback', feedback)
+		  		.then(response => {
+		  			console.log(response)
+		  		})
+		  		.catch(error => console.log(error))
+	      
+	    },
+	    validate () {
+	      // тут можно добавить проверку на валидацию
+	      // например, с помощью vee validate
+	      // если с валидацией наших полей все хорошо, запускаем каптчу
+	      if(this.$v.$invalid) {
+				this.$v.$touch();
+				return;
+			}
+
+
+	      this.$refs.recaptcha.execute()
+	    },
+	    onCaptchaExpired () {
+	      this.$refs.recaptcha.reset()
+	    }
   },
-
-  methods: {
-    register (recaptchaToken) {
-      axios.post('https://yourserverurl.com/register', {
-        email: this.email,
-        password: this.password,
-        recaptchaToken: recaptchaToken
-      })
-    },
-
-    validate () {
-      // тут можно добавить проверку на валидацию
-      // например, с помощью vee validate
-      // если с валидацией наших полей все хорошо, запускаем каптчу
-      this.$refs.recaptcha.execute()
-    },
-
-    onCaptchaExpired () {
-      this.$refs.recaptcha.reset()
-    }
-  }
+  validations: {
+			email:{
+				required,
+				email
+			},
+			name:{
+				required
+			}
+		},
 }
-
 </script>
 
 <!-- <script>
 import Navbar from '../components/ui/Navbar.vue'
 import { required, email, minLength } from "vuelidate/lib/validators";
 import axios from 'axios'
-
 export default{
 	components: {Navbar},
 	methods: {
@@ -143,8 +166,6 @@ export default{
     	}
 		
 		console.log(feedback)
-
-
 		axios
 	  		.post('http://api.casinoplatform.site/v3/feedback', feedback)
 	  		.then(response => {
@@ -172,7 +193,6 @@ export default{
 				required
 			}
 		},
-
 }
 </script> -->
 

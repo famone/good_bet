@@ -8,29 +8,48 @@
 					<AcNav />
 					<div class="col-lg-9">
 						<div class="row">
+							<div class="row ma-0">
+								<div class="col-lg-6">
+									<div class="ava-edit">
+										<div class="ava-box-edit">
+											<div class="avatar" v-if="player.avatars" :style="{'background-image': 'url(' + player.avatars[0].url + ')'}"></div>
+											<div class="avatar" v-else>
+												<span>{{player.nickname.substr(0, 1)}}</span>
+											</div>
+											<h4>Edit avatar</h4>
+										</div>	
+										<input type="file" ref="file" multiple @change="changeAvatar">
+										<div class="edit-btn"></div>
+									</div>
+								</div>
+							</div>
 							<div class="col-lg-6">
 								<label for="">Nickname</label>
-								<input type="text">
+								<input type="text" :value="player.nickname">
+							</div>
+							<div class="col-lg-6">
+								<label for="">E-mail</label>
+								<input type="text" :value="player.email">
 							</div>
 							<div class="col-lg-6">
 								<label for="">Login</label>
-								<input type="text">
+								<input type="text" :value="player.username">
 							</div>
 							<div class="col-lg-6">
 								<label for="">Name</label>
-								<input type="text">
+								<input type="text" :value="player.name">
 							</div>
 							<div class="col-lg-6">
 								<label for="">Last name</label>
-								<input type="text">
+								<input type="text" :value="player.surname">
 							</div>
 
 							<div class="col-lg-6">
 								<label for="">Sex</label>
-								<select name="" id="">
+								<select name="" id="" v-model="player.gender">
 									<option value="null"></option>
-									<option value="Male">Male</option>
-									<option value="Female">Female</option>
+									<option value="male">male</option>
+									<option value="female">female</option>
 								</select>
 							</div>
 							<div class="col-lg-6">
@@ -83,6 +102,38 @@ import {mapGetters} from  'vuex'
 			...mapGetters({ player: "auth/getPlayer", 
 				timezones: "auth/getZones",
 				countries: "auth/getCountries" }),
+		},
+		data(){
+			return{
+				file: null
+			}
+		},
+		methods: {
+			changeAvatar(){
+				 this.file = this.$refs.file.files[0];
+
+				 console.log(this.file)
+
+
+				 return
+				
+
+				 let formData = new FormData();
+				 formData.append('file', this.file);
+
+				  console.log(formData)
+
+
+				//   axios
+	  	// 	.post('http://api.casinoplatform.site/v3/player-avatars', formData)
+	  	// 	.then(response => {
+	  	// 		let token = response.data.access_token
+
+	  	// 		var object = {appToken: token, timestamp: new Date().getTime()}
+				// localStorage.setItem("appToken", JSON.stringify(object));
+
+	  	// 	})
+			}
 		}
 	}
 </script>
