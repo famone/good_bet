@@ -13,7 +13,11 @@ const auth = {
 		currency: [],
 		faq: '',
 		slider: [],
-		news: []
+		news: [],
+		groups: [],
+		player: null,
+		timezones: [],
+		countries: []
   	},
 	mutations: {
 		SET_GAMES(state, payload){
@@ -33,6 +37,21 @@ const auth = {
 		},
 		SET_NEWS(state, payload){
 			state.news = payload
+		},
+		SET_GROUPS(state, payload){
+			state.groups = payload
+		},
+		SET_PLAYER(state, payload){
+			state.player = payload
+		},
+		SET_TIMEZONES(state, payload){
+			state.timezones = payload
+		},
+		SET_COUNTRIES(state, payload){
+			state.countries = payload
+		},
+		LOG_OUT(state){
+			state.player = null
 		}
 	},
 	actions: {
@@ -53,6 +72,29 @@ const auth = {
 
 	  		})
 
+
+		},
+		getUser({commit}){
+			
+			let userToken = JSON.parse(localStorage.getItem('userToken'));
+
+		 	axios.defaults.headers.common['Authorization'] = 'Bearer ' + userToken.userToken
+
+		 	axios
+		 	.get('http://api.casinoplatform.site/v3/players?expand=avatars,accounts,country,timezone')
+		 	.then(response =>{
+		 		// console.log(response.data)
+		 		commit('SET_PLAYER', response.data[0])
+		 		localStorage.setItem("player", JSON.stringify(response.data[0]));
+
+		 	})
+
+
+		 	axios
+	  		.get('http://api.casinoplatform.site/v3/messages')
+	  		.then(response => {
+	  			console.log(response)
+	  		})
 
 
 		},
@@ -91,49 +133,54 @@ const auth = {
 			axios
 			.get('http://api.casinoplatform.site/v3/games?type_id=1')
 			.then(res => {
-				console.log(res.data)
+				// console.log(res.data)
 			})
 
 
 			
 
-// 			axios
-// 			.get('http://api.casinoplatform.site/v3/payment-currencies')
-// 			.then(res => {
-// 				// console.log(res.data)
-// 				commit('SET_CURRENCY', res.data)
-// 			})
+			axios
+			.get('http://api.casinoplatform.site/v3/payment-currencies')
+			.then(res => {
+				// console.log(res.data)
+				commit('SET_CURRENCY', res.data)
+			})
 
-// // 
-			
-			// const gameRoom = {
-			// 	game_id: 3674,
-   //  			launch_type: "demo" ,
-   //  			lobby_data: "",
-			//     callbacks: [
-			//         {
-			//             type: "",
-			//             redirect_uri: ""
-			//         }
-			//     ]
-			// }
 
-			// 	axios
-			// 	.post('http://api.casinoplatform.site/v3/game-launches', gameRoom, config)
-			// 	.then(res => {
-			// 		console.log(res.data)
-					
-			// 	})
-			
-            
+			// получаем id всех групп
+
+			axios
+			.get('http://api.casinoplatform.site/v3/game-groups?place_code=headline&expand=images,platform,place_code')
+			.then(res => {
+				commit('SET_GROUPS', res.data)
+			})
+
+			// таймзоны
+			axios
+		 	.get('http://api.casinoplatform.site/v3/timezones?per-page=400')
+		 	.then(res =>{
+		 		commit('SET_TIMEZONES', res.data)
+		 	})
+
+		 	// страны
+			axios
+		 	.get('http://api.casinoplatform.site/v3/countries?per-page=400')
+		 	.then(res =>{
+		 		commit('SET_COUNTRIES', res.data)
+		 	})
+			            
         },
         loadNews({commit}){
         	axios
 			.get('http://api.casinoplatform.site/v3/news')
 			.then(response =>{
-				console.log(response)
 				commit('SET_NEWS', response.data)
 			})
+        },
+        logOut({commit}){
+        	localStorage.removeItem("player");
+        	localStorage.removeItem("userToken");
+        	commit('LOG_OUT')
         }
 	},
 	getters: {
@@ -154,6 +201,18 @@ const auth = {
   		},
   		getNews(state){
   			return state.news
+  		},
+  		getGroups(state){
+  			return state.groups
+  		},
+  		getPlayer(state){
+  			return state.player
+  		},
+  		getZones(state){
+  			return state.timezones
+  		},
+  		getCountries(state){
+  			return state.countries
   		}
 	}
 }

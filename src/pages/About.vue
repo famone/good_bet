@@ -44,6 +44,7 @@
 <script>
 import Navbar from '../components/ui/Navbar.vue'
 import { required, email, minLength } from "vuelidate/lib/validators";
+import axios from 'axios'
 
 export default{
 	components: {Navbar},
@@ -60,15 +61,19 @@ export default{
     	subject: this.topic,
     	message: this.message,
     	recaptcha_response: '03AO9ZY1DsBzhY-s33vFKuCxtRlUO5U6L4ZBympIIniv9ne9fr4duZN79F7C2aqp_-7kn6ir6TXz6Qbf9Kvm8Nc_J8FG8m8hM1OBzm2DW8AdNi4we54jQgfqrFLDZbTtbFBPbx-JnaVIk1A2Kewv5SIxqgWRFvoNYeGFF8haubTR0xo1zs4ggnN7xCDV5oCc7-E8HKRtUNXKPz-AQ7EmY0zLHYFLIovX140ePHz6uYWRkLFatSMLF7dv4vhhGe0o2RbXraNcjYSrcs9cz0UoONPDJf7MZW3VE_dpksqWK2xx9K9Lz7unEpYsfv2sDiB-4FJ-SM9qXg3qgQ'
-    }
-
-
-    
-
+    	}
 		
+		console.log(feedback)
 
-			console.log(feedback)
-		}
+
+		axios
+	  		.post('http://api.casinoplatform.site/v3/feedback', feedback)
+	  		.then(response => {
+	  			console.log(response)
+	  		})
+	  		.catch(error => console.log(error))
+		
+	}
 	},
 	data(){
 		return{

@@ -9,6 +9,8 @@ import Faq from '../pages/Faq.vue'
 import DemoGame from '../pages/DemoGame.vue'
 import News from '../pages/News.vue'
 import Newspage from '../pages/Newspage.vue'
+import groupPage from '../pages/groupPage.vue'
+import Profile from '../pages/account/Profile.vue'
 
 const routes = [
 		{
@@ -44,8 +46,16 @@ const routes = [
 			component: Newspage
 		},
 		{
+			path: '/game-groups/:id',
+			component: groupPage
+		},
+		{
 			path: '/demo-game/:id',
 			component: DemoGame
+		},
+		{
+			path: '/profile',
+			component: Profile
 		},
 		{
 			path: '*',

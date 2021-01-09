@@ -2,14 +2,13 @@
 	<div>
 		<Navbar />
 
-		
 		<section id="news">
 			<div class="container">
 				<h2 class="to-upper2">{{newsItem.name}}</h2>
 				<div class="date">{{ new Date(newsItem.publish_date  * 1000).toLocaleDateString()}}</div>
 			</div>
 		</section>
-		<section id="newsBg"></section>
+		<section id="newsBg" :style="{'background-image': 'url(' + newsItem.image.url + ')'}"></section>
 		<section id="news">
 			<div class="container">
 				<p class="white-txt" v-html="newsItem.body"></p>

@@ -3,12 +3,14 @@
 		<div class="container">
 			<div class="games-row-box">
 				<div class="games-row-top">
-					<h2><img src="../assets/img/icons/nv4.svg" alt="">SLOTS</h2>
-					<button class="see-all">See all <img src="../assets/img/see.svg" alt=""></button>
+
+
+					<h2><!-- <img src="../assets/img/icons/nv3.svg" alt=""> -->{{titleRow}}</h2>
+					<router-link class="see-all" tag="button" :to="link">See all <img src="../assets/img/see.svg" alt=""></router-link>
 				</div>
 
 				<div class="row">
-					<gameBox v-for="game in games" :game="game"/>
+					<gameBox v-for="game in gamesArr.slice(0, 4)" :game="game"/>
 				</div>
 
 			</div>
@@ -23,8 +25,22 @@ import {mapGetters, mapState} from 'vuex'
 
 export default{
 	components: { gameBox },
+	props: {
+		gamesArr:{
+			required: true,
+			type: Array
+		},
+		titleRow: {
+			required: true,
+			type: String
+		},
+		link: {
+			required: false,
+			type: String
+		}
+	},
 	computed: {
-		...mapGetters({ games: "auth/getGames"}),
+		// ...mapGetters({ games: "auth/getGames"}),
 	}
 }
 </script>

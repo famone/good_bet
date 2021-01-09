@@ -113,8 +113,33 @@ header li{
 .reg-btn:hover{
 	box-shadow: 0px 2px 16px 2px rgba(206, 54, 201, 0.22);
 }
-
-
+.player-row{
+	display:flex;
+	justify-content: left;
+	align-items: center;
+}
+.avatar{
+	height: 40px;
+	width: 40px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	border-radius: 40px;
+	background-color: #272459;
+	margin-right: 15px;
+	display:flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 15px;
+	color: #fff;
+	text-transform: uppercase;
+}
+.settings{
+	background-color: transparent;
+	border:none;
+	cursor: pointer;
+	padding: 16px 18px;
+}
 /*mainslider*/
 
 #mainSlider{
@@ -325,6 +350,9 @@ h2 img{
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
+}
+.game-body h3{
+	min-height: 38px;
 }
 h3{
 	color: #fff;
@@ -857,6 +885,11 @@ label{
 }
 
 
+/*groupPage*/
+#groupPage{
+	padding: 140px 0 100px 0;
+	min-height: calc(100vh - 390px);
+}
 
 /*demo game louncher*/
 .game-louncher{
@@ -923,8 +956,89 @@ iframe{
 }
 
 
+/*account nav*/
 
+.account-navigation{
+	background-color: #272459;
+	border-radius: 30px;
+	padding: 30px 0 30px 30px;
+}
+.account-navigation ul{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	margin-top: 60px;
+}
+.account-navigation li{
+	margin-bottom: 50px;
+	position: relative;
+	font-size: 16px;
+	font-weight: 400;
+	color: #fff;
+	cursor: pointer;
+}
+.account-navigation li img{
+	margin-right: 20px;
+}
+.account-navigation .router-link-exact-active:before{
+	position: absolute;
+	content: '';
+	right: 0;
+	top: 0;
+	height: 100%;
+	width: 8px;
+	background-color: #4D2ADC;
+	box-shadow: -2px 0px 10px 2px #4D2ADC;
+}
 
+#account{
+	padding-bottom: 60px;
+	padding-top: 30px;
+	background-color: #1A1840;
+}
+
+#account input {
+    padding: 19px 30px;
+    border-radius: 15px;
+    border: none;
+    background: #272459!important;
+    color: #fff;
+    width: 100%;
+    margin-bottom: 28px;
+    font-size: 16px;
+    transition: all .3s ease;
+}
+#account select{
+	padding:19px 30px;
+	border-radius: 15px;
+	border:none;
+	background: #272459!important;
+	color: #fff;
+	width: 100%;
+	margin-bottom: 28px;
+	font-size: 16px;
+
+	-webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url(../img/downarr.svg)!important;
+    background-repeat: no-repeat!important;
+    background-size: 16px!important;
+    background-position: right 30px center!important;
+}
+.save-btn{
+	border: none;
+	padding:16px 60px;
+	font-size: 12px;
+	background: #4D2ADC;
+	color: #fff;
+	transition: all .3s ease;
+	height: 100%;
+	letter-spacing: 0.17em;
+	border-radius: 16px;
+}
+.save-btn:hover{
+	box-shadow: 0px 2px 16px 2px rgba(206, 54, 201, 0.22);
+}
 
 
 

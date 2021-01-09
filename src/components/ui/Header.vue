@@ -16,8 +16,32 @@
 				    </ul>
 				</div>
 
+				<div class="header-box-col al-center" v-if="player">
+					<input type="text" class="search-inp" placeholder="Game name">
+					<div class="player-row">
+						<div class="avatar" v-if="player.avatars" :style="{'background-image': 'url(' + player.avatars[0].url + ')'}"></div>
+						<div class="avatar" v-else>
+							<span>{{player.nickname.substr(0, 1)}}</span>
+						</div>
+						<div>
+							<p class="small-white">{{player.nickname}}</p>
+							<p class="small-white">
+								<strong>{{player.accounts[0].amount}} {{player.accounts[0].currency_code}}</strong>
+							</p>
+						</div>
+						<router-link tag="button" to="/profile" class="settings">
+							<img src="../../assets/img/settings.svg">
+						</router-link>
+						<button class="reg-btn" @click="logOut()">
+							<img src="../../assets/img/loguot.svg" style="margin: 0;">
+						</button>
+					</div>
+					
+				</div>
+				
 
-				<div class="header-box-col al-center">
+
+				<div class="header-box-col al-center" v-else>
 					<input type="text" class="search-inp" placeholder="Game name">
 					<router-link tag="button" to="/enter" class="login-btn"><img src="../../assets/img/login.svg" alt="">LOGIN</router-link>
 					<router-link 
@@ -34,7 +58,20 @@
 
 
 <script>
+import {mapGetters} from 'vuex'
+
 	export default{
+		computed: {
+			...mapGetters({ player: "auth/getPlayer"}),
+		},
+		methods: {
+			logOut(){
+				this.$store.dispatch('auth/logOut')
+				.then(() => {
+	        		this.$router.replace("/enter");
+	      		});
+			}
+		},
 		data(){
 			return{
 				stickyHeader: false,

@@ -39,7 +39,7 @@ import {mapGetters} from 'vuex'
                   loop: true,    
                   infinite: true,
                   touchRatio: 1,
-                  centeredSlides: true,
+                  centeredSlides: false,
                   draggable: true
             	}
 			}
