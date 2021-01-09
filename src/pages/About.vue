@@ -2,7 +2,7 @@
 	<div>
 		<Navbar />
 
-		<section id="about">
+		<!-- <section id="about">
 			<div class="container">
 				<div class="col-lg-6">
 					<h2 class="mb-30">KING’S CASINO</h2>
@@ -37,11 +37,90 @@
 					</form>
 				</div>
 			</div>
+		</section> -->
+
+
+		<section>
+			  <form
+              method="post"
+              @submit.prevent="validate">
+            <div class="form-group">
+              <input 
+                   type="email" 
+                   name="email" 
+                   class="form-control" 
+                   placeholder="Enter your e-mail address"
+                   required />
+            </div>
+            <div class="form-group">
+              <input 
+                   type="password" 
+                   name="password" 
+                   class="form-control" 
+                   placeholder="Enter your password"
+                   required />
+            </div>
+            <div class="form-group">
+              <vue-recaptcha
+                ref="recaptcha"
+                size="invisible"
+                :sitekey="sitekey"
+                @verify="register"
+                @expired="onCaptchaExpired"
+              />
+              <button 
+                    type="submit" 
+                    class="btn btn-primary btn-block">
+                Sign Up
+              </button>
+            </div>
+          </form>
 		</section>
 	</div>
 </template>
 
 <script>
+import Navbar from '../components/ui/Navbar.vue'
+import VueRecaptcha from 'vue-recaptcha'
+
+export default {
+  name: 'Register',
+
+  components: { VueRecaptcha, Navbar },
+
+  data () {
+    return {
+      email: null,
+      password: null,
+      sitekey: '6LfC-RcaAAAAAP1t0-jDEuEX3Gl6AX9TqhmFmOZ4'
+    }
+  },
+
+  methods: {
+    register (recaptchaToken) {
+      axios.post('https://yourserverurl.com/register', {
+        email: this.email,
+        password: this.password,
+        recaptchaToken: recaptchaToken
+      })
+    },
+
+    validate () {
+      // тут можно добавить проверку на валидацию
+      // например, с помощью vee validate
+      // если с валидацией наших полей все хорошо, запускаем каптчу
+      this.$refs.recaptcha.execute()
+    },
+
+    onCaptchaExpired () {
+      this.$refs.recaptcha.reset()
+    }
+  }
+}
+
+</script>
+
+<!-- <script>
 import Navbar from '../components/ui/Navbar.vue'
 import { required, email, minLength } from "vuelidate/lib/validators";
 import axios from 'axios'
@@ -60,7 +139,7 @@ export default{
     	section: this.category,
     	subject: this.topic,
     	message: this.message,
-    	recaptcha_response: '03AO9ZY1DsBzhY-s33vFKuCxtRlUO5U6L4ZBympIIniv9ne9fr4duZN79F7C2aqp_-7kn6ir6TXz6Qbf9Kvm8Nc_J8FG8m8hM1OBzm2DW8AdNi4we54jQgfqrFLDZbTtbFBPbx-JnaVIk1A2Kewv5SIxqgWRFvoNYeGFF8haubTR0xo1zs4ggnN7xCDV5oCc7-E8HKRtUNXKPz-AQ7EmY0zLHYFLIovX140ePHz6uYWRkLFatSMLF7dv4vhhGe0o2RbXraNcjYSrcs9cz0UoONPDJf7MZW3VE_dpksqWK2xx9K9Lz7unEpYsfv2sDiB-4FJ-SM9qXg3qgQ'
+    	recaptcha_response: ''
     	}
 		
 		console.log(feedback)
@@ -95,7 +174,7 @@ export default{
 		},
 
 }
-</script>
+</script> -->
 
 <style>
 .errorInp{
