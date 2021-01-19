@@ -738,6 +738,12 @@ footer li:hover{
 	-khtml-user-select: none;
 	user-select: none; 
 }
+.checkes{
+	display:flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
 .under-link{
 	font-size: 16px;
 	color: #fff;
@@ -847,7 +853,7 @@ label{
 /*spin*/
 .spin{
 	animation-name: spin;
-  animation-duration: 5000ms;
+  animation-duration: 1000ms;
   animation-iteration-count: infinite;
   animation-timing-function: linear; 
 }

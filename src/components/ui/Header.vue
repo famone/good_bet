@@ -26,7 +26,7 @@
 						<div>
 							<p class="small-white">{{player.nickname}}</p>
 							<p class="small-white">
-								<strong>{{player.accounts[0].amount}} {{player.accounts[0].currency_code}}</strong>
+								<strong>{{player.accounts[0].amount.toLocaleString()}} {{player.accounts[0].currency_code}}</strong>
 							</p>
 						</div>
 						<router-link tag="button" to="/profile" class="settings">

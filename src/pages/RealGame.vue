@@ -46,7 +46,8 @@ import axios from 'axios'
 		data(){
 			return{
 				gameLauncher: '',
-				gameName: ''
+				gameName: '',
+				gameObj: ''
 			}
 		},
 		computed:{
@@ -54,11 +55,10 @@ import axios from 'axios'
 		},
 		created(){
 			let routeId = parseInt(this.$route.params.id)
-			console.log(routeId)
 
 			let gameConfig = {
 				game_id: routeId,
-     			launch_type: "demo"
+     			launch_type: "real"
 			}
 
 			
@@ -66,19 +66,29 @@ import axios from 'axios'
 			axios
 			.post('http://api.casinoplatform.site/v3/game-launches', gameConfig)
 			.then(response =>{
-				console.log(response)
 				this.gameLauncher = response.data.launch_url
+				this.gameObj = response.data
 			})
 
 			axios
 			.get('http://api.casinoplatform.site/v3/games/' + routeId )
 			.then(response =>{
-				console.log(response)
 				this.gameName = response.data.name
 			})
-
-
-			
+		},
+		mounted(){
+			setInterval(()=>{
+				this.$store.dispatch('auth/getUser')
+			}, 3000)
+		},
+		beforeDestroy(){
+			// let routeId = parseInt(this.$route.params.id)
+			// let close_token =  this.gameObj.close_token
+			// axios
+			// .patch('http://api.casinoplatform.site/v3/game-launches/' + routeId, close_token)
+			// .then(res => {
+			// 	console.log(res)
+			// })
 		}
 	}
 </script>

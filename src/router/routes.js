@@ -1,4 +1,5 @@
 import VueRouter from 'vue-router'
+import store from '../store'
 import Home from '../pages/Home.vue'
 import Login from '../pages/Login.vue'
 import Signup from '../pages/Signup.vue'
@@ -11,6 +12,7 @@ import News from '../pages/News.vue'
 import Newspage from '../pages/Newspage.vue'
 import groupPage from '../pages/groupPage.vue'
 import Profile from '../pages/account/Profile.vue'
+import RealGame from '../pages/RealGame.vue'
 
 const routes = [
 		{
@@ -55,8 +57,30 @@ const routes = [
 			component: DemoGame
 		},
 		{
+			path: '/real-game/:id',
+			component: RealGame
+		},
+		{
 			path: '/profile',
-			component: Profile
+			component: Profile,
+			beforeEnter: (to, from, next) => {
+
+				console.log(store.getters["auth/getAuthenticated"])
+
+				
+
+				if(store.getters["auth/getAuthenticated"]){
+					next()
+				}else{
+					if (to.path != "/enter") {
+						next("/enter")
+					}
+					else {
+						next()
+					}
+				}
+				
+			}
 		},
 		{
 			path: '*',

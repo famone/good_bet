@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<Navbar />
+		<Navbar @chDynPage="updateDynPage" />
 	<section id="groupPage">
 		<div class="games-row">
 		<div class="container">
@@ -8,7 +8,10 @@
 				
 
 				<div class="row">
-					<gameBox v-for="game in gamesArr" :game="game"/>
+					<div class="text-center" v-if="loader">
+						<img src="../assets/img/icons/nv6.svg" class="spin">
+					</div>
+					<gameBox v-for="game in gamesArr" :game="game" v-else />
 				</div>
 
 			</div>
@@ -29,16 +32,31 @@ import gameBox from '../components/ui/gameBox.vue'
 		props: ["id"],
 		data(){
 			return{
-				gamesArr: []
+				gamesArr: [],
+				loader: true
 			}
 		},
 		created(){
+			console.log(this.$route.params.id)
 			let link = this.$route.params.id.toString()
 			axios
       		.get('http://api.casinoplatform.site/v3/games?expand=details,launch_types,images,type,provider,canonical&group_id=' + link)
       		.then(res => {
          		this.gamesArr = res.data
+         		this.loader = false
        		})
+		},
+		methods: {
+			updateDynPage(){
+				this.loader = true
+				let link = this.$route.params.id.toString()
+				axios
+	      		.get('http://api.casinoplatform.site/v3/games?expand=details,launch_types,images,type,provider,canonical&group_id=' + link)
+	      		.then(res => {
+	         		this.gamesArr = res.data
+	         		this.loader = false
+	       		})
+			}
 		}
 	}
 </script>

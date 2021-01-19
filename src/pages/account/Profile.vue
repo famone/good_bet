@@ -18,35 +18,35 @@
 											</div>
 											<h4>Edit avatar</h4>
 										</div>	
-										<input type="file" ref="file" multiple @change="changeAvatar">
+										<!-- <input type="file" ref="file" @change="changeAvatar"> -->
 										<div class="edit-btn"></div>
 									</div>
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<label for="">Nickname</label>
-								<input type="text" :value="player.nickname">
+								<input type="text" :value="player.nickname" @input="updateField($event)" data-field="nickname">
 							</div>
 							<div class="col-lg-6">
 								<label for="">E-mail</label>
-								<input type="text" :value="player.email">
+								<input type="text" :value="player.email" @input="updateField($event)" data-field="email">
 							</div>
 							<div class="col-lg-6">
 								<label for="">Login</label>
-								<input type="text" :value="player.username">
+								<input type="text" :value="player.username" @input="updateField($event)" data-field="username">
 							</div>
 							<div class="col-lg-6">
 								<label for="">Name</label>
-								<input type="text" :value="player.name">
+								<input type="text" :value="player.name" @input="updateField($event)" data-field="name">
 							</div>
 							<div class="col-lg-6">
 								<label for="">Last name</label>
-								<input type="text" :value="player.surname">
+								<input type="text" :value="player.surname" @input="updateField($event)" data-field="surname">
 							</div>
 
 							<div class="col-lg-6">
 								<label for="">Sex</label>
-								<select name="" id="" v-model="player.gender">
+								<select name="" id="" v-model="player.gender" @input="updateField($event)" data-field="gender">
 									<option value="null"></option>
 									<option value="male">male</option>
 									<option value="female">female</option>
@@ -54,32 +54,34 @@
 							</div>
 							<div class="col-lg-6">
 								<label for="">Birthday</label>
-								<input type="date" :value="player.birthdate">
+								<input type="date" :value="player.birthdate" @input="updateField($event)" 
+								data-field="birthdate">
 							</div>
 							<div class="col-lg-6">
 								<label for="">Country</label>
-								<select name="" id="" v-model="player.country">
+								<select name="" id="" v-model="player.country_id" @input="updateField($event)" data-field="country_id">
 									<option value=""></option>
-									<option :value="count.name" v-for="count in countries">{{count.name}}</option>
+									<option :value="count.id" v-for="count in countries">{{count.name}}</option>
 								</select>
 							</div>
 							<div class="col-lg-6">
 								<label for="">Address</label>
-								<input type="text">
+								<input type="text" :value="player.address" @input="updateField($event)" data-field="address">
 							</div>
 							<div class="col-lg-6">
 								<label for="">City</label>
-								<input type="text">
+								<input type="text" :value="player.city" @input="updateField($event)" data-field="city">
 							</div>
 							<div class="col-lg-6">
-								<label for="">Timezone</label>
-								<select name="" id="" v-model="player.timezone.name">
+								<label for="">Timezone {{player.timezone_id}}</label>
+								
+								<select name="" v-model="player.timezone_id" @input="updateField($event)" data-field="timezone_id">
 									<option value=""></option>
-									<option :value="temezone.name" v-for="temezone in timezones">{{temezone.name}}</option>
+									<option :value="tmz.id" v-for="tmz in timezones">{{tmz.name}}</option>
 								</select>
 							</div>
 							<div class="col-lg-12">
-								<button class="save-btn">SAVE</button>
+								<button class="save-btn" @click="updateUser">SAVE</button>
 							</div>
 
 							
@@ -95,6 +97,7 @@
 import Navbar from '../../components/ui/Navbar.vue'
 import AcNav from '../../components/ui/AcNav.vue'
 import {mapGetters} from  'vuex'
+import axios from 'axios'
 	
 	export default{
 		components: {Navbar, AcNav},
@@ -103,37 +106,87 @@ import {mapGetters} from  'vuex'
 				timezones: "auth/getZones",
 				countries: "auth/getCountries" }),
 		},
+		created(){
+			this.$store.dispatch('auth/loadTimezones')
+			this.$store.dispatch('auth/loadCountries')
+		},
 		data(){
 			return{
-				file: null
+				file: null,
+				inpArr: []
 			}
 		},
 		methods: {
-			changeAvatar(){
-				 this.file = this.$refs.file.files[0];
+			updateField(e){
 
-				 console.log(this.file)
+				let attr = e.target.getAttribute('data-field')
+				let payload = {name: attr, value: e.target.value}
+				let fieldInArr = this.inpArr.find(item =>{
+  					return item.name === attr
+  				})
+
+  				if(fieldInArr){
+  					fieldInArr.value = e.target.value
+  					console.log(payload)
+  					this.$store.dispatch('auth/CHANGE_FIELD', payload)
+  					return
+  				}
+
+  				this.inpArr.push({name: attr, value: e.target.value})
+  				// console.log(payload)
+				this.$store.dispatch('auth/CHANGE_FIELD', payload)
+
+			},
+			updateUser(){
 
 
-				 return
-				
+				let objField = {
+					form: {
+						id: this.player.id,
+						fields: [
+							{
+								inputs: this.inpArr
+							}
+						]
+					}
+				 }
 
-				 let formData = new FormData();
-				 formData.append('file', this.file);
-
-				  console.log(formData)
+				console.log(this.inpArr)
 
 
-				//   axios
-	  	// 	.post('http://api.casinoplatform.site/v3/player-avatars', formData)
-	  	// 	.then(response => {
-	  	// 		let token = response.data.access_token
 
-	  	// 		var object = {appToken: token, timestamp: new Date().getTime()}
-				// localStorage.setItem("appToken", JSON.stringify(object));
+				axios
+				 .patch( 'http://api.casinoplatform.site/v3/players/' + this.player.id, objField)
+				 .then(response =>{
+				 	console.log(response)
 
-	  	// 	})
+				 	this.$store.dispatch('auth/getUser')
+				 })
+		        .catch(function(){
+		          console.log('FAILURE!!');
+		        });
+
 			}
+			// changeAvatar(){
+			// 	 this.file = this.$refs.file.files[0];
+
+			// 	 console.log(this.file)
+
+
+			// 	 let formData = new FormData();
+
+			// 	 formData.append('file', this.file);
+			// 	 let userToken = JSON.parse(localStorage.getItem('userToken'));
+
+			// 	 axios
+			// 	 .patch( 'http://api.casinoplatform.site/v3/player-avatars/117', formData,{headers: {'Content-Type': 'multipart/form-data', 'Authorization': 'Bearer ' + userToken.userToken }})
+			// 	 .then(response =>{
+			// 	 	console.log(response)
+			// 	 })
+		 //        .catch(function(){
+		 //          console.log('FAILURE!!');
+		 //        });
+			// }
 		}
 	}
 </script>

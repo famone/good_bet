@@ -8,6 +8,7 @@ const auth = {
 			grant_type: "client_credentials",
 		    scope:"guest:default"
 		},
+		authenticated: false,
 		games: [],
 		regFields: [],
 		currency: [],
@@ -52,10 +53,16 @@ const auth = {
 		},
 		LOG_OUT(state){
 			state.player = null
+		},
+		SET_FIELD(state, payload){
+			state.player[payload.name] = payload.value
+		},
+		CHANGE_AUTH(state, payload){
+			state.authenticated = payload
 		}
 	},
 	actions: {
-		getAppToken({commit, state}){
+		getAppToken({commit, state, dispatch}){
 			let config = {
 			        headers: {
 			          Authorization: 'Basic ZnJvbnRfYmVhcmVyOg==',
@@ -70,15 +77,30 @@ const auth = {
 	  			var object = {appToken: token, timestamp: new Date().getTime()}
 				localStorage.setItem("appToken", JSON.stringify(object));
 
+
+				axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
+				// alert('Bearer ' + token)
+
+				dispatch("loadNews")
+		 		dispatch("loadSlider")
+		 		// dispatch("loadTimezones")
+
 	  		})
 
 
+	  		
+
+
+
+
 		},
-		getUser({commit}){
+		getUser({commit, dispatch, state}){
 			
 			let userToken = JSON.parse(localStorage.getItem('userToken'));
 
 		 	axios.defaults.headers.common['Authorization'] = 'Bearer ' + userToken.userToken
+
+		 	commit('CHANGE_AUTH', true)
 
 		 	axios
 		 	.get('http://api.casinoplatform.site/v3/players?expand=avatars,accounts,country,timezone')
@@ -90,24 +112,27 @@ const auth = {
 		 	})
 
 
-		 	axios
-	  		.get('http://api.casinoplatform.site/v3/messages')
-	  		.then(response => {
-	  			console.log(response)
-	  		})
 
+
+
+
+
+
+		 	// axios
+	  	// 	.get('http://api.casinoplatform.site/v3/messages')
+	  	// 	.then(response => {
+	  	// 		console.log(response)
+	  	// 	})
 
 		},
-         getInfo({commit, state}){
+         getInfo({commit, dispatch, state}){
 
-         	axios
-	        .get('http://api.casinoplatform.site/v3/sliders')
-	        .then(res =>{
-	          commit('SET_SLIDER', res.data)
-	        })
 
-         	
+         	dispatch("loadNews")
+		 	dispatch("loadSlider")
+		 	// dispatch("loadTimezones")
 
+         
 	        axios
 	        .get('http://api.casinoplatform.site/v3/games?expand=details,launch_types,images,type,provider,canonical')
 	        .then(res =>{
@@ -126,7 +151,7 @@ const auth = {
 	        axios
 			.get('http://api.casinoplatform.site/v3/player-forms')
 			.then(res => {
-				// console.log(res.data)
+				console.log(res.data)
 				commit('SET_REG_FIELDS', res.data)
 			})
 
@@ -142,7 +167,7 @@ const auth = {
 			axios
 			.get('http://api.casinoplatform.site/v3/payment-currencies')
 			.then(res => {
-				// console.log(res.data)
+				console.log(res.data)
 				commit('SET_CURRENCY', res.data)
 			})
 
@@ -155,19 +180,20 @@ const auth = {
 				commit('SET_GROUPS', res.data)
 			})
 
-			// таймзоны
-			axios
-		 	.get('http://api.casinoplatform.site/v3/timezones?per-page=400')
-		 	.then(res =>{
-		 		commit('SET_TIMEZONES', res.data)
-		 	})
+			// // таймзоны
+			// axios
+		 // 	.get('http://api.casinoplatform.site/v3/timezones?per-page=400')
+		 // 	.then(res =>{
+		 // 		commit('SET_TIMEZONES', res.data)
+		 // 	})
 
 		 	// страны
-			axios
-		 	.get('http://api.casinoplatform.site/v3/countries?per-page=400')
-		 	.then(res =>{
-		 		commit('SET_COUNTRIES', res.data)
-		 	})
+			// axios
+		 // 	.get('http://api.casinoplatform.site/v3/countries?per-page=400')
+		 // 	.then(res =>{
+		 // 		commit('SET_COUNTRIES', res.data)
+		 // 	})
+
 			            
         },
         loadNews({commit}){
@@ -177,10 +203,37 @@ const auth = {
 				commit('SET_NEWS', response.data)
 			})
         },
-        logOut({commit}){
+        loadSlider({commit}){
+        	axios
+	        .get('http://api.casinoplatform.site/v3/sliders')
+	        .then(res =>{
+	          commit('SET_SLIDER', res.data)
+	        })
+        },
+        logOut({commit, state}){
+        	commit('CHANGE_AUTH', false)
         	localStorage.removeItem("player");
         	localStorage.removeItem("userToken");
         	commit('LOG_OUT')
+        },
+        CHANGE_FIELD({commit}, payload){
+        	// console.log(payload)
+        	commit('SET_FIELD', payload)
+        },
+        loadTimezones({commit}){
+        	axios
+		 	.get('http://api.casinoplatform.site/v3/timezones?per-page=400')
+		 	.then(res =>{
+		 		commit('SET_TIMEZONES', res.data)
+		 		console.log(res.data)
+		 	})
+        },
+        loadCountries({commit}){
+        	axios
+		 	.get('http://api.casinoplatform.site/v3/countries?per-page=400')
+		 	.then(res =>{
+		 		commit('SET_COUNTRIES', res.data)
+		 	})
         }
 	},
 	getters: {
@@ -213,6 +266,9 @@ const auth = {
   		},
   		getCountries(state){
   			return state.countries
+  		},
+  		getAuthenticated(state){
+  			return state.authenticated
   		}
 	}
 }

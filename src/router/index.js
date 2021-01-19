@@ -25,6 +25,7 @@ router.beforeEach((to, from, next) => {
 	if (localStorage.getItem('appToken')) {
 		 let appToken = JSON.parse(localStorage.getItem('appToken'));
  		 axios.defaults.headers.common['Authorization'] = 'Bearer ' + appToken.appToken
+ 		 store.dispatch("auth/getInfo");
  		 next()
 	}else{
 		store.dispatch("auth/getAppToken");

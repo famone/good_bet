@@ -2,7 +2,7 @@
 	<div>
 		<Navbar />
 
-		<section id="news">
+		<section id="news" v-if="newsItem">
 			<div class="container">
 				<h2 class="to-upper2">{{newsItem.name}}</h2>
 				<div class="date">{{ new Date(newsItem.publish_date  * 1000).toLocaleDateString()}}</div>

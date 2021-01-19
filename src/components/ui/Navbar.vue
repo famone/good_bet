@@ -1,7 +1,7 @@
 <template>
 	<div class="navbar" :class="{ma140 : this.$route.path !== '/'}">
 		<div class="container">
-			<div class="navbar-box">
+			<div class="navbar-box" @click="chDynamicly($emit)">
 				<router-link tag="div" :to=" '/game-groups/' + item.id" class="navbar-btn text-center" v-for="(item, index) in categories">
 					<img :src="item.icon" alt="">
 					<p class="small-white">{{item.name}}</p>
@@ -19,6 +19,11 @@ import {mapGetters} from 'vuex'
 	export default{
 		computed: {
 			...mapGetters({ groups: "auth/getGroups"}),
+		},
+		methods: {
+			chDynamicly(){
+				this.$emit('chDynPage')
+			}
 		},
 		data(){
 			return{
