@@ -44,7 +44,7 @@ import axios from 'axios'
 					grant_type: "password" ,
 					username: this.login,
 					password: btoa(this.password),
-					scope: "casino:read bonus:read bonus.settings:read bonus:write lab:read lab:write game:read game:write game.history:read game.wallet:write player:read player:write player:write:all player:read:all  message:read game.launch:write news:read slider:read"
+					scope: "casino:read bonus:read bonus.settings:read bonus:write lab:read lab:write game:read game:write game.history:read game.wallet:write player:read player:write player:write:all player:read:all  message:read game.launch:write"
 
 				}
 				console.log(userLog)
