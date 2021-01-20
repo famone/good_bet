@@ -19,13 +19,13 @@
 				<div class="header-box-col al-center" v-if="player">
 					<input type="text" class="search-inp" placeholder="Game name">
 					<div class="player-row">
-						<div class="avatar" v-if="player.avatars" :style="{'background-image': 'url(' + player.avatars[0].url + ')'}"></div>
+						<div class="avatar" v-if="player.avatars.length !== 0" :style="{'background-image': 'url(' + player.avatars[0].url + ')'}"></div>
 						<div class="avatar" v-else>
 							<span>{{player.nickname.substr(0, 1)}}</span>
 						</div>
 						<div>
 							<p class="small-white">{{player.nickname}}</p>
-							<p class="small-white">
+							<p class="small-white" v-if="player.accounts">
 								<strong>{{player.accounts[0].amount.toLocaleString()}} {{player.accounts[0].currency_code}}</strong>
 							</p>
 						</div>

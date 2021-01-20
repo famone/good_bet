@@ -12,7 +12,7 @@
 								<div class="col-lg-6">
 									<div class="ava-edit">
 										<div class="ava-box-edit">
-											<div class="avatar" v-if="player.avatars" :style="{'background-image': 'url(' + player.avatars[0].url + ')'}"></div>
+											<div class="avatar" v-if="player.avatars.length !== 0" :style="{'background-image': 'url(' + player.avatars[0].url + ')'}"></div>
 											<div class="avatar" v-else>
 												<span>{{player.nickname.substr(0, 1)}}</span>
 											</div>

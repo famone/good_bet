@@ -5,7 +5,7 @@
 		<section id="gameSec">
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-8">
+					<div class="col-lg-9">
 					<div class="breadcrumbs">
 						<h2><router-link tag="span" to="/games" class="br-link">GAMES</router-link> / 
 							<span class="to-upper">{{gameName}}</span>
@@ -24,7 +24,7 @@
 						<iframe :src="gameLauncher" frameborder="0"></iframe>
 					</div>
 				</div>
-				<div class="col-lg-4">
+				<div class="col-lg-3">
 					<accordeons />
 				</div>
 				</div>
