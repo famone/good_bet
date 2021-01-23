@@ -234,6 +234,22 @@ const auth = {
 		 	.then(res =>{
 		 		commit('SET_COUNTRIES', res.data)
 		 	})
+        },
+        changeAccount({commit}, payload){
+
+        	let currency = {
+        		is_current: true
+        	}
+
+        	// console.log(payload)
+
+        	// return
+
+        	axios
+        	.patch( `http://api.casinoplatform.site/v3/accounts/${payload}` , currency)
+        	.then(res =>{
+        		console.log(res.data)
+        	})
         }
 	},
 	getters: {

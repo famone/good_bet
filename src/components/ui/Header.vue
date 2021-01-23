@@ -23,11 +23,17 @@
 						<div class="avatar" v-else>
 							<span>{{player.nickname.substr(0, 1)}}</span>
 						</div>
-						<div>
-							<p class="small-white">{{player.nickname}}</p>
-							<p class="small-white" v-if="player.accounts">
+						<div class="text-center">
+							<p class="small-white" style="font-size: 14px;">{{player.nickname}}</p>
+							<!-- <p class="small-white" v-if="player.accounts">
 								<strong>{{player.accounts[0].amount.toLocaleString()}} {{player.accounts[0].currency_code}}</strong>
-							</p>
+							</p> -->
+
+							<select class="acc-select" id="" v-if="player.accounts" :value="getCurrentAccount.currency_id"@change="changeAccount($event)">
+								<option :value="account.currency_id" v-for="account in player.accounts">
+									{{account.amount.toLocaleString()}} {{account.currency_code}}
+								</option>
+							</select>
 						</div>
 						<router-link tag="button" to="/profile" class="settings">
 							<img src="../../assets/img/settings.svg">
@@ -63,6 +69,14 @@ import {mapGetters} from 'vuex'
 	export default{
 		computed: {
 			...mapGetters({ player: "auth/getPlayer"}),
+			getCurrentAccount(){
+				if(this.player){
+					let currentValute = this.player.accounts.find(item => {
+						return item.is_current == true
+					})
+					return currentValute
+				}
+			}
 		},
 		methods: {
 			logOut(){
@@ -70,6 +84,10 @@ import {mapGetters} from 'vuex'
 				.then(() => {
 	        		this.$router.replace("/enter");
 	      		});
+			},
+			changeAccount(e){
+				let valuteCode = e.target.value
+				this.$store.dispatch('auth/changeAccount', valuteCode)
 			}
 		},
 		data(){
