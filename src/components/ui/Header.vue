@@ -29,8 +29,9 @@
 								<strong>{{player.accounts[0].amount.toLocaleString()}} {{player.accounts[0].currency_code}}</strong>
 							</p> -->
 
-							<select class="acc-select" id="" v-if="player.accounts" :value="getCurrentAccount.currency_id"@change="changeAccount($event)">
-								<option :value="account.currency_id" v-for="account in player.accounts">
+							<select class="acc-select" id="" v-if="player.accounts" :value="getCurrentAccount.id" 
+							@change="changeAccount($event)">
+								<option :value="account.id" v-for="account in player.accounts">
 									{{account.amount.toLocaleString()}} {{account.currency_code}}
 								</option>
 							</select>
