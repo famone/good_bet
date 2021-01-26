@@ -31,7 +31,6 @@ import axios from 'axios'
       }
     },
     created(){
-      this.$store.dispatch('auth/getAppToken')
       // popular games
       axios
       .get('http://api.casinoplatform.site/v3/games?expand=details,launch_types,images,type,provider,canonical&group_id=115')

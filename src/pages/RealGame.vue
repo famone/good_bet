@@ -54,8 +54,6 @@ import axios from 'axios'
 			...mapGetters({ games: "auth/getGames"}),
 		},
 		created(){
-      this.$store.dispatch('auth/getAppToken')
-
       let routeId = parseInt(this.$route.params.id)
 
 			let gameConfig = {

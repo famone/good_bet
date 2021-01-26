@@ -42,7 +42,6 @@ export default{
 	},
 
   created(){
-    this.$store.dispatch('auth/getAppToken')
     //    this.news = this.$store.getters.getNews;
   //    console.log(news)
 
