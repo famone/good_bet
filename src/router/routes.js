@@ -13,6 +13,10 @@ import Newspage from '../pages/Newspage.vue'
 import groupPage from '../pages/groupPage.vue'
 import Profile from '../pages/account/Profile.vue'
 import RealGame from '../pages/RealGame.vue'
+import Withdrawal from '../pages/account/Withdrawal.vue'
+import Transactions from '../pages/account/Transactions.vue'
+import Deposit from '../pages/account/Deposit.vue'
+import Failed from '../pages/Failed.vue'
 
 const routes = [
 		{
@@ -40,6 +44,10 @@ const routes = [
 			component: Faq
 		},
 		{
+			path: '/failed',
+			component: Failed
+		},
+		{
 			path: '/news',
 			component: News
 		},
@@ -63,6 +71,72 @@ const routes = [
 		{
 			path: '/profile',
 			component: Profile,
+			beforeEnter: (to, from, next) => {
+
+				console.log(store.getters["auth/getAuthenticated"])
+
+				
+
+				if(store.getters["auth/getAuthenticated"]){
+					next()
+				}else{
+					if (to.path != "/enter") {
+						next("/enter")
+					}
+					else {
+						next()
+					}
+				}
+				
+			}
+		},
+		{
+			path: '/cash-withdrawal',
+			component: Withdrawal,
+			beforeEnter: (to, from, next) => {
+
+				console.log(store.getters["auth/getAuthenticated"])
+
+				
+
+				if(store.getters["auth/getAuthenticated"]){
+					next()
+				}else{
+					if (to.path != "/enter") {
+						next("/enter")
+					}
+					else {
+						next()
+					}
+				}
+				
+			}
+		},
+		{
+			path: '/deposit',
+			component: Deposit,
+			beforeEnter: (to, from, next) => {
+
+				console.log(store.getters["auth/getAuthenticated"])
+
+				
+
+				if(store.getters["auth/getAuthenticated"]){
+					next()
+				}else{
+					if (to.path != "/enter") {
+						next("/enter")
+					}
+					else {
+						next()
+					}
+				}
+				
+			}
+		},
+		{
+			path: '/transactions',
+			component: Transactions,
 			beforeEnter: (to, from, next) => {
 
 				console.log(store.getters["auth/getAuthenticated"])

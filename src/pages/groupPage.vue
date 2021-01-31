@@ -11,6 +11,10 @@
 					<div class="text-center" v-if="loader">
 						<img src="../assets/img/icons/nv6.svg" class="spin">
 					</div>
+					<div class="text-center" v-else-if="gamesArr < 1">
+						<h3>Oops, No games yet!</h3>
+					</div>
+
 					<gameBox v-for="game in gamesArr" :game="game" v-else />
 				</div>
 
