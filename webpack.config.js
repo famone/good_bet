@@ -4,14 +4,16 @@ const ImageminPlugin = require('imagemin-webpack-plugin').default
 const TerserPlugin = require('terser-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
+
   entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/',
-    filename: 'js/[name].[contenthash:8].bundle.js',
-    chunkFilename: 'js/[id].chunk.js',
+    path: path.resolve(__dirname, "./dist"),
+    filename: "[name].[hash].build.js",
+    publicPath: "",
+    chunkFilename: "[chunkhash].js",
   },
   module: {
     rules: [
@@ -61,12 +63,17 @@ module.exports = {
   },
   devtool: '#eval-source-map',
   plugins: [
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new HTMLWebpackPlugin({
+      environment: process.env.NODE_ENV,
+      template:  path.resolve(__dirname, 'index.html'),
+      chunks: ["main"],
+    }),
   ]
 }
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
+  module.exports.devtool = 'none'
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
@@ -74,18 +81,16 @@ if (process.env.NODE_ENV === 'production') {
         NODE_ENV: '"production"'
       }
     }),
+    new MiniCssExtractPlugin({
+      filename: "[name].[contenthash].css",
+      chunkFilename: "[contenthash].css",
+    }),
     // new webpack.optimize.UglifyJsPlugin({
     //   sourceMap: true,
     //   compress: {
     //     warnings: false
     //   }
     // }),
-    new HTMLWebpackPlugin({
-      showErrors: true,
-      cache: true,
-      environment: process.env.NODE_ENV,
-      template:  path.resolve(__dirname, 'index.html')
-    }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
     }),
