@@ -5,6 +5,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
 
@@ -69,6 +70,7 @@ module.exports = {
       template:  path.resolve(__dirname, 'index.html'),
       chunks: ["main"],
     }),
+    new Dotenv()
   ]
 }
 

@@ -9,8 +9,6 @@ import Vuelidate from 'vuelidate'
 import axios from 'axios'
 
 
-
-
 import 'swiper/css/swiper.css'
 
 Vue.use(VueRouter) 
@@ -18,8 +16,6 @@ Vue.use(Vuelidate)
 Vue.use(require('vue-cookies'))
 Vue.use(VueAwesomeSwiper)
 Vue.use(VueTheMask)
-
-
 
 if(localStorage.getItem('player')){
 	let userToken = JSON.parse(localStorage.getItem('userToken'));

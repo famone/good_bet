@@ -54,7 +54,7 @@ import axios from 'axios'
 			...mapGetters({ games: "auth/getGames"}),
 		},
 		created(){
-			let routeId = parseInt(this.$route.params.id)
+      let routeId = parseInt(this.$route.params.id)
 
 			let gameConfig = {
 				game_id: routeId,

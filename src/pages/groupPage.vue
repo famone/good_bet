@@ -36,7 +36,8 @@
 import axios from 'axios'
 import Navbar from '../components/ui/Navbar.vue'
 import gameBox from '../components/ui/gameBox.vue'
-  const API_GAMES_ENDPOINT = 'http://api.casinoplatform.site/v3/games';
+
+  const API_GAMES_ENDPOINT = process.env.VUE_APP_API_URL + 'games';
   const API_GAMES_DEFAULT_FIELDS = 'details,launch_types,images,type,provider,canonical';
 	export default{
 		components: { gameBox, Navbar },
@@ -51,9 +52,12 @@ import gameBox from '../components/ui/gameBox.vue'
 		},
 		created() {
 			let link = this.$route.params.id.toString()
-			axios
-      		.get('http://api.casinoplatform.site/v3/games?expand=details,launch_types,images,type,provider,canonical&group_id=' + link)
-      		.then(this._resCallback.bind(this))
+      axios.get(API_GAMES_ENDPOINT, {
+        params: {
+          expand: API_GAMES_DEFAULT_FIELDS,
+          group_id: link
+        }
+      }).then(this._resCallback.bind(this))
 		},
 		methods: {
 		  changePage(pageNumber) {
