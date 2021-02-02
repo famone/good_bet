@@ -89,7 +89,7 @@ import axios from 'axios'
 				topic: '',
 				category: '',
 				message: '',
-		      	sitekey: '6Lfx9DgaAAAAALyAqNY9siUCzdUpqIa-9fqZReyQ'
+		      	sitekey: '6Lf59iYaAAAAACvTI3maSsNb2udNgdNBiugzbj11'
 		    }
 	},
   	methods: {
