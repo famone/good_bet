@@ -18,11 +18,20 @@
 					<gameBox v-for="game in gamesArr" :game="game" v-else />
 				</div>
 
-        <ul id="pager">
-          <li v-for="(pagerElem, index) in pagerItems()">
-            <a @click="changePage(pagerElem.pageNumber)">{{pagerElem.title}}</a>
-          </li>
-        </ul>
+
+        <div class="text-center">
+          <ul v-if="pagerItems().length > 1" id="pager" class="pagination">
+            <li v-for="(pagerElem) in pagerItems()" class="page-item">
+              <a class="page-link"
+                 v-bind:class="{active: pagerElem.isCurrent}"
+                 @click="changePage(pagerElem.pageNumber)"
+                 v-bind:href="'#'"
+              >
+                {{pagerElem.title}}
+              </a>
+            </li>
+          </ul>
+        </div>
 
 			</div>
 		</div>
@@ -75,15 +84,19 @@ import gameBox from '../components/ui/gameBox.vue'
 		    let pagerItems = [];
 		    for (let i = 0; i < this.pageCount; i++) {
 		      let pageNum = i + 1;
+
 		      pagerItems.push({
             title: pageNum,
-            pageNumber: pageNum
+            pageNumber: pageNum,
+            isCurrent: pageNum === this.currentPage
           });
         }
+		    console.log(pagerItems, this.currentPage);
         return pagerItems
       },
 			updateDynPage(){
 				this.loader = true
+        this.pageCount = 0
 				let link = this.$route.params.id.toString()
         axios.get(API_GAMES_ENDPOINT, {
           params: {
@@ -93,8 +106,8 @@ import gameBox from '../components/ui/gameBox.vue'
         }).then(this._resCallback.bind(this))
 			},
       _resCallback(res) {
-        this.currentPage = res.headers['x-pagination-current-page']
-        this.pageCount = res.headers['x-pagination-page-count']
+        this.currentPage = parseInt(res.headers['x-pagination-current-page'])
+        this.pageCount = parseInt(res.headers['x-pagination-page-count'])
         this.gamesArr = res.data
         this.loader = false
       },
