@@ -49,7 +49,13 @@ export default {
       }
 
 
-      API.post('oauth2/token', userLog)
+      let config = {
+        headers: {
+          Authorization: 'Basic ' + process.env.CASINO_APP_API_AUTH_TOKEN,
+        }
+      }
+
+      API.post('oauth2/token', userLog, config)
         .then(response => {
           let tokenEntity = {
             userToken: response.data.access_token,

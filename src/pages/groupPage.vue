@@ -18,16 +18,10 @@
               <gameBox v-for="game in gamesArr" :game="game" v-else/>
             </div>
 
-            <template>
-              <paginate
-                  :page-count=pageCount
-                  :click-handler="changePage"
-                  :prev-text="'Prev'"
-                  :next-text="'Next'"
-                  :container-class="'pagination'"
-                  :page-class="'page-item'">
-              </paginate>
-            </template>
+            <scroll-loader :loader-method="getGameList" :loader-disable="disableAutoloading">
+              <div>Loading...</div>
+            </scroll-loader>
+
 
           </div>
         </div>
@@ -42,18 +36,19 @@
 
 import Navbar from '../components/ui/Navbar.vue'
 import gameBox from '../components/ui/gameBox.vue'
-import Paginate from 'vuejs-paginate'
 import {API} from "../api";
 
 const API_GAMES_DEFAULT_FIELDS = 'details,launch_types,images,type,provider,canonical';
 export default {
-  components: {gameBox, Navbar, Paginate},
+  components: {gameBox, Navbar},
   props: ["id"],
   data() {
     return {
       gamesArr: [],
       pageCount: 0,
-      loader: true
+      page: 1,
+      loader: true,
+      disableAutoloading: false
     }
   },
   created() {
@@ -65,19 +60,27 @@ export default {
     }).then(this._resCallback.bind(this))
   },
   methods: {
-    changePage(pageNumber) {
-      this.loader = true
+    getGameList() {
+      // this.loader = true
+
       API.get('games', {
         params: {
           expand: API_GAMES_DEFAULT_FIELDS,
           group_id: this.$route.params.id.toString(),
-          page: pageNumber
+          page: ++this.page
         }
-      }).then(this._resCallback.bind(this))
+      }).then(res => {
+        this.disableAutoloading = this.pageCount === this.page;
+        this.gamesArr = [...this.gamesArr, ...res.data];
+      }).catch(error => {
+        console.log(error);
+      })
     },
     updateDynPage() {
+      this.gamesArr = []
       this.loader = true
       this.pageCount = 0
+      this.page = 1
       API.get('games', {
         params: {
           expand: API_GAMES_DEFAULT_FIELDS,
@@ -87,6 +90,7 @@ export default {
     },
     _resCallback(res) {
       this.pageCount = parseInt(res.headers['x-pagination-page-count'])
+      this.disableAutoloading = this.pageCount = this.page;
       this.gamesArr = res.data
       this.loader = false
     },

@@ -7,6 +7,7 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import VueTheMask from 'vue-the-mask'
 import Vuelidate from 'vuelidate'
 import axios from 'axios'
+import ScrollLoader from "vue-scroll-loader";
 
 
 import 'swiper/css/swiper.css'
@@ -17,6 +18,7 @@ Vue.use(Vuelidate)
 Vue.use(require('vue-cookies'))
 Vue.use(VueAwesomeSwiper)
 Vue.use(VueTheMask)
+Vue.use(ScrollLoader)
 
 if(localStorage.getItem('player')){
 	let userToken = JSON.parse(localStorage.getItem('userToken'));
