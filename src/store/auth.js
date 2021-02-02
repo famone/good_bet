@@ -89,6 +89,8 @@ const auth = {
 		},
 		getAppToken({commit, state, dispatch}){
 
+			API.defaults.headers.common['Authorization'] = 'Basic ' + process.env.CASINO_APP_API_AUTH_TOKEN;
+
 			API.post('oauth2/token', state.credintals)
 	  		.then(response => {
 	  			let token = response.data.access_token
@@ -103,7 +105,7 @@ const auth = {
 
 				axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
 
-					API.defaults.headers.common['Authorization'] = 'Bearer ' + token
+	  			API.defaults.headers.common['Authorization'] = 'Bearer ' + token
 
 
 					console.log(token)
@@ -115,8 +117,6 @@ const auth = {
 		getUser({commit, dispatch, state}){
 
 			let userToken = JSON.parse(localStorage.getItem('userToken'));
-
-		 	axios.defaults.headers.common['Authorization'] = 'Bearer ' + userToken.userToken
 
 		 	API.defaults.headers.common['Authorization'] = 'Bearer ' + userToken.userToken
 
