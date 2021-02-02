@@ -1,146 +1,152 @@
 <template>
-	<div>
-		<Navbar />
+  <div>
+    <Navbar/>
 
-		<section id="about">
-			<div class="container">
-				<div class="col-lg-6">
-					<h2 class="mb-30">KING’S CASINO</h2>
-					<p class="white-txt">Welcome to Rajbet ! You've just found a place where you can not only bet on all your favorite games in one place whenever you like, but you can also take advantage of plenty of top promotions, bonuses and other perks along the way.
-					<br><br>
-					We've dedicated ourselves to giving you more ways to inject extra passion into the slots you love by offering over 2000 unique slot machines with fantastic bonus.
-					<br><br>
-					Plus, you've got the freedom to choose between classic and modern online slot machines. Also, Rajbet offer huge variety of live casino games with high bet limits and huge winnings!
-					<br><br>
-					You'll find an impressive variety of payment methods to choose from and a transaction process that's quick and easy, letting you get straight back into the sports action.
-					And when it's time to cash out your winnings, you can do so quickly and safely.
-					<br><br>
-					We're here for you every step of the way with dedicated account managers standing by to provide you with a 24/7 top notch customer care service, handling any issues quickly and efficiently.
-					<br><br>
-					And if that wasn't enough, you also get access to regular promotions, special offers and extra bonuses, giving you the best chances of scoring even more on all your favourite games at Rajbet.</p>
-				</div>
-				<div class="col-lg-6">
-					<h2 class="mb-30">CONTACT US</h2>
-					<form class="contact-us" method="post" @submit.prevent="validate">
-						<input type="text" placeholder="Name" :class="{errorInp : $v.name.$dirty && !$v.name.required}" v-model="name">
-						<input type="text" placeholder="E-mail" v-model="email"
-						:class="{errorInp : ($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)}">
-						<input type="text" placeholder="Topic" v-model="topic">
-						<select name="" id="" v-model="category">
-							<option value="">Select category</option>
-							<option value="Payment problem">Payment problem</option>
-							<option value="Payment problem">Payment problem</option>
-						</select>
-						<textarea placeholder="Message text" v-model="message"></textarea>
-						 <vue-recaptcha
-			                ref="recaptcha"
-			                size="invisible"
-			                :sitekey="sitekey"
-			                @verify="register"
-			                @expired="onCaptchaExpired"
-			              />
-						<button type="submit" class="reg-btn">SEND</button>
-					</form>
-				</div>
-			</div>
-		</section>
-<!-- 
-
-		<section>
-			  <form
-              method="post"
-              @submit.prevent="validate">
-            
-              
-            
-            <div class="form-group">
-              <vue-recaptcha
+    <section id="about">
+      <div class="container">
+        <div class="col-lg-6">
+          <h2 class="mb-30">KING’S CASINO</h2>
+          <p class="white-txt">Welcome to Rajbet ! You've just found a place where you can not only bet on all your
+            favorite games in one place whenever you like, but you can also take advantage of plenty of top promotions,
+            bonuses and other perks along the way.
+            <br><br>
+            We've dedicated ourselves to giving you more ways to inject extra passion into the slots you love by
+            offering over 2000 unique slot machines with fantastic bonus.
+            <br><br>
+            Plus, you've got the freedom to choose between classic and modern online slot machines. Also, Rajbet offer
+            huge variety of live casino games with high bet limits and huge winnings!
+            <br><br>
+            You'll find an impressive variety of payment methods to choose from and a transaction process that's quick
+            and easy, letting you get straight back into the sports action.
+            And when it's time to cash out your winnings, you can do so quickly and safely.
+            <br><br>
+            We're here for you every step of the way with dedicated account managers standing by to provide you with a
+            24/7 top notch customer care service, handling any issues quickly and efficiently.
+            <br><br>
+            And if that wasn't enough, you also get access to regular promotions, special offers and extra bonuses,
+            giving you the best chances of scoring even more on all your favourite games at Rajbet.</p>
+        </div>
+        <div class="col-lg-6">
+          <h2 class="mb-30">CONTACT US</h2>
+          <form class="contact-us" method="post" @submit.prevent="validate">
+            <input type="text" placeholder="Name" :class="{errorInp : $v.name.$dirty && !$v.name.required}"
+                   v-model="name">
+            <input type="text" placeholder="E-mail" v-model="email"
+                   :class="{errorInp : ($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)}">
+            <input type="text" placeholder="Topic" v-model="topic">
+            <select name="" id="" v-model="category">
+              <option value="">Select category</option>
+              <option value="Payment problem">Payment problem</option>
+              <option value="Payment problem">Payment problem</option>
+            </select>
+            <textarea placeholder="Message text" v-model="message"></textarea>
+            <vue-recaptcha
                 ref="recaptcha"
                 size="invisible"
                 :sitekey="sitekey"
                 @verify="register"
                 @expired="onCaptchaExpired"
-              />
-              <button 
-                    type="submit" 
-                    class="btn btn-primary btn-block">
-                Sign Up
-              </button>
-            </div>
+            />
+            <button type="submit" class="reg-btn">SEND</button>
           </form>
-		</section> -->
-	</div>
+        </div>
+      </div>
+    </section>
+    <!--
+
+        <section>
+            <form
+                  method="post"
+                  @submit.prevent="validate">
+
+
+
+                <div class="form-group">
+                  <vue-recaptcha
+                    ref="recaptcha"
+                    size="invisible"
+                    :sitekey="sitekey"
+                    @verify="register"
+                    @expired="onCaptchaExpired"
+                  />
+                  <button
+                        type="submit"
+                        class="btn btn-primary btn-block">
+                    Sign Up
+                  </button>
+                </div>
+              </form>
+        </section> -->
+  </div>
 </template>
 
 <script>
 import Navbar from '../components/ui/Navbar.vue'
 import VueRecaptcha from 'vue-recaptcha'
-import { required, email, minLength } from "vuelidate/lib/validators";
-import axios from 'axios'
+import {required, email, minLength} from "vuelidate/lib/validators";
+import {API} from "../api";
 
-	export default {
-  		name: 'Register',
-  		components: { VueRecaptcha, Navbar },
+export default {
+  name: 'Register',
+  components: {VueRecaptcha, Navbar},
 
-		data () {
-		    return {
-		     	email: '',
-				name: '',
-				topic: '',
-				category: '',
-				message: '',
-		      	sitekey: process.env.CASINO_APP_CAPTCHA_TOKEN
-		    }
-	},
-  	methods: {
-	    register (recaptchaToken) {
-	    	this.$refs.recaptcha.execute()
-	    	console.log(recaptchaToken)
-	    	
-
-		    	let feedback = {
-		    	name: this.name,
-		    	email: this.email,
-		    	section: this.category,
-		    	subject: this.topic,
-		    	message: this.message,
-		    	recaptcha_response: recaptchaToken
-		    	}
-				
-				console.log(feedback)
-				axios
-		  		.post('http://api.casinoplatform.site/v3/feedback', feedback)
-		  		.then(response => {
-		  			console.log(response)
-		  		})
-		  		.catch(error => console.log(error))
-	      
-	    },
-	    validate () {
-	      // тут можно добавить проверку на валидацию
-	      // например, с помощью vee validate
-	      // если с валидацией наших полей все хорошо, запускаем каптчу
-	      if(this.$v.$invalid) {
-				this.$v.$touch();
-				return;
-			}
+  data() {
+    return {
+      email: '',
+      name: '',
+      topic: '',
+      category: '',
+      message: '',
+      sitekey: process.env.CASINO_APP_CAPTCHA_TOKEN
+    }
+  },
+  methods: {
+    register(recaptchaToken) {
+      this.$refs.recaptcha.execute()
+      console.log(recaptchaToken)
 
 
-	      this.$refs.recaptcha.execute()
-	    },
-	    onCaptchaExpired () {
-	      this.$refs.recaptcha.reset()
-	    }
+      let feedback = {
+        name: this.name,
+        email: this.email,
+        section: this.category,
+        subject: this.topic,
+        message: this.message,
+        recaptcha_response: recaptchaToken
+      }
+
+      API.post('feedback', feedback)
+          .then(response => {
+            console.log(response)
+          })
+          .catch(error => console.log(error))
+
+    },
+    validate() {
+      // тут можно добавить проверку на валидацию
+      // например, с помощью vee validate
+      // если с валидацией наших полей все хорошо, запускаем каптчу
+      if (this.$v.$invalid) {
+        this.$v.$touch();
+        return;
+      }
+
+
+      this.$refs.recaptcha.execute()
+    },
+    onCaptchaExpired() {
+      this.$refs.recaptcha.reset()
+    }
   },
   validations: {
-			email:{
-				required,
-				email
-			},
-			name:{
-				required
-			}
-		},
+    email: {
+      required,
+      email
+    },
+    name: {
+      required
+    }
+  },
 }
 </script>
 
@@ -197,7 +203,7 @@ export default{
 </script> -->
 
 <style>
-.errorInp{
-	border:1px red solid!important;
+.errorInp {
+  border: 1px red solid !important;
 }
 </style>
