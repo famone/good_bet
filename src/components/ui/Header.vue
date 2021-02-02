@@ -17,7 +17,7 @@
 				</div>
 
 				<div class="header-box-col al-center" v-if="player">
-					<input type="text" class="search-inp" placeholder="Game name">
+					<input type="text" class="search-inp" placeholder="Game name" @input="searchMethod" v-model="search">
 					<div class="player-row">
 						<div class="avatar" v-if="player.avatars.length !== 0" :style="{'background-image': 'url(' + player.avatars[0].url + ')'}"></div>
 						<div class="avatar" v-else>
@@ -55,7 +55,7 @@
 
 
 				<div class="header-box-col al-center" v-else>
-					<input type="text" class="search-inp" placeholder="Game name">
+					<input type="text" class="search-inp" placeholder="Game name" @input="searchMethod" v-model="search">
 					<router-link tag="button" to="/enter" class="login-btn"><img src="../../assets/img/login.svg" alt="">LOGIN</router-link>
 					<router-link 
 					class="reg-btn" tag="button" to="/signup">
@@ -72,6 +72,7 @@
 
 <script>
 import {mapGetters} from 'vuex'
+import axios from 'axios'
 
 	export default{
 		computed: {
@@ -95,10 +96,19 @@ import {mapGetters} from 'vuex'
 			changeAccount(e){
 				let valuteCode = e.target.value
 				this.$store.dispatch('auth/changeAccount', valuteCode)
+			},
+			searchMethod(){
+				
+				axios
+				.get(`http://api.casinoplatform.site/v3/games?expand=images&=1&q=${this.search}`) 
+				.then(res =>{
+					console.log(res.data)
+				})
 			}
 		},
 		data(){
 			return{
+				search: '',
 				stickyHeader: false,
 				menuLinks: [
 					{

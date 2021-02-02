@@ -137,11 +137,11 @@ import axios from 'axios'
 				    callbacks: [
 				        {
 				            type: "success",
-				            redirect_uri: "https://casino.com/payment/succed"
+				            redirect_uri: "http://localhost:8080/succed"
 				        },
 				        {
 				            type: "fail",
-				            redirect_uri: "https://casino.com/payment/fail"
+				            redirect_uri: "http://localhost:8080/failed"
 				        }
 				    ]
 				}
