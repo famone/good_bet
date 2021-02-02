@@ -2,9 +2,9 @@ const axios = require('axios')
 import store from './store/index'
 
 export const API = axios.create({
-  baseURL: `http://api.casinoplatform.site/v3`, //@todo env
+  baseURL: process.env.VUE_APP_API_URL,
   headers: {
-    Authorization: 'Basic ZnJvbnRfYmVhcmVyOg==', //Env
+    Authorization: 'Basic ' + process.env.VUE_APP_API_AUTH_TOKEN,
   }
 })
 

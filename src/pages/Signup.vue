@@ -86,21 +86,21 @@
 
 						<div class="remember-me">
 							<div class="remember-me"  :class="{checked: terms.value}" 
-										@click="terms.value = !terms.value, makeTerm()">
+										@click="terms.value = !terms.value; makeTerm()">
 								<div class="ch-box"></div>
 								<span>I agree with private policy terms</span>
 							</div>
 						</div>
 								<div class="checkes">
-									<div class="remember-me" v-for="" 
+									<div class="remember-me"
 										:class="{checked: mailSpam.value}" 
-										@click="mailSpam.value = !mailSpam.value, sbsEmail()">
+										@click="mailSpam.value = !mailSpam.value; sbsEmail()">
 										<div class="ch-box"></div>
 										<span>Email subscription</span>
 									</div>
 									<div class="remember-me" 
 										:class="{checked: telSpam.value}" 
-										@click="telSpam.value = !telSpam.value, sbsTel()">
+										@click="telSpam.value = !telSpam.value; sbsTel()">
 										<div class="ch-box"></div>
 										<span>Telephone subscription</span>
 									</div>
@@ -136,9 +136,7 @@ import {mapGetters} from 'vuex'
 		components: {VueRecaptcha},
 		data(){
 			return{
-				sitekey: '6Lfx9DgaAAAAALyAqNY9siUCzdUpqIa-9fqZReyQ',
-				agreement: false,
-				mailSpam: false,
+				sitekey: process.env.VUE_APP_CAPTCHA_TOKEN,
 				agreement: false,
 				mailSpam: {
                     name: "subscription_email",
@@ -191,18 +189,15 @@ import {mapGetters} from 'vuex'
 			},
 			sbsTel(){
 				let fieldInArr = this.inpArr.find(item =>{
-  					return item.name === this.telSpam.name
-  					console.log(this.inpArr)
+  					return item.name === this.telSpam.name;
   				})
 
   				fieldInArr.value = this.telSpam.value
 
-  				console.log(this.inpArr)
 			},
 			makeTerm(){
 				let fieldInArr = this.inpArr.find(item =>{
   					return item.name === this.terms.name
-  					console.log(this.inpArr)
   				})
 
   				fieldInArr.value = this.terms.value
