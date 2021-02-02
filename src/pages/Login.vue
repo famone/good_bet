@@ -53,7 +53,7 @@ import axios from 'axios'
 
 				let config = {
 			        headers: {
-			          Authorization: 'Basic ZnJvbnRfYmVhcmVyOg==',
+			          Authorization: 'Basic ' + process.env.CASINO_APP_API_AUTH_TOKEN,
 			        } 
 			    }
 

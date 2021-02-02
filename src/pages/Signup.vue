@@ -136,7 +136,7 @@ import {mapGetters} from 'vuex'
 		components: {VueRecaptcha},
 		data(){
 			return{
-				sitekey: process.env.VUE_APP_CAPTCHA_TOKEN,
+				sitekey: process.env.CASINO_APP_CAPTCHA_TOKEN,
 				agreement: false,
 				mailSpam: {
                     name: "subscription_email",

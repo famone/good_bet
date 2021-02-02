@@ -89,7 +89,7 @@ import axios from 'axios'
 				topic: '',
 				category: '',
 				message: '',
-		      	sitekey: process.env.VUE_APP_CAPTCHA_TOKEN
+		      	sitekey: process.env.CASINO_APP_CAPTCHA_TOKEN
 		    }
 	},
   	methods: {

@@ -2,9 +2,9 @@ const axios = require('axios')
 import store from './store/index'
 
 export const API = axios.create({
-  baseURL: process.env.VUE_APP_API_URL,
+  baseURL: process.env.CASINO_APP_API_URL,
   headers: {
-    Authorization: 'Basic ' + process.env.VUE_APP_API_AUTH_TOKEN,
+    Authorization: 'Basic ' + process.env.CASINO_APP_API_AUTH_TOKEN,
   }
 })
 
