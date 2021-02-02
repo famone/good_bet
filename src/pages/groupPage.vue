@@ -18,20 +18,16 @@
               <gameBox v-for="game in gamesArr" :game="game" v-else/>
             </div>
 
-
-            <div class="text-center">
-              <ul v-if="pagerItems().length > 1" id="pager" class="pagination">
-                <li v-for="(pagerElem) in pagerItems()" class="page-item">
-                  <a class="page-link"
-                     v-bind:class="{active: pagerElem.isCurrent}"
-                     @click="changePage(pagerElem.pageNumber)"
-                     v-bind:href="'#'"
-                  >
-                    {{ pagerElem.title }}
-                  </a>
-                </li>
-              </ul>
-            </div>
+            <template>
+              <paginate
+                  :page-count=pageCount
+                  :click-handler="changePage"
+                  :prev-text="'Prev'"
+                  :next-text="'Next'"
+                  :container-class="'pagination'"
+                  :page-class="'page-item'">
+              </paginate>
+            </template>
 
           </div>
         </div>
@@ -45,18 +41,18 @@
 import axios from 'axios'
 import Navbar from '../components/ui/Navbar.vue'
 import gameBox from '../components/ui/gameBox.vue'
+import Paginate from 'vuejs-paginate'
 import {API} from "../api";
 
 const API_GAMES_ENDPOINT = process.env.CASINO_APP_API_URL + 'games';
 const API_GAMES_DEFAULT_FIELDS = 'details,launch_types,images,type,provider,canonical';
 export default {
-  components: {gameBox, Navbar},
+  components: {gameBox, Navbar, Paginate},
   props: ["id"],
   data() {
     return {
       gamesArr: [],
       pageCount: 0,
-      currentPage: 1,
       loader: true
     }
   },
@@ -79,20 +75,6 @@ export default {
         }
       }).then(this._resCallback.bind(this))
     },
-    pagerItems() {
-      let pagerItems = [];
-      for (let i = 0; i < this.pageCount; i++) {
-        let pageNum = i + 1;
-
-        pagerItems.push({
-          title: pageNum,
-          pageNumber: pageNum,
-          isCurrent: pageNum === this.currentPage
-        });
-      }
-      console.log(pagerItems, this.currentPage);
-      return pagerItems
-    },
     updateDynPage() {
       this.loader = true
       this.pageCount = 0
@@ -104,7 +86,6 @@ export default {
       }).then(this._resCallback.bind(this))
     },
     _resCallback(res) {
-      this.currentPage = parseInt(res.headers['x-pagination-current-page'])
       this.pageCount = parseInt(res.headers['x-pagination-page-count'])
       this.gamesArr = res.data
       this.loader = false
