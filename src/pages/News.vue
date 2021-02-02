@@ -32,21 +32,8 @@ import axios from 'axios'
 
 export default{
 	components: {Navbar},
-  // data(){
-	//   return {
-  //     news: []
-  //   }
-  // },
 	computed: {
 		...mapGetters({ news: "auth/getNews"}),
-	},
-
-  created(){
-    //    this.news = this.$store.getters.getNews;
-  //    console.log(news)
-
-    // mapGetters({ news: "auth/getNews"})
-  }
-
+	}
 }
 </script>
