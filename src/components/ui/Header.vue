@@ -72,17 +72,16 @@
 
 <script>
 import {mapGetters} from 'vuex'
-import axios from 'axios'
+import {API} from "../../api";
 
-	export default{
+export default{
 		computed: {
 			...mapGetters({ player: "auth/getPlayer"}),
 			getCurrentAccount(){
 				if(this.player){
-					let currentValute = this.player.accounts.find(item => {
-						return item.is_current == true
-					})
-					return currentValute
+          return this.player.accounts.find(item => {
+            return item.is_current == true
+          })
 				}
 			}
 		},
@@ -99,9 +98,12 @@ import axios from 'axios'
 			},
 			searchMethod(){
 				
-				axios
-				.get(`http://api.casinoplatform.site/v3/games?expand=images&=1&q=${this.search}`) 
-				.then(res =>{
+				API.get('games', {
+				  params: {
+				    expand: 'images',
+            q: this.search
+          }
+        }).then(res =>{
 					console.log(res.data)
 				})
 			}
@@ -141,11 +143,7 @@ import axios from 'axios'
 			window.addEventListener('scroll', ()=>{
 				let winScroll = document.documentElement.scrollTop;
 
-				if(winScroll > 5){
-					this.stickyHeader = true
-				}else{
-					this.stickyHeader = false
-				}
+				this.stickyHeader = winScroll > 5;
 			})
 		}
 	}

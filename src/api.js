@@ -3,9 +3,9 @@ import store from './store/index'
 
 export const API = axios.create({
   baseURL: process.env.CASINO_APP_API_URL,
-  headers: {
+  /*headers: {
     Authorization: 'Basic ' + process.env.CASINO_APP_API_AUTH_TOKEN,
-  }
+  }*/
 })
 
 API.interceptors.response.use(null, function (error) {

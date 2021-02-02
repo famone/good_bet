@@ -20,7 +20,7 @@
 
 <script>
 import Navbar from '../components/ui/Navbar.vue'
-import {mapGetters, mapState} from 'vuex'
+import {mapGetters} from 'vuex'
 
 	export default{
 		components: {Navbar},

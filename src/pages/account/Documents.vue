@@ -1,148 +1,141 @@
 <template>
-	<div>
-		<Navbar />
+  <div>
+    <Navbar/>
 
 
-		<section id="account" v-if="player">
-			<div class="container">
-				<div class="row">
-					<AcNav />
-					<div class="col-lg-9">
-						<h2>DOCUMENTS</h2>
+    <section id="account" v-if="player">
+      <div class="container">
+        <div class="row">
+          <AcNav/>
+          <div class="col-lg-9">
+            <h2>DOCUMENTS</h2>
 
-						<div class="row">
-							<div class="col-lg-12 text-center" v-if="!documents">
-								<img src="../../assets/img/icons/nv6.svg" class="spin">
-							</div>
-							<div class="col-lg-3" v-else v-for="doc in documents">
-								<div class="document-box text-center">
-									<div class="text-center">
-										{{doc}}
-										<p class="white-txt">{{doc.type.value}}</p>
-										<!-- <p v-if="avilable" class="white-txt">{{getDocName(doc.id)}}</p> -->
-										<div class="add-doc"></div>
-									</div>
-								</div>
-							</div>
-						</div>
+            <div class="row">
+              <div class="col-lg-12 text-center" v-if="!documents">
+                <img src="../../assets/img/icons/nv6.svg" class="spin">
+              </div>
+              <div class="col-lg-3" v-else v-for="doc in documents">
+                <div class="document-box text-center">
+                  <div class="text-center">
+                    {{ doc }}
+                    <p class="white-txt">{{ doc.type.value }}</p>
+                    <!-- <p v-if="avilable" class="white-txt">{{getDocName(doc.id)}}</p> -->
+                    <div class="add-doc"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-						<br><br>
+            <br><br>
 
-						<h2>ADD DOCUMENT</h2>
+            <h2>ADD DOCUMENT</h2>
 
-						<div class="row new-doc" v-if="avilable">
-							<div class="col-lg-4">
-								<select name="" id="" v-model="addedId">
-									<option v-for="av in avilable" :value="av.id">{{av.value}}</option>
-								</select>
-							</div>
-							<div class="col-lg-4">
-								<input type="file" @change="changeFile($event)">
-							</div>
-						</div>
+            <div class="row new-doc" v-if="avilable">
+              <div class="col-lg-4">
+                <select name="" id="" v-model="addedId">
+                  <option v-for="av in avilable" :value="av.id">{{ av.value }}</option>
+                </select>
+              </div>
+              <div class="col-lg-4">
+                <input type="file" @change="changeFile($event)">
+              </div>
+            </div>
 
-						<div class="row">
-							
-							<div class="col-lg-3">
-								<button class="save-btn" @click="applyDocs">APPLY DOCUMENTS</button>
-							</div>
-						</div>
+            <div class="row">
 
-
-					</div>
-				</div>
-			</div>
-		</section>
+              <div class="col-lg-3">
+                <button class="save-btn" @click="applyDocs">APPLY DOCUMENTS</button>
+              </div>
+            </div>
 
 
+          </div>
+        </div>
+      </div>
+    </section>
 
 
-
-	</div>
+  </div>
 </template>
 
 
 <script>
 import Navbar from '../../components/ui/Navbar.vue'
 import AcNav from '../../components/ui/AcNav.vue'
-import {mapGetters} from  'vuex'
-import axios from 'axios'
+import {mapGetters} from 'vuex'
+import {API} from "../../api";
 
-	export default{
-		components: {Navbar, AcNav},
-		data(){
-			return{
-				documents: null,
-				avilable: null,
-				addedId: null,
-				addedFile: ''
-			}
-		},
-		computed: {
-			...mapGetters({ player: "auth/getPlayer"}),
-		},
-		methods: {
-			getDocName(id){
-				let docum = this.avilable.find(item => {
-					return item.id == id
-				})
-				return docum.value
-			},
-			changeFile(e){
-				this.addedFile = event.target.files[0]
-			},
-			applyDocs(){
+export default {
+  components: {Navbar, AcNav},
+  data() {
+    return {
+      documents: null,
+      avilable: null,
+      addedId: null,
+      addedFile: ''
+    }
+  },
+  computed: {
+    ...mapGetters({player: "auth/getPlayer"}),
+  },
+  methods: {
+    getDocName(id) {
+      let docum = this.avilable.find(item => {
+        return item.id == id
+      })
+      return docum.value
+    },
+    changeFile(e) {
+      this.addedFile = event.target.files[0]
+    },
+    applyDocs() {
 
 
-				let emailBody = {
-					type_id: this.addedId,
-					file: this.addedFile
-				}
+      let emailBody = {
+        type_id: this.addedId,
+        file: this.addedFile
+      }
 
-				
 
-				var form2 = new FormData();
+      let form2 = new FormData();
 
-				for (var field in emailBody){
-					form2.append(field, emailBody[field]);
-				};
-			
-				
-				axios
-				.post('http://api.casinoplatform.site/v3/player-uploads', form2)
-				.then(res =>{
-					console.log(res)
-				})
-			}
-		}, 
-		created(){
-			axios
-			.get('http://api.casinoplatform.site/v3/player-uploads?expand=type')
-			.then(res =>{
-				this.documents = res.data
-			})
+      for (let field in emailBody) {
+        form2.append(field, emailBody[field]);
+      }
 
-			axios
-			.get('http://api.casinoplatform.site/v3/player-upload-types')
-			.then(res =>{
-				this.avilable = res.data
-			})
 
-			// player-upload-types
-			// /v3/player-uploads
+      API.post('player-uploads', form2)
+          .then(res => {
+            console.log(res)
+          })
+    }
+  },
+  created() {
+    API.get('player-uploads?expand=type', {
+      params: {
+        expand: 'type'
+      }
+    }).then(res => {
+      this.documents = res.data
+    })
 
-		}
-	}
+    API.get('player-upload-types')
+      .then(res => {
+        this.avilable = res.data
+      })
+  }
+}
 
 </script>
 
 <style scoped>
-select{	
-	width: 100%!important;
+select {
+  width: 100% !important;
 }
-input#file-upload-button{
-	background-color: #fff!important;
-	border:none!important;
-	text-transform: uppercase!important;
+
+input#file-upload-button {
+  background-color: #fff !important;
+  border: none !important;
+  text-transform: uppercase !important;
 }
 </style>
