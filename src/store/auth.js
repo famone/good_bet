@@ -1,6 +1,6 @@
 
 import axios from 'axios'
-import { API } from './../api'
+import { API } from '../api'
 
 const auth = {
 	namespaced: true,
@@ -95,6 +95,9 @@ const auth = {
 
 				axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
 
+					API.defaults.headers.common['Authorization'] = 'Bearer ' + userToken.userToken
+
+
 					console.log(token)
 				// alert('Bearer ' + token)
 
@@ -121,6 +124,8 @@ const auth = {
 			let userToken = JSON.parse(localStorage.getItem('userToken'));
 
 		 	axios.defaults.headers.common['Authorization'] = 'Bearer ' + userToken.userToken
+
+		 	API.defaults.headers.common['Authorization'] = 'Bearer ' + userToken.userToken
 
 		 	commit('CHANGE_AUTH', true)
 
