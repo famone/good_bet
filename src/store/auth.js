@@ -79,6 +79,14 @@ const auth = {
 		}
 	},
 	actions: {
+		initApp({commit, state, dispatch}){
+			dispatch("loadNews")
+			dispatch("loadSlider")
+			dispatch("loadPopular")
+			dispatch("loadSlots")
+			dispatch("loadRecomended")
+			// dispatch("loadTimezones")
+		},
 		getAppToken({commit, state, dispatch}){
 
 			API.post('oauth2/token', state.credintals)
@@ -95,30 +103,15 @@ const auth = {
 
 				axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
 
-					API.defaults.headers.common['Authorization'] = 'Bearer ' + userToken.userToken
+					API.defaults.headers.common['Authorization'] = 'Bearer ' + token
 
 
 					console.log(token)
 				// alert('Bearer ' + token)
 
-
-				
-				dispatch("loadNews")
-		 		dispatch("loadSlider")
-		 		dispatch("loadPopular")
-		 		dispatch("loadSlots")
-		 		dispatch("loadRecomended")
-		 		// dispatch("loadTimezones")
-
 	  		});
-
-
-
-
-
-
-
 		},
+
 		getUser({commit, dispatch, state}){
 
 			let userToken = JSON.parse(localStorage.getItem('userToken'));
@@ -134,24 +127,7 @@ const auth = {
 		 	.then(response =>{
 		 		commit('SET_PLAYER', response.data[0])
 		 		localStorage.setItem("player", JSON.stringify(response.data[0]));
-
-
-		 		dispatch("loadNews")
-		 		dispatch("loadSlider")
-		 		dispatch("loadPopular")
-		 		dispatch("loadSlots")
-		 		dispatch("loadRecomended")
-		 		
-
 		 	})
-
-
-
-
-
-
-
-
 
 
 		 	// axios
@@ -162,15 +138,6 @@ const auth = {
 
 		},
          getInfo({commit, dispatch, state}){
-
-
-         	dispatch("loadNews")
-		 	dispatch("loadSlider")
-		 	dispatch("loadPopular")
-		 	dispatch("loadSlots")
-		 	dispatch("loadRecomended")
-		 	// dispatch("loadTimezones")
-
 					 API.get('games?expand=details,launch_types,images,type,provider,canonical')
 	        .then(res =>{
 	          commit('SET_GAMES', res.data)
