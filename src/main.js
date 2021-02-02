@@ -23,14 +23,17 @@ if(localStorage.getItem('player')){
  		 axios.defaults.headers.common['Authorization'] = 'Bearer ' + userToken.userToken
  		 API.defaults.headers.common['Authorization'] = 'Bearer ' + userToken.userToken
  		 store.dispatch("auth/getUser");
+ 		 store.dispatch("auth/initApp");
 }else{
 	if (localStorage.getItem('appToken')) {
 		 let appToken = JSON.parse(localStorage.getItem('appToken'));
  		 axios.defaults.headers.common['Authorization'] = 'Bearer ' + appToken.appToken
 		 API.defaults.headers.common['Authorization'] = 'Bearer ' + appToken.appToken
  		 store.dispatch("auth/getInfo");
+		 store.dispatch("auth/initApp");
 	}else{
 		store.dispatch("auth/getAppToken");
+		store.dispatch("auth/initApp");
 	}
 }
 
