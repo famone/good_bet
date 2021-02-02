@@ -17,6 +17,8 @@ import Withdrawal from '../pages/account/Withdrawal.vue'
 import Transactions from '../pages/account/Transactions.vue'
 import Deposit from '../pages/account/Deposit.vue'
 import Failed from '../pages/Failed.vue'
+import Succed from '../pages/Succed.vue'
+import Documents from '../pages/account/Documents.vue'
 
 const routes = [
 		{
@@ -48,6 +50,10 @@ const routes = [
 			component: Failed
 		},
 		{
+			path: '/succed',
+			component: Succed
+		},
+		{
 			path: '/news',
 			component: News
 		},
@@ -66,16 +72,26 @@ const routes = [
 		},
 		{
 			path: '/real-game/:id',
-			component: RealGame
+			component: RealGame,
+			beforeEnter: (to, from, next) => {
+
+				if(store.getters["auth/getAuthenticated"]){
+					next()
+				}else{
+					if (to.path != "/enter") {
+						next("/enter")
+					}
+					else {
+						next()
+					}
+				}
+				
+			}
 		},
 		{
 			path: '/profile',
 			component: Profile,
 			beforeEnter: (to, from, next) => {
-
-				console.log(store.getters["auth/getAuthenticated"])
-
-				
 
 				if(store.getters["auth/getAuthenticated"]){
 					next()
@@ -115,6 +131,28 @@ const routes = [
 		{
 			path: '/deposit',
 			component: Deposit,
+			beforeEnter: (to, from, next) => {
+
+				console.log(store.getters["auth/getAuthenticated"])
+
+				
+
+				if(store.getters["auth/getAuthenticated"]){
+					next()
+				}else{
+					if (to.path != "/enter") {
+						next("/enter")
+					}
+					else {
+						next()
+					}
+				}
+				
+			}
+		},
+		{
+			path: '/documents',
+			component: Documents,
 			beforeEnter: (to, from, next) => {
 
 				console.log(store.getters["auth/getAuthenticated"])

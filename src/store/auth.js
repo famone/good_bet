@@ -19,7 +19,11 @@ const auth = {
 		groups: [],
 		player: null,
 		timezones: [],
-		countries: []
+		countries: [],
+		popularGames: [],
+		slotsGames: [],
+		recomendedGames: [],
+		switchDepo: true
   	},
 	mutations: {
 		SET_GAMES(state, payload){
@@ -60,6 +64,18 @@ const auth = {
 		},
 		CHANGE_AUTH(state, payload){
 			state.authenticated = payload
+		},
+		SET_POPULAR(state, payload){
+			state.popularGames = payload
+		},
+		SET_SLOTS(state, payload){
+			state.slotsGames = payload
+		},
+		SET_RECOMENDED(state, payload){
+			state.recomendedGames = payload
+		},
+		SET_DEPOSWITCH(state, payload){
+			state.switchDepo = payload
 		}
 	},
 	actions: {
@@ -82,8 +98,13 @@ const auth = {
 					console.log(token)
 				// alert('Bearer ' + token)
 
+
+				
 				dispatch("loadNews")
 		 		dispatch("loadSlider")
+		 		dispatch("loadPopular")
+		 		dispatch("loadSlots")
+		 		dispatch("loadRecomended")
 		 		// dispatch("loadTimezones")
 
 	  		});
@@ -108,7 +129,18 @@ const auth = {
 		 	.then(response =>{
 		 		commit('SET_PLAYER', response.data[0])
 		 		localStorage.setItem("player", JSON.stringify(response.data[0]));
+
+
+		 		dispatch("loadNews")
+		 		dispatch("loadSlider")
+		 		dispatch("loadPopular")
+		 		dispatch("loadSlots")
+		 		dispatch("loadRecomended")
+		 		
+
 		 	})
+
+
 
 
 
@@ -129,6 +161,9 @@ const auth = {
 
          	dispatch("loadNews")
 		 	dispatch("loadSlider")
+		 	dispatch("loadPopular")
+		 	dispatch("loadSlots")
+		 	dispatch("loadRecomended")
 		 	// dispatch("loadTimezones")
 
 					 API.get('games?expand=details,launch_types,images,type,provider,canonical')
@@ -228,14 +263,39 @@ const auth = {
         		is_current: true
         	}
 
-        	// console.log(payload)
-
-        	// return
 
 					API.get(`accounts/${payload}` , currency)
         	.then(res =>{
         		console.log(res.data)
         	})
+        },
+        loadPopular({commit}){
+        	// popular games
+		    axios
+		    .get('http://api.casinoplatform.site/v3/games?expand=details,launch_types,images,type,provider,canonical&group_id=115')
+		    .then(res => {
+		    	// console.log(res.data)
+		    	commit('SET_POPULAR', res.data)
+		    })
+        },
+        loadSlots({commit}){
+        	// slots games
+		      axios
+		      .get('http://api.casinoplatform.site/v3/games?expand=details,launch_types,images,type,provider,canonical&group_id=126')
+		      .then(res => {
+		          commit('SET_SLOTS', res.data)
+		       })
+        },
+        loadRecomended({commit}){
+        	// recomended games
+		      axios
+		      .get('http://api.casinoplatform.site/v3/games?expand=details,launch_types,images,type,provider,canonical&group_id=124')
+		      .then(res => {
+		         commit('SET_RECOMENDED', res.data)
+		      })
+        },
+        depoSwitcher({commit}, payload){
+        	commit('SET_DEPOSWITCH', payload)
         }
 	},
 	getters: {
@@ -271,6 +331,18 @@ const auth = {
   		},
   		getAuthenticated(state){
   			return state.authenticated
+  		},
+  		getPopular(state){
+  			return state.popularGames
+  		},
+  		getSlots(state){
+  			return state.slotsGames
+  		},
+  		getRecomended(state){
+  			return state.recomendedGames
+  		},
+  		getSwitchDepo(state){
+  			return state.switchDepo
   		}
 	}
 }

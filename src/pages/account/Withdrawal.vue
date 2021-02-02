@@ -21,7 +21,7 @@
 									<img :src="pay.images[0].url" v-if="pay.images.length > 0">
 									<img src="../../assets/img/coin.svg" v-else="" class="logoimg">
 									<br>
-									<button class="save-btn" @click="openPop(pay)">top up an account</button>
+									<button class="save-btn" @click="openPop(pay)">withdraw money</button>
 								</div>
 								<h4>{{pay.name}}</h4>
 							</div>
@@ -101,6 +101,7 @@ import axios from 'axios'
 			},
 			accept(){
 				let stat = 'pending'
+				this.$store.dispatch('auth/depoSwitcher', false)
 
 				axios 
 				.patch('http://api.casinoplatform.site/v3/payments/' + this.transId, stat)
@@ -136,7 +137,7 @@ import axios from 'axios'
 				    callbacks: [
 				        {
 				            type: "success",
-				            redirect_uri: "https://casino.com/payment/success"
+				            redirect_uri: "https://casino.com/payment/succed"
 				        },
 				        {
 				            type: "fail",
@@ -148,10 +149,14 @@ import axios from 'axios'
 				axios
 				.post('http://api.casinoplatform.site/v3/payments?expand=callbacks', request)
 				.then(res =>{
-					console.log(res.data)
-					this.acceptPop = true
 
 					this.transId = res.data.id
+
+					if(res.data.fee_amount > 0){
+						this.acceptPop = true
+					}else{
+						this.accept()
+					}
 
 					// this.$router.replace("/transactions");
 				})

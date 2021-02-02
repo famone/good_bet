@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 import mainSlider from '../components/mainSlider.vue'
 import Navbar from '../components/ui/Navbar.vue'
 import newsRow from '../components/newsRow.vue'
@@ -23,37 +24,12 @@ import axios from 'axios'
 
   export default{
   	components: { mainSlider, Navbar, gamesRow, newsRow, Banner, About },
-    data(){
-      return{
-        popularGames: [],
-        slotsGames: [],
-        recomendedGames: []
-      }
-    },
-    created(){
-      // popular games
-      axios
-      .get('http://api.casinoplatform.site/v3/games?expand=details,launch_types,images,type,provider,canonical&group_id=115')
-      .then(res => {
-         
-          this.popularGames = res.data
-       })
-
-      // slots games
-      axios
-      .get('http://api.casinoplatform.site/v3/games?expand=details,launch_types,images,type,provider,canonical&group_id=126')
-      .then(res => {
-          this.slotsGames = res.data
-       })
-
-      // recomended games
-      axios
-      .get('http://api.casinoplatform.site/v3/games?expand=details,launch_types,images,type,provider,canonical&group_id=124')
-      .then(res => {
-         this.recomendedGames = res.data
-       })
-
-
+    computed: {
+      ...mapGetters({ 
+          popularGames: "auth/getPopular",
+          slotsGames: "auth/getSlots",
+          recomendedGames: "auth/getRecomended"
+        }),
     }
   }
 </script>
