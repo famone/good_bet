@@ -12,10 +12,10 @@
 
 						<button class="switch-btn" 
 						:class="{activeSwitch : switchDepo}" 
-						@click="switchDepo = true">Deposit</button>
+						@click="changeDepo(true)">Deposit</button>
 						<button class="switch-btn" 
 						:class="{activeSwitch : !switchDepo}" 
-						@click="switchDepo = false">Withdrawal</button>
+						@click="changeDepo(false)">Withdrawal</button>
 
 						<!-- depo -->
 
@@ -31,7 +31,10 @@
 								</thead>
 						    		<tbody>
 										<tr v-for="dep in depositTrans">
-						        			<td>{{dep.time_confirm_as_iso8601}}</td>
+						        			<td> 
+						        				{{new Date(dep.time_create_as_iso8601).toLocaleDateString()}}
+						        				{{new Date(dep.time_create_as_iso8601).getHours()}}:{{new Date(dep.time_create_as_iso8601).getMinutes()}}
+						        			</td>
 						       	 			<td>{{dep.amount_as_currency}}</td>
 						       	 			<td>{{dep.status}}</td>
 						    			</tr>
@@ -55,7 +58,10 @@
 								</thead>
 						    		<tbody>
 										<tr v-for="dep in withdrawalTrans">
-						        			<td>{{dep.time_confirm_as_iso8601}}</td>
+						        			<td> 
+						        				{{new Date(dep.time_create_as_iso8601).toLocaleDateString()}}
+						        				{{new Date(dep.time_create_as_iso8601).getHours()}}:{{new Date(dep.time_create_as_iso8601).getMinutes()}}
+						        			</td>
 						       	 			<td>{{dep.amount_as_currency}}</td>
 						       	 			<td>{{dep.status}}</td>
 						    			</tr>
@@ -88,13 +94,12 @@ import axios from 'axios'
 		components: {Navbar, AcNav},
 		data(){
 			return{
-				switchDepo: true,
 				depositTrans: null,
 				withdrawalTrans: null
 			}
 		},
 		computed: {
-			...mapGetters({ player: "auth/getPlayer"})
+			...mapGetters({ player: "auth/getPlayer", switchDepo: "auth/getSwitchDepo" })
 		},
 		created(){
 			axios
@@ -108,6 +113,12 @@ import axios from 'axios'
 			.then(res =>{
 				this.withdrawalTrans = res.data
 			})
+		},
+		methods: {
+			changeDepo(res){
+				console.log(res)
+				this.$store.dispatch('auth/depoSwitcher', res)
+			}
 		}
 	}
 

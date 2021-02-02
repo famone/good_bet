@@ -39,6 +39,12 @@
 						<router-link tag="button" to="/profile" class="settings">
 							<img src="../../assets/img/settings.svg">
 						</router-link>
+						<router-link tag="button" to="/deposit" class="coins">
+							<img src="../../assets/img/coins.svg">
+						</router-link>
+						<router-link tag="button" to="/favorite" class="coins">
+							<img src="../../assets/img/like2.svg">
+						</router-link>
 						<button class="reg-btn" @click="logOut()">
 							<img src="../../assets/img/loguot.svg" style="margin: 0;">
 						</button>

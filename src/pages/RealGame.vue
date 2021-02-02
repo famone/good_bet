@@ -73,6 +73,7 @@ import axios from 'axios'
 			axios
 			.get('http://api.casinoplatform.site/v3/games/' + routeId )
 			.then(response =>{
+				console.log(response.data)
 				this.gameName = response.data.name
 			})
 		},
