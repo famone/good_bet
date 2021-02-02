@@ -128,6 +128,7 @@ export default {
         newField.push({id: item.id, value: item.value})
       })
 
+      let currentUrl = process.env.CASINO_APP_URL
 
       let request = {
         method_id: this.payMethod.id,
@@ -137,11 +138,11 @@ export default {
         callbacks: [
           {
             type: "success",
-            redirect_uri: "http://localhost:8080/succed"
+            redirect_uri:  currentUrl + "/success"
           },
           {
             type: "fail",
-            redirect_uri: "http://localhost:8080/failed"
+            redirect_uri: currentUrl + "/fail"
           }
         ]
       }
@@ -154,6 +155,10 @@ export default {
             this.acceptPop = true
           } else {
             this.accept()
+          }
+
+          if(res.data.redirect_url !== ''){
+            window.location.href = res.data.redirect_url;
           }
 
         })

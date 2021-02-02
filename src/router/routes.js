@@ -46,11 +46,11 @@ const routes = [
 			component: Faq
 		},
 		{
-			path: '/failed',
+			path: '/fail',
 			component: Failed
 		},
 		{
-			path: '/succed',
+			path: '/success',
 			component: Succed
 		},
 		{

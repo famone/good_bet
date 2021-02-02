@@ -127,6 +127,7 @@ export default {
         newField.push({id: item.id, value: item.value})
       })
 
+      let currentUrl = process.env.CASINO_APP_URL
 
       let request = {
         method_id: this.payMethod.id,
@@ -136,20 +137,26 @@ export default {
         callbacks: [
           {
             type: "success",
-            redirect_uri: "https://casino.com/payment/success"
+            redirect_uri:  currentUrl + "/success"
           },
           {
             type: "fail",
-            redirect_uri: "https://casino.com/payment/fail"
+            redirect_uri: currentUrl + "/fail"
           }
         ]
       }
+
+      console.log(request)
 
       API.post('payments', request)
           .then(res => {
             this.acceptPop = true
 
             this.transId = res.data.id
+
+            if(res.data.redirect_url !== ''){
+              window.location.href = res.data.redirect_url;
+            }
 
             this.$router.replace("/transactions")
 
