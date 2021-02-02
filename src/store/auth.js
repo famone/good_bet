@@ -1,12 +1,13 @@
 
 import axios from 'axios'
+import { API } from './../api'
 
 const auth = {
 	namespaced: true,
 	state: {
 		credintals: {
 			grant_type: "client_credentials",
-		    scope:"guest:default"
+			scope:"guest:default"
 		},
 		authenticated: false,
 		games: [],
@@ -79,22 +80,22 @@ const auth = {
 	},
 	actions: {
 		getAppToken({commit, state, dispatch}){
-			let config = {
-			        headers: {
-			          Authorization: 'Basic ZnJvbnRfYmVhcmVyOg==',
-			        } 
-			    }
 
-			axios
-	  		.post('http://api.casinoplatform.site/v3/oauth2/token', state.credintals, config)
+			API.post('oauth2/token', state.credintals)
 	  		.then(response => {
 	  			let token = response.data.access_token
 
 	  			var object = {appToken: token, timestamp: new Date().getTime()}
-				localStorage.setItem("appToken", JSON.stringify(object));
+					localStorage.setItem("appToken", JSON.stringify(object));
 
+	  			if (response.status === 401) {
+						console.log('Failed to login')
+						router.push('/Login')
+					}
 
 				axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
+
+					console.log(token)
 				// alert('Bearer ' + token)
 
 
@@ -106,17 +107,17 @@ const auth = {
 		 		dispatch("loadRecomended")
 		 		// dispatch("loadTimezones")
 
-	  		})
+	  		});
 
 
-	  		
+
 
 
 
 
 		},
 		getUser({commit, dispatch, state}){
-			
+
 			let userToken = JSON.parse(localStorage.getItem('userToken'));
 
 		 	axios.defaults.headers.common['Authorization'] = 'Bearer ' + userToken.userToken
@@ -128,7 +129,6 @@ const auth = {
 		 	.then(response =>{
 		 		commit('SET_PLAYER', response.data[0])
 		 		localStorage.setItem("player", JSON.stringify(response.data[0]));
-
 
 
 		 		dispatch("loadNews")
@@ -166,40 +166,33 @@ const auth = {
 		 	dispatch("loadRecomended")
 		 	// dispatch("loadTimezones")
 
-         
-	        axios
-	        .get('http://api.casinoplatform.site/v3/games?expand=details,launch_types,images,type,provider,canonical')
+					 API.get('games?expand=details,launch_types,images,type,provider,canonical')
 	        .then(res =>{
 	          commit('SET_GAMES', res.data)
 	        })
 
-	        axios
-			.get('http://api.casinoplatform.site/v3/faq-items')
+					 API.get('http://api.casinoplatform.site/v3/faq-items')
 			.then(res => {
-				// console.log(res.data) 
+				// console.log(res.data)
 				commit('SET_FAQ', res.data)
 			})
 
 
-	    
-	        axios
-			.get('http://api.casinoplatform.site/v3/player-forms')
+					 API.get('player-forms')
 			.then(res => {
 				console.log(res.data)
 				commit('SET_REG_FIELDS', res.data)
 			})
 
-			axios
-			.get('http://api.casinoplatform.site/v3/games?type_id=1')
-			.then(res => {
-				// console.log(res.data)
-			})
+			// 		 API.get('games?type_id=1')
+			// .then(res => {
+			// 	// console.log(res.data)
+			// })
 
 
-			
 
-			axios
-			.get('http://api.casinoplatform.site/v3/payment-currencies')
+
+					 API.get('payment-currencies')
 			.then(res => {
 				console.log(res.data)
 				commit('SET_CURRENCY', res.data)
@@ -208,8 +201,7 @@ const auth = {
 
 			// получаем id всех групп
 
-			axios
-			.get('http://api.casinoplatform.site/v3/game-groups?place_code=headline&expand=images,platform,place_code')
+					 API.get('game-groups?place_code=headline&expand=images,platform,place_code')
 			.then(res => {
 				commit('SET_GROUPS', res.data)
 			})
@@ -228,18 +220,16 @@ const auth = {
 		 // 		commit('SET_COUNTRIES', res.data)
 		 // 	})
 
-			            
+
         },
         loadNews({commit}){
-        	axios
-			.get('http://api.casinoplatform.site/v3/news')
+					API.get('news')
 			.then(response =>{
 				commit('SET_NEWS', response.data)
 			})
         },
         loadSlider({commit}){
-        	axios
-	        .get('http://api.casinoplatform.site/v3/sliders')
+					API.get('sliders')
 	        .then(res =>{
 	          commit('SET_SLIDER', res.data)
 	        })
@@ -255,16 +245,14 @@ const auth = {
         	commit('SET_FIELD', payload)
         },
         loadTimezones({commit}){
-        	axios
-		 	.get('http://api.casinoplatform.site/v3/timezones?per-page=400')
+					API.get('timezones?per-page=400')
 		 	.then(res =>{
 		 		commit('SET_TIMEZONES', res.data)
 		 		console.log(res.data)
 		 	})
         },
         loadCountries({commit}){
-        	axios
-		 	.get('http://api.casinoplatform.site/v3/countries?per-page=400')
+					API.get('countries?per-page=400')
 		 	.then(res =>{
 		 		commit('SET_COUNTRIES', res.data)
 		 	})
@@ -276,8 +264,7 @@ const auth = {
         	}
 
 
-        	axios
-        	.patch( `http://api.casinoplatform.site/v3/accounts/${payload}` , currency)
+					API.get(`accounts/${payload}` , currency)
         	.then(res =>{
         		console.log(res.data)
         	})
