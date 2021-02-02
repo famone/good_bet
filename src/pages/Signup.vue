@@ -136,7 +136,7 @@ import {mapGetters} from 'vuex'
 		components: {VueRecaptcha},
 		data(){
 			return{
-				sitekey: '6Lfx9DgaAAAAALyAqNY9siUCzdUpqIa-9fqZReyQ',
+				sitekey: '6Lf59iYaAAAAACvTI3maSsNb2udNgdNBiugzbj11',
 				agreement: false,
 				mailSpam: false,
 				agreement: false,

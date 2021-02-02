@@ -1,20 +1,15 @@
-const path = require('path')
-const webpack = require('webpack')
-const ImageminPlugin = require('imagemin-webpack-plugin').default
+var path = require('path')
+var webpack = require('webpack')
+var ImageminPlugin = require('imagemin-webpack-plugin').default
 const TerserPlugin = require('terser-webpack-plugin');
-const { VueLoaderPlugin } = require('vue-loader');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const Dotenv = require('dotenv-webpack');
+const { VueLoaderPlugin } = require('vue-loader')
 
 module.exports = {
-
   entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, "./dist"),
-    filename: "[name].[hash].build.js",
-    publicPath: "/",
-    chunkFilename: "[chunkhash].js",
+    path: path.resolve(__dirname, './dist'),
+    publicPath: '/dist/',
+    filename: 'build.js'
   },
   module: {
     rules: [
@@ -64,37 +59,37 @@ module.exports = {
   },
   devtool: '#eval-source-map',
   plugins: [
-    new VueLoaderPlugin(),
-    new HTMLWebpackPlugin({
-      environment: process.env.NODE_ENV,
-      template:  path.resolve(__dirname, 'index.html'),
-      chunks: ["main"],
-    }),
-    new Dotenv()
+    new VueLoaderPlugin()
   ]
 }
 
-if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = 'none'
-  // http://vue-loader.vuejs.org/en/workflow/production.html
-  module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
-    }),
-    new MiniCssExtractPlugin({
-      filename: "[name].[contenthash].css",
-      chunkFilename: "[contenthash].css",
-    }),
-    // new webpack.optimize.UglifyJsPlugin({
-    //   sourceMap: true,
-    //   compress: {
-    //     warnings: false
-    //   }
-    // }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true
-    }),
-  ])
-}
+// if (process.env.NODE_ENV === 'production') {
+//   module.exports.devtool = '#source-map'
+//   // http://vue-loader.vuejs.org/en/workflow/production.html
+//   module.exports.plugins = (module.exports.plugins || []).concat([
+//     new webpack.DefinePlugin({
+//       'process.env': {
+//         NODE_ENV: '"production"'
+//       }
+//     }),
+//     new TerserPlugin({
+//         parallel: true,
+//         cache: true,
+//         extractComments: true,
+//         terserOptions: {
+//           ecma: 5,
+//           ie8: false,
+//           compress: true,
+//           warnings: false,
+//         },
+//       }),
+//     new webpack.LoaderOptionsPlugin({
+//       minimize: true
+//     }),
+//     new ImageminPlugin({
+//       pngquant: {
+//         quality: '60'
+//       }
+//     })
+//   ])
+// }
