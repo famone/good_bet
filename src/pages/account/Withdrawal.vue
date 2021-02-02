@@ -157,8 +157,10 @@ export default {
             this.accept()
           }
 
-          if(res.data.redirect_url !== ''){
-            window.location.href = res.data.redirect_url;
+          if (res.data.redirect_url !== '') {
+            window.location.href = res.data.redirect_url
+          } else {
+            this.$router.replace('/fail')
           }
 
         })
