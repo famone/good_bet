@@ -343,7 +343,7 @@ const auth = {
   		getSlots(state){
   			return state.slotsGames
   		},
-  		getRecomended(state){
+  		getRecommended(state){
   			return state.recomendedGames
   		},
   		getSwitchDepo(state){
