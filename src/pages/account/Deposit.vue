@@ -45,11 +45,11 @@
 					<input type="text" v-model="field.value">
 				</div>
 
-				<button type="submit" class="reg-btn" @click="setPayment">WITHDRAW MONEY</button>
+				<button type="submit" class="reg-btn" @click="setPayment">DEPOSIT MONEY</button>
 			</div>
 		</div>
 
-		<div class="accept" v-if="acceptPop">
+	<!-- 	<div class="accept" v-if="acceptPop">
 			<div class="deposit-pop-box text-center">
 				<p class="white-txt">Do you confirm withdraw: {{amount}} <br>
 				With fee: 0</p>
@@ -57,7 +57,7 @@
 				<button class="cancel" @click="cancel">CANCEL</button>
 				<button type="submit" class="reg-btn" @click="accept">ACCEPT</button>
 			</div>
-		</div>
+		</div> -->
 
 	</div>
 </template>
@@ -86,6 +86,7 @@ import axios from 'axios'
 			...mapGetters({ player: "auth/getPlayer"})
 		},
 		created(){
+
 			axios 
 			.get('http://api.casinoplatform.site/v3/payment-methods?direction=deposit&expand=fields,images ')
 			.then(res =>{
@@ -152,6 +153,8 @@ import axios from 'axios'
 					this.acceptPop = true
 
 					this.transId = res.data.id
+
+					this.$router.replace("/transactions")
 
 				})
 
