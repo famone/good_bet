@@ -65,13 +65,17 @@
 				</div>
 
 
-				<div class="searchPanel" v-if="hidePanel">
-					<router-link tag="div" :to=" '/real-game/' + res.id.toString() " class="game-result" v-for="res in searchResults" @click="clearSearch()">
-						<img :src="res.images[0].url" @click="clearSearch()">
-						<p class="small-white" @click="clearSearch()">{{res.name}}</p>
-					</router-link>
+				<div class="searchPanel" v-if="showSearchPanel">
+          <div v-if="haveSearchResult">
+            <router-link tag="div" :to=" gameSearchRoute() + res.id.toString() " class="game-result" v-for="res in searchResults" @click="clearSearch()">
+              <img :src="res.images[0].url" @click="clearSearch()">
+              <p class="small-white" @click="clearSearch()">{{res.name}}</p>
+            </router-link>
+          </div>
+          <div v-if="!haveSearchResult">
+            <p class="small-white" @click="clearSearch()">Not found</p>
+          </div>
 				</div>
-
 
 
 			</div>
@@ -94,13 +98,12 @@ export default{
           })
 				}
 			},
-			hidePanel(){
-				if(this.search === ''){
-					return false
-				}else{
-					return true
-				}
-			}
+			showSearchPanel(){
+				return this.search !== '';
+      },
+      haveSearchResult(){
+        return this.searchResults.length > 0;
+      }
 		},
 		methods: {
 			logOut(){
@@ -124,8 +127,15 @@ export default{
           this.searchResults = res.data
 				})
 			},
+      gameSearchRoute(){
+			  if(this.player){
+			    return '/real-game/'
+        }
+        return '/demo-game/'
+      },
 			clearSearch(){
 				this.search = ''
+        this.searchResults = []
 			}
 		},
 		data(){
