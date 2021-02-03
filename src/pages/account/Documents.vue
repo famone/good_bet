@@ -96,6 +96,15 @@ export default {
     changeFile(e) {
       this.addedFile = event.target.files[0]
     },
+    documentType(){
+      API.get('player-uploads', {
+        params: {
+          expand: 'type'
+        }
+      }).then(res => {
+        this.documents = res.data
+      })
+    },
     applyDocs() {
 
 
@@ -114,22 +123,13 @@ export default {
 
       API.post('player-uploads', form2)
           .then(res => {
-            API.get('player-uploads?expand=type')
-                .then(res =>{
-                  this.documents = res.data
-                })
+           this.documentType()
             console.log(res)
           })
     }
   },
   created() {
-    API.get('player-uploads', {
-      params: {
-        expand: 'type'
-      }
-    }).then(res => {
-      this.documents = res.data
-    })
+    this.documentType()
 
     API.get('player-upload-types')
       .then(res => {

@@ -30,24 +30,24 @@
 
 						<br><br>
 
-						<h2>CREATE ACCOUNT</h2>
+            <div class="row" v-if="available">
+              <h2>CREATE ACCOUNT</h2>
 
-						<div class="row new-doc" v-if="available">
-							<div class="col-lg-4">
-								<select name="" id="" v-model="newAccountId">
-									<option v-for="av in available" :value="av.id">{{av.code}}</option>
-								</select>
-							</div>
-						</div>
+              <div class="row new-doc" >
+                <div class="col-lg-4">
+                  <select name="" id="" v-model="newAccountId">
+                    <option v-for="av in available" :value="av.id">{{av.code}}</option>
+                  </select>
+                </div>
+              </div>
 
-						<div class="row">
-							
-							<div class="col-lg-3">
-								<button class="save-btn" @click="createAccount">CREATE ACCOUNT</button>
-							</div>
-						</div>
+              <div class="row">
 
-
+                <div class="col-lg-3">
+                  <button class="save-btn" @click="createAccount">CREATE ACCOUNT</button>
+                </div>
+              </div>
+            </div>
 					</div>
 				</div>
 			</div>
@@ -66,6 +66,7 @@ import Navbar from '../../components/ui/Navbar.vue'
 import AcNav from '../../components/ui/AcNav.vue'
 import {mapGetters} from  'vuex'
 import axios from 'axios'
+import { API } from '../../api'
 
 	export default{
 		components: {Navbar, AcNav},
@@ -79,14 +80,24 @@ import axios from 'axios'
 			...mapGetters({ player: "auth/getPlayer"}),
 			getCurrentAccount(){
 				if(this.player){
-					let currentValute = this.player.accounts.find(item => {
+					let currentValue = this.player.accounts.find(item => {
 						return item.is_current == true
 					})
-					return currentValute
+					return currentValue
 				}
 			}
 		},
 		methods: {
+      getAvailableCurrency(){
+        API.get('payment-currencies', {
+          params: {
+            has_accounts: false,
+          }
+        }).then(res => {
+          console.log(res.data)
+          this.available = res.data
+        })
+      },
 			createAccount(){
 
 				if(this.newAccountId === ''){
@@ -95,25 +106,21 @@ import axios from 'axios'
 
 				let newAcc = {currency_id: this.newAccountId}
 
-				axios
-				.post('http://api.casinoplatform.site/v3/accounts', newAcc)
+				API
+				.post('accounts', newAcc)
 				.then(res =>{
 					console.log(res.data)
 					this.newAccountId = ''
 					this.$store.dispatch('auth/getUser')
+          this.getAvailableCurrency()
 				})
 
 
 			}
-		}, 
+		},
 		created(){
 			// доступные валюты
-			axios
-			.get('http://api.casinoplatform.site/v3/payment-currencies?has_accounts=false')
-			.then(res =>{
-				console.log(res.data)
-				this.available = res.data
-			})
+      this.getAvailableCurrency()
 		}
 	}
 
