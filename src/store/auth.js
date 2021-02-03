@@ -236,7 +236,7 @@ const auth = {
 			}
 
 
-			API.get(`accounts/${payload}`, currency)
+			API.patch(`accounts/${payload}`, currency)
 				.then(res => {
 					console.log(res.data)
 				})
