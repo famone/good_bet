@@ -8,7 +8,7 @@
         <div class="row">
           <AcNav/>
           <div class="col-lg-9">
-            <h2>DEPOSIT</h2>
+            <h2>{{ $t('pages.account.depositUpper') }}</h2>
             <div class="row">
 
               <div class="col-lg-12 text-center" v-if="!paymentMethods">
@@ -21,7 +21,9 @@
                   <img :src="pay.images[0].url" v-if="pay.images.length > 0">
                   <img src="../../assets/img/coin.svg" v-else="" class="logoimg">
                   <br>
-                  <button class="save-btn" @click="openPop(pay)">top up an account</button>
+                  <button class="save-btn" @click="openPop(pay)">
+                    {{ $t('pages.account.depositTopUpButtonText') }}
+                  </button>
                 </div>
                 <h4>{{ pay.name }}</h4>
               </div>
@@ -127,7 +129,7 @@ export default {
         callbacks: [
           {
             type: "success",
-            redirect_uri:  currentUrl + "/success"
+            redirect_uri: currentUrl + "/success"
           },
           {
             type: "fail",

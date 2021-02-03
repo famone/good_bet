@@ -19,7 +19,7 @@
             <div class="conection text-center" v-if="gameLauncher === '' ">
               <br><br>
               <img alt="loading" src="../assets/img/icons/nv6.svg" class="spin">
-              <p class="white-txt">Connecting</p>
+              <p class="white-txt">{{ $t('games.connecting') }}</p>
               <br><br>
             </div>
             <div class="game-louncher" v-else>

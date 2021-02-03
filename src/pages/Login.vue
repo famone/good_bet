@@ -56,18 +56,18 @@ export default {
       }
 
       API.post('oauth2/token', userLog, config)
-        .then(response => {
-          let tokenEntity = {
-            userToken: response.data.access_token,
-            timestamp: new Date().getTime()
-          }
+          .then(response => {
+            let tokenEntity = {
+              userToken: response.data.access_token,
+              timestamp: new Date().getTime()
+            }
 
-          localStorage.setItem("userToken", JSON.stringify(tokenEntity));
+            localStorage.setItem("userToken", JSON.stringify(tokenEntity));
 
-          this.$store.dispatch('auth/getUser')
-        }).then(() => {
-          this.$router.replace("/profile");
-        });
+            this.$store.dispatch('auth/getUser')
+          }).then(() => {
+        this.$router.replace("/profile");
+      });
 
 
     }

@@ -3,9 +3,9 @@
     <mainSlider/>
 
     <Navbar/>
-    <gamesRow :gamesArr="popularGames" :titleRow="'POPULAR GAMES'" :link=" '/game-groups/115' "/>
-    <gamesRow :gamesArr="slotsGames" :titleRow="'SLOTS'" :link=" '/game-groups/126' "/>
-    <gamesRow :gamesArr="recommendedGames" :titleRow="'RECOMMENDED'" :link=" '/game-groups/124' "/>
+    <gamesRow :gamesArr="popularGames" :titleRow="$t('home.popularGames')" :link=" '/game-groups/115' "/>
+    <gamesRow :gamesArr="slotsGames" :titleRow="$t('home.slots')" :link=" '/game-groups/126' "/>
+    <gamesRow :gamesArr="recommendedGames" :titleRow="$t('home.recommended')" :link=" '/game-groups/124' "/>
     <newsRow/>
     <Banner/>
     <About/>

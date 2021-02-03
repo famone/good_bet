@@ -6,7 +6,7 @@
 
 
 					<h2><!-- <img src="../assets/img/icons/nv3.svg" alt=""> -->{{titleRow}}</h2>
-					<router-link class="see-all" tag="button" :to="link">See all <img src="../assets/img/see.svg" alt=""></router-link>
+					<router-link class="see-all" tag="button" :to="link">{{ $t('games.seeAllLinkTitle')}}<img src="../assets/img/see.svg" alt=""></router-link>
 				</div>
 
 				<div class="row" v-if="gamesArr">

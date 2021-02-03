@@ -13,13 +13,13 @@
               </div>
 
               <div class="text-center" v-else-if="gamesArr.length < 1">
-                <h3>Oops, No games yet!</h3>
+                <h3>{{ $t('games.noGamesTextInList') }}</h3>
               </div>
               <gameBox v-for="game in gamesArr" :game="game" v-else/>
             </div>
 
             <scroll-loader :loader-method="getGameList" :loader-disable="disableAutoloading">
-              <div>Loading...</div>
+              <div>{{ $t('main.loading') }}</div>
             </scroll-loader>
 
 

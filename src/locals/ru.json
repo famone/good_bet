@@ -4,9 +4,9 @@
     "about": "О нас",
     "faq": "FAQ",
     "news": "Новости",
-    "recommended": "Рекомендованнные",
     "bonuses": "Бонусы",
     "responsibleGames": "Ответственная игра",
+    "recommended": "Рекомендованнные",
     "new": "Новые",
     "popular": "Популярные",
     "slots": "Слоты",
@@ -15,7 +15,17 @@
     "card": "Карты",
     "virtualSport": "Виртуальный Спорт",
     "loto": "Лото",
-    "tableGames": "Настольные игры"
+    "tableGames": "Настольные игры",
+    "date": "Дата",
+    "amount": "Сумма",
+    "status": "Статус",
+    "cancelUPPER": "ОТМЕНИТЬ",
+    "acceptUPPER": "ПРИНЯТЬ",
+    "approved": "одобрено",
+    "denied": "откланено",
+    "pending": "ожидание",
+    "goHomeLink": "Перейти на главную",
+    "loading": "Загрузка..."
   },
   "myProfile": {
     "myProfile": "Мой профиль",
@@ -38,16 +48,28 @@
     "developedBy": "разработано - casinoplatform."
   },
   "games": {
-    "noGamesTextInList": "Оппа, тут нет игр"
+    "noGamesTextInList": "Оппа, тут нет игр",
+    "connecting": "Соединение",
+    "seeAllLinkTitle": "Еще"
   },
   "pages": {
     "account": {
+      "accountsUPPER": "СЧЕТА",
       "createAccount": "СОЗДАТЬ ПРОФИЛЬ",
       "changeAccount": "Изменить профиль",
       "depositMoney": "Ввести деньги",
+      "depositUpper": "ДЕПОЗИТ",
       "applyDocuments": "Отправить документы",
       "addDocuments": "Добавить документ",
       "documents": "Документы",
+      "transactions": "транзакции",
+      "deposit": "Депозит",
+      "depositTopUpButtonText": "Пополнить",
+      "withdrawalUpper": "ВЫВОД",
+      "withdrawal": "Вывод",
+      "withdrawalMoney": "Вывести деньги",
+      "withdrawalMoneyUpper": "ВЫВЕСТИ ДЕНЬГИ",
+      "withdrawConfirmText": "<p class=\"white-txt\">Вы подтверждаете вывод: %{amount} <br>\nС коммисией: 0</p>",
       "profile": {
         "editAvatar": "Изминить аватар",
         "nickname": "Никнейм",
@@ -66,5 +88,20 @@
         "saveButtonTitle": "СОХРАНИТЬ"
       }
     }
+  },
+  "404": {
+    "errorTitle": "Страница не существует"
+  },
+  "failed": {
+    "failDescription": "ОШИБКА В ТРАНЗАКЦИИ"
+  },
+  "success": {
+    "successDescription": "ТРАНЗАКЦИЯ УСПЕШНА",
+    "goToTransactionsLink": "В список транзакции"
+  },
+  "home": {
+    "popularGames": "Популярные игры",
+    "slots": "Слот машины",
+    "recommended": "Рекамендовано вам"
   }
 }

@@ -8,7 +8,7 @@
 				<div class="row">
 					<AcNav />
 					<div class="col-lg-9">
-						<h2>ACCOUNTS</h2>
+						<h2>{{ $t('pages.account.accountsUPPER') }}</h2>
 
 						<div class="row">
 							<div class="col-lg-12 text-center" v-if="!player.accounts">
@@ -31,7 +31,7 @@
 						<br><br>
 
             <div class="row" v-if="available">
-              <h2>CREATE ACCOUNT</h2>
+              <h2>{{ $t('pages.account.createAccount') }}</h2>
 
               <div class="row new-doc" >
                 <div class="col-lg-4">

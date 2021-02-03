@@ -15,7 +15,17 @@
     "card": "Card",
     "virtualSport": "Virtual Sport",
     "loto": "Loto",
-    "tableGames": "Table Games"
+    "tableGames": "Table Games",
+    "date": "Date",
+    "amount": "Amount",
+    "status": "Status",
+    "cancelUPPER": "CANCEL",
+    "acceptUPPER": "ACCEPT",
+    "approved": "approved",
+    "denied": "denied",
+    "pending": "pending",
+    "goHomeLink": "Go to home page",
+    "loading": "Loading..."
   },
   "myProfile": {
     "myProfile": "My profile",
@@ -31,22 +41,35 @@
     "needAnyHelp": "NEED ANY HELP?"
   },
   "navbar": {
+
   },
   "footer": {
     "slogan": "it’s always a good <span>bet</span><br>with GoodBet",
     "developedBy": "developed by - casinoplatform."
   },
   "games": {
-    "noGamesTextInList": "Oops, No games yet!"
+    "noGamesTextInList": "Oops, No games yet!",
+    "connecting": "Connecting",
+    "seeAllLinkTitle": "See All"
   },
   "pages": {
     "account": {
+      "accountsUPPER": "ACCOUNTS",
       "createAccount": "CREATE ACCOUNT",
       "changeAccount": "Change Account",
       "depositMoney": "DEPOSIT MONEY",
+      "depositUpper": "DEPOSIT",
       "applyDocuments": "APPLY DOCUMENT",
       "addDocuments": "ADD DOCUMENT",
       "documents": "DOCUMENTS",
+      "transactions": "transactions",
+      "deposit": "Deposit",
+      "depositTopUpButtonText": "top up an account",
+      "withdrawalUpper": "WITHDRAWAL",
+      "withdrawal": "Withdrawal",
+      "withdrawalMoney": "Withdrawal money",
+      "withdrawalMoneyUpper": "WITHDRAWAL MONEY",
+      "withdrawConfirmText": "<p class=\"white-txt\">Do you confirm withdraw: %{amount} <br>\nWith fee: 0</p>",
       "profile": {
         "editAvatar": "Edit avatar",
         "nickname": "Nickname",
@@ -65,5 +88,20 @@
         "saveButtonTitle": "SAVE"
       }
     }
+  },
+  "404": {
+    "errorTitle": "UNDER CONSTRUCTION"
+  },
+  "failed": {
+    "failDescription": "FAILED TRANSACTION"
+  },
+  "success": {
+    "successDescription": "TRANSACTION SUCCESSFUL",
+    "goToTransactionsLink": "Go to transactions"
+  },
+  "home": {
+    "popularGames": "POPULAR GAMES",
+    "slots": "SLOTS",
+    "recommended": "RECOMMENDED"
   }
 }
