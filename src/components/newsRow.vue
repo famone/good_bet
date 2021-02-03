@@ -6,7 +6,7 @@
 				    	<div class="news-card">
 				    		<div class="news-img">
 				    			<div class="read-news">
-				    				<router-link tag="div" to="/news" class="read-btn">
+				    				<router-link tag="div" :to="'/news/' + item.id" class="read-btn">
 				    					<img src="../assets/img/see.svg" alt="">
 				    				</router-link>
 				    			</div>

@@ -64,6 +64,16 @@
 					</router-link>
 				</div>
 
+
+				<div class="searchPanel" v-if="hidePanel">
+					<router-link tag="div" :to=" '/real-game/' + res.id.toString() " class="game-result" v-for="res in searchResults" @click="clearSearch()">
+						<img :src="res.images[0].url" @click="clearSearch()">
+						<p class="small-white" @click="clearSearch()">{{res.name}}</p>
+					</router-link>
+				</div>
+
+
+
 			</div>
 		</div>
 	</header>
@@ -84,6 +94,13 @@ import axios from 'axios'
 					})
 					return currentValute
 				}
+			},
+			hidePanel(){
+				if(this.search === ''){
+					return false
+				}else{
+					return true
+				}
 			}
 		},
 		methods: {
@@ -98,17 +115,20 @@ import axios from 'axios'
 				this.$store.dispatch('auth/changeAccount', valuteCode)
 			},
 			searchMethod(){
-				
 				axios
 				.get(`http://api.casinoplatform.site/v3/games?expand=images&=1&q=${this.search}`) 
 				.then(res =>{
-					console.log(res.data)
+					this.searchResults = res.data
 				})
+			},
+			clearSearch(){
+				this.search = ''
 			}
 		},
 		data(){
 			return{
 				search: '',
+				searchResults: [],
 				stickyHeader: false,
 				menuLinks: [
 					{

@@ -14,12 +14,15 @@
 					<h3>{{game.name}}</h3>
 					<p class="grey-txt">Slot games</p>
 				</div>
-				<div class="like" @click="like(game.id)" v-if="!game.is_favorite">
-					<img src="../../assets/img/like.svg" alt="">
+				<div v-if="player">
+					<div class="like" @click="like(game.id)" v-if="!game.is_favorite">
+						<img src="../../assets/img/like.svg" alt="">
+					</div>
+					<div class="like-full" @click="unLike(game.id)" v-else>
+						<img src="../../assets/img/likefull.svg" alt="">
+					</div>
 				</div>
-				<div class="like-full" @click="unLike(game.id)" v-else>
-					<img src="../../assets/img/likefull.svg" alt="">
-				</div>
+				
 			</div>
 		</div>
 	</div>

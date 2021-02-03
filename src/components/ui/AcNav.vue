@@ -33,6 +33,11 @@
 							icon: require('../../assets/img/icons/pr3.svg')
 						},
 						{
+							text: 'Accounts',
+							link: '/accounts',
+							icon: require('../../assets/img/coins.svg')
+						},
+						{
 							text: 'Transactions',
 							link: '/transactions',
 							icon: require('../../assets/img/icons/pr4.svg')

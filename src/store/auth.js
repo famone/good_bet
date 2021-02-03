@@ -176,7 +176,7 @@ const auth = {
 	        axios
 			.get('http://api.casinoplatform.site/v3/faq-items')
 			.then(res => {
-				// console.log(res.data) 
+				console.log(res.data) 
 				commit('SET_FAQ', res.data)
 			})
 

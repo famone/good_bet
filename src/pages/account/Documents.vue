@@ -17,10 +17,18 @@
 							<div class="col-lg-3" v-else v-for="doc in documents">
 								<div class="document-box text-center">
 									<div class="text-center">
-										{{doc}}
+
+
+										<a class="download-link" target="_blank" :href="doc.file_preview">Download document</a>
 										<p class="white-txt">{{doc.type.value}}</p>
-										<!-- <p v-if="avilable" class="white-txt">{{getDocName(doc.id)}}</p> -->
-										<div class="add-doc"></div>
+										<img src="../../assets/img/success.svg" class="status-icon" 
+										v-if="doc.status === 'verified' ">
+										<img src="../../assets/img/new.svg" class="status-icon" 
+										v-if="doc.status === 'new' ">
+										<img src="../../assets/img/progress.svg" class="status-icon" 
+										v-if="doc.status === 'in_progress' ">
+										<img src="../../assets/img/declined.svg" class="status-icon" 
+										v-if="doc.status === 'declined' ">
 									</div>
 								</div>
 							</div>
@@ -44,7 +52,7 @@
 						<div class="row">
 							
 							<div class="col-lg-3">
-								<button class="save-btn" @click="applyDocs">APPLY DOCUMENTS</button>
+								<button class="save-btn" @click="applyDocs">APPLY DOCUMENT</button>
 							</div>
 						</div>
 
@@ -106,12 +114,18 @@ import axios from 'axios'
 				for (var field in emailBody){
 					form2.append(field, emailBody[field]);
 				};
+
+				this.documents = null
 			
 				
 				axios
 				.post('http://api.casinoplatform.site/v3/player-uploads', form2)
 				.then(res =>{
-					console.log(res)
+					axios
+					.get('http://api.casinoplatform.site/v3/player-uploads?expand=type')
+					.then(res =>{
+						this.documents = res.data
+					})
 				})
 			}
 		}, 
@@ -120,6 +134,7 @@ import axios from 'axios'
 			.get('http://api.casinoplatform.site/v3/player-uploads?expand=type')
 			.then(res =>{
 				this.documents = res.data
+				console.log(this.documents)
 			})
 
 			axios
