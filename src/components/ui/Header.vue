@@ -64,6 +64,16 @@
 					</router-link>
 				</div>
 
+
+				<div class="searchPanel" v-if="hidePanel">
+					<router-link tag="div" :to=" '/real-game/' + res.id.toString() " class="game-result" v-for="res in searchResults" @click="clearSearch()">
+						<img :src="res.images[0].url" @click="clearSearch()">
+						<p class="small-white" @click="clearSearch()">{{res.name}}</p>
+					</router-link>
+				</div>
+
+
+
 			</div>
 		</div>
 	</header>
@@ -82,6 +92,13 @@ export default{
           return this.player.accounts.find(item => {
             return item.is_current == true
           })
+				}
+			},
+			hidePanel(){
+				if(this.search === ''){
+					return false
+				}else{
+					return true
 				}
 			}
 		},
@@ -104,13 +121,17 @@ export default{
             q: this.search
           }
         }).then(res =>{
-					console.log(res.data)
+          this.searchResults = res.data
 				})
+			},
+			clearSearch(){
+				this.search = ''
 			}
 		},
 		data(){
 			return{
 				search: '',
+				searchResults: [],
 				stickyHeader: false,
 				menuLinks: [
 					{
@@ -143,7 +164,7 @@ export default{
 			window.addEventListener('scroll', ()=>{
 				let winScroll = document.documentElement.scrollTop;
 
-				this.stickyHeader = winScroll > 5;
+				this.stickyHeader = (winScroll > 5);
 			})
 		}
 	}

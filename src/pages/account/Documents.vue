@@ -10,21 +10,29 @@
           <div class="col-lg-9">
             <h2>DOCUMENTS</h2>
 
-            <div class="row">
-              <div class="col-lg-12 text-center" v-if="!documents">
-                <img src="../../assets/img/icons/nv6.svg" class="spin">
-              </div>
-              <div class="col-lg-3" v-else v-for="doc in documents">
-                <div class="document-box text-center">
-                  <div class="text-center">
-                    {{ doc }}
-                    <p class="white-txt">{{ doc.type.value }}</p>
-                    <!-- <p v-if="avilable" class="white-txt">{{getDocName(doc.id)}}</p> -->
-                    <div class="add-doc"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+						<div class="row">
+							<div class="col-lg-12 text-center" v-if="!documents">
+								<img src="../../assets/img/icons/nv6.svg" class="spin">
+							</div>
+							<div class="col-lg-3" v-else v-for="doc in documents">
+								<div class="document-box text-center">
+									<div class="text-center">
+
+
+										<a class="download-link" target="_blank" :href="doc.file_preview">Download document</a>
+										<p class="white-txt">{{doc.type.value}}</p>
+										<img src="../../assets/img/success.svg" class="status-icon"
+										v-if="doc.status === 'verified' ">
+										<img src="../../assets/img/new.svg" class="status-icon"
+										v-if="doc.status === 'new' ">
+										<img src="../../assets/img/progress.svg" class="status-icon"
+										v-if="doc.status === 'in_progress' ">
+										<img src="../../assets/img/declined.svg" class="status-icon"
+										v-if="doc.status === 'declined' ">
+									</div>
+								</div>
+							</div>
+						</div>
 
             <br><br>
 
@@ -41,12 +49,12 @@
               </div>
             </div>
 
-            <div class="row">
-
-              <div class="col-lg-3">
-                <button class="save-btn" @click="applyDocs">APPLY DOCUMENTS</button>
-              </div>
-            </div>
+						<div class="row">
+							
+							<div class="col-lg-3">
+								<button class="save-btn" @click="applyDocs">APPLY DOCUMENT</button>
+							</div>
+						</div>
 
 
           </div>
@@ -106,12 +114,16 @@ export default {
 
       API.post('player-uploads', form2)
           .then(res => {
+            API.get('player-uploads?expand=type')
+                .then(res =>{
+                  this.documents = res.data
+                })
             console.log(res)
           })
     }
   },
   created() {
-    API.get('player-uploads?expand=type', {
+    API.get('player-uploads', {
       params: {
         expand: 'type'
       }

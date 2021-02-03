@@ -18,7 +18,9 @@ import Transactions from '../pages/account/Transactions.vue'
 import Deposit from '../pages/account/Deposit.vue'
 import Failed from '../pages/Failed.vue'
 import Succed from '../pages/Succed.vue'
+import Favorite from '../pages/account/Favorite.vue'
 import Documents from '../pages/account/Documents.vue'
+import Accounts from '../pages/account/Accounts.vue'
 
 const routes = [
 		{
@@ -56,6 +58,10 @@ const routes = [
 		{
 			path: '/news',
 			component: News
+		},
+		{
+			path: '/favorite',
+			component: Favorite
 		},
 		{
 			path: '/news/:id',
@@ -111,10 +117,6 @@ const routes = [
 			component: Withdrawal,
 			beforeEnter: (to, from, next) => {
 
-				console.log(store.getters["auth/getAuthenticated"])
-
-				
-
 				if(store.getters["auth/getAuthenticated"]){
 					next()
 				}else{
@@ -132,10 +134,6 @@ const routes = [
 			path: '/deposit',
 			component: Deposit,
 			beforeEnter: (to, from, next) => {
-
-				console.log(store.getters["auth/getAuthenticated"])
-
-				
 
 				if(store.getters["auth/getAuthenticated"]){
 					next()
@@ -155,9 +153,23 @@ const routes = [
 			component: Documents,
 			beforeEnter: (to, from, next) => {
 
-				console.log(store.getters["auth/getAuthenticated"])
-
+				if(store.getters["auth/getAuthenticated"]){
+					next()
+				}else{
+					if (to.path != "/enter") {
+						next("/enter")
+					}
+					else {
+						next()
+					}
+				}
 				
+			}
+		},
+		{
+			path: '/accounts',
+			component: Accounts,
+			beforeEnter: (to, from, next) => {
 
 				if(store.getters["auth/getAuthenticated"]){
 					next()
@@ -176,11 +188,7 @@ const routes = [
 			path: '/transactions',
 			component: Transactions,
 			beforeEnter: (to, from, next) => {
-
-				console.log(store.getters["auth/getAuthenticated"])
-
 				
-
 				if(store.getters["auth/getAuthenticated"]){
 					next()
 				}else{
