@@ -9,6 +9,9 @@
 </template>
 
 <script>
+import {API} from "../../api";
+import {LangConfig, LangParams} from "../../lang";
+
 export default {
   data () {
     return {
@@ -17,19 +20,8 @@ export default {
   },
   methods: {
     switchLocale(locale) {
-      console.log(this.$root.$i18n.locale);
-      if (this.$root.$i18n.locale !== locale) {
-        this.$root.$i18n.locale = locale;
-      }
+      LangConfig.setAcceptLanguageInApiHeader(locale)
     }
   },
 }
 </script>
-
-<style scoped>
-li {
-  text-decoration: underline;
-  color: #459CE7;
-  cursor: pointer;
-}
-</style>

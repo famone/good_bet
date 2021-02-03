@@ -7,7 +7,7 @@
 				<img src="../assets/img/blur-pastic.svg" class="blur-plastic">
 
 				<swiper ref="mySwiper" :options="swiperOptions">
-		    		<swiper-slide v-for="item in slider">
+		    		<swiper-slide v-for="item in slider" v-bind:key="item.id">
 			    		<div class="slider-banner" :style="{'background-image': 'url(' + item.image.url + ')'}">
 			    		</div>
 		    		</swiper-slide>

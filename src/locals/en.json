@@ -1,4 +1,34 @@
 {
+  "main": {
+    "casinoName": "GoodBet",
+    "about": "About",
+    "faq": "FAQ",
+    "news": "News",
+    "bonuses": "Bonuses",
+    "responsibleGames": "Responsible Games",
+    "recommended": "Recommended",
+    "new": "New",
+    "popular": "Popular",
+    "slots": "Slots",
+    "liveGame": "Live Game",
+    "roulette": "Roulette",
+    "card": "Card",
+    "virtualSport": "Virtual Sport",
+    "loto": "Loto",
+    "tableGames": "Table Games",
+    "date": "Date",
+    "amount": "Amount",
+    "status": "Status",
+    "cancelUPPER": "CANCEL",
+    "acceptUPPER": "ACCEPT",
+    "approved": "approved",
+    "denied": "denied",
+    "pending": "pending",
+    "goHomeLink": "Go to home page",
+    "loading": "Loading...",
+    "loginUPPER": "LOGIN",
+    "registerUPPER": "REGISTRATION"
+  },
   "myProfile": {
     "myProfile": "My profile",
     "deposit": "Deposit",
@@ -13,15 +43,77 @@
     "needAnyHelp": "NEED ANY HELP?"
   },
   "navbar": {
-    "recommended": "Recommended",
-    "new": "New",
-    "popular": "Popular",
-    "slots": "Slots",
-    "live game": "Live game",
-    "roulette": "Roulette",
-    "card": "Card",
-    "virtualSport": "Virtual Sport",
-    "loto": "Loto",
-    "tabletGames": "Tablet Games"
+
+  },
+  "footer": {
+    "slogan": "it’s always a good <span>bet</span><br>with GoodBet",
+    "developedBy": "developed by - casinoplatform."
+  },
+  "games": {
+    "noGamesTextInList": "Oops, No games yet!",
+    "connecting": "Connecting",
+    "seeAllLinkTitle": "See All",
+    "gamesUPPER": "GAMES",
+    "gamesSearchFieldTitle": "Game name"
+  },
+  "pages": {
+    "account": {
+      "accountsUPPER": "ACCOUNTS",
+      "createAccount": "CREATE ACCOUNT",
+      "changeAccount": "Change Account",
+      "depositMoney": "DEPOSIT MONEY",
+      "depositUpper": "DEPOSIT",
+      "applyDocuments": "APPLY DOCUMENT",
+      "addDocuments": "ADD DOCUMENT",
+      "documents": "DOCUMENTS",
+      "transactions": "transactions",
+      "deposit": "Deposit",
+      "depositTopUpButtonText": "top up an account",
+      "withdrawalUpper": "WITHDRAWAL",
+      "withdrawal": "Withdrawal",
+      "withdrawalMoney": "Withdrawal money",
+      "withdrawalMoneyUpper": "WITHDRAWAL MONEY",
+      "withdrawConfirmText": "<p class=\"white-txt\">Do you confirm withdraw: %{amount} <br>\nWith fee: 0</p>",
+      "profile": {
+        "editAvatar": "Edit avatar",
+        "nickname": "Nickname",
+        "email": "E-mail",
+        "login": "Login",
+        "name": "Name",
+        "lastName": "Last name",
+        "sex": "Sex",
+        "male": "male",
+        "female": "female",
+        "birthday": "Birthday",
+        "country": "Country",
+        "address": "Address",
+        "city": "City",
+        "timezone": "Timezone",
+        "saveButtonTitle": "SAVE"
+      }
+    }
+  },
+  "404": {
+    "errorTitle": "UNDER CONSTRUCTION"
+  },
+  "failed": {
+    "failDescription": "FAILED TRANSACTION"
+  },
+  "success": {
+    "successDescription": "TRANSACTION SUCCESSFUL",
+    "goToTransactionsLink": "Go to transactions"
+  },
+  "home": {
+    "popularGames": "POPULAR GAMES",
+    "slots": "SLOTS",
+    "recommended": "RECOMMENDED"
+  },
+  "login": {
+    "socialSignInTitle": "Sign in with your social network",
+    "email": "E-mail",
+    "password": "Password",
+    "rememberMe": "Remember Me",
+    "forgotPassword": "Forgot Password?",
+    "loginUPPER": "LOGIN"
   }
 }

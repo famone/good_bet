@@ -8,15 +8,15 @@
         <div class="row">
           <AcNav/>
           <div class="col-lg-9">
-            <h2>transactions</h2>
+            <h2>{{ $t('pages.account.transactions') }}</h2>
 
             <button class="switch-btn"
                     :class="{activeSwitch : switchDepo}"
-                    @click="changeDepo(true)">Deposit
+                    @click="changeDepo(true)">{{ $t('pages.account.deposit') }}
             </button>
             <button class="switch-btn"
                     :class="{activeSwitch : !switchDepo}"
-                    @click="changeDepo(false)">Withdrawal
+                    @click="changeDepo(false)">{{ $t('pages.account.withdrawal') }}
             </button>
 
             <!-- depo -->
@@ -26,9 +26,9 @@
                 <table>
                   <thead>
                   <tr>
-                    <td>Date</td>
-                    <td>Amount</td>
-                    <td>Status</td>
+                    <td>{{ $t('main.date') }}</td>
+                    <td>{{ $t('main.amount') }}</td>
+                    <td>{{ $t('main.status') }}</td>
                   </tr>
                   </thead>
                   <tbody>
@@ -40,7 +40,7 @@
                       }}:{{ new Date(dep.time_create_as_iso8601).getMinutes() }}
                     </td>
                     <td>{{ dep.amount_as_currency }}</td>
-                    <td>{{ dep.status }}</td>
+                    <td>{{ $t('main.' + dep.status) }}</td>
                   </tr>
                   </tbody>
                 </table>
@@ -55,9 +55,9 @@
                 <table>
                   <thead>
                   <tr>
-                    <td>Date</td>
-                    <td>Amount</td>
-                    <td>Status</td>
+                    <td>{{ $t('main.date') }}</td>
+                    <td>{{ $t('main.amount') }}</td>
+                    <td>{{ $t('main.status') }}</td>
                   </tr>
                   </thead>
                   <tbody>
@@ -69,7 +69,7 @@
                       }}:{{ new Date(dep.time_create_as_iso8601).getMinutes() }}
                     </td>
                     <td>{{ dep.amount_as_currency }}</td>
-                    <td>{{ dep.status }}</td>
+                    <td>{{ $t('main.' + dep.status) }}</td>
                   </tr>
                   </tbody>
                 </table>

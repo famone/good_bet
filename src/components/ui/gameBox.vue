@@ -12,7 +12,7 @@
       <div class="game-body">
         <div>
           <h3>{{ game.name }}</h3>
-          <p class="grey-txt">Slot games</p>
+          <p class="grey-txt">{{ game.type.name }}</p>
         </div>
         <div v-if="player">
           <div class="like" @click="like(game.id)" v-if="!game.is_favorite">

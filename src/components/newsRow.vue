@@ -2,7 +2,7 @@
 	<section class="news-row">
 		<div class="row">
 				<swiper ref="mySwiper2" :options="swiperOptions" v-if="news">
-				    <swiper-slide v-for="item in news">
+				    <swiper-slide v-for="item in news" v-bind:key="item.id">
 				    	<div class="news-card">
 				    		<div class="news-img">
 				    			<div class="read-news">

@@ -8,35 +8,35 @@
         <div class="row">
           <AcNav/>
           <div class="col-lg-9">
-            <h2>DOCUMENTS</h2>
+            <h2>{{ $t('pages.account.documents') }}</h2>
 
-						<div class="row">
-							<div class="col-lg-12 text-center" v-if="!documents">
-								<img src="../../assets/img/icons/nv6.svg" class="spin">
-							</div>
-							<div class="col-lg-3" v-else v-for="doc in documents">
-								<div class="document-box text-center">
-									<div class="text-center">
+            <div class="row">
+              <div class="col-lg-12 text-center" v-if="!documents">
+                <img src="../../assets/img/icons/nv6.svg" class="spin">
+              </div>
+              <div class="col-lg-3" v-else v-for="doc in documents">
+                <div class="document-box text-center">
+                  <div class="text-center">
 
 
-										<a class="download-link" target="_blank" :href="doc.file_preview">Download document</a>
-										<p class="white-txt">{{doc.type.value}}</p>
-										<img src="../../assets/img/success.svg" class="status-icon"
-										v-if="doc.status === 'verified' ">
-										<img src="../../assets/img/new.svg" class="status-icon"
-										v-if="doc.status === 'new' ">
-										<img src="../../assets/img/progress.svg" class="status-icon"
-										v-if="doc.status === 'in_progress' ">
-										<img src="../../assets/img/declined.svg" class="status-icon"
-										v-if="doc.status === 'declined' ">
-									</div>
-								</div>
-							</div>
-						</div>
+                    <a class="download-link" target="_blank" :href="doc.file_preview">Download document</a>
+                    <p class="white-txt">{{ doc.type.value }}</p>
+                    <img src="../../assets/img/success.svg" class="status-icon"
+                         v-if="doc.status === 'verified' ">
+                    <img src="../../assets/img/new.svg" class="status-icon"
+                         v-if="doc.status === 'new' ">
+                    <img src="../../assets/img/progress.svg" class="status-icon"
+                         v-if="doc.status === 'in_progress' ">
+                    <img src="../../assets/img/declined.svg" class="status-icon"
+                         v-if="doc.status === 'declined' ">
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <br><br>
 
-            <h2>ADD DOCUMENT</h2>
+            <h2>{{ $t('pages.account.addDocument') }}</h2>
 
             <div class="row new-doc" v-if="avilable">
               <div class="col-lg-4">
@@ -49,12 +49,12 @@
               </div>
             </div>
 
-						<div class="row">
-							
-							<div class="col-lg-3">
-								<button class="save-btn" @click="applyDocs">APPLY DOCUMENT</button>
-							</div>
-						</div>
+            <div class="row">
+
+              <div class="col-lg-3">
+                <button class="save-btn" @click="applyDocs">{{ $t('pages.account.applyDocuments') }}</button>
+              </div>
+            </div>
 
 
           </div>
@@ -96,7 +96,7 @@ export default {
     changeFile(e) {
       this.addedFile = event.target.files[0]
     },
-    documentType(){
+    documentType() {
       API.get('player-uploads', {
         params: {
           expand: 'type'
@@ -123,7 +123,7 @@ export default {
 
       API.post('player-uploads', form2)
           .then(res => {
-           this.documentType()
+            this.documentType()
             console.log(res)
           })
     }
@@ -132,9 +132,9 @@ export default {
     this.documentType()
 
     API.get('player-upload-types')
-      .then(res => {
-        this.avilable = res.data
-      })
+        .then(res => {
+          this.avilable = res.data
+        })
   }
 }
 

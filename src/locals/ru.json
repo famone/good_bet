@@ -1,4 +1,34 @@
 {
+  "main": {
+    "casinoName": "GoodBet",
+    "about": "О нас",
+    "faq": "FAQ",
+    "news": "Новости",
+    "bonuses": "Бонусы",
+    "responsibleGames": "Ответственная игра",
+    "recommended": "Рекомендованнные",
+    "new": "Новые",
+    "popular": "Популярные",
+    "slots": "Слоты",
+    "liveGame": "Живые игры",
+    "roulette": "Рулетка",
+    "card": "Карты",
+    "virtualSport": "Виртуальный Спорт",
+    "loto": "Лото",
+    "tableGames": "Настольные игры",
+    "date": "Дата",
+    "amount": "Сумма",
+    "status": "Статус",
+    "cancelUPPER": "ОТМЕНИТЬ",
+    "acceptUPPER": "ПРИНЯТЬ",
+    "approved": "одобрено",
+    "denied": "откланено",
+    "pending": "ожидание",
+    "goHomeLink": "Перейти на главную",
+    "loading": "Загрузка...",
+    "loginUPPER": "ВОЙТИ",
+    "registerUPPER": "РЕГИСТРАЦИЯ"
+  },
   "myProfile": {
     "myProfile": "Мой профиль",
     "deposit": "Депозит",
@@ -13,15 +43,77 @@
     "needAnyHelp": "НУЖНА ПОМОЩЬ?"
   },
   "navbar": {
-    "recommended": "Рекомендованнные",
-    "new": "Новые",
-    "popular": "Популярные",
-    "slots": "Слоты",
-    "live game": "Живые игры",
-    "roulette": "Рулетка",
-    "card": "Карты",
-    "virtualSport": "Виртуальный Спорт",
-    "loto": "Лото",
-    "tabletGames": "Настольные игры"
+
+  },
+  "footer": {
+    "slogan": "Хорошо <span>играть</span><br>с GoodBet",
+    "developedBy": "разработано - casinoplatform."
+  },
+  "games": {
+    "noGamesTextInList": "Оппа, тут нет игр",
+    "connecting": "Соединение",
+    "seeAllLinkTitle": "Еще",
+    "gamesUPPER": "ИГРЫ",
+    "gamesSearchFieldTitle": "Название игры"
+  },
+  "pages": {
+    "account": {
+      "accountsUPPER": "СЧЕТА",
+      "createAccount": "СОЗДАТЬ ПРОФИЛЬ",
+      "changeAccount": "Изменить профиль",
+      "depositMoney": "Ввести деньги",
+      "depositUpper": "ДЕПОЗИТ",
+      "applyDocuments": "Отправить документы",
+      "addDocuments": "Добавить документ",
+      "documents": "Документы",
+      "transactions": "транзакции",
+      "deposit": "Депозит",
+      "depositTopUpButtonText": "Пополнить",
+      "withdrawalUpper": "ВЫВОД",
+      "withdrawal": "Вывод",
+      "withdrawalMoney": "Вывести деньги",
+      "withdrawalMoneyUpper": "ВЫВЕСТИ ДЕНЬГИ",
+      "withdrawConfirmText": "<p class=\"white-txt\">Вы подтверждаете вывод: %{amount} <br>\nС коммисией: 0</p>",
+      "profile": {
+        "editAvatar": "Изминить аватар",
+        "nickname": "Никнейм",
+        "email": "Почта",
+        "login": "Логин",
+        "name": "Имя",
+        "lastName": "Фамилия",
+        "sex": "Пол",
+        "male": "мужской",
+        "female": "женский",
+        "birthday": "День рождения",
+        "country": "Страна",
+        "address": "Адрес",
+        "city": "Город",
+        "timezone": "Часавой пояс",
+        "saveButtonTitle": "СОХРАНИТЬ"
+      }
+    }
+  },
+  "404": {
+    "errorTitle": "Страница не существует"
+  },
+  "failed": {
+    "failDescription": "ОШИБКА В ТРАНЗАКЦИИ"
+  },
+  "success": {
+    "successDescription": "ТРАНЗАКЦИЯ УСПЕШНА",
+    "goToTransactionsLink": "В список транзакции"
+  },
+  "home": {
+    "popularGames": "Популярные игры",
+    "slots": "Слот машины",
+    "recommended": "Рекамендовано вам"
+  },
+  "login": {
+    "socialSignInTitle": "Войти через социальные сети",
+    "email": "E-mail",
+    "password": "Пароль",
+    "rememberMe": "Запомнить меня",
+    "forgotPassword": "Забыли пороль?",
+    "loginUPPER": "ВОЙТИ"
   }
 }

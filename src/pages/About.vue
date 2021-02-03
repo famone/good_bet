@@ -5,7 +5,7 @@
     <section id="about">
       <div class="container">
         <div class="col-lg-6">
-          <h2 class="mb-30">KING’S CASINO</h2>
+          <h2 class="mb-30">{{ $t('main.casinoName') }}</h2>
           <p class="white-txt">Welcome to Rajbet ! You've just found a place where you can not only bet on all your
             favorite games in one place whenever you like, but you can also take advantage of plenty of top promotions,
             bonuses and other perks along the way.

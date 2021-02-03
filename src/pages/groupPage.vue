@@ -13,13 +13,13 @@
               </div>
 
               <div class="text-center" v-else-if="gamesArr.length < 1">
-                <h3>Oops, No games yet!</h3>
+                <h3>{{ $t('games.noGamesTextInList') }}</h3>
               </div>
-              <gameBox v-for="game in gamesArr" :game="game" v-else/>
+              <gameBox v-for="game in gamesArr" :game="game" v-bind:key="game.id" v-else/>
             </div>
 
-            <scroll-loader :loader-method="getGameList" :loader-disable="disableAutoloading">
-              <div>Loading...</div>
+            <scroll-loader :loader-method="getGameList" :loader-disable="disableAutoLoading">
+              <div>{{ $t('main.loading') }}</div>
             </scroll-loader>
 
 
@@ -45,10 +45,10 @@ export default {
   data() {
     return {
       gamesArr: [],
-      pageCount: 0,
+      pageCount: 1,
       page: 1,
       loader: true,
-      disableAutoloading: false
+      disableAutoLoading: false
     }
   },
   created() {
@@ -70,7 +70,7 @@ export default {
           page: ++this.page
         }
       }).then(res => {
-        this.disableAutoloading = this.pageCount === this.page;
+        this.disableAutoLoading = this.pageCount <= this.page;
         this.gamesArr = [...this.gamesArr, ...res.data];
       }).catch(error => {
         console.log(error);
@@ -79,7 +79,7 @@ export default {
     updateDynPage() {
       this.gamesArr = []
       this.loader = true
-      this.pageCount = 0
+      this.pageCount = 1
       this.page = 1
       API.get('games', {
         params: {
@@ -90,7 +90,7 @@ export default {
     },
     _resCallback(res) {
       this.pageCount = parseInt(res.headers['x-pagination-page-count'])
-      this.disableAutoloading = this.pageCount = this.page;
+      this.disableAutoLoading = this.pageCount <= this.page;
       this.gamesArr = res.data
       this.loader = false
     },
