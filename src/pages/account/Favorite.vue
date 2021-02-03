@@ -43,11 +43,10 @@ export default {
   created() {
     API.get('games', {
       params: {
-        expand: 'images',
+        expand: 'images, launch_types',
         favorite: true
       }
     }).then(res => {
-      console.log(res.data)
       this.gamesArr = res.data
       this.loader = false
     })

@@ -4,7 +4,7 @@
 			<div class="navbar-box" @click="chDynamicly($emit)">
 				<router-link tag="div" :to=" '/game-groups/' + item.id" class="navbar-btn text-center" v-for="(item, index) in categories">
 					<img :src="item.icon" alt="">
-					<p class="small-white">{{item.name}}</p>
+					<p class="small-white">{{ $t(item.name) }}</p>
 				</router-link>
 			</div>
 		</div>
@@ -29,52 +29,52 @@ import {mapGetters} from 'vuex'
 			return{
 				categories: [
 						{
-							name: 'Recommended',
+							name: 'navbar.recommended',
 							id: 124,
 							icon: require('../../assets/img/icons/nv1.svg')
 						},
 						{
-							name: 'New',
+							name: 'navbar.new',
 							id: 125,
 							icon: require('../../assets/img/icons/nv2.svg')
 						},
 						{
-							name: 'Popular',
+							name: 'navbar.popular',
 							id: 115,
 							icon: require('../../assets/img/icons/nv3.svg')
 						},
 						{
-							name: 'Slots',
+							name: 'navbar.slots',
 							id: 126,
 							icon: require('../../assets/img/icons/nv4.svg')
 						},
 						{
-							name: 'Live game',
+							name: 'navbar.live game',
 							id: 127,
 							icon: require('../../assets/img/icons/nv5.svg')
 						},
 						{
-							name: 'Roulette',
+							name: 'navbar.roulette',
 							id: 128,
 							icon: require('../../assets/img/icons/nv6.svg')
 						},
 						{
-							name: 'Card',
+							name: 'navbar.card',
 							id: 129,
 							icon: require('../../assets/img/icons/nv7.svg')
 						},
 						{
-							name: 'Virtual sport',
+							name: 'navbar.virtualSport',
 							id: 130,
 							icon: require('../../assets/img/icons/nv8.svg')
 						},
 						{
-							name: 'Loto',
+							name: 'navbar.loto',
 							id: 131,
 							icon: require('../../assets/img/icons/nv9.svg')
 						},
 						{
-							name: 'Tablet Games',
+							name: 'navbar.tabletGames',
 							id: 132,
 							icon: require('../../assets/img/icons/nv10.svg')
 						},
