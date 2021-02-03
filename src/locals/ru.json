@@ -1,4 +1,22 @@
 {
+  "main": {
+    "casinoName": "GoodBet",
+    "about": "О нас",
+    "faq": "FAQ",
+    "news": "Новости",
+    "recommended": "Рекомендованнные",
+    "bonuses": "Бонусы",
+    "responsibleGames": "Ответственная игра",
+    "new": "Новые",
+    "popular": "Популярные",
+    "slots": "Слоты",
+    "liveGame": "Живые игры",
+    "roulette": "Рулетка",
+    "card": "Карты",
+    "virtualSport": "Виртуальный Спорт",
+    "loto": "Лото",
+    "tableGames": "Настольные игры"
+  },
   "myProfile": {
     "myProfile": "Мой профиль",
     "deposit": "Депозит",
@@ -13,15 +31,40 @@
     "needAnyHelp": "НУЖНА ПОМОЩЬ?"
   },
   "navbar": {
-    "recommended": "Рекомендованнные",
-    "new": "Новые",
-    "popular": "Популярные",
-    "slots": "Слоты",
-    "live game": "Живые игры",
-    "roulette": "Рулетка",
-    "card": "Карты",
-    "virtualSport": "Виртуальный Спорт",
-    "loto": "Лото",
-    "tabletGames": "Настольные игры"
+
+  },
+  "footer": {
+    "slogan": "Хорошо <span>играть</span><br>с GoodBet",
+    "developedBy": "разработано - casinoplatform."
+  },
+  "games": {
+    "noGamesTextInList": "Оппа, тут нет игр"
+  },
+  "pages": {
+    "account": {
+      "createAccount": "СОЗДАТЬ ПРОФИЛЬ",
+      "changeAccount": "Изменить профиль",
+      "depositMoney": "Ввести деньги",
+      "applyDocuments": "Отправить документы",
+      "addDocuments": "Добавить документ",
+      "documents": "Документы",
+      "profile": {
+        "editAvatar": "Изминить аватар",
+        "nickname": "Никнейм",
+        "email": "Почта",
+        "login": "Логин",
+        "name": "Имя",
+        "lastName": "Фамилия",
+        "sex": "Пол",
+        "male": "мужской",
+        "female": "женский",
+        "birthday": "День рождения",
+        "country": "Страна",
+        "address": "Адрес",
+        "city": "Город",
+        "timezone": "Часавой пояс",
+        "saveButtonTitle": "СОХРАНИТЬ"
+      }
+    }
   }
 }

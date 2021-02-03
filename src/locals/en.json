@@ -1,4 +1,22 @@
 {
+  "main": {
+    "casinoName": "GoodBet",
+    "about": "About",
+    "faq": "FAQ",
+    "news": "News",
+    "bonuses": "Bonuses",
+    "responsibleGames": "Responsible Games",
+    "recommended": "Recommended",
+    "new": "New",
+    "popular": "Popular",
+    "slots": "Slots",
+    "liveGame": "Live Game",
+    "roulette": "Roulette",
+    "card": "Card",
+    "virtualSport": "Virtual Sport",
+    "loto": "Loto",
+    "tableGames": "Table Games"
+  },
   "myProfile": {
     "myProfile": "My profile",
     "deposit": "Deposit",
@@ -13,15 +31,39 @@
     "needAnyHelp": "NEED ANY HELP?"
   },
   "navbar": {
-    "recommended": "Recommended",
-    "new": "New",
-    "popular": "Popular",
-    "slots": "Slots",
-    "live game": "Live game",
-    "roulette": "Roulette",
-    "card": "Card",
-    "virtualSport": "Virtual Sport",
-    "loto": "Loto",
-    "tabletGames": "Tablet Games"
+  },
+  "footer": {
+    "slogan": "it’s always a good <span>bet</span><br>with GoodBet",
+    "developedBy": "developed by - casinoplatform."
+  },
+  "games": {
+    "noGamesTextInList": "Oops, No games yet!"
+  },
+  "pages": {
+    "account": {
+      "createAccount": "CREATE ACCOUNT",
+      "changeAccount": "Change Account",
+      "depositMoney": "DEPOSIT MONEY",
+      "applyDocuments": "APPLY DOCUMENT",
+      "addDocuments": "ADD DOCUMENT",
+      "documents": "DOCUMENTS",
+      "profile": {
+        "editAvatar": "Edit avatar",
+        "nickname": "Nickname",
+        "email": "E-mail",
+        "login": "Login",
+        "name": "Name",
+        "lastName": "Last name",
+        "sex": "Sex",
+        "male": "male",
+        "female": "female",
+        "birthday": "Birthday",
+        "country": "Country",
+        "address": "Address",
+        "city": "City",
+        "timezone": "Timezone",
+        "saveButtonTitle": "SAVE"
+      }
+    }
   }
 }

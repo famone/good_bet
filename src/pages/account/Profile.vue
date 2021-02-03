@@ -17,7 +17,7 @@
                       <div class="avatar" v-else>
                         <span>{{ player.nickname.substr(0, 1) }}</span>
                       </div>
-                      <h4>Edit avatar</h4>
+                      <h4>{{ $t('pages.account.profile.editAvatar') }}</h4>
                     </div>
                     <!-- <input type="file" ref="file" @change="changeAvatar"> -->
                     <div class="edit-btn"></div>
@@ -25,64 +25,74 @@
                 </div>
               </div>
               <div class="col-lg-6">
-                <label for="">Nickname</label>
-                <input type="text" :value="player.nickname" @input="updateField($event)" data-field="nickname">
+                <label for="profile-nickname">{{ $t('pages.account.profile.nickname') }}</label>
+                <input id="profile-nickname" type="text" :value="player.nickname" @input="updateField($event)"
+                       data-field="nickname">
               </div>
               <div class="col-lg-6">
-                <label for="">E-mail</label>
-                <input type="text" :value="player.email" @input="updateField($event)" data-field="email">
+                <label for="profile-email">{{ $t('pages.account.profile.email') }}</label>
+                <input id="profile-email" type="text" :value="player.email" @input="updateField($event)"
+                       data-field="email">
               </div>
               <div class="col-lg-6">
-                <label for="">Login</label>
-                <input type="text" :value="player.username" @input="updateField($event)" data-field="username">
+                <label for="profile-login">{{ $t('pages.account.profile.login') }}</label>
+                <input id="profile-login" type="text" :value="player.username" @input="updateField($event)"
+                       data-field="username">
               </div>
               <div class="col-lg-6">
-                <label for="">Name</label>
-                <input type="text" :value="player.name" @input="updateField($event)" data-field="name">
+                <label for="profile-name">{{ $t('pages.account.profile.name') }}</label>
+                <input id="profile-name" type="text" :value="player.name" @input="updateField($event)"
+                       data-field="name">
               </div>
               <div class="col-lg-6">
-                <label for="">Last name</label>
-                <input type="text" :value="player.surname" @input="updateField($event)" data-field="surname">
+                <label for="profile-last-name">{{ $t('pages.account.profile.lastName') }}</label>
+                <input id="profile-last-name" type="text" :value="player.surname" @input="updateField($event)"
+                       data-field="surname">
               </div>
 
               <div class="col-lg-6">
-                <label for="">Sex</label>
-                <select name="" id="" v-model="player.gender" @input="updateField($event)" data-field="gender">
+                <label for="profile-sex">{{ $t('pages.account.profile.sex') }}</label>
+                <select name="" id="profile-sex" v-model="player.gender" @input="updateField($event)"
+                        data-field="gender">
                   <option value="null"></option>
-                  <option value="male">male</option>
-                  <option value="female">female</option>
+                  <option value="male">{{ $t('pages.account.profile.male') }}</option>
+                  <option value="female">{{ $t('pages.account.profile.female') }}</option>
                 </select>
               </div>
               <div class="col-lg-6">
-                <label for="">Birthday</label>
-                <input type="date" :value="player.birthdate" @input="updateField($event)"
+                <label for="profile-birthday">{{ $t('pages.account.profile.birthday') }}</label>
+                <input id="profile-birthday" type="date" :value="player.birthdate" @input="updateField($event)"
                        data-field="birthdate">
               </div>
               <div class="col-lg-6">
-                <label for="">Country</label>
-                <select name="" id="" v-model="player.country_id" @input="updateField($event)" data-field="country_id">
+                <label for="profile-country">{{ $t('pages.account.profile.country') }}</label>
+                <select id="profile-country" name="" v-model="player.country_id" @input="updateField($event)"
+                        data-field="country_id">
                   <option value=""></option>
                   <option :value="count.id" v-for="count in countries">{{ count.name }}</option>
                 </select>
               </div>
               <div class="col-lg-6">
-                <label for="">Address</label>
-                <input type="text" :value="player.address" @input="updateField($event)" data-field="address">
+                <label for="profile-address">{{ $t('pages.account.profile.address') }}</label>
+                <input id="profile-address" type="text" :value="player.address" @input="updateField($event)"
+                       data-field="address">
               </div>
               <div class="col-lg-6">
-                <label for="">City</label>
-                <input type="text" :value="player.city" @input="updateField($event)" data-field="city">
+                <label for="profile-city">{{ $t('pages.account.profile.city') }}</label>
+                <input id="profile-city" type="text" :value="player.city" @input="updateField($event)"
+                       data-field="city">
               </div>
               <div class="col-lg-6">
-                <label for="">Timezone {{ player.timezone_id }}</label>
+                <label for="profile-timezone">{{ $t('pages.account.profile.timezone') }} {{ player.timezone_id }}</label>
 
-                <select name="" v-model="player.timezone_id" @input="updateField($event)" data-field="timezone_id">
+                <select id="profile-timezone" name="" v-model="player.timezone_id" @input="updateField($event)"
+                        data-field="timezone_id">
                   <option value=""></option>
                   <option :value="tmz.id" v-for="tmz in timezones">{{ tmz.name }}</option>
                 </select>
               </div>
               <div class="col-lg-12">
-                <button class="save-btn" @click="updateUser">SAVE</button>
+                <button class="save-btn" @click="updateUser">{{ $t('pages.account.profile.saveButtonTitle') }}</button>
               </div>
 
 
@@ -98,7 +108,6 @@
 import Navbar from '../../components/ui/Navbar.vue'
 import AcNav from '../../components/ui/AcNav.vue'
 import {mapGetters} from 'vuex'
-import axios from 'axios'
 import {API} from "../../api";
 
 export default {

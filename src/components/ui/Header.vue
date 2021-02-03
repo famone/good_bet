@@ -11,7 +11,7 @@
                 tag="li"
                 :to="lnk.link"
                 v-for="lnk in menuLinks"
-                class="link">{{ lnk.title }}
+                class="link">{{ $t(lnk.title) }}
             </router-link>
           </ul>
         </div>
@@ -152,23 +152,23 @@ export default {
       menuLinks: [
         {
           link: '/about',
-          title: 'ABOUT'
+          title: 'main.about'
         },
         {
           link: '/faq',
-          title: 'FAQ'
+          title: 'main.faq'
         },
         {
           link: '/news',
-          title: 'NEWS'
+          title: 'main.news'
         },
         {
           link: '/policy',
-          title: 'RESPONSIBLE GAMING'
+          title: 'main.responsibleGames'
         },
         {
           link: '/bonuses',
-          title: 'BONUSES'
+          title: 'main.bonuses'
         }
       ]
     }

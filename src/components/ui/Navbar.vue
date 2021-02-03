@@ -29,52 +29,52 @@ import {mapGetters} from 'vuex'
 			return{
 				categories: [
 						{
-							name: 'navbar.recommended',
+							name: 'main.recommended',
 							id: 124,
 							icon: require('../../assets/img/icons/nv1.svg')
 						},
 						{
-							name: 'navbar.new',
+							name: 'main.new',
 							id: 125,
 							icon: require('../../assets/img/icons/nv2.svg')
 						},
 						{
-							name: 'navbar.popular',
+							name: 'main.popular',
 							id: 115,
 							icon: require('../../assets/img/icons/nv3.svg')
 						},
 						{
-							name: 'navbar.slots',
+							name: 'main.slots',
 							id: 126,
 							icon: require('../../assets/img/icons/nv4.svg')
 						},
 						{
-							name: 'navbar.live game',
+							name: 'main.liveGame',
 							id: 127,
 							icon: require('../../assets/img/icons/nv5.svg')
 						},
 						{
-							name: 'navbar.roulette',
+							name: 'main.roulette',
 							id: 128,
 							icon: require('../../assets/img/icons/nv6.svg')
 						},
 						{
-							name: 'navbar.card',
+							name: 'main.card',
 							id: 129,
 							icon: require('../../assets/img/icons/nv7.svg')
 						},
 						{
-							name: 'navbar.virtualSport',
+							name: 'main.virtualSport',
 							id: 130,
 							icon: require('../../assets/img/icons/nv8.svg')
 						},
 						{
-							name: 'navbar.loto',
+							name: 'main.loto',
 							id: 131,
 							icon: require('../../assets/img/icons/nv9.svg')
 						},
 						{
-							name: 'navbar.tabletGames',
+							name: 'main.tableGames',
 							id: 132,
 							icon: require('../../assets/img/icons/nv10.svg')
 						},

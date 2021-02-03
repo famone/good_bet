@@ -22,7 +22,7 @@
 										<img src="../../assets/img/success.svg" class="status-icon" 
 										v-if="account.id == getCurrentAccount.id">
 										<h3>{{account.amount.toLocaleString()}} {{account.currency_code}}</h3>
-										<button class="btn-cont" v-if="account.id !== getCurrentAccount.id">Change account</button>
+										<button class="btn-cont" v-if="account.id !== getCurrentAccount.id">{{ $t('pages.account.changeAccount') }}</button>
 									</div>
 								</div>
 							</div>
@@ -44,7 +44,7 @@
               <div class="row">
 
                 <div class="col-lg-3">
-                  <button class="save-btn" @click="createAccount">CREATE ACCOUNT</button>
+                  <button class="save-btn" @click="createAccount">{{ $t('pages.account.createAccount') }}</button>
                 </div>
               </div>
             </div>

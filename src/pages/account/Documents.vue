@@ -8,7 +8,7 @@
         <div class="row">
           <AcNav/>
           <div class="col-lg-9">
-            <h2>DOCUMENTS</h2>
+            <h2>{{ $t('pages.account.documents') }}</h2>
 
 						<div class="row">
 							<div class="col-lg-12 text-center" v-if="!documents">
@@ -36,7 +36,7 @@
 
             <br><br>
 
-            <h2>ADD DOCUMENT</h2>
+            <h2>{{ $t('pages.account.addDocument') }}</h2>
 
             <div class="row new-doc" v-if="avilable">
               <div class="col-lg-4">
@@ -52,7 +52,7 @@
 						<div class="row">
 							
 							<div class="col-lg-3">
-								<button class="save-btn" @click="applyDocs">APPLY DOCUMENT</button>
+								<button class="save-btn" @click="applyDocs">{{ $t('pages.account.applyDocuments') }}</button>
 							</div>
 						</div>
 

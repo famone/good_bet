@@ -43,19 +43,9 @@
           <input id="" type="text" v-model="field.value">
         </div>
 
-        <button type="submit" class="reg-btn" @click="setPayment">DEPOSIT MONEY</button>
+        <button type="submit" class="reg-btn" @click="setPayment">{{ $t('pages.account.depositMoney') }}</button>
       </div>
     </div>
-
-    <!-- 	<div class="accept" v-if="acceptPop">
-        <div class="deposit-pop-box text-center">
-          <p class="white-txt">Do you confirm withdraw: {{amount}} <br>
-          With fee: 0</p>
-          <br>
-          <button class="cancel" @click="cancel">CANCEL</button>
-          <button type="submit" class="reg-btn" @click="accept">ACCEPT</button>
-        </div>
-      </div> -->
 
   </div>
 </template>
