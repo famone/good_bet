@@ -29,11 +29,17 @@ const routes = [
 		},
 		{
 			path: '/enter',
-			component: Login
+			component: Login,
+			meta: {
+				guest: true
+			}
 		},
 		{
 			path: '/signup',
-			component: Signup
+			component: Signup,
+			meta: {
+				guest: true
+			}
 		},
 		{
 			path: '/policy',
@@ -49,11 +55,17 @@ const routes = [
 		},
 		{
 			path: '/fail',
-			component: Failed
+			component: Failed,
+			meta: {
+				playerAuth: true
+			}
 		},
 		{
 			path: '/success',
-			component: Succed
+			component: Succed,
+			meta: {
+				playerAuth: true
+			}
 		},
 		{
 			path: '/news',
@@ -79,127 +91,50 @@ const routes = [
 		{
 			path: '/real-game/:id',
 			component: RealGame,
-			beforeEnter: (to, from, next) => {
-
-				if(store.getters["auth/getAuthenticated"]){
-					next()
-				}else{
-					if (to.path != "/enter") {
-						next("/enter")
-					}
-					else {
-						next()
-					}
-				}
-				
+			meta: {
+				playerAuth: true
 			}
 		},
 		{
 			path: '/profile',
 			component: Profile,
-			beforeEnter: (to, from, next) => {
-
-				if(store.getters["auth/getAuthenticated"]){
-					next()
-				}else{
-					if (to.path != "/enter") {
-						next("/enter")
-					}
-					else {
-						next()
-					}
-				}
-				
+			meta: {
+				playerAuth: true
 			}
 		},
 		{
 			path: '/cash-withdrawal',
 			component: Withdrawal,
-			beforeEnter: (to, from, next) => {
-
-				if(store.getters["auth/getAuthenticated"]){
-					next()
-				}else{
-					if (to.path != "/enter") {
-						next("/enter")
-					}
-					else {
-						next()
-					}
-				}
-				
+			meta: {
+				playerAuth: true
 			}
 		},
 		{
 			path: '/deposit',
 			component: Deposit,
-			beforeEnter: (to, from, next) => {
-
-				if(store.getters["auth/getAuthenticated"]){
-					next()
-				}else{
-					if (to.path != "/enter") {
-						next("/enter")
-					}
-					else {
-						next()
-					}
-				}
-				
+			meta: {
+				playerAuth: true
 			}
 		},
 		{
 			path: '/documents',
 			component: Documents,
-			beforeEnter: (to, from, next) => {
-
-				if(store.getters["auth/getAuthenticated"]){
-					next()
-				}else{
-					if (to.path != "/enter") {
-						next("/enter")
-					}
-					else {
-						next()
-					}
-				}
-				
+			meta: {
+				playerAuth: true
 			}
 		},
 		{
 			path: '/accounts',
 			component: Accounts,
-			beforeEnter: (to, from, next) => {
-
-				if(store.getters["auth/getAuthenticated"]){
-					next()
-				}else{
-					if (to.path != "/enter") {
-						next("/enter")
-					}
-					else {
-						next()
-					}
-				}
-				
+			meta: {
+				playerAuth: true
 			}
 		},
 		{
 			path: '/transactions',
 			component: Transactions,
-			beforeEnter: (to, from, next) => {
-				
-				if(store.getters["auth/getAuthenticated"]){
-					next()
-				}else{
-					if (to.path != "/enter") {
-						next("/enter")
-					}
-					else {
-						next()
-					}
-				}
-				
+			meta: {
+				playerAuth: true
 			}
 		},
 		{
