@@ -98,7 +98,6 @@ const auth = {
 					localStorage.setItem("appToken", JSON.stringify(object));
 
 					if (response.status === 401) {
-						console.log('Failed to login')
 						router.push('/Login')
 					}
 
@@ -107,7 +106,6 @@ const auth = {
 	  			API.defaults.headers.common['Authorization'] = 'Bearer ' + token
 
 
-					console.log(token)
 					// alert('Bearer ' + token)
 
 				});
@@ -155,14 +153,12 @@ const auth = {
 
 			API.get('player-forms')
 				.then(res => {
-					console.log(res.data)
 					commit('SET_REG_FIELDS', res.data)
 				})
 
 
 			API.get('payment-currencies')
 				.then(res => {
-					console.log(res.data)
 					commit('SET_CURRENCY', res.data)
 				})
 
@@ -213,14 +209,12 @@ const auth = {
 			commit('LOG_OUT')
 		},
 		CHANGE_FIELD({commit}, payload) {
-			// console.log(payload)
 			commit('SET_FIELD', payload)
 		},
 		loadTimezones({commit}) {
 			API.get('timezones?per-page=400')
 				.then(res => {
 					commit('SET_TIMEZONES', res.data)
-					console.log(res.data)
 				})
 		},
 		loadCountries({commit}) {
@@ -238,7 +232,7 @@ const auth = {
 
 			API.patch(`accounts/${payload}`, currency)
 				.then(res => {
-					console.log(res.data)
+					//console.log(res.data)
 				})
 		},
 		loadPopular({commit}) {

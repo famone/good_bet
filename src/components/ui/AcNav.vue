@@ -4,7 +4,7 @@
 			<h2>PROFILE</h2>
 			<ul>
 				<router-link tag="li" :to="item.link" v-for="item in profileNav">
-					<img :src="item.icon" alt=""> <span>{{item.text}}</span>
+					<img :src="item.icon" alt=""> <span>{{$t(item.text)}}</span>
 				</router-link>
 			</ul>
 		</div>
@@ -18,37 +18,37 @@
 			return{
 				profileNav: [
 						{
-							text: 'My profile',
+							text: 'myProfile.myProfile',
 							link: '/profile',
 							icon: require('../../assets/img/icons/pr1.svg')
 						},
 						{
-							text: 'Deposit',
+							text: 'myProfile.deposit',
 							link: '/deposit',
 							icon: require('../../assets/img/icons/pr2.svg')
 						},
 						{
-							text: 'Cash withdrawal',
+							text: 'myProfile.withdrawal',
 							link: '/cash-withdrawal',
 							icon: require('../../assets/img/icons/pr3.svg')
 						},
 						{
-							text: 'Accounts',
+							text: 'myProfile.accounts',
 							link: '/accounts',
 							icon: require('../../assets/img/coins.svg')
 						},
 						{
-							text: 'Transactions',
+							text: 'myProfile.transactions',
 							link: '/transactions',
 							icon: require('../../assets/img/icons/pr4.svg')
 						},
 						{
-							text: 'My bonuses',
+							text:  'myProfile.myBonuses',
 							link: '/my-bonuses',
 							icon: require('../../assets/img/icons/pr5.svg')
 						},
 						{
-							text: 'Documents',
+							text: 'myProfile.documents',
 							link: '/documents',
 							icon: require('../../assets/img/icons/pr6.svg')
 						},

@@ -1,0 +1,27 @@
+{
+  "myProfile": {
+    "myProfile": "My profile",
+    "deposit": "Deposit",
+    "withdrawal": "Cash withdrawal",
+    "accounts": "Accounts",
+    "transactions": "Transactions",
+    "myBonuses": "My bonuses",
+    "documents": "Documents"
+  },
+  "betCard": {
+    "contacts": "CONTACTS",
+    "needAnyHelp": "NEED ANY HELP?"
+  },
+  "navbar": {
+    "recommended": "Recommended",
+    "new": "New",
+    "popular": "Popular",
+    "slots": "Slots",
+    "live game": "Live game",
+    "roulette": "Roulette",
+    "card": "Card",
+    "virtualSport": "Virtual Sport",
+    "loto": "Loto",
+    "tabletGames": "Tablet Games"
+  }
+}

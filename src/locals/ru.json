@@ -1,0 +1,27 @@
+{
+  "myProfile": {
+    "myProfile": "Мой профиль",
+    "deposit": "Депозит",
+    "withdrawal": "Вывод",
+    "accounts": "Счета",
+    "transactions": "Транзакции",
+    "myBonuses": "Мои бонусы",
+    "documents": "Документы"
+  },
+  "betCard": {
+    "contacts": "КОНТАКТЫ",
+    "needAnyHelp": "НУЖНА ПОМОЩЬ?"
+  },
+  "navbar": {
+    "recommended": "Рекомендованнные",
+    "new": "Новые",
+    "popular": "Популярные",
+    "slots": "Слоты",
+    "live game": "Живые игры",
+    "roulette": "Рулетка",
+    "card": "Карты",
+    "virtualSport": "Виртуальный Спорт",
+    "loto": "Лото",
+    "tabletGames": "Настольные игры"
+  }
+}

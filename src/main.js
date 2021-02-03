@@ -10,8 +10,11 @@ import axios from 'axios'
 import ScrollLoader from "vue-scroll-loader";
 
 
-import 'swiper/css/swiper.css'
-import { API } from './api'
+import 'swiper/css/swiper.css';
+import { API } from './api';
+import VueI18n from "vue-i18n";
+import en from "./locals/en.json";
+import ru from "./locals/ru.json";
 
 Vue.use(VueRouter) 
 Vue.use(Vuelidate)
@@ -19,6 +22,15 @@ Vue.use(require('vue-cookies'))
 Vue.use(VueAwesomeSwiper)
 Vue.use(VueTheMask)
 Vue.use(ScrollLoader)
+Vue.use(VueI18n)
+
+const i18n = new VueI18n({
+	locale: process.env.CASINO_APP_I18N_DEFAULT_LOCALE,
+	messages: {
+		"en": en,
+		"ru": ru
+	}
+})
 
 if(localStorage.getItem('player')){
 	let userToken = JSON.parse(localStorage.getItem('userToken'));
@@ -49,5 +61,6 @@ new Vue({
   el: '#app',
   render: h => h(App),
   router,
-  store
+  store,
+  i18n
 })
