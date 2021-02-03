@@ -10,7 +10,7 @@
 				</div>
 
 				<div class="row" v-if="gamesArr">
-					<gameBox v-for="game in gamesArr.slice(0, 4)" :game="game"/>
+					<gameBox v-for="game in gamesArr.slice(0, 4)" v-bind:key="game.id" :game="game"/>
 				</div>
 
 			</div>

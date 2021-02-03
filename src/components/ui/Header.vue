@@ -11,6 +11,7 @@
                 tag="li"
                 :to="lnk.link"
                 v-for="lnk in menuLinks"
+                v-bind:key="lnk.id"
                 class="link">{{ $t(lnk.title) }}
             </router-link>
           </ul>
@@ -55,13 +56,15 @@
 
 
         <div class="header-box-col al-center" v-else>
-          <input type="text" class="search-inp" placeholder="Game name" @input="searchMethod" v-model="search">
-          <router-link tag="button" to="/enter" class="login-btn"><img src="../../assets/img/login.svg" alt="">LOGIN
+          <input type="text" class="search-inp" :placeholder="$t('games.gamesSearchFieldTitle')" @input="searchMethod"
+                 v-model="search">
+          <router-link tag="button" to="/enter" class="login-btn"><img src="../../assets/img/login.svg" alt="">
+            {{ $t('main.loginUPPER') }}
           </router-link>
           <router-link
               class="reg-btn" tag="button" to="/signup">
             <img src="../../assets/img/user.svg" alt="">
-            REGISTRATION
+            {{ $t('main.registerUPPER') }}
           </router-link>
         </div>
 
@@ -69,7 +72,7 @@
         <div class="searchPanel" v-if="showSearchPanel">
           <div v-if="haveSearchResult">
             <router-link tag="div" :to=" gameSearchRoute() + res.id.toString() " class="game-result"
-                         v-for="res in searchResults" @click="clearSearch()">
+                         v-for="res in searchResults" v-bind:key="res.id" @click="clearSearch()">
               <img :src="res.images[0].url" @click="clearSearch()">
               <p class="small-white" @click="clearSearch()">{{ res.name }}</p>
             </router-link>

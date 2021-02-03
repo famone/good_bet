@@ -15,7 +15,7 @@
                 <h3>{{ $t('games.noGamesTextInList') }}</h3>
               </div>
 
-              <gameBox v-for="game in gamesArr" :game="game" v-else/>
+              <gameBox v-for="game in gamesArr" v-bind:key="game.id" :game="game" v-else/>
             </div>
 
 

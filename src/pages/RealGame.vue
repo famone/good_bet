@@ -8,7 +8,7 @@
           <div class="col-lg-8">
             <div class="breadcrumbs">
               <h2>
-                <router-link tag="span" to="/games" class="br-link">GAMES</router-link>
+                <router-link tag="span" to="/games" class="br-link">{{ $t('games.gamesUPPER') }}</router-link>
                 /
                 <span class="to-upper">{{ gameName }}</span>
               </h2>
@@ -18,8 +18,8 @@
             </div>
             <div class="conection text-center" v-if="gameLauncher === '' ">
               <br><br>
-              <img src="../assets/img/icons/nv6.svg" class="spin">
-              <p class="white-txt">Connecting</p>
+              <img alt="$t('main.loading')" src="../assets/img/icons/nv6.svg" class="spin">
+              <p class="white-txt">{{ $t('games.connecting') }}</p>
               <br><br>
             </div>
             <div class="game-louncher" v-else>
@@ -41,7 +41,6 @@
 import {mapGetters} from 'vuex'
 import Navbar from '../components/ui/Navbar.vue'
 import accordeons from '../components/ui/accordeons.vue'
-import axios from 'axios'
 import {API} from "../api";
 
 export default {

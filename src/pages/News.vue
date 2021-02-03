@@ -4,7 +4,7 @@
 
     <section id="news">
       <div class="container">
-        <div class="col-lg-4" v-for="item in news">
+        <div class="col-lg-4" v-for="item in news" v-bind:key="item.id">
           <div class="news-card">
             <div class="news-img">
               <div class="read-news">

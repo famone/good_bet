@@ -25,7 +25,9 @@
     "denied": "откланено",
     "pending": "ожидание",
     "goHomeLink": "Перейти на главную",
-    "loading": "Загрузка..."
+    "loading": "Загрузка...",
+    "loginUPPER": "ВОЙТИ",
+    "registerUPPER": "РЕГИСТРАЦИЯ"
   },
   "myProfile": {
     "myProfile": "Мой профиль",
@@ -50,7 +52,9 @@
   "games": {
     "noGamesTextInList": "Оппа, тут нет игр",
     "connecting": "Соединение",
-    "seeAllLinkTitle": "Еще"
+    "seeAllLinkTitle": "Еще",
+    "gamesUPPER": "ИГРЫ",
+    "gamesSearchFieldTitle": "Название игры"
   },
   "pages": {
     "account": {
@@ -103,5 +107,13 @@
     "popularGames": "Популярные игры",
     "slots": "Слот машины",
     "recommended": "Рекамендовано вам"
+  },
+  "login": {
+    "socialSignInTitle": "Войти через социальные сети",
+    "email": "E-mail",
+    "password": "Пароль",
+    "rememberMe": "Запомнить меня",
+    "forgotPassword": "Забыли пороль?",
+    "loginUPPER": "ВОЙТИ"
   }
 }

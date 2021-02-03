@@ -25,7 +25,9 @@
     "denied": "denied",
     "pending": "pending",
     "goHomeLink": "Go to home page",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "loginUPPER": "LOGIN",
+    "registerUPPER": "REGISTRATION"
   },
   "myProfile": {
     "myProfile": "My profile",
@@ -50,7 +52,9 @@
   "games": {
     "noGamesTextInList": "Oops, No games yet!",
     "connecting": "Connecting",
-    "seeAllLinkTitle": "See All"
+    "seeAllLinkTitle": "See All",
+    "gamesUPPER": "GAMES",
+    "gamesSearchFieldTitle": "Game name"
   },
   "pages": {
     "account": {
@@ -103,5 +107,13 @@
     "popularGames": "POPULAR GAMES",
     "slots": "SLOTS",
     "recommended": "RECOMMENDED"
+  },
+  "login": {
+    "socialSignInTitle": "Sign in with your social network",
+    "email": "E-mail",
+    "password": "Password",
+    "rememberMe": "Remember Me",
+    "forgotPassword": "Forgot Password?",
+    "loginUPPER": "LOGIN"
   }
 }

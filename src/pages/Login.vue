@@ -4,20 +4,20 @@
       <div class="col-lg-6 col-lg-offset-3">
         <div class="form-box text-center">
           <h2>LOGIN</h2>
-          <p class="white-txt">Sign in with your social network</p>
+          <p class="white-txt">{{ $t('login.socialSignInTitle') }}</p>
           <form>
-            <input type="text" placeholder="E-mail" v-model="login">
-            <input type="password" placeholder="Password" v-model="password">
+            <input type="text" :placeholder="$t('login.email')" v-model="login">
+            <input type="password" :placeholder="$t('login.password')" v-model="password">
             <div class="remember">
               <div class="remember-me"
                    :class="{checked: rememberUser}"
                    @click="rememberUser = !rememberUser">
                 <div class="ch-box"></div>
-                <span>Remember me</span>
+                <span>{{ $t('login.rememberMe') }}</span>
               </div>
-              <router-link tag="a" to="/recovery" class="under-link">Forgot password</router-link>
+              <router-link tag="a" to="/recovery" class="under-link">{{ $t('login.forgotPassword') }}</router-link>
             </div>
-            <button type="submit" @click.prevent="submitLog()" class="reg-btn">LOGIN</button>
+            <button type="submit" @click.prevent="submitLog()" class="reg-btn">{{ $t('login.loginUPPER') }}</button>
           </form>
         </div>
       </div>
