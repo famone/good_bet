@@ -27,7 +27,8 @@ API.interceptors.response.use(null, function (error) {
 
       //todo refactor me
       localStorage.removeItem("player");
-      localStorage.removeItem("userToken");
+      localStorage.removeItem("player");
+      localStorage.removeItem("appToken");
 
       let config = {
         headers: {
