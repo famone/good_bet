@@ -13,7 +13,9 @@
                 <span class="to-upper">{{ gameName }}</span>
               </h2>
               <div class="tool-btns">
-
+                <div class="full-screen-btn hidden-xs" @click="flscrnMode = true">
+                  <img src="../assets/img/screen.svg" alt="">
+                </div>
               </div>
             </div>
             <div class="conection text-center" v-if="gameLauncher === '' ">
@@ -22,7 +24,10 @@
               <p class="white-txt">{{ $t('games.connecting') }}</p>
               <br><br>
             </div>
-            <div class="game-louncher" v-else>
+            <div class="game-louncher" v-else :class="{fullscreenGame : flscrnMode}">
+               <div class="full-screen-btn exit-full hidden-xs" @click="flscrnMode = false" v-if="flscrnMode">
+                <img src="../assets/img/cross.svg" alt="">
+              </div>
               <iframe :src="gameLauncher" frameborder="0"></iframe>
             </div>
           </div>
@@ -49,7 +54,8 @@ export default {
     return {
       gameLauncher: '',
       gameName: '',
-      gameObj: ''
+      gameObj: '',
+      flscrnMode: false
     }
   },
   computed: {
@@ -76,6 +82,13 @@ export default {
         })
   },
   mounted() {
+    var options = {
+          offset: -100,
+        } 
+    var VueScrollTo = require('vue-scrollto');
+
+    this.$scrollTo('#gameSec', 300, options)
+
     setInterval(() => {
       this.$store.dispatch('auth/getUser')
     }, 3000)

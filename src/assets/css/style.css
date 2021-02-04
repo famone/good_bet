@@ -86,6 +86,7 @@ header li{
 	font-weight: 400;
 	color: #fff;
 	letter-spacing: 0.17em;
+	text-transform: uppercase;
 }
 .link:hover{
 	color: #4D2ADC;
@@ -949,6 +950,7 @@ label{
 .game-louncher{
 	min-height: 460px;
 	width: 100%;
+	position: relative;
 	margin-top: 30px;
 }
 iframe{
@@ -1317,6 +1319,48 @@ tbody tr:nth-child(2n){
 }
 
 
+
+
+/*fs*/
+
+.breadcrumbs{
+	display: flex;
+	justify-content: space-between;align-items: center;
+}
+.full-screen-btn{
+	border: none;
+    padding: 16px 18px;
+    font-size: 12px;
+    background: #4D2ADC;
+    color: #fff;
+    transition: all .3s ease;
+    height: 100%;
+    letter-spacing: 0.17em;
+    border-radius: 16px;
+    cursor: pointer;
+}
+.full-screen-btn:hover{
+	box-shadow: 0px 2px 16px 2px rgba(206, 54, 201, 0.22);
+}
+.fullscreenGame{
+	position: fixed;
+	z-index: 300;
+	margin:0;
+	width: 100vw;
+	left: 0;
+	top: 0;
+	height: 100vh;
+}
+.fullscreenGame iframe{
+	height: 100%;
+}
+.exit-full{
+	z-index: 350;
+	position: absolute;
+	top: 40px;
+	right: 20px;
+	height: 50px;
+}
 
 
 /*ADAPTIIIIIIIIIV*/

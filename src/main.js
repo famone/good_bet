@@ -8,6 +8,7 @@ import VueTheMask from 'vue-the-mask'
 import Vuelidate from 'vuelidate'
 import axios from 'axios'
 import ScrollLoader from "vue-scroll-loader";
+import VueScrollTo from 'vue-scrollto'
 
 
 import 'swiper/css/swiper.css';
@@ -22,7 +23,7 @@ Vue.use(VueAwesomeSwiper)
 Vue.use(VueTheMask)
 Vue.use(ScrollLoader)
 Vue.use(VueI18n)
-
+Vue.use(VueScrollTo)
 
 const langConfig = new LangConfig();
 

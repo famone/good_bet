@@ -25,3 +25,25 @@ export default {
   },
 }
 </script>
+
+
+<style>
+.locale-changer select{
+  text-transform: uppercase;
+    color: #fff;
+    font-size: 16px;
+    background-color: #0c0b25;
+    padding: 13px 10px;
+    margin-top: 4px;
+    border-radius: 4px;
+    background-image: url(/downarr.svg?bce4343…)!important;
+    background-repeat: no-repeat!important;
+    -webkit-background-size: 10px!important;
+    background-size: 10px!important;
+    background-position: right 5px center!important;
+    -webkit-appearance: none!important;
+    -moz-appearance: none!important;
+    padding-right: 20px;
+    border:none;
+}
+</style>
