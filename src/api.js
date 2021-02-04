@@ -25,6 +25,10 @@ API.interceptors.response.use(null, function (error) {
 
       isAlreadyFetchingAccessToken = true
 
+      //todo refactor me
+      localStorage.removeItem("player");
+      localStorage.removeItem("userToken");
+
       let config = {
         headers: {
           Authorization: 'Basic ' + process.env.CASINO_APP_API_AUTH_TOKEN,
