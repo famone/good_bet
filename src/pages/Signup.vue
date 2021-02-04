@@ -7,7 +7,7 @@
 
 
 
-          
+
 
           <form @submit.prevent="submitForm">
 
@@ -29,7 +29,7 @@
                 </select>
 
 
-                <input :type="field.type" :data-field="fl.name" @input="updateField($event)" 
+                <input :type="field.type" :data-field="fl.name" @input="updateField($event)"
                 v-else :class="{hidden : fl.name === 'confirm_terms' || fl.name === 'recaptcha_response' }">
               </div>
 
@@ -74,7 +74,7 @@
                 @verify="register"
                 @expired="onCaptchaExpired"
             />
-           
+
             <div v-if="errors">
               <!-- {{errors}} -->
 
@@ -145,7 +145,7 @@ export default {
     }),
     checkErr(){
         let arr = []
-        
+
         if(this.errors){
           this.errors.forEach(item =>{
           arr.push(item.field)
@@ -228,7 +228,7 @@ export default {
         }
       }
 
-      
+
 
 
       API.post('players', objField)
@@ -236,7 +236,7 @@ export default {
             this.submitLog()
           })
           .catch((error) => {
-           
+
             this.errors = error.response.data
           });
 
@@ -254,7 +254,7 @@ export default {
 
       let mailToLog = this.inpArr.find(item => item.name === "email")
 
-      
+
       let passToLog = this.inpArr.find(item => item.name === "password_change")
 
 
