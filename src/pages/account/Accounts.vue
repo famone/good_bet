@@ -22,7 +22,7 @@
                     <img src="../../assets/img/success.svg" class="status-icon"
                          v-if="account.id == getCurrentAccount.id">
                     <h3>{{ account.amount.toLocaleString() }} {{ account.currency_code }}</h3>
-                    <button class="btn-cont" v-if="account.id !== getCurrentAccount.id">
+                    <button class="btn-cont" v-if="account.id !== getCurrentAccount.id" @click="changeAccount(account.id)">
                       {{ $t('pages.account.changeAccount') }}
                     </button>
                   </div>
@@ -86,6 +86,9 @@ export default {
     }
   },
   methods: {
+    changeAccount(accountId) {
+      this.$store.dispatch('auth/changeAccount', accountId)
+    },
     getAvailableCurrency() {
       API.get('payment-currencies', {
         params: {
