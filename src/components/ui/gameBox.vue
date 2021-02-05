@@ -18,7 +18,7 @@
           <div class="like" @click="like(game.id)" v-if="!game.is_favorite">
             <img src="../../assets/img/like.svg" alt="">
           </div>
-          <div class="like-full" @click="unLike(game.id)" v-else>
+          <div class="like-full" @click="unLike(game.id), updateFavs($emit)" v-else>
             <img src="../../assets/img/likefull.svg" alt="">
           </div>
         </div>
@@ -43,6 +43,9 @@ export default {
     ...mapGetters({player: "auth/getPlayer"}),
   },
   methods: {
+    updateFavs(){
+      this.$emit('updateFavs')
+    },
     realGameLink() {
       if (this.player) {
         return '/real-game/' + this.game.id.toString()

@@ -94,6 +94,9 @@
                 </select>
               </div>
               <div class="col-lg-12">
+                <div class="errors" v-for="(er, index) in errors ">
+                  <p style="color: red;">{{index+1}}. {{er.message}}</p>
+                </div>
                 <button class="save-btn" @click="updateUser">{{ $t('pages.account.profile.saveButtonTitle') }}</button>
               </div>
 
@@ -128,7 +131,8 @@ export default {
   data() {
     return {
       file: null,
-      inpArr: []
+      inpArr: [],
+      errors: null
     }
   },
   methods: {
@@ -142,7 +146,6 @@ export default {
 
       if (fieldInArr) {
         fieldInArr.value = e.target.value
-        console.log(payload)
         this.$store.dispatch('auth/CHANGE_FIELD', payload)
         return
       }
@@ -153,6 +156,8 @@ export default {
 
     },
     updateUser() {
+
+      this.errors = null
 
 
       let objField = {
@@ -166,18 +171,16 @@ export default {
         }
       }
 
-      console.log(this.inpArr)
-
 
       API.patch('players/' + this.player.id, objField)
           .then(response => {
-            console.log(response)
-
             this.$store.dispatch('auth/getUser')
           })
-          .catch(function () {
-            console.log('FAILURE!!');
-          });
+          .catch(err =>{
+            // this.errors = errors.data
+             console.log(err.response)
+             this.errors = err.response.data
+          })
 
     }
     // changeAvatar(){

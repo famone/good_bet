@@ -42,7 +42,7 @@ header{
 	top: calc(100% + 10px);
 	background-color: #0c0b25;
 	padding:20px;
-	right: 320px;
+	right: 380px;
 	width: 300px;
 	border-radius: 10px; 
 }
@@ -315,8 +315,12 @@ header li{
 	cursor: pointer;
 	transition: all .3s ease;
 	margin:0;
+	height: 90px;
 }
 .navbar-btn:hover{
+	background-color: #272459;
+}
+.navbar-btn.router-link-exact-active{
 	background-color: #272459;
 }
 .navbar-btn img{
@@ -978,7 +982,7 @@ iframe{
 /*accordeons*/
 
 .accordeons{
-	margin-top: 56px;
+	margin-top: 85px;
 }
 .acc-btn{
 	border-radius: 15px;

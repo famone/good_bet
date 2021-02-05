@@ -17,6 +17,7 @@
               </div>
               <router-link tag="a" to="/recovery" class="under-link">{{ $t('login.forgotPassword') }}</router-link>
             </div>
+            <p style="color: red;" class="text-center" v-if="errors">Login details are incorrect</p>
             <button type="submit" @click.prevent="submitLog()" class="reg-btn">{{ $t('login.loginUPPER') }}</button>
           </form>
         </div>
@@ -35,7 +36,8 @@ export default {
     return {
       rememberUser: false,
       login: '',
-      password: ''
+      password: '',
+      errors: false
     }
   },
   methods: {
@@ -65,9 +67,13 @@ export default {
             localStorage.setItem("userToken", JSON.stringify(tokenEntity));
 
             this.$store.dispatch('auth/getUser')
-          }).then(() => {
+          })
+          .catch(error =>{
+            this.errors = true
+          })
+          .then(() => {
         this.$router.replace("/profile");
-      });
+        });
 
 
     }

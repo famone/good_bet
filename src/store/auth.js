@@ -84,6 +84,7 @@ const auth = {
 			dispatch("loadPopular")
 			dispatch("loadSlots")
 			dispatch("loadRecommended")
+			dispatch("getInfo")
 			// dispatch("loadTimezones")
 		},
 		getAppToken({commit, state, dispatch}) {

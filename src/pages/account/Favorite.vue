@@ -15,7 +15,7 @@
                 <h3>{{ $t('games.noGamesTextInList') }}</h3>
               </div>
 
-              <gameBox v-for="game in gamesArr" v-bind:key="game.id" :game="game" v-else/>
+              <gameBox v-for="(game, index) in gamesArr" v-bind:key="game.id" :game="game" @updateFavs="favUpdate(index)" v-else/>
             </div>
 
 
@@ -38,6 +38,26 @@ export default {
     return {
       gamesArr: [],
       loader: true
+    }
+  },
+  methods: {
+    favUpdate(index){
+
+      delete this.gamesArr.splice(index, 1)
+
+
+      // this.loader = true
+      // this.gamesArr = []
+
+      //     API.get('games', {
+      //       params: {
+      //       expand: 'images, launch_types, type',
+      //       favorite: true
+      //       }
+      //     }).then(res => {
+      //         this.gamesArr = res.data
+      //         this.loader = false
+      //     })
     }
   },
   created() {

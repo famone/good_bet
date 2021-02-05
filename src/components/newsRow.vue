@@ -39,7 +39,11 @@ export default {
         infinite: true,
         touchRatio: 1,
         centeredSlides: false,
-        draggable: true
+        draggable: true,
+        autoplay: {
+			delay: 2500,
+			disableOnInteraction: false,
+		},
       }
     }
   },

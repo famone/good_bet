@@ -19,7 +19,7 @@
             </div>
 
             <scroll-loader :loader-method="getGameList" :loader-disable="disableAutoLoading">
-              <div>{{ $t('main.loading') }}</div>
+              <p class="white-txt">{{ $t('main.loading') }}</p>
             </scroll-loader>
 
 
