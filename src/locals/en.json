@@ -114,7 +114,8 @@
     "password": "Password",
     "rememberMe": "Remember Me",
     "forgotPassword": "Forgot Password?",
-    "loginUPPER": "LOGIN"
+    "loginUPPER": "LOGIN",
+    "registration": "Registration"
   },
   "recovery": {
     "socialSignInTitle": "Indicate your e-mail",

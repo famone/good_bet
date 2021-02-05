@@ -114,7 +114,8 @@
     "password": "Пароль",
     "rememberMe": "Запомнить меня",
     "forgotPassword": "Забыли пороль?",
-    "loginUPPER": "ВОЙТИ"
+    "loginUPPER": "ВОЙТИ",
+    "registration": "Регистрация"
   },
   "recovery": {
     "socialSignInTitle": "Укажите ваш e-mail",
