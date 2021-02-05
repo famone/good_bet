@@ -1,42 +1,44 @@
 <template>
-	<div>
-		<Navbar />
+  <div>
+    <Navbar/>
 
 
-		<section id="account" v-if="player">
-			<div class="container">
-				<div class="row">
-					<AcNav />
-					<div class="col-lg-9">
-						<h2>{{ $t('pages.account.accountsUPPER') }}</h2>
+    <section id="account" v-if="player">
+      <div class="container">
+        <div class="row">
+          <AcNav/>
+          <div class="col-lg-9">
+            <h2>{{ $t('pages.account.accountsUPPER') }}</h2>
 
-						<div class="row">
-							<div class="col-lg-12 text-center" v-if="!player.accounts">
-								<img src="../../assets/img/icons/nv6.svg" class="spin">
-							</div>
+            <div class="row">
+              <div class="col-lg-12 text-center" v-if="!player.accounts">
+                <img src="../../assets/img/icons/nv6.svg" class="spin">
+              </div>
 
 
-							<div class="col-lg-3" v-else v-for="account in player.accounts">
-								<div class="document-box text-center">
-									<div class="text-center">
-										<img src="../../assets/img/success.svg" class="status-icon" 
-										v-if="account.id == getCurrentAccount.id">
-										<h3>{{account.amount.toLocaleString()}} {{account.currency_code}}</h3>
-										<button class="btn-cont" v-if="account.id !== getCurrentAccount.id">{{ $t('pages.account.changeAccount') }}</button>
-									</div>
-								</div>
-							</div>
-						</div>
+              <div class="col-lg-3" v-else v-for="account in player.accounts">
+                <div class="document-box text-center">
+                  <div class="text-center">
+                    <img src="../../assets/img/success.svg" class="status-icon"
+                         v-if="account.id == getCurrentAccount.id">
+                    <h3>{{ account.amount.toLocaleString() }} {{ account.currency_code }}</h3>
+                    <button class="btn-cont" v-if="account.id !== getCurrentAccount.id">
+                      {{ $t('pages.account.changeAccount') }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-						<br><br>
+            <br><br>
 
-            <div class="row" v-if="available">
+            <div class="row" v-if="available.length">
               <h2>{{ $t('pages.account.createAccount') }}</h2>
 
-              <div class="row new-doc" >
+              <div class="row new-doc">
                 <div class="col-lg-4">
                   <select name="" id="" v-model="newAccountId">
-                    <option v-for="av in available" :value="av.id">{{av.code}}</option>
+                    <option v-for="av in available" :value="av.id">{{ av.code }}</option>
                   </select>
                 </div>
               </div>
@@ -48,94 +50,91 @@
                 </div>
               </div>
             </div>
-					</div>
-				</div>
-			</div>
-		</section>
+          </div>
+        </div>
+      </div>
+    </section>
 
 
-
-
-
-	</div>
+  </div>
 </template>
 
 
 <script>
 import Navbar from '../../components/ui/Navbar.vue'
 import AcNav from '../../components/ui/AcNav.vue'
-import {mapGetters} from  'vuex'
-import axios from 'axios'
-import { API } from '../../api'
+import {mapGetters} from 'vuex'
+import {API} from '../../api'
 
-	export default{
-		components: {Navbar, AcNav},
-		data(){
-			return{
-				available: null,
-				newAccountId: ''
-			}
-		},
-		computed: {
-			...mapGetters({ player: "auth/getPlayer"}),
-			getCurrentAccount(){
-				if(this.player){
-					let currentValue = this.player.accounts.find(item => {
-						return item.is_current == true
-					})
-					return currentValue
-				}
-			}
-		},
-		methods: {
-      getAvailableCurrency(){
-        API.get('payment-currencies', {
-          params: {
-            has_accounts: false,
-          }
-        }).then(res => {
-          console.log(res.data)
-          this.available = res.data
+export default {
+  components: {Navbar, AcNav},
+  data() {
+    return {
+      available: [],
+      newAccountId: ''
+    }
+  },
+  computed: {
+    ...mapGetters({player: "auth/getPlayer"}),
+    getCurrentAccount() {
+      if (this.player) {
+        let currentValue = this.player.accounts.find(item => {
+          return item.is_current == true
         })
-      },
-			createAccount(){
+        return currentValue
+      }
+    }
+  },
+  methods: {
+    getAvailableCurrency() {
+      API.get('payment-currencies', {
+        params: {
+          has_accounts: false,
+        }
+      }).then(res => {
+        console.log(res.data)
+        this.available = res.data
+      })
+    },
+    createAccount() {
 
-				if(this.newAccountId === ''){
-					return
-				}
+      if (this.newAccountId === '') {
+        return
+      }
 
-				let newAcc = {currency_id: this.newAccountId}
+      let newAcc = {currency_id: this.newAccountId}
 
-				API
-				.post('accounts', newAcc)
-				.then(res =>{
-					console.log(res.data)
-					this.newAccountId = ''
-					this.$store.dispatch('auth/getUser')
-          this.getAvailableCurrency()
-				})
+      API.post('accounts', newAcc)
+          .then(res => {
+            console.log(res.data)
+            this.newAccountId = ''
+            this.$store.dispatch('auth/getUser')
+            this.getAvailableCurrency()
+          })
 
 
-			}
-		},
-		created(){
-			// доступные валюты
-      this.getAvailableCurrency()
-		}
-	}
+    }
+  },
+  created() {
+    // доступные валюты
+    this.getAvailableCurrency()
+  }
+}
 
 </script>
 
 <style scoped>
-select{	
-	width: 100%!important;
+select {
+  width: 100% !important;
 }
-input#file-upload-button{
-	background-color: #fff!important;
-	border:none!important;
-	text-transform: uppercase!important;
+
+input#file-upload-button {
+  background-color: #fff !important;
+  border: none !important;
+  text-transform: uppercase !important;
 }
-.document-box h3{
-	margin: 15px 0;
+
+.document-box h3 {
+  margin: 15px 0;
 }
 </style>

@@ -23,7 +23,10 @@ const auth = {
 		slotsGames: [],
 		recommendedGames: [],
 		switchDepo: true,
-		messages: []
+		messages: [],
+		lang: {
+			selectedLang: process.env.CASINO_APP_I18N_DEFAULT_LOCALE
+		}
 	},
 	mutations: {
 		SET_GAMES(state, payload) {
@@ -77,7 +80,13 @@ const auth = {
 		SET_DEPOSWITCH(state, payload) {
 			state.switchDepo = payload
 		},
-		SET_MESSAGES(state, payload){
+		SET_LANG(state, payload) {
+			API.defaults.headers.common['Accept-Language'] = payload
+			state.lang = {
+				selectedLang: payload
+			  }
+		},
+		SET_MESSAGES(state, payload) {
 			state.messages = payload
 		}
 	},
@@ -89,6 +98,7 @@ const auth = {
 			dispatch("loadSlots")
 			dispatch("loadRecommended")
 			dispatch("getInfo")
+			dispatch("setLang", localStorage.getItem('selectedLang'))
 			// dispatch("loadTimezones")
 		},
 		getAppToken({commit, state, dispatch}) {
@@ -141,6 +151,12 @@ const auth = {
 			// 		console.log(response)
 			// 	})
 
+		},
+		getRegFields({commit, dispatch, state}) {
+			API.get('player-forms')
+				.then(res => {
+					commit('SET_REG_FIELDS', res.data)
+				})
 		},
 		getInfo({commit, dispatch, state}) {
 			API.get('games', {
@@ -283,6 +299,9 @@ const auth = {
 		},
 		depoSwitcher({commit}, payload) {
 			commit('SET_DEPOSWITCH', payload)
+		},
+		setLang({commit}, payload) {
+			commit('SET_LANG', payload)
 		}
 	},
 	getters: {
@@ -330,6 +349,9 @@ const auth = {
 		},
 		getSwitchDepo(state) {
 			return state.switchDepo
+		},
+		getLang(state) {
+			return state.lang
 		},
 		getMessages(state){
 			return state.messages

@@ -141,7 +141,8 @@ export default {
   computed: {
     ...mapGetters({
       regFields: "auth/getRegFields",
-      currency: "auth/getCurrency"
+      currency: "auth/getCurrency",
+      lang: "auth/getLang"
     }),
     checkErr(){
         let arr = []
@@ -154,6 +155,11 @@ export default {
 
         return arr
     }
+  },
+  watch: {
+    lang(newValue, oldValue) {
+      this.$store.dispatch("auth/getRegFields")
+    },
   },
   methods: {
     sbsEmail() {

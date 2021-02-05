@@ -1,6 +1,6 @@
 <template>
   <div class="locale-changer">
-    <select v-model="$root.$i18n.locale">
+    <select v-model="$root.$i18n.locale" @change="switchLocale">
       <option v-for="(lang, i) in locales" :key="`Lang${i}`" :value="lang">
         {{ lang }}
       </option>
@@ -9,8 +9,7 @@
 </template>
 
 <script>
-import {API} from "../../api";
-import {LangConfig, LangParams} from "../../lang";
+
 
 export default {
   data () {
@@ -19,8 +18,10 @@ export default {
     }
   },
   methods: {
-    switchLocale(locale) {
-      LangConfig.setAcceptLanguageInApiHeader(locale)
+    switchLocale($event) {
+      this.$store.dispatch('auth/setLang', $event.target.value).then(r => {
+        localStorage.setItem('selectedLang', $event.target.value)
+      })
     }
   },
 }

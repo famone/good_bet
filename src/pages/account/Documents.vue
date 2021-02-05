@@ -36,7 +36,7 @@
 
             <br><br>
 
-            <h2>{{ $t('pages.account.addDocument') }}</h2>
+            <h2>{{ $t('pages.account.addDocuments') }}</h2>
 
             <div class="row new-doc" v-if="avilable">
               <div class="col-lg-4">

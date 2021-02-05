@@ -14,7 +14,8 @@ import VueScrollTo from 'vue-scrollto'
 import 'swiper/css/swiper.css';
 import {API} from './api';
 import VueI18n from "vue-i18n";
-import {LangConfig} from "./lang";
+import en from "./locals/en.json";
+import ru from "./locals/ru.json";
 
 Vue.use(VueRouter)
 Vue.use(Vuelidate)
@@ -25,9 +26,19 @@ Vue.use(ScrollLoader)
 Vue.use(VueI18n)
 Vue.use(VueScrollTo)
 
-const langConfig = new LangConfig();
+let currentLocal = process.env.CASINO_APP_I18N_DEFAULT_LOCALE;
+let localFromStorage = localStorage.getItem("selectedLang")
+if (localFromStorage) {
+	currentLocal = localFromStorage
+}
 
-const i18n = new VueI18n(langConfig.buildParams())
+const i18n = new VueI18n({
+	locale: currentLocal,
+	messages: {
+		"en": en,
+		"ru": ru
+	}
+})
 
 if (localStorage.getItem('player')) {
 	let userToken = JSON.parse(localStorage.getItem('userToken'));

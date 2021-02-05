@@ -130,7 +130,8 @@ export default {
     ...mapGetters({
       player: "auth/getPlayer",
       timezones: "auth/getZones",
-      countries: "auth/getCountries"
+      countries: "auth/getCountries",
+      lang: "auth/getLang"
     }),
     getCurrentAccount() {
       if (this.player) {
@@ -138,6 +139,12 @@ export default {
           return item.is_current == true
         })
       }
+    },
+  },
+  watch: {
+    lang() {
+      this.$store.dispatch('auth/loadTimezones')
+      this.$store.dispatch('auth/loadCountries')
     },
   },
   created() {
