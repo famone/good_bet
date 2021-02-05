@@ -88,6 +88,7 @@ export default {
   methods: {
     changeAccount(accountId) {
       this.$store.dispatch('auth/changeAccount', accountId)
+      this.$store.dispatch('auth/getUser')
     },
     getAvailableCurrency() {
       API.get('payment-currencies', {

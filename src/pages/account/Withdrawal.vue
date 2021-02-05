@@ -43,6 +43,10 @@
           <input id="" type="text" v-model="field.value">
         </div>
 
+        <div class="errors" v-for="(er, index) in errors ">
+          <p style="color: red;">{{index+1}}. {{er.message}}</p>
+        </div>
+
         <button type="submit" class="reg-btn" @click="setPayment">{{
             $t('pages.account.withdrawalMoneyUpper')
           }}
@@ -81,7 +85,8 @@ export default {
       acceptPop: false,
       comission: '',
       fee: '',
-      transId: 0
+      transId: 0,
+      errors: null
     }
   },
   computed: {
@@ -166,6 +171,10 @@ export default {
               this.$router.replace('/fail')
             }
 
+          })
+          .catch(err => {
+            console.log(err.response)
+            this.errors = err.response.data
           })
     }
   }

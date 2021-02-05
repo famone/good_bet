@@ -83,7 +83,7 @@
                </p>
             </div>
 
-            <button type="submit" class="reg-btn">LOGIN</button>
+            <button type="submit" class="reg-btn">{{ $t('login.registration').toUpperCase()  }}</button>
           </form>
 
 

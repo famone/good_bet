@@ -44,6 +44,9 @@
           <label for="">{{ field.name }}</label>
           <input id="" type="text" v-model="field.value">
         </div>
+        <div class="errors" v-for="(er, index) in errors ">
+          <p style="color: red;">{{index+1}}. {{er.message}}</p>
+        </div>
 
         <button type="submit" class="reg-btn" @click="setPayment">{{ $t('pages.account.depositMoney') }}</button>
       </div>
@@ -69,7 +72,8 @@ export default {
       acceptPop: false,
       comission: '',
       fee: '',
-      transId: 0
+      transId: 0,
+      errors: null
     }
   },
   computed: {
@@ -91,6 +95,7 @@ export default {
     cancel() {
       this.acceptPop = false
       this.payMethod = null
+      this.errors = null
     },
     accept() {
       let pendingStatus = 'pending'
@@ -109,6 +114,7 @@ export default {
     closePop() {
       this.payMethod = null
       this.amount = ''
+      this.errors = null
     },
     setPayment() {
 
@@ -151,7 +157,10 @@ export default {
             } else {
               this.$router.replace('/success')
             }
-          })
+          }).catch(err => {
+              console.log(err.response)
+              this.errors = err.response.data
+      })
 
     }
   }
