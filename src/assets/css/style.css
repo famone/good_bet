@@ -170,6 +170,19 @@ header li{
 	font-size: 15px;
 	color: #fff;
 	text-transform: uppercase;
+	position: relative;
+}
+.ring{
+	height: 16px;
+	width: 16px;
+	position: absolute;
+	top: -2px;
+	right: -2px;
+	background-color: #E74646;
+	border-radius: 20px;
+	background-image: url(../img/ring.svg);
+	background-repeat: no-repeat;
+	background-position: center;
 }
 .settings{
 	background-color: transparent;

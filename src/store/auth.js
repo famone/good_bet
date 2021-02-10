@@ -22,7 +22,8 @@ const auth = {
 		popularGames: [],
 		slotsGames: [],
 		recommendedGames: [],
-		switchDepo: true
+		switchDepo: true,
+		messages: []
 	},
 	mutations: {
 		SET_GAMES(state, payload) {
@@ -75,6 +76,9 @@ const auth = {
 		},
 		SET_DEPOSWITCH(state, payload) {
 			state.switchDepo = payload
+		},
+		SET_MESSAGES(state, payload){
+			state.messages = payload
 		}
 	},
 	actions: {
@@ -127,6 +131,7 @@ const auth = {
 			}).then(response => {
 				commit('SET_PLAYER', response.data[0])
 				localStorage.setItem("player", JSON.stringify(response.data[0]));
+				dispatch("loadMessages")
 			})
 
 
@@ -201,6 +206,12 @@ const auth = {
 			API.get('sliders')
 				.then(res => {
 					commit('SET_SLIDER', res.data)
+				})
+		},
+		loadMessages({commit}) {
+			API.get('messages')
+				.then(res => {
+					commit('SET_MESSAGES', res.data)
 				})
 		},
 		logOut({commit, state}) {
@@ -318,6 +329,9 @@ const auth = {
 		},
 		getSwitchDepo(state) {
 			return state.switchDepo
+		},
+		getMessages(state){
+			return state.messages
 		}
 	}
 }

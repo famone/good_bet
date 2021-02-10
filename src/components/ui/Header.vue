@@ -21,8 +21,14 @@
           <input type="text" class="search-inp" placeholder="Game name" @input="searchMethod" v-model="search">
           <div class="player-row">
             <div class="avatar" v-if="player.avatars.length !== 0"
-                 :style="{'background-image': 'url(' + player.avatars[0].url + ')'}"></div>
-            <div class="avatar" v-else>
+            @click="showChat = !showChat"
+                 :style="{'background-image': 'url(' + player.avatars[0].url + ')'}">
+                   <div class="ring"></div>
+                   <miniChat v-if="showChat && messages" :messages="messages" @lookMes="lookMes($event)"/>
+                 </div>
+            <div class="avatar" v-else @click="showChat = !showChat">
+              <div class="ring"></div>
+              <miniChat v-if="showChat && messages" :messages="messages" @lookMes="lookMes($event)"/>
               <span>{{ player.nickname.substr(0, 1) }}</span>
             </div>
             <div class="text-center">
@@ -82,11 +88,17 @@
           </div>
         </div>
 
-        <lang-switcher></lang-switcher>
+        <lang-switcher />
 
 
       </div>
     </div>
+
+        <messagePop v-if="activeMessage !== '' " 
+        :activeMessage="activeMessage" 
+        @closeMessage="closeMessage"/>
+
+
   </header>
 </template>
 
@@ -95,11 +107,13 @@
 import {mapGetters} from 'vuex'
 import LangSwitcher from "./LangSwitcher";
 import {API} from "../../api";
+import miniChat from '../ui/miniChat.vue'
+import messagePop from '../ui/messagePop.vue'
 
 export default {
-  components: {LangSwitcher},
+  components: {LangSwitcher, miniChat, messagePop},
   computed: {
-    ...mapGetters({player: "auth/getPlayer"}),
+    ...mapGetters({player: "auth/getPlayer", messages: "auth/getMessages"}),
     getCurrentAccount() {
       if (this.player) {
         return this.player.accounts.find(item => {
@@ -115,6 +129,12 @@ export default {
     }
   },
   methods: {
+    closeMessage(){
+      this.activeMessage = ''
+    },
+    lookMes(mes){
+      this.activeMessage = mes
+    },
     logOut() {
       this.$store.dispatch('auth/logOut')
           .then(() => {
@@ -149,6 +169,8 @@ export default {
   },
   data() {
     return {
+      activeMessage: '' ,
+      showChat: false,
       search: '',
       searchResults: [],
       stickyHeader: false,
