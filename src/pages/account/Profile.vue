@@ -23,6 +23,15 @@
                     <div class="edit-btn"></div>
                   </div>
                 </div>
+                <div class="col-lg-6">
+                  <div class="small-depo-box">
+                    <div class="small-depo-box-in">
+                      <router-link tag="div" to="/cash-withdrawal" class="minusik"></router-link>
+                      <h4>{{getCurrentAccount.amount_as_currency}}</h4>
+                      <router-link tag="div" to="/deposit" class="plusik"></router-link>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="col-lg-6">
                 <label for="profile-nickname">{{ $t('pages.account.profile.nickname') }}</label>
@@ -123,6 +132,13 @@ export default {
       timezones: "auth/getZones",
       countries: "auth/getCountries"
     }),
+    getCurrentAccount() {
+      if (this.player) {
+        return this.player.accounts.find(item => {
+          return item.is_current == true
+        })
+      }
+    },
   },
   created() {
     this.$store.dispatch('auth/loadTimezones')

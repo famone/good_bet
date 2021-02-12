@@ -1380,6 +1380,43 @@ tbody tr:nth-child(2n){
 }
 
 
+/*small-depo-box*/
+
+.small-depo-box{
+	background-color: #4D2ADC;
+	border-radius: 15px;
+	height: 110px;
+	margin-bottom: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.small-depo-box-in{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.small-depo-box-in h4{
+	margin:0 10px;
+}
+.plusik, .minusik{
+	height: 16px;
+	width: 16px;
+	background-size: 16px;
+	background-position: center;
+	background-repeat: no-repeat;
+	cursor: pointer;
+}
+.plusik{
+	background-image: url(../img/plusik.svg);
+}
+.minusik{
+	background-image: url(../img/minusik.svg);
+}
+
+
+
+
 /*ADAPTIIIIIIIIIV*/
 
 @media (min-width: 1200px){

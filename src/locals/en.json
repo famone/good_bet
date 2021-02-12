@@ -115,5 +115,17 @@
     "rememberMe": "Remember Me",
     "forgotPassword": "Forgot Password?",
     "loginUPPER": "LOGIN"
+  },
+  "recovery": {
+    "socialSignInTitle": "Indicate your e-mail",
+    "email": "E-mail",
+    "loginUPPER": "RESTORE PASSWORD",
+    "title": "FORGOT PASSWORD"
+  },
+  "newPass": {
+    "passOne": "New password",
+    "passTwo": "Repeat password",
+    "loginUPPER": "CONFIRM",
+    "title": "NEW PASSWORD"
   }
 }

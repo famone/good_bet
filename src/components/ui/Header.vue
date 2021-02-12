@@ -48,7 +48,7 @@
               <img src="../../assets/img/settings.svg">
             </router-link>
             <router-link tag="button" to="/deposit" class="coins">
-              <img src="../../assets/img/coins.svg">
+              <img src="../../assets/img/coinsgold.svg">
             </router-link>
             <router-link tag="button" to="/favorite" class="coins">
               <img src="../../assets/img/like2.svg">

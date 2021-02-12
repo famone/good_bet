@@ -21,6 +21,8 @@ import Succed from '../pages/Succed.vue'
 import Favorite from '../pages/account/Favorite.vue'
 import Documents from '../pages/account/Documents.vue'
 import Accounts from '../pages/account/Accounts.vue'
+import Recovery from '../pages/Recovery.vue'
+import Newpass from '../pages/Newpass.vue'
 
 const routes = [
 		{
@@ -30,6 +32,20 @@ const routes = [
 		{
 			path: '/enter',
 			component: Login,
+			meta: {
+				guest: true
+			}
+		},
+		{
+			path: '/recovery',
+			component: Recovery,
+			meta: {
+				guest: true
+			}
+		},
+		{
+			path: '/new-password',
+			component: Newpass,
 			meta: {
 				guest: true
 			}

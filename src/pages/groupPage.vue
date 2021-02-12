@@ -1,6 +1,7 @@
 <template>
   <div>
-    <Navbar @chDynPage="updateDynPage"/>
+    <Navbar/>
+
     <section id="groupPage">
       <div class="games-row">
         <div class="container">
@@ -27,7 +28,10 @@
         </div>
       </div>
     </section>
+    <p class="hidden">{{loadgames}}</p>
+
   </div>
+
 </template>
 
 
@@ -55,9 +59,14 @@ export default {
     API.get('games', {
       params: {
         expand: API_GAMES_DEFAULT_FIELDS,
-        group_id: this.$route.params.id.toString()
+        group_id: this.id
       }
     }).then(this._resCallback.bind(this))
+  },
+  computed: {
+    loadgames(){
+      return this.updateDynPage(this.id.toString())
+    }
   },
   methods: {
     getGameList() {
@@ -76,7 +85,7 @@ export default {
         console.log(error);
       })
     },
-    updateDynPage() {
+    updateDynPage(id) {
       this.gamesArr = []
       this.loader = true
       this.pageCount = 1
@@ -84,7 +93,7 @@ export default {
       API.get('games', {
         params: {
           expand: API_GAMES_DEFAULT_FIELDS,
-          group_id: this.$route.params.id.toString()
+          group_id: id
         }
       }).then(this._resCallback.bind(this))
     },

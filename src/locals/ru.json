@@ -115,5 +115,17 @@
     "rememberMe": "Запомнить меня",
     "forgotPassword": "Забыли пороль?",
     "loginUPPER": "ВОЙТИ"
+  },
+  "recovery": {
+    "socialSignInTitle": "Укажите ваш e-mail",
+    "email": "E-mail",
+    "loginUPPER": "ВОССТАНОВИТЬ ПАРОЛЬ",
+    "title": "ЗАБЫЛИ ПАРОЛЬ"
+  },
+  "newPass": {
+    "passOne": "Новый пароль",
+    "passTwo": "Повторите пароль",
+    "loginUPPER": "ПОДТВЕРДИТЬ",
+    "title": "НОВЫЙ ПАРОЛЬ"
   }
 }

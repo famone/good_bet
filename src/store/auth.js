@@ -169,6 +169,7 @@ const auth = {
 				})
 
 
+
 			// получаем id всех групп
 
 			API.get('game-groups', {
