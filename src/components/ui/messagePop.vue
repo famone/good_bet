@@ -6,16 +6,12 @@
 			<h2>{{activeMessage.title}}</h2>
 			<br>
 			<p class="white-txt" v-html="activeMessage.message"></p>
-			<button class="save-btn" v-if="activeMessage.status === 'delivered'" 
-			@click="markAs(activeMessage.id)">
-		MARK AS READ</button>
 		</div>
 	</div>
 </template>
 
 
 <script>
-import {API} from "../../api";
 
 	export default{
 		props: {
@@ -27,17 +23,6 @@ import {API} from "../../api";
 		methods: {
 			closeMessage(){
 				this.$emit('closeMessage')
-			},
-			markAs(id){
-
-				let stat = {
-					status: "read"
-				}
-
-				API.patch( `messages/${id}`, stat)
-				.then(res => {
-					this.$emit('closeMessage')
-				})
 			}
 		}
 	}
