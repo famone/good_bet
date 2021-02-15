@@ -31,12 +31,19 @@
   },
   "myProfile": {
     "myProfile": "Мой профиль",
+    "socials": "Соц. сети",
     "deposit": "Депозит",
     "withdrawal": "Вывод",
     "accounts": "Счета",
     "transactions": "Транзакции",
     "myBonuses": "Мои бонусы",
     "documents": "Документы"
+  },
+  "social": {
+    "name": "Socials",
+    "add_social": "Add social",
+    "add": "Add",
+    "delete": "Delete"
   },
   "betCard": {
     "contacts": "КОНТАКТЫ",

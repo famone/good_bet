@@ -5,6 +5,10 @@
         <div class="form-box text-center">
           <h2>LOGIN</h2>
           <p class="white-txt">{{ $t('login.socialSignInTitle') }}</p>
+          <div class="social">
+            <a :href="socialLoginFacebook()" class="under-link">Facebook</a>
+            <a :href="socialLoginGoogle()" class="under-link">Google</a>
+          </div>
           <form>
             <input type="text" :placeholder="$t('login.email')" v-model="login">
             <input type="password" :placeholder="$t('login.password')" v-model="password">
@@ -58,11 +62,16 @@ export default {
       }
 
       API.post('oauth2/token', userLog, config)
-          .then(response => {
-            let tokenEntity = {
-              userToken: response.data.access_token,
-              timestamp: new Date().getTime()
-            }
+        .then(response => {
+
+          let currentTimeInTimestamp = new Date().getTime() / 1000 | 0;
+
+          let tokenEntity = {
+            userToken: response.data.access_token,
+            refreshToken: response.data.refresh_token,
+            expiresIn: currentTimeInTimestamp,
+            timestamp: new Date().getTime()
+          }
 
             localStorage.setItem("userToken", JSON.stringify(tokenEntity));
 
@@ -76,6 +85,21 @@ export default {
         });
 
 
+    },
+    socialLoginFacebook(){
+      return  this.socialLogin('facebook')
+    },
+    socialLoginGoogle(){
+      return  this.socialLogin('google')
+    },
+    socialLogin(socialName){
+      let apiUrl = process.env.SOCIAL_APP_URL
+      let casinoUrl = process.env.CASINO_APP_URL
+      let token = process.env.SOCIAL_APP_PUBLIC_TOKEN
+
+      let backUrl = casinoUrl + '/social/callback';
+
+      return apiUrl + '/social/login/'+ socialName +'/'+ token + '?back_url=' + backUrl
     }
   }
 }

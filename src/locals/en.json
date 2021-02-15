@@ -31,12 +31,19 @@
   },
   "myProfile": {
     "myProfile": "My profile",
+    "socials": "Socials",
     "deposit": "Deposit",
     "withdrawal": "Cash withdrawal",
     "accounts": "Accounts",
     "transactions": "Transactions",
     "myBonuses": "My bonuses",
     "documents": "Documents"
+  },
+  "social": {
+    "name": "Socials",
+    "add_social": "Add social",
+    "add": "Add",
+    "delete": "Delete"
   },
   "betCard": {
     "contacts": "CONTACTS",

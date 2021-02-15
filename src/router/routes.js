@@ -23,6 +23,8 @@ import Documents from '../pages/account/Documents.vue'
 import Accounts from '../pages/account/Accounts.vue'
 import Recovery from '../pages/Recovery.vue'
 import Newpass from '../pages/Newpass.vue'
+import SocialCallback from '../pages/SocialCallback'
+import Socials from '../pages/account/Socials'
 
 const routes = [
 		{
@@ -153,6 +155,15 @@ const routes = [
 				playerAuth: true
 			}
 		},
+	{
+		path: '/social/callback',
+		component: SocialCallback,
+	},
+	{
+		path: '/account/socials',
+		component: Socials,
+		name: 'account_socials'
+	},
 		{
 			path: '*',
 			component: Notfound

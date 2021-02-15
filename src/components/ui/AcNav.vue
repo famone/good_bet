@@ -23,6 +23,11 @@
 							link: '/profile',
 							icon: require('../../assets/img/icons/pr1.svg')
 						},
+          {
+            text: 'myProfile.socials',
+            link: '/account/socials',
+            icon: require('../../assets/img/icons/pr1.svg')
+          },
 						{
 							text: 'myProfile.deposit',
 							link: '/deposit',
