@@ -6,10 +6,12 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --hot",
     "build": "cross-env NODE_ENV=production webpack --mode production --progress --hide-modules"
   },
   "dependencies": {
+    "@sentry/tracing": "^6.2.0",
+    "@sentry/vue": "^6.2.0",
     "axios": "^0.21.1",
     "dotenv-webpack": "^6.0.0",
     "fs": "0.0.1-security",
