@@ -104,10 +104,6 @@ export default {
       this.$refs.recaptcha.execute()
     },
     submitForm() {
-      this.$refs.recaptcha.reset();
-      if (!this.captchaResponseToken) {
-        return;
-      }
 
       let feedback = {
         name: this.name,
@@ -123,6 +119,7 @@ export default {
             console.log(response)
           })
           .catch(error => console.log(error))
+      this.$refs.recaptcha.reset();
     },
     validate() {
       if (this.$v.$invalid) {

@@ -191,11 +191,6 @@ export default {
 
     },
     submitForm() {
-      this.$refs.recaptcha.reset();
-
-      if (!this.captchaResponseToken) {
-        return;
-      }
 
       let fieldInArr = this.inpArr.find(item => {
         return item.name === "recaptcha_response"
@@ -233,6 +228,7 @@ export default {
             this.errors = error.response.data
           });
 
+      this.$refs.recaptcha.reset();
 
     },
     validate() {
