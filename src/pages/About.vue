@@ -33,50 +33,47 @@
                    v-model="name">
             <input type="text" placeholder="E-mail" v-model="email"
                    :class="{errorInp : ($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)}">
-            <input type="text" placeholder="Topic" v-model="topic">
-            <select name="" id="" v-model="category">
+            <input
+                type="text"
+                placeholder="Topic"
+                v-model="subject"
+                :class="{errorInp : $v.subject.$dirty && !$v.subject.required}"
+            >
+            <select name=""
+                    id=""
+                    v-model="section"
+                    :class="{errorInp : $v.section.$dirty && !$v.section.required}"
+            >
               <option value="">Select category</option>
               <option value="Payment problem">Payment problem</option>
               <option value="Payment problem">Payment problem</option>
             </select>
-            <textarea placeholder="Message text" v-model="message"></textarea>
-            <vue-recaptcha
-                ref="recaptcha"
-                size="invisible"
-                :sitekey="sitekey"
-                @verify="register"
-                @expired="onCaptchaExpired"
-            />
+            <textarea
+                placeholder="Message text"
+                v-model="message"
+                :class="{errorInp : $v.message.$dirty && !$v.message.required}"
+            ></textarea>
             <button type="submit" class="reg-btn">SEND</button>
+
+            <template>
+              <vue-recaptcha
+                  id="captchaContactUs"
+                  ref="recaptcha"
+                  size="invisible"
+                  :sitekey="captchaToken"
+                  @expired="onCaptchaExpired"
+                  @verify="onVerify"
+                  :loadRecaptchaScript="true"
+              ></vue-recaptcha>
+            </template>
+
+
+
           </form>
         </div>
       </div>
     </section>
-    <!--
 
-        <section>
-            <form
-                  method="post"
-                  @submit.prevent="validate">
-
-
-
-                <div class="form-group">
-                  <vue-recaptcha
-                    ref="recaptcha"
-                    size="invisible"
-                    :sitekey="sitekey"
-                    @verify="register"
-                    @expired="onCaptchaExpired"
-                  />
-                  <button
-                        type="submit"
-                        class="btn btn-primary btn-block">
-                    Sign Up
-                  </button>
-                </div>
-              </form>
-        </section> -->
   </div>
 </template>
 
@@ -91,28 +88,34 @@ export default {
   components: {VueRecaptcha, Navbar},
 
   data() {
+    console.log('dsadsadas')
     return {
       email: '',
       name: '',
-      topic: '',
-      category: '',
+      subject: '',
+      section: '',
       message: '',
-      sitekey: process.env.CASINO_APP_CAPTCHA_TOKEN
+      captchaToken: process.env.CASINO_APP_CAPTCHA_TOKEN,
+      captchaResponseToken: null
     }
   },
   methods: {
-    register(recaptchaToken) {
+    execute() {
       this.$refs.recaptcha.execute()
-      console.log(recaptchaToken)
-
+    },
+    submitForm() {
+      this.$refs.recaptcha.reset();
+      if (!this.captchaResponseToken) {
+        return;
+      }
 
       let feedback = {
         name: this.name,
         email: this.email,
-        section: this.category,
-        subject: this.topic,
+        section: this.section,
+        subject: this.subject,
         message: this.message,
-        recaptcha_response: recaptchaToken
+        recaptcha_response: this.captchaResponseToken
       }
 
       API.post('feedback', feedback)
@@ -120,22 +123,24 @@ export default {
             console.log(response)
           })
           .catch(error => console.log(error))
-
     },
     validate() {
-      // тут можно добавить проверку на валидацию
-      // например, с помощью vee validate
-      // если с валидацией наших полей все хорошо, запускаем каптчу
       if (this.$v.$invalid) {
         this.$v.$touch();
-        return;
+        return false;
       }
 
+      this.$refs.recaptcha.execute();
 
-      this.$refs.recaptcha.execute()
+      return true;
     },
     onCaptchaExpired() {
       this.$refs.recaptcha.reset()
+      this.captchaResponseToken = null
+    },
+    onVerify(responseToken) {
+      this.captchaResponseToken = responseToken;
+      this.submitForm();
     }
   },
   validations: {
@@ -145,62 +150,20 @@ export default {
     },
     name: {
       required
+    },
+    section: {
+      required
+    },
+    subject: {
+      required
+    },
+    message: {
+      required
     }
+
   },
 }
 </script>
-
-<!-- <script>
-import Navbar from '../components/ui/Navbar.vue'
-import { required, email, minLength } from "vuelidate/lib/validators";
-import axios from 'axios'
-export default{
-	components: {Navbar},
-	methods: {
-		submiitForm(){
-			if(this.$v.$invalid) {
-				this.$v.$touch();
-				return;
-			}
-		let feedback = {
-    	name: this.name,
-    	email: this.email,
-    	section: this.category,
-    	subject: this.topic,
-    	message: this.message,
-    	recaptcha_response: ''
-    	}
-		
-		console.log(feedback)
-		axios
-	  		.post('http://api.casinoplatform.site/v3/feedback', feedback)
-	  		.then(response => {
-	  			console.log(response)
-	  		})
-	  		.catch(error => console.log(error))
-		
-	}
-	},
-	data(){
-		return{
-			email: '',
-			name: '',
-			topic: '',
-			category: '',
-			message: ''
-		}
-	},
-	validations: {
-			email:{
-				required,
-				email
-			},
-			name:{
-				required
-			}
-		},
-}
-</script> -->
 
 <style>
 .errorInp {

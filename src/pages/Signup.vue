@@ -6,20 +6,12 @@
           <h2>REGISTRATION</h2>
 
 
-
-          
-
-          <form @submit.prevent="submitForm">
-
-
-
+          <form @submit.prevent="validate">
             <div class="field-box" v-for="field in regFields[0].fields">
-
-              <div v-for="fl in field.inputs" v-if="field.type !== 'checkbox' " :class="{errorInput : checkErr.includes(fl.name)}">
-
-
+              <div v-for="fl in field.inputs" v-if="field.type !== 'checkbox' "
+                   :class="{errorInput : checkErr.includes(fl.name)}">
                 <label for="" :class="{hidden : fl.name === 'confirm_terms' || fl.name === 'recaptcha_response' }">
-                {{ fl.label }}</label>
+                  {{ fl.label }}</label>
 
                 <select name="" id="" :ref=" 'input' + field.id " :data-field="fl.name"
                         @input="updateField($event)"
@@ -29,20 +21,10 @@
                 </select>
 
 
-                <input :type="field.type" :data-field="fl.name" @input="updateField($event)" 
-                v-else :class="{hidden : fl.name === 'confirm_terms' || fl.name === 'recaptcha_response' }">
+                <input :type="field.type" :data-field="fl.name" @input="updateField($event)"
+                       v-else :class="{hidden : fl.name === 'confirm_terms' || fl.name === 'recaptcha_response' }">
               </div>
-
-
-
-
             </div>
-
-
-
-
-
-
 
 
             <div class="remember-me">
@@ -67,20 +49,24 @@
               </div>
             </div>
 
-            <vue-recaptcha
-                ref="recaptcha"
-                size="invisible"
-                :sitekey="sitekey"
-                @verify="register"
-                @expired="onCaptchaExpired"
-            />
-           
+            <template>
+              <vue-recaptcha
+                  id="captchaContactUs"
+                  ref="recaptcha"
+                  size="invisible"
+                  :sitekey="captchaToken"
+                  @expired="onCaptchaExpired"
+                  @verify="onVerify"
+                  :loadRecaptchaScript="true"
+              ></vue-recaptcha>
+            </template>
+
             <div v-if="errors">
               <!-- {{errors}} -->
 
               <p style="color: red;" v-for="err in errors">
-                {{err.message}}
-               </p>
+                {{ err.message }}
+              </p>
             </div>
 
             <button type="submit" class="reg-btn">LOGIN</button>
@@ -103,9 +89,10 @@ export default {
   components: {VueRecaptcha},
   data() {
     return {
-      errors: null ,
-      sitekey: process.env.CASINO_APP_CAPTCHA_TOKEN,
+      errors: null,
+      captchaToken: process.env.CASINO_APP_CAPTCHA_TOKEN,
       agreement: false,
+      captchaResponseToken: null,
       mailSpam: {
         name: "subscription_email",
         value: false
@@ -143,16 +130,16 @@ export default {
       regFields: "auth/getRegFields",
       currency: "auth/getCurrency"
     }),
-    checkErr(){
-        let arr = []
-        
-        if(this.errors){
-          this.errors.forEach(item =>{
+    checkErr() {
+      let arr = []
+
+      if (this.errors) {
+        this.errors.forEach(item => {
           arr.push(item.field)
         })
-        }
+      }
 
-        return arr
+      return arr
     }
   },
   methods: {
@@ -197,14 +184,18 @@ export default {
 
 
     },
-    register(recaptchaToken) {
-      // alert('Погнали' + recaptchaToken)
+    submitForm() {
+      this.$refs.recaptcha.reset();
+
+      if (!this.captchaResponseToken) {
+        return;
+      }
 
       let fieldInArr = this.inpArr.find(item => {
         return item.name === "recaptcha_response"
       })
 
-      fieldInArr.value = recaptchaToken
+      fieldInArr.value = this.captchaResponseToken
 
       let pass1 = this.inpArr.find(item => {
         return item.name === "password_change"
@@ -228,25 +219,28 @@ export default {
         }
       }
 
-      
-
-
       API.post('players', objField)
           .then(response => {
             this.submitLog()
           })
           .catch((error) => {
-           
             this.errors = error.response.data
           });
 
 
     },
-    submitForm() {
-      this.$refs.recaptcha.execute()
+    validate() {
+      this.$refs.recaptcha.execute();
+
+      return true;
     },
     onCaptchaExpired() {
       this.$refs.recaptcha.reset()
+      this.captchaResponseToken = null
+    },
+    onVerify(responseToken) {
+      this.captchaResponseToken = responseToken;
+      this.submitForm();
     },
     // вход сразу
     submitLog() {
@@ -254,10 +248,8 @@ export default {
 
       let mailToLog = this.inpArr.find(item => item.name === "email")
 
-      
+
       let passToLog = this.inpArr.find(item => item.name === "password_change")
-
-
 
 
       let userLog = {
@@ -285,12 +277,12 @@ export default {
 
             this.$store.dispatch('auth/getUser')
           })
-          .catch(error =>{
+          .catch(error => {
             this.errors = true
           })
           .then(() => {
-        this.$router.replace("/profile");
-        });
+            this.$router.replace("/profile");
+          });
 
 
     }
@@ -303,10 +295,12 @@ export default {
 .remember-me {
   margin-bottom: 15px;
 }
-.errorInput input{
-  border:1px red solid!important;
+
+.errorInput input {
+  border: 1px red solid !important;
 }
-.errorInput select{
-  border:1px red solid!important;
+
+.errorInput select {
+  border: 1px red solid !important;
 }
 </style>
