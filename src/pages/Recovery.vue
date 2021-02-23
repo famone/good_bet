@@ -8,7 +8,7 @@
           <form>
             <input type="text" :placeholder="$t('recovery.email')" v-model="login">
            
-            <p style="color: red;" class="text-center" v-if="errors">Login details are incorrect</p>
+            <p style="color: red;" class="text-center" v-if="errors">{{ $t('login.error') }}</p>
             <button type="submit" @click.prevent="resetPass()" class="reg-btn">{{ $t('recovery.loginUPPER') }}</button>
           </form>
         </div>

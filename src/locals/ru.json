@@ -122,7 +122,9 @@
     "rememberMe": "Запомнить меня",
     "forgotPassword": "Забыли пороль?",
     "loginUPPER": "ВОЙТИ",
-    "registration": "Регистрация"
+    "registration": "Регистрация",
+    "error": "Данные для входа неверны",
+    "social_login_error_message": "Не удается ввойти через социальную сеть"
   },
   "recovery": {
     "socialSignInTitle": "Укажите ваш e-mail",

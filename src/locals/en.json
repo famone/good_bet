@@ -122,7 +122,9 @@
     "rememberMe": "Remember Me",
     "forgotPassword": "Forgot Password?",
     "loginUPPER": "LOGIN",
-    "registration": "Registration"
+    "registration": "Registration",
+    "error": "Login details are incorrect",
+    "social_login_error_message": "Can't sign in via social network "
   },
   "recovery": {
     "socialSignInTitle": "Indicate your e-mail",

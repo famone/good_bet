@@ -21,7 +21,7 @@
               </div>
               <router-link tag="a" to="/recovery" class="under-link">{{ $t('login.forgotPassword') }}</router-link>
             </div>
-            <p style="color: red;" class="text-center" v-if="errors">Login details are incorrect</p>
+            <p style="color: red;" class="text-center" v-if="errors">{{ $t('login.error') }}</p>
             <button type="submit" @click.prevent="submitLog()" class="reg-btn">{{ $t('login.loginUPPER') }}</button>
           </form>
         </div>
