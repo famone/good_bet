@@ -81,7 +81,7 @@ export default {
             this.errors = true
           })
           .then(() => {
-        this.$router.replace("/profile");
+            this.$router.replace("/profile");
         });
 
 
@@ -97,7 +97,7 @@ export default {
       let casinoUrl = process.env.CASINO_APP_URL
       let token = process.env.SOCIAL_APP_PUBLIC_TOKEN
 
-      let backUrl = casinoUrl + '/social/callback';
+      let backUrl = casinoUrl + '/enter/social';
 
       return apiUrl + '/social/login/'+ socialName +'/'+ token + '?back_url=' + backUrl
     }

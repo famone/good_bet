@@ -108,7 +108,6 @@ export default {
       API
           .post('accounts', newAcc)
           .then(res => {
-            console.log(res.data)
             this.newAccountId = ''
             this.$store.dispatch('auth/getUser')
             this.getAvailableCurrency()

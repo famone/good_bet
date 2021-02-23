@@ -23,7 +23,8 @@ import Documents from '../pages/account/Documents.vue'
 import Accounts from '../pages/account/Accounts.vue'
 import Recovery from '../pages/Recovery.vue'
 import Newpass from '../pages/Newpass.vue'
-import SocialCallback from '../pages/SocialCallback'
+import LoginSocialCallback from '../pages/LoginSocialCallback'
+import SocialCallback from '../pages/account/SocialCallback'
 import Socials from '../pages/account/Socials'
 
 const routes = [
@@ -34,6 +35,13 @@ const routes = [
 		{
 			path: '/enter',
 			component: Login,
+			meta: {
+				guest: true
+			}
+		},
+		{
+			path: '/enter/social',
+			component: LoginSocialCallback,
 			meta: {
 				guest: true
 			}
