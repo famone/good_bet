@@ -3,13 +3,14 @@
     <Navbar/>
 
     <section id="bonus-list">
-      <div class="container">
-        <div class="col-lg-12">
-          <h2 class="mb-30">Bonuses</h2>
-
-          <div class="container" v-if="bonuses">
+          <div class="container" >
+            <h2 class="mb-30">Bonuses</h2>
             <div class="row">
-              <div v-for="bonus in bonuses" v-bind:key="bonus.id" class="col-lg-4">
+              <div class="text-center" v-if="loading">
+                <img alt="loading" src="../../assets/img/icons/nv6.svg" class="spin">
+              </div>
+
+              <div v-if="bonuses" v-for="bonus in bonuses" v-bind:key="bonus.id" class="col-lg-4">
                 <div class="news-card">
                   <div class="bonus-img" :style="{'background-image': bonus.banners.length ? 'url(' + bonus.banners[0].url + ')' : ''}">
                     <div class="read-news">
@@ -24,13 +25,13 @@
                   </div>
                 </div>
               </div>
+              <div v-else>
+                <h3>Bonuses not found</h3>
+              </div>
+
             </div>
           </div>
-          <div v-else>
-            <h3>Bonuses not found</h3>
-          </div>
-        </div>
-      </div>
+
     </section>
   </div>
 </template>
@@ -43,7 +44,8 @@ export default {
   components: {Navbar},
   data() {
     return {
-      bonuses: false
+      bonuses: false,
+      loading: true
     }
   },
   created() {
@@ -52,6 +54,7 @@ export default {
         expand: 'banners',
       }
     }).then(response => {
+      this.loading = false
       this.bonuses = response.data
     })
   }
