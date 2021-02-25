@@ -29,8 +29,7 @@
                 </select>
 
                 <input :type="field.type" :data-field="fl.name" @input="updateField($event)"
-                       v-else :class="{hidden : fl.name === 'confirm_terms' || fl.name === 'recaptcha_response'  || fl.type === 'currency' || fl.type === 'bonus'}">
-
+                        :class="{hidden : ifCustomInput(fl.name) }">
               </div>
             </div>
 
@@ -131,7 +130,14 @@ export default {
           name: 'recaptcha_response',
           value: ''
         }
-      ]
+      ],
+      customFields: [
+        'confirm_terms',
+        'subscription_phone',
+        'recaptcha_response',
+        'currency_code',
+        'registration_bonus_id'
+      ],
     }
   },
   computed: {
@@ -176,6 +182,11 @@ export default {
     },
   },
   methods: {
+    ifCustomInput(name){
+      return  this.customFields.find(item => {
+        return  item === name
+      })
+    },
     sbsEmail () {
       let fieldInArr = this.inpArr.find(item => {
         return item.name === this.mailSpam.name
