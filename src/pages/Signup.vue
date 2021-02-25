@@ -21,8 +21,16 @@
                 </select>
 
 
+                <select :ref=" 'input' + field.id " :data-field="fl.name"
+                        @input="updateField($event)"
+                        v-if="field.type === 'bonus' ">
+                  <option value=""></option>
+                  <option v-for="bonus in bonuses" :value="bonus.id">{{ bonus.title }}</option>
+                </select>
+
                 <input :type="field.type" :data-field="fl.name" @input="updateField($event)"
-                       v-else :class="{hidden : fl.name === 'confirm_terms' || fl.name === 'recaptcha_response' }">
+                       v-else :class="{hidden : fl.name === 'confirm_terms' || fl.name === 'recaptcha_response'  || fl.type === 'currency' || fl.type === 'bonus'}">
+
               </div>
             </div>
 
@@ -69,7 +77,7 @@
               </p>
             </div>
 
-            <button type="submit" class="reg-btn">{{ $t('login.registration').toUpperCase()  }}</button>
+            <button type="submit" class="reg-btn">{{ $t('login.registration').toUpperCase() }}</button>
           </form>
 
 
@@ -82,44 +90,45 @@
 
 <script>
 import VueRecaptcha from 'vue-recaptcha'
-import {mapGetters} from 'vuex'
-import {API} from "../api";
+import { mapGetters } from 'vuex'
+import { API } from '../api'
 
 export default {
-  components: {VueRecaptcha},
-  data() {
+  components: { VueRecaptcha },
+  data () {
     return {
       errors: null,
+      bonuses: [],
       captchaToken: process.env.CASINO_APP_CAPTCHA_TOKEN,
       agreement: false,
       captchaResponseToken: null,
       mailSpam: {
-        name: "subscription_email",
+        name: 'subscription_email',
         value: false
       },
       telSpam: {
-        name: "subscription_phone",
+        name: 'subscription_phone',
         value: false
       },
       terms: {
-        name: "confirm_terms",
+        name: 'confirm_terms',
         value: false
       },
       inpArr: [
         {
-          name: "subscription_phone",
+          name: 'subscription_phone',
           value: false
         },
         {
-          name: "subscription_email",
+          name: 'subscription_email',
           value: false
         },
         {
-          name: "confirm_terms",
+          name: 'confirm_terms',
           value: false
         },
         {
-          name: "recaptcha_response",
+          name: 'recaptcha_response',
           value: ''
         }
       ]
@@ -127,11 +136,11 @@ export default {
   },
   computed: {
     ...mapGetters({
-      regFields: "auth/getRegFields",
-      currency: "auth/getCurrency",
-      lang: "auth/getLang"
+      regFields: 'auth/getRegFields',
+      currency: 'auth/getCurrency',
+      lang: 'auth/getLang'
     }),
-    checkErr() {
+    checkErr () {
       let arr = []
 
       if (this.errors) {
@@ -143,30 +152,47 @@ export default {
       return arr
     }
   },
+  created () {
+    let isBonusEnable = this.regFields[0].fields.find(item => {
+      return item.type === 'bonus'
+    })
+    console.log(isBonusEnable)
+
+    if(isBonusEnable){
+      API.get('lab/bonuses',{
+        params: {
+          activation_event: 'registration'
+        }
+      }).then(response => {
+        this.bonuses = response.data
+      })
+    }
+
+
+  },
   watch: {
-    lang(newValue, oldValue) {
-      this.$store.dispatch("auth/getRegFields")
+    lang (newValue, oldValue) {
+      this.$store.dispatch('auth/getRegFields')
     },
   },
   methods: {
-    sbsEmail() {
+    sbsEmail () {
       let fieldInArr = this.inpArr.find(item => {
         return item.name === this.mailSpam.name
       })
 
       fieldInArr.value = this.mailSpam.value
 
-
     },
-    sbsTel() {
+    sbsTel () {
       let fieldInArr = this.inpArr.find(item => {
-        return item.name === this.telSpam.name;
+        return item.name === this.telSpam.name
       })
 
       fieldInArr.value = this.telSpam.value
 
     },
-    makeTerm() {
+    makeTerm () {
       let fieldInArr = this.inpArr.find(item => {
         return item.name === this.terms.name
       })
@@ -174,7 +200,7 @@ export default {
       fieldInArr.value = this.terms.value
 
     },
-    updateField(e) {
+    updateField (e) {
       let attr = e.target.getAttribute('data-field')
 
       let fieldInArr = this.inpArr.find(item => {
@@ -186,32 +212,30 @@ export default {
         return
       }
 
-      this.inpArr.push({name: attr, value: e.target.value})
-
+      this.inpArr.push({ name: attr, value: e.target.value })
 
     },
-    submitForm() {
+    submitForm () {
 
       let fieldInArr = this.inpArr.find(item => {
-        return item.name === "recaptcha_response"
+        return item.name === 'recaptcha_response'
       })
 
       fieldInArr.value = this.captchaResponseToken
 
       let pass1 = this.inpArr.find(item => {
-        return item.name === "password_change"
+        return item.name === 'password_change'
       })
-      if(pass1){
+      if (pass1) {
         pass1.value = btoa(pass1.value)
       }
 
       let pass2 = this.inpArr.find(item => {
-        return item.name === "password_repeat"
+        return item.name === 'password_repeat'
       })
-      if(pass2){
+      if (pass2) {
         pass2.value = btoa(pass2.value)
       }
-
 
       let objField = {
         form: {
@@ -230,40 +254,37 @@ export default {
           })
           .catch((error) => {
             this.errors = error.response.data
-          });
+          })
 
-      this.$refs.recaptcha.reset();
+      this.$refs.recaptcha.reset()
 
     },
-    validate() {
-      this.$refs.recaptcha.execute();
+    validate () {
+      this.$refs.recaptcha.execute()
 
-      return true;
+      return true
     },
-    onCaptchaExpired() {
+    onCaptchaExpired () {
       this.$refs.recaptcha.reset()
       this.captchaResponseToken = null
     },
-    onVerify(responseToken) {
-      this.captchaResponseToken = responseToken;
-      this.submitForm();
+    onVerify (responseToken) {
+      this.captchaResponseToken = responseToken
+      this.submitForm()
     },
     // вход сразу
-    submitLog() {
+    submitLog () {
 
-      let mailToLog = this.inpArr.find(item => item.name === "email")
+      let mailToLog = this.inpArr.find(item => item.name === 'email')
 
-
-      let passToLog = this.inpArr.find(item => item.name === "password_change")
-
+      let passToLog = this.inpArr.find(item => item.name === 'password_change')
 
       let userLog = {
-        grant_type: "password",
+        grant_type: 'password',
         username: mailToLog.value,
         password: passToLog.value,
-        scope: "casino:read bonus:read bonus.settings:read bonus:write lab:read lab:write game:read game:write game.history:read game.wallet:write game.launch:write player:read player:write message:read message:write payment:read payment:write player:write:all message:write winner:read faq:read news:read slider:read payment.callbacks:write"
+        scope: 'casino:read bonus:read bonus.settings:read bonus:write lab:read lab:write game:read game:write game.history:read game.wallet:write game.launch:write player:read player:write message:read message:write payment:read payment:write player:write:all message:write winner:read faq:read news:read slider:read payment.callbacks:write'
       }
-
 
       let config = {
         headers: {
@@ -278,7 +299,7 @@ export default {
               timestamp: new Date().getTime()
             }
 
-            localStorage.setItem("userToken", JSON.stringify(tokenEntity));
+            localStorage.setItem('userToken', JSON.stringify(tokenEntity))
 
             this.$store.dispatch('auth/getUser')
           })
@@ -286,9 +307,8 @@ export default {
             this.errors = true
           })
           .then(() => {
-            this.$router.replace("/profile");
-          });
-
+            this.$router.replace('/profile')
+          })
 
     }
   }

@@ -26,6 +26,7 @@ import Newpass from '../pages/Newpass.vue'
 import LoginSocialCallback from '../pages/LoginSocialCallback'
 import SocialCallback from '../pages/account/SocialCallback'
 import Socials from '../pages/account/Socials'
+import BonusList from '../pages/bonuses/List'
 
 const routes = [
 		{
@@ -171,6 +172,11 @@ const routes = [
 		path: '/account/socials',
 		component: Socials,
 		name: 'account_socials'
+	},
+	{
+		path: '/bonuses',
+		component: BonusList,
+		name: 'bonus_list'
 	},
 		{
 			path: '*',
