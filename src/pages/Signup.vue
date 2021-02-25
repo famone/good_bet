@@ -7,7 +7,7 @@
 
 
           <form @submit.prevent="validate">
-            <div class="field-box" v-for="field in regFields[0].fields">
+            <div class="field-box" v-for="field in regFields[0].fields" v-if="regFields">
               <div v-for="fl in field.inputs" v-if="field.type !== 'checkbox' "
                    :class="{errorInput : checkErr.includes(fl.name)}">
                 <label for="" :class="{hidden : fl.name === 'confirm_terms' || fl.name === 'recaptcha_response' }">
@@ -201,12 +201,16 @@ export default {
       let pass1 = this.inpArr.find(item => {
         return item.name === "password_change"
       })
-      pass1.value = btoa(pass1.value)
+      if(pass1){
+        pass1.value = btoa(pass1.value)
+      }
 
       let pass2 = this.inpArr.find(item => {
         return item.name === "password_repeat"
       })
-      pass2.value = btoa(pass2.value)
+      if(pass2){
+        pass2.value = btoa(pass2.value)
+      }
 
 
       let objField = {
@@ -246,7 +250,6 @@ export default {
     },
     // вход сразу
     submitLog() {
-
 
       let mailToLog = this.inpArr.find(item => item.name === "email")
 
