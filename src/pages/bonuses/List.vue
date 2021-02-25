@@ -7,18 +7,21 @@
         <div class="col-lg-12">
           <h2 class="mb-30">Bonuses</h2>
 
-          <div v-if="bonuses">
-            <div v-for="bonus in bonuses" v-bind:key="bonus.id" class="col-lg-2">
-              <div class="news-card">
-                <div class="news-img">
-                  <div class="read-news">
-                    <router-link tag="div" :to=" '/bonus/' + bonus.id " class="read-btn">
-                    </router-link>
+          <div class="container" v-if="bonuses">
+            <div class="row">
+              <div v-for="bonus in bonuses" v-bind:key="bonus.id" class="col-lg-4">
+                <div class="news-card">
+                  <div class="bonus-img" :style="{'background-image': bonus.banners.length ? 'url(' + bonus.banners[0].url + ')' : ''}">
+                    <div class="read-news">
+                      <router-link tag="div" :to=" '/bonuses/' + bonus.id " class="read-btn">
+                        <img src="../../assets/img/see.svg" alt="">
+                      </router-link>
+                    </div>
                   </div>
-                </div>
-                <div class="news-body">
-                  <h3>{{ bonus.title }}</h3>
-                  <p class="news-descr">{{ bonus.description}}</p>
+                  <div class="news-body">
+                    <h3>{{ bonus.title }}</h3>
+                    <p class="bonus-descr">{{ bonus.description }}</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -34,21 +37,45 @@
 
 <script>
 import Navbar from '../../components/ui/Navbar.vue'
-import { API } from '../../api'
+import {API} from '../../api'
 
 export default {
-  components: { Navbar },
-  data () {
+  components: {Navbar},
+  data() {
     return {
       bonuses: false
     }
   },
-  created () {
-    API.get('lab/bonuses')
-        .then(response => {
-          this.bonuses = response.data
-        })
+  created() {
+    API.get('lab/bonuses', {
+      params: {
+        expand: 'banners',
+      }
+    }).then(response => {
+      this.bonuses = response.data
+    })
   }
 
 }
 </script>
+
+<style scoped>
+.bonus-img {
+  height: 180px;
+  width: 100%;
+  background-image: url(../../assets/img/slider1.png);
+  background-position: center right;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.bonus-descr{
+  font-size: 16px;
+  font-weight: 400;
+  opacity: .4;
+  color:#fff;
+  line-height: 22px;
+  height: 50px;
+}
+</style>
