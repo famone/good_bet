@@ -3,10 +3,10 @@
     <div class="game-box">
       <div class="game-image" :style="{'background-image': 'url(' + game.images[0].url + ')'}">
         <div class="play-layer">
-          <router-link tag="div" :to="realGameLink()" class="play-btn">
+          <router-link tag="a" :to="realGameLink()" class="play-btn">
             <img src="../../assets/img/play.svg" alt="">
           </router-link>
-          <router-link tag="span" :to="'/demo-game/' + game.id.toString()" v-if="isDemoExist()">Demo</router-link>
+          <router-link tag="a" :to="'/demo-game/' + game.id.toString()" v-if="isDemoExist()">Demo</router-link>
         </div>
       </div>
       <div class="game-body">

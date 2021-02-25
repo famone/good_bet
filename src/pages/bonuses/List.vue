@@ -14,7 +14,7 @@
                 <div class="news-card">
                   <div class="bonus-img" :style="{'background-image': bonus.banners.length ? 'url(' + bonus.banners[0].url + ')' : ''}">
                     <div class="read-news">
-                      <router-link tag="div" :to=" '/bonuses/' + bonus.id " class="read-btn">
+                      <router-link tag="a" :to=" '/bonuses/' + bonus.id " class="read-btn">
                         <img src="../../assets/img/see.svg" alt="">
                       </router-link>
                     </div>
