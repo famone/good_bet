@@ -100,7 +100,11 @@
         "address": "Address",
         "city": "City",
         "timezone": "Timezone",
-        "saveButtonTitle": "SAVE"
+        "saveButtonTitle": "SAVE",
+        "profileEditSuccess": "Changes successfully saved",
+        "profileEditFail": "Changes saving saved",
+        "avatarUploadedSuccess": "Avatar successfully updated",
+        "avatarUploadedFailed": "There is a problem with avatar update"
       }
     }
   },

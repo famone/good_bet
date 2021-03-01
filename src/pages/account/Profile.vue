@@ -12,22 +12,34 @@
                 <div class="col-lg-6">
                   <div class="ava-edit">
                     <div class="ava-box-edit">
+
                       <div class="avatar" v-if="player.avatars.length !== 0"
                            :style="{'background-image': 'url(' + player.avatars[0].url + ')'}"></div>
                       <div class="avatar" v-else>
                         <span>{{ player.nickname.substr(0, 1) }}</span>
                       </div>
+                      <div id="pick-avatar" class="edit-btn"></div>
+                      <avatar-cropper
+                          :upload-handler="avatarUploadHandler"
+                          trigger="#pick-avatar"
+                          :labels="avatarUploaderLabels"
+                      />
+
                       <h4>{{ $t('pages.account.profile.editAvatar') }}</h4>
+                      <div class="text-center">
+
+
+                      </div>
                     </div>
                     <!-- <input type="file" ref="file" @change="changeAvatar"> -->
-                    <div class="edit-btn"></div>
+
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="small-depo-box">
                     <div class="small-depo-box-in">
                       <router-link tag="div" to="/cash-withdrawal" class="minusik"></router-link>
-                      <h4>{{getCurrentAccount.amount_as_currency}}</h4>
+                      <h4>{{ getCurrentAccount.amount_as_currency }}</h4>
                       <router-link tag="div" to="/deposit" class="plusik"></router-link>
                     </div>
                   </div>
@@ -104,14 +116,17 @@
               </div>
               <div class="col-lg-12">
                 <div class="errors" v-for="(er, index) in errors ">
-                  <p style="color: red;">{{index+1}}. {{er.message}}</p>
+                  <p style="color: red;">{{ index + 1 }}. {{ er.message }}</p>
                 </div>
 
                 <div v-if="isLoading">
                   <button class="save-btn"><img src="../../assets/img/icons/nv6.svg" class="spin"></button>
                 </div>
                 <div v-else>
-                  <button class="save-btn" @click="updateUser">{{ $t('pages.account.profile.saveButtonTitle') }}</button>
+                  <button class="save-btn" @click="updateUser">{{
+                      $t('pages.account.profile.saveButtonTitle')
+                    }}
+                  </button>
                 </div>
               </div>
 
@@ -127,11 +142,12 @@
 <script>
 import Navbar from '../../components/ui/Navbar.vue'
 import AcNav from '../../components/ui/AcNav.vue'
+import AvatarCropper from "vue-avatar-cropper"
 import {mapGetters} from 'vuex'
 import {API} from "../../api";
 
 export default {
-  components: {Navbar, AcNav},
+  components: {Navbar, AcNav, AvatarCropper},
   computed: {
     ...mapGetters({
       player: "auth/getPlayer",
@@ -162,7 +178,11 @@ export default {
       isLoading: false,
       file: null,
       inpArr: [],
-      errors: null
+      errors: null,
+      avatarUploaderLabels: {
+        submit: 'ok',
+        cancel: 'cancel'
+      }
     }
   },
   methods: {
@@ -181,7 +201,6 @@ export default {
       }
 
       this.inpArr.push({name: attr, value: e.target.value})
-      // console.log(payload)
       this.$store.dispatch('auth/CHANGE_FIELD', payload)
 
     },
@@ -207,35 +226,40 @@ export default {
           .then(response => {
             this.$store.dispatch('auth/getUser')
             this.isLoading = false
+            this.$toasted.show(this.$t('pages.account.profile.profileEditSuccess'), {
+              duration: 1500
+            })
           })
-          .catch(err =>{
-            // this.errors = errors.data
-             console.log(err.response)
-             this.errors = err.response.data
+          .catch(err => {
+            this.errors = err.response.data
             this.isLoading = false
+            this.$toasted.show(this.$t('pages.account.profile.profileEditFail'), {
+              duration: 1500
+            })
           })
+
+    },
+    avatarUploadHandler(cropper) {
+      cropper.getCroppedCanvas().toBlob(function (blob) {
+        let formData = new FormData();
+        formData.append('image', blob, 'avatar.png')
+        API.post('player-avatars', formData,
+            {
+              headers: {"Content-Type": "multipart/form-data"}
+            }
+        ).then(response => {
+          this.player.avatars[0].url = response.data.url;
+          this.$toasted.show(this.$t('pages.account.profile.avatarUploadedSuccess'), {
+            duration: 1500
+          })
+        }).catch(error => {
+          this.$toasted.show(this.$t('pages.account.profile.avatarUploadedFailed'), {
+            duration: 1500
+          })
+        })
+      }.bind(this), 'image/png');
 
     }
-    // changeAvatar(){
-    // 	 this.file = this.$refs.file.files[0];
-
-    // 	 console.log(this.file)
-
-
-    // 	 let formData = new FormData();
-
-    // 	 formData.append('file', this.file);
-    // 	 let userToken = JSON.parse(localStorage.getItem('userToken'));
-
-    // 	 axios
-    // 	 .patch( 'http://api.casinoplatform.site/v3/player-avatars/117', formData,{headers: {'Content-Type': 'multipart/form-data', 'Authorization': 'Bearer ' + userToken.userToken }})
-    // 	 .then(response =>{
-    // 	 	console.log(response)
-    // 	 })
-    //        .catch(function(){
-    //          console.log('FAILURE!!');
-    //        });
-    // }
   }
 }
 </script>
