@@ -104,9 +104,7 @@
                        data-field="city">
               </div>
               <div class="col-lg-6">
-                <label for="profile-timezone">{{ $t('pages.account.profile.timezone') }}
-                  {{ player.timezone_id }}
-                </label>
+                <label for="profile-timezone">{{ $t('pages.account.profile.timezone') }}</label>
 
                 <select id="profile-timezone" name="" v-model="player.timezone_id" @input="updateField($event)"
                         data-field="timezone_id">
