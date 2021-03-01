@@ -66,7 +66,7 @@
   "pages": {
     "about": {
       "notificationSuccess": "Сообщение отправлено",
-      "notificationFail": "Failed to send message"
+      "notificationFail": "Ошибка при отправке сообщения"
     },
     "account": {
       "accountsUPPER": "СЧЕТА",
@@ -100,7 +100,11 @@
         "address": "Адрес",
         "city": "Город",
         "timezone": "Часавой пояс",
-        "saveButtonTitle": "СОХРАНИТЬ"
+        "saveButtonTitle": "СОХРАНИТЬ",
+        "profileEditSuccess": "Изминения сохранены",
+        "profileEditFail": "Произошла ошибка",
+        "avatarUploadedSuccess": "Аватарка успешно обновлена",
+        "avatarUploadedFailed": "Проблемы с обновлением аватарки"
       }
     }
   },

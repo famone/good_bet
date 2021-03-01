@@ -94,7 +94,6 @@ export default {
   components: {VueRecaptcha, Navbar},
 
   data() {
-    console.log('dsadsadas')
     return {
       isLoading: false,
       email: '',
@@ -123,13 +122,16 @@ export default {
 
       API.post('feedback', feedback)
           .then(response => {
-            console.log(response)
             this.isLoading = false
-            this.$toasted.show(this.$t('pages.about.notificationSuccess'))
+            this.$toasted.show(this.$t('pages.about.notificationSuccess'), {
+              duration: 1500
+            })
           })
           .catch(error => {
             this.isLoading = false
-            this.$toasted.show(this.$t('pages.about.notificationFail'))
+            this.$toasted.show(this.$t('pages.about.notificationFail'), {
+              duration: 1500
+            })
           })
       this.$refs.recaptcha.reset();
     },
