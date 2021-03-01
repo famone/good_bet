@@ -1,0 +1,193 @@
+<template>
+  <div>
+    <Navbar/>
+
+
+    <section id="account" v-if="player">
+      <div class="container">
+        <div class="row">
+          <AcNav/>
+          <div class="col-lg-9">
+            <h2>{{ $t('Mybonuses.name') }}</h2>
+
+            <button class="switch-btn"
+                    :class="{activeSwitch : switchBonus}"
+                    @click="changeBonus(true)">{{ $t('Mybonuses.active') }}
+            </button>
+            <button class="switch-btn"
+                    :class="{activeSwitch : !switchBonus}"
+                    @click="changeBonus(false)">{{ $t('Mybonuses.available') }}
+            </button>
+
+
+            <div class="text-center" v-if="!bonusList">
+                <img alt="loading" src="../../assets/img/icons/nv6.svg" class="spin">
+              </div>
+
+            <div class="row-bonuses" v-if=" bonusList && switchBonus">
+                <div  v-for="bon in bonusList" class="col-lg-4">
+                <div class="news-card">
+                  
+                  <!-- <pre>{{bon}}</pre> -->
+                  <div class="news-img" :style="{'background-image': bon.bonus.banners.length ? 'url(' + bon.bonus.banners[0].url + ')' : ''}">
+                   
+                  </div>
+                  <div class="news-body">
+                    <h3>{{ bon.bonus.title }}</h3>
+                    <p class="bonus-descr" v-if="bon.bonus.description" v-html="bon.bonus.description.substring(0,90) + '...'"></p>
+                    <p class="bonus-descr" v-else></p>
+
+                      <button class="save-btn" @click="openActiveBonus(bon)">MORE</button>
+          
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row-bonuses" v-if=" bonusList && !switchBonus">
+                <div  v-for="bon in bonusList" class="col-lg-4">
+                <div class="news-card">
+                  
+                  <!-- <pre>{{bon}}</pre> -->
+                  <div class="news-img" :style="{'background-image': bon.banners.length ? 'url(' + bon.banners[0].url + ')' : ''}">
+                   
+                  </div>
+                  <div class="news-body">
+                    <h3>{{ bon.title }}</h3>
+                    <p class="bonus-descr" v-if="bon.description" v-html="bon.description.substring(0,90) + '...'"></p>
+                    <p class="bonus-descr" v-else></p>
+
+                      
+                      <button class="save-btn" @click="openAvailableBonus(bon)" >MORE</button>
+                      <button class="apply-btn">
+                        <img src="../../assets/img/apply.svg">
+                      </button>
+          
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          </div>
+        </div>
+    </section>
+
+
+    <acBonusPop v-if="acBonusDesc" :activeDesc="acBonusDesc" @closeAcDesc="closeAcDesc" />
+    <avBonusPop v-if="avBonusDesc" :availableDesc="avBonusDesc" @closeAvDesc="closeAvDesc" />
+
+
+  </div>
+</template>
+
+
+<script>
+import Navbar from '../../components/ui/Navbar.vue'
+import AcNav from '../../components/ui/AcNav.vue'
+import { mapGetters } from 'vuex'
+import { API } from '../../api'
+import acBonusPop from '../../components/ui/acBonusPop.vue'
+import avBonusPop from '../../components/ui/avBonusPop.vue'
+
+export default {
+  components: { Navbar, AcNav, acBonusPop, avBonusPop },
+  computed: {
+    ...mapGetters({ player: 'auth/getPlayer' }),
+  },
+  data(){
+    return{
+      switchBonus: true,
+      bonusList: null,
+      acBonusDesc: null,
+      avBonusDesc: null
+    }
+  },
+  methods: {
+    openAvailableBonus(bonus){
+      this.avBonusDesc = bonus
+    },
+     closeAvDesc(){
+      this.avBonusDesc = null
+    },
+    openActiveBonus(bonus){
+      this.acBonusDesc = bonus
+    },
+    closeAcDesc(){
+      this.acBonusDesc = null
+    },
+    changeBonus(val){
+      this.switchBonus = val
+      this.bonusList = null
+
+      if(this.switchBonus){
+            API.get('lab/bonus-transactions', {
+              params: {
+                status: 'active',
+                expand: 'bonus, bonus.banners, bonus.budgets, bonus.accrual_rules, bonus.wagering_rules, bonus.free_spin_rules'
+              }
+            }).then(response => {
+              this.bonusList = response.data
+            })
+      }else{
+        API.get('lab/bonuses', {
+          params: {
+            expand: 'banners',
+          }
+        }).then(response => {
+          this.loading = false
+          this.bonusList = response.data
+        })
+      }
+
+
+
+    }
+  },
+  created(){
+    API.get('lab/bonus-transactions', {
+      params: {
+        status: 'active',
+        expand: 'bonus, bonus.banners, bonus.budgets, bonus.accrual_rules, bonus.wagering_rules, bonus.free_spin_rules'
+      }
+    }).then(response => {
+      this.loading = false
+      this.bonusList = response.data
+    })
+  }
+}
+
+</script>
+
+<style scoped>
+.bonus-descr{
+  font-size: 16px;
+    font-weight: 400;
+    opacity: .4;
+    color: #fff;
+    line-height: 22px;
+    height: 50px;
+}
+.news-card:hover .news-body{
+  background: #1D1B49;
+}
+.apply-btn{
+    border: none;
+    height: 49px;
+    width: 49px;
+    font-size: 12px;
+    background: #4D2ADC;
+    color: #fff;
+    transition: all .3s ease;
+    letter-spacing: 0.17em;
+    border-radius: 16px;
+    margin-left: 10px;
+}
+.apply-btn:hover{
+      box-shadow: 0px 2px 16px 2px rgb(206 54 201 / 22%);
+}
+.apply-btn img{
+  height: 20px;
+}
+</style>

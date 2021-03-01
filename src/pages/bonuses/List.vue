@@ -10,6 +10,9 @@
                 <img alt="loading" src="../../assets/img/icons/nv6.svg" class="spin">
               </div>
 
+
+
+
               <div v-if="bonuses" v-for="bonus in bonuses" v-bind:key="bonus.id" class="col-lg-4">
                 <div class="news-card">
                   <div class="bonus-img" :style="{'background-image': bonus.banners.length ? 'url(' + bonus.banners[0].url + ')' : ''}">
@@ -18,10 +21,16 @@
                         <img src="../../assets/img/see.svg" alt="">
                       </router-link>
                     </div>
+
                   </div>
                   <div class="news-body">
                     <h3>{{ bonus.title }}</h3>
-                    <p class="bonus-descr">{{ bonus.description }}</p>
+                    <p class="bonus-descr" v-if="bonus.description" v-html="bonus.description.substring(0,90) + '...'"></p>
+                    <p class="bonus-descr" v-else></p>
+                    <div v-if="player">
+                      <button class="save-btn"><img src="../../assets/img/apply.svg" alt=""></button>
+                      <button class="save-btn"><img src="../../assets/img/aplyed.svg" alt=""></button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -39,9 +48,13 @@
 <script>
 import Navbar from '../../components/ui/Navbar.vue'
 import {API} from '../../api'
+import {mapGetters} from 'vuex'
 
 export default {
   components: {Navbar},
+  computed: {
+    ...mapGetters({player: "auth/getPlayer"}),
+  },
   data() {
     return {
       bonuses: false,
@@ -80,5 +93,8 @@ export default {
   color:#fff;
   line-height: 22px;
   height: 50px;
+}
+.news-body .save-btn img{
+  height: 15px;
 }
 </style>

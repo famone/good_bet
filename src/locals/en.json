@@ -145,5 +145,10 @@
     "passTwo": "Repeat password",
     "loginUPPER": "CONFIRM",
     "title": "NEW PASSWORD"
+  },
+  "Mybonuses": {
+    "name": "MY BONUSES",
+    "active": "Active",
+    "available": "Available"
   }
 }
