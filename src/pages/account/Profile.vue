@@ -176,8 +176,8 @@ export default {
       inpArr: [],
       errors: null,
       avatarUploaderLabels: {
-        submit: 'ok',
-        cancel: 'cancel'
+        submit: this.$t('main.ok'),
+        cancel: this.$t('main.cancel')
       }
     }
   },

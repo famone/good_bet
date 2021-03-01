@@ -27,7 +27,9 @@
     "goHomeLink": "Go to home page",
     "loading": "Loading...",
     "loginUPPER": "LOGIN",
-    "registerUPPER": "REGISTRATION"
+    "registerUPPER": "REGISTRATION",
+    "ok": "ОК",
+    "cancel": "Cancel"
   },
   "myProfile": {
     "myProfile": "My profile",

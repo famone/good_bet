@@ -27,7 +27,9 @@
     "goHomeLink": "Перейти на главную",
     "loading": "Загрузка...",
     "loginUPPER": "ВОЙТИ",
-    "registerUPPER": "РЕГИСТРАЦИЯ"
+    "registerUPPER": "РЕГИСТРАЦИЯ",
+    "ok": "ОК",
+    "cancel": "Отменить"
   },
   "myProfile": {
     "myProfile": "Мой профиль",
