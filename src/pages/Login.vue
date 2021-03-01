@@ -6,8 +6,12 @@
           <h2>LOGIN</h2>
           <p class="white-txt">{{ $t('login.socialSignInTitle') }}</p>
           <div class="social">
-            <a :href="socialLoginFacebook()" class="under-link">Facebook</a>
-            <a :href="socialLoginGoogle()" class="under-link">Google</a>
+            <a :href="socialLoginFacebook()" class="social-login1">
+              <img src="../assets/img/facebook.svg" alt="">
+            </a>
+            <a :href="socialLoginGoogle()" class="social-login2">
+              <img src="../assets/img/google.svg" alt="">
+            </a>
           </div>
           <form>
             <input type="text" :placeholder="$t('login.email')" v-model="login">
@@ -104,3 +108,29 @@ export default {
   }
 }
 </script>
+
+
+<style>
+.social-login1{
+  padding: 15px 15px;
+  background-color: #3B5998;
+  border-radius: 5px;
+  margin: 0 5px;
+}
+.social-login2{
+  padding: 15px 15px;
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 0 5px;
+}
+.social-login1 img{
+  height: 30px;
+}
+.social-login2 img{
+  height: 28px;
+}
+.social{
+  margin:20px 0;
+}
+
+</style>

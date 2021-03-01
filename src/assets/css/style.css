@@ -507,6 +507,7 @@ h3{
 
 .news-card{
 	border-radius: 30px;
+	margin-bottom: 30px;
 	overflow: hidden;
 }
 .news-img{
@@ -1417,6 +1418,14 @@ tbody tr:nth-child(2n){
 	background-image: url(../img/minusik.svg);
 }
 
+
+
+/*bonuses*/
+
+
+.row-bonuses{
+	margin-top: 30px;
+}
 
 
 
