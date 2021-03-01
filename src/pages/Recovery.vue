@@ -9,7 +9,15 @@
             <input type="text" :placeholder="$t('recovery.email')" v-model="login">
            
             <p style="color: red;" class="text-center" v-if="errors">{{ $t('login.error') }}</p>
-            <button type="submit" @click.prevent="resetPass()" class="reg-btn">{{ $t('recovery.loginUPPER') }}</button>
+
+
+
+            <div v-if="isLoading">
+              <button type="submit" class="reg-btn"><img src="../assets/img/icons/nv6.svg" class="spin"></button>
+            </div>
+            <div v-else>
+              <button type="submit" @click.prevent="resetPass()" class="reg-btn">{{ $t('recovery.loginUPPER') }}</button>
+            </div>
           </form>
         </div>
       </div>
@@ -24,11 +32,13 @@ import {API} from "../api";
         data(){
           return{
             errors: false,
+            isLoading: false,
             login: ''
           }
         },
         methods: {
             resetPass(){
+              this.isLoading = true
 
                 let resetConfig = {
                     login: this.login ,
@@ -43,10 +53,10 @@ import {API} from "../api";
 
               API.post('passwords', resetConfig)
               .then(response => {
-                  console.log(response)
+                this.isLoading = false
               })
               .catch(error =>{
-                this.errors = true
+                this.isLoading = false
               })
             }
         }

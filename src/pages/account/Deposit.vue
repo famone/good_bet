@@ -81,7 +81,7 @@ export default {
   },
   created() {
 
-    API.get('payment-methods', {
+    API.get('payment-methodsd', {
       params: {
         expand: 'fields,images',
         direction: 'deposit',

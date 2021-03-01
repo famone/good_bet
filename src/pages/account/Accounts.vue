@@ -46,7 +46,12 @@
               <div class="row">
 
                 <div class="col-lg-3">
-                  <button class="save-btn" @click="createAccount">{{ $t('pages.account.createAccount') }}</button>
+                  <div v-if="isLoading">
+                    <button class="save-btn"><img src="../../assets/img/icons/nv6.svg" class="spin"></button>
+                  </div>
+                  <div v-else>
+                    <button class="save-btn" @click="createAccount">{{ $t('pages.account.createAccount') }}</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -70,6 +75,7 @@ export default {
   components: {Navbar, AcNav},
   data() {
     return {
+      isLoading: false,
       available: [],
       newAccountId: ''
     }
@@ -101,6 +107,7 @@ export default {
       })
     },
     createAccount() {
+      this.isLoading = true
 
       if (this.newAccountId === '') {
         return
@@ -114,7 +121,10 @@ export default {
             this.newAccountId = ''
             this.$store.dispatch('auth/getUser')
             this.getAvailableCurrency()
-          })
+            this.isLoading = false
+          }).catch(error => {
+        this.isLoading = false
+      })
 
 
     }

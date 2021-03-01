@@ -11,6 +11,8 @@ import ScrollLoader from 'vue-scroll-loader'
 import VueScrollTo from 'vue-scrollto'
 import * as Sentry from '@sentry/vue'
 import { Integrations } from '@sentry/tracing'
+import Toasted from 'vue-toasted';
+
 
 import 'swiper/css/swiper.css'
 import { API } from './api'
@@ -26,6 +28,7 @@ Vue.use(VueTheMask)
 Vue.use(ScrollLoader)
 Vue.use(VueI18n)
 Vue.use(VueScrollTo)
+Vue.use(Toasted)
 
 let currentLocal = process.env.CASINO_APP_I18N_DEFAULT_LOCALE
 let localFromStorage = localStorage.getItem('selectedLang')

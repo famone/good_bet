@@ -53,7 +53,13 @@
                 v-model="message"
                 :class="{errorInp : $v.message.$dirty && !$v.message.required}"
             ></textarea>
-            <button type="submit" class="reg-btn">SEND</button>
+
+            <div v-if="isLoading">
+              <button type="submit" class="reg-btn"><img src="../assets/img/icons/nv6.svg" class="spin"></button>
+            </div>
+            <div v-else>
+              <button type="submit" class="reg-btn">SEND</button>
+            </div>
 
             <template>
               <vue-recaptcha
@@ -90,6 +96,7 @@ export default {
   data() {
     console.log('dsadsadas')
     return {
+      isLoading: false,
       email: '',
       name: '',
       subject: '',
@@ -104,7 +111,7 @@ export default {
       this.$refs.recaptcha.execute()
     },
     submitForm() {
-
+      this.isLoading = true
       let feedback = {
         name: this.name,
         email: this.email,
@@ -117,8 +124,13 @@ export default {
       API.post('feedback', feedback)
           .then(response => {
             console.log(response)
+            this.isLoading = false
+            this.$toasted.show(this.$t('pages.about.notificationSuccess'))
           })
-          .catch(error => console.log(error))
+          .catch(error => {
+            this.isLoading = false
+            this.$toasted.show(this.$t('pages.about.notificationFail'))
+          })
       this.$refs.recaptcha.reset();
     },
     validate() {

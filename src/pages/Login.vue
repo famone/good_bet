@@ -22,7 +22,12 @@
               <router-link tag="a" to="/recovery" class="under-link">{{ $t('login.forgotPassword') }}</router-link>
             </div>
             <p style="color: red;" class="text-center" v-if="errors">{{ $t('login.error') }}</p>
-            <button type="submit" @click.prevent="submitLog()" class="reg-btn">{{ $t('login.loginUPPER') }}</button>
+            <div v-if="isLoading">
+              <button type="submit" class="reg-btn"><img src="../assets/img/icons/nv6.svg" class="spin"></button>
+            </div>
+            <div v-else>
+              <button type="submit" @click.prevent="submitLog()" class="reg-btn">{{ $t('login.loginUPPER') }}</button>
+            </div>
           </form>
         </div>
       </div>
@@ -39,6 +44,7 @@ export default {
   data() {
     return {
       rememberUser: false,
+      isLoading: false,
       login: '',
       password: '',
       errors: false
@@ -46,6 +52,7 @@ export default {
   },
   methods: {
     submitLog() {
+      this.isLoading = true
 
       let userLog = {
         grant_type: "password",
@@ -79,10 +86,13 @@ export default {
           })
           .catch(error =>{
             this.errors = true
+            this.isLoading = false
           })
           .then(() => {
+            this.isLoading = false
             this.$router.replace("/profile");
         });
+
 
 
     },

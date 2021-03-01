@@ -106,7 +106,13 @@
                 <div class="errors" v-for="(er, index) in errors ">
                   <p style="color: red;">{{index+1}}. {{er.message}}</p>
                 </div>
-                <button class="save-btn" @click="updateUser">{{ $t('pages.account.profile.saveButtonTitle') }}</button>
+
+                <div v-if="isLoading">
+                  <button class="save-btn"><img src="../../assets/img/icons/nv6.svg" class="spin"></button>
+                </div>
+                <div v-else>
+                  <button class="save-btn" @click="updateUser">{{ $t('pages.account.profile.saveButtonTitle') }}</button>
+                </div>
               </div>
 
 
@@ -153,6 +159,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       file: null,
       inpArr: [],
       errors: null
@@ -180,6 +187,7 @@ export default {
     },
     updateUser() {
 
+      this.isLoading = true
       this.errors = null
 
 
@@ -198,11 +206,13 @@ export default {
       API.patch('players/' + this.player.id, objField)
           .then(response => {
             this.$store.dispatch('auth/getUser')
+            this.isLoading = false
           })
           .catch(err =>{
             // this.errors = errors.data
              console.log(err.response)
              this.errors = err.response.data
+            this.isLoading = false
           })
 
     }

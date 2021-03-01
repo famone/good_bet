@@ -4,6 +4,10 @@
 
     <section id="news">
       <div class="container">
+        <div class="col-lg-12 text-center" v-if="!news">
+          <img src="../assets/img/icons/nv6.svg" class="spin">
+        </div>
+
         <div class="col-lg-4" v-for="item in news" v-bind:key="item.id">
           <div class="news-card">
             <div class="news-img">

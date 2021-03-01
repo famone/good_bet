@@ -2,6 +2,10 @@
   <div>
     <Navbar/>
 
+    <div class="col-lg-12 text-center" v-if="!newsItem">
+      <img src="../assets/img/icons/nv6.svg" class="spin">
+    </div>
+
     <section id="news" v-if="newsItem">
       <div class="container">
         <h2 class="to-upper2">{{ newsItem.name }}</h2>
@@ -26,7 +30,7 @@ export default {
   components: {Navbar},
   data() {
     return {
-      newsItem: {}
+      newsItem: null
     }
   },
   created() {
