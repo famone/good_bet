@@ -10,29 +10,27 @@
             <div class="row">
               <div class="row ma-0">
                 <div class="col-lg-6">
-                  <div class="ava-edit">
-                    <div class="ava-box-edit">
+                  <avatar-cropper
+                      :upload-handler="avatarUploadHandler"
+                      trigger="#pick-avatar"
+                      :labels="avatarUploaderLabels"
+                  />
+                  <div id="pick-avatar" class="ava-edit">
+                    <div  class="ava-box-edit">
 
                       <div class="avatar" v-if="player.avatars.length !== 0"
                            :style="{'background-image': 'url(' + player.avatars[0].url + ')'}"></div>
                       <div class="avatar" v-else>
                         <span>{{ player.nickname.substr(0, 1) }}</span>
                       </div>
-                      <div id="pick-avatar" class="edit-btn"></div>
-                      <avatar-cropper
-                          :upload-handler="avatarUploadHandler"
-                          trigger="#pick-avatar"
-                          :labels="avatarUploaderLabels"
-                      />
 
                       <h4>{{ $t('pages.account.profile.editAvatar') }}</h4>
                       <div class="text-center">
 
-
                       </div>
                     </div>
                     <!-- <input type="file" ref="file" @change="changeAvatar"> -->
-
+                    <div class="edit-btn"></div>
                   </div>
                 </div>
                 <div class="col-lg-6">
