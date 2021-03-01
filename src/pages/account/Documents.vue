@@ -51,9 +51,15 @@
 
             <div class="row">
 
+
               <div class="col-lg-3">
-                <button class="save-btn" @click="applyDocs">{{ $t('pages.account.applyDocuments') }}</button>
+
               </div>
+              <button v-if="isLoading" class="save-btn"><img src="../../assets/img/icons/nv6.svg" class="spin"></button>
+              <button class="save-btn" v-if="!isLoading" @click="applyDocs">{{
+                  $t('pages.account.applyDocuments')
+                }}
+              </button>
             </div>
 
 
@@ -70,13 +76,14 @@
 <script>
 import Navbar from '../../components/ui/Navbar.vue'
 import AcNav from '../../components/ui/AcNav.vue'
-import {mapGetters} from 'vuex'
-import {API} from "../../api";
+import { mapGetters } from 'vuex'
+import { API } from '../../api'
 
 export default {
-  components: {Navbar, AcNav},
-  data() {
+  components: { Navbar, AcNav },
+  data () {
     return {
+      isLoading: false,
       documents: null,
       avilable: null,
       addedId: null,
@@ -84,19 +91,19 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({player: "auth/getPlayer"}),
+    ...mapGetters({ player: 'auth/getPlayer' }),
   },
   methods: {
-    getDocName(id) {
+    getDocName (id) {
       let docum = this.avilable.find(item => {
         return item.id == id
       })
       return docum.value
     },
-    changeFile(e) {
+    changeFile (e) {
       this.addedFile = event.target.files[0]
     },
-    documentType() {
+    documentType () {
       API.get('player-uploads', {
         params: {
           expand: 'type'
@@ -105,30 +112,31 @@ export default {
         this.documents = res.data
       })
     },
-    applyDocs() {
-
+    applyDocs () {
+      this.isLoading = true
 
       let emailBody = {
         type_id: this.addedId,
         file: this.addedFile
       }
 
-
-      let form2 = new FormData();
+      let form2 = new FormData()
 
       for (let field in emailBody) {
-        form2.append(field, emailBody[field]);
+        form2.append(field, emailBody[field])
       }
-
 
       API.post('player-uploads', form2)
           .then(res => {
             this.documentType()
             console.log(res)
-          })
+            this.isLoading = false
+          }).catch(error => {
+        this.isLoading = false
+      })
     }
   },
-  created() {
+  created () {
     this.documentType()
 
     API.get('player-upload-types')

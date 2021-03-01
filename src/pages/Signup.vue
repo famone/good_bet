@@ -76,7 +76,13 @@
               </p>
             </div>
 
-            <button type="submit" class="reg-btn">{{ $t('login.registration').toUpperCase() }}</button>
+
+            <div v-if="isLoading">
+              <button type="submit" class="reg-btn"><img src="../assets/img/icons/nv6.svg" class="spin"></button>
+            </div>
+            <div v-else>
+              <button type="submit" class="reg-btn">{{ $t('login.registration').toUpperCase() }}</button>
+            </div>
           </form>
 
 
@@ -97,6 +103,7 @@ export default {
   data () {
     return {
       errors: null,
+      isLoading: false,
       bonuses: [],
       captchaToken: process.env.CASINO_APP_CAPTCHA_TOKEN,
       agreement: false,
@@ -262,8 +269,10 @@ export default {
       API.post('players', objField)
           .then(response => {
             this.submitLog()
+            this.isLoading = false
           })
           .catch((error) => {
+            this.isLoading = false
             this.errors = error.response.data
           })
 
@@ -271,6 +280,7 @@ export default {
 
     },
     validate () {
+      this.isLoading = true
       this.$refs.recaptcha.execute()
 
       return true
@@ -278,6 +288,7 @@ export default {
     onCaptchaExpired () {
       this.$refs.recaptcha.reset()
       this.captchaResponseToken = null
+      this.isLoading = false
     },
     onVerify (responseToken) {
       this.captchaResponseToken = responseToken
@@ -313,11 +324,14 @@ export default {
             localStorage.setItem('userToken', JSON.stringify(tokenEntity))
 
             this.$store.dispatch('auth/getUser')
+            this.isLoading = false
           })
           .catch(error => {
+            this.isLoading = false
             this.errors = true
           })
           .then(() => {
+            this.isLoading = false
             this.$router.replace('/profile')
           })
 

@@ -64,6 +64,10 @@
     "gamesSearchFieldTitle": "Game name"
   },
   "pages": {
+    "about": {
+      "notificationSuccess": "Message sent",
+      "notificationFail": "Failed to send message"
+    },
     "account": {
       "accountsUPPER": "ACCOUNTS",
       "createAccount": "CREATE ACCOUNT",

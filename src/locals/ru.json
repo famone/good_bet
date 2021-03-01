@@ -64,6 +64,10 @@
     "gamesSearchFieldTitle": "Название игры"
   },
   "pages": {
+    "about": {
+      "notificationSuccess": "Сообщение отправлено",
+      "notificationFail": "Failed to send message"
+    },
     "account": {
       "accountsUPPER": "СЧЕТА",
       "createAccount": "СОЗДАТЬ ПРОФИЛЬ",

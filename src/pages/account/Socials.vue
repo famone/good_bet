@@ -84,7 +84,6 @@ export default {
     deleteNetwork (networkId) {
       API.delete('networks/' + networkId)
           .then(res => {
-            console.log(res)
             this.getAvailableSocials()
           })
     },
