@@ -72,7 +72,6 @@
 import Navbar from '../../components/ui/Navbar.vue'
 import AcNav from '../../components/ui/AcNav.vue'
 import {mapGetters} from 'vuex'
-import axios from 'axios'
 import {API} from "../../api";
 
 export default {

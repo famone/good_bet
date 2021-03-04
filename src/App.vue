@@ -20,7 +20,6 @@ import Header from './components/ui/Header.vue'
 import Footer from './components/ui/Footer.vue'
 import Copyright from './components/ui/Copyright.vue'
 
-import axios from 'axios'
 
   export default{
   	components: {Header, Footer, Copyright},

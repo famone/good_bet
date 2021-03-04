@@ -23,7 +23,6 @@
 
 <script>
 import Navbar from '../components/ui/Navbar.vue'
-import axios from 'axios'
 import {API} from "../api";
 
 export default {

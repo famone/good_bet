@@ -94,13 +94,7 @@ export default {
     }, 3000)
   },
   beforeDestroy() {
-    // let routeId = parseInt(this.$route.params.id)
-    // let close_token =  this.gameObj.close_token
-    // axios
-    // .patch('http://api.casinoplatform.site/v3/game-launches/' + routeId, close_token)
-    // .then(res => {
-    // 	console.log(res)
-    // })
+
   }
 }
 </script>
