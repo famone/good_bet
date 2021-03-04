@@ -14,7 +14,6 @@ import Toasted from 'vue-toasted';
 
 
 import 'swiper/css/swiper.css'
-import { API } from './api'
 import VueI18n from 'vue-i18n'
 import en from './locals/en.json'
 import ru from './locals/ru.json'
