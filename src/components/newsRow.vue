@@ -51,7 +51,7 @@ export default {
     swiper() {
       return this.$refs.mySwiper2.$swiper
     },
-    ...mapGetters({news: "auth/getNews"}),
+    ...mapGetters({news: "news/getAll"}),
   }
 }
 </script>

@@ -25,16 +25,15 @@ export default {
   components: {mainSlider, Navbar, gamesRow, newsRow, Banner, About},
   computed: {
     ...mapGetters({
-      popularGames: "auth/getPopular",
-      slotsGames: "auth/getSlots",
-      recommendedGames: "auth/getRecommended"
+      popularGames: "games/getPopular",
+      slotsGames: "games/getSlots",
+      recommendedGames: "games/getRecommended"
     }),
   },
   created() {
-    this.$store.dispatch("auth/loadSlider");
-    this.$store.dispatch("auth/loadPopular");
-    this.$store.dispatch("auth/loadRecommended");
-    this.$store.dispatch("auth/loadSlots");
+    this.$store.dispatch("games/loadPopular");
+    this.$store.dispatch("games/loadRecommended");
+    this.$store.dispatch("games/loadSlots");
   }
 }
 </script>

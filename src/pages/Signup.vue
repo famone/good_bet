@@ -172,8 +172,8 @@ export default {
     ...mapGetters({
       regFields: 'auth/getRegFields',
       bonuses: 'auth/getRegBonuses',
-      currency: 'auth/getCurrency',
-      lang: 'auth/getLang'
+      currency: 'currency/getAll',
+      currentLang: 'lang/getCurrent'
     }),
     checkErr() {
       let arr = []
@@ -192,7 +192,7 @@ export default {
   },
   created() {
     this.$store.dispatch('auth/loadRegFields')
-    this.$store.dispatch('auth/loadPaymentCurrencies')
+    this.$store.dispatch('currency/loadAll')
   },
   watch: {
     regFields() {
@@ -204,7 +204,7 @@ export default {
         this.$store.dispatch('auth/loadRegistrationBonuses')
       }
     },
-    lang() {
+    currentLang() {
       this.$store.dispatch('auth/getRegFields')
     },
   },

@@ -36,10 +36,10 @@ import Navbar from '../components/ui/Navbar.vue'
 export default {
   components: {Navbar},
   computed: {
-    ...mapGetters({news: "auth/getNews"}),
+    ...mapGetters({news: "news/getAll"}),
   },
   created() {
-    this.$store.dispatch("auth/loadNews");
+    this.$store.dispatch("news/loadAll");
   }
 }
 </script>

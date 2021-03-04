@@ -147,9 +147,9 @@ export default {
   computed: {
     ...mapGetters({
       player: "auth/getPlayer",
-      timezones: "auth/getZones",
-      countries: "auth/getCountries",
-      lang: "auth/getLang"
+      timezones: "timezones/getAll",
+      countries: "countries/getAll",
+      currentLang: "lang/getCurrent"
     }),
     getCurrentAccount() {
       if (this.player) {
@@ -160,14 +160,14 @@ export default {
     },
   },
   watch: {
-    lang() {
-      this.$store.dispatch('auth/loadTimezones')
-      this.$store.dispatch('auth/loadCountries')
+    currentLang() {
+      this.$store.dispatch('timezones/loadAll')
+      this.$store.dispatch('countries/loadAll')
     },
   },
   created() {
-    this.$store.dispatch('auth/loadTimezones')
-    this.$store.dispatch('auth/loadCountries')
+    this.$store.dispatch('timezones/loadAll')
+    this.$store.dispatch('countries/loadAll')
   },
   data() {
     return {

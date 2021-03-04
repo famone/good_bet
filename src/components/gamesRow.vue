@@ -38,9 +38,6 @@ export default{
 			required: false,
 			type: String
 		}
-	},
-	computed: {
-		// ...mapGetters({ games: "auth/getGames"}),
 	}
 }
 </script>

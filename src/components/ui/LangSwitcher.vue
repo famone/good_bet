@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     switchLocale($event) {
-      this.$store.dispatch('auth/setLang', $event.target.value).then(r => {
+      this.$store.dispatch('lang/setCurrent', $event.target.value).then(r => {
         localStorage.setItem('selectedLang', $event.target.value)
       })
     }

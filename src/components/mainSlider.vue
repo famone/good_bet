@@ -72,7 +72,10 @@ import {mapGetters} from 'vuex'
 			swiper(){
 	       		return this.$refs.mySwiper.$swiper
 	    	},
-	    	...mapGetters({ slider: "auth/getSlider"}),
-		}
-	}
+	    	...mapGetters({ slider: "slider/getAll"}),
+		},
+		created() {
+      this.$store.dispatch("slider/loadAll");
+    }
+  }
 </script>

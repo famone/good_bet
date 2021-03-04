@@ -25,10 +25,10 @@ import {mapGetters} from 'vuex'
 export default {
   components: {Navbar},
   computed: {
-    ...mapGetters({faq: "auth/getFaq"}),
+    ...mapGetters({faq: "faq/getAll"}),
   },
   created() {
-    this.$store.dispatch("auth/loadFaqItems");
+    this.$store.dispatch("faq/loadAll");
   }
 }
 </script>

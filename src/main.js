@@ -42,15 +42,10 @@ const i18n = new VueI18n({
   }
 })
 
+store.dispatch('lang/setCurrent', localStorage.getItem('selectedLang'))
+
 if (localStorage.getItem('player')) {
   store.dispatch('auth/getUser')
-  store.dispatch('auth/initApp')
-} else {
-  if (localStorage.getItem('appToken')) {
-    store.dispatch('auth/initApp')
-  } else {
-    store.dispatch('auth/initApp')
-  }
 }
 
 const isDev = process.env.NODE_ENV !== 'production'

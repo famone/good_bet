@@ -58,9 +58,6 @@ export default {
       flscrnMode: false
     }
   },
-  computed: {
-    ...mapGetters({games: "auth/getGames"}),
-  },
   created() {
     let routeId = parseInt(this.$route.params.id)
 
