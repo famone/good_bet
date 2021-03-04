@@ -25,7 +25,7 @@
                         @input="updateField($event)"
                         v-if="field.type === 'bonus' ">
                   <option value=""></option>
-                  <option v-for="bonus in bonuses" :value="bonus.id">{{ bonus.title }}</option>
+                  <option v-if="bonuses.length" v-for="bonus in bonuses" :value="bonus.id">{{ bonus.title }}</option>
                 </select>
 
                 <input :type="field.type" :data-field="fl.name" @input="updateField($event)"
@@ -104,7 +104,6 @@ export default {
     return {
       errors: null,
       isLoading: false,
-      bonuses: [],
       captchaToken: process.env.CASINO_APP_CAPTCHA_TOKEN,
       agreement: false,
       captchaResponseToken: null,
@@ -150,6 +149,7 @@ export default {
   computed: {
     ...mapGetters({
       regFields: 'auth/getRegFields',
+      bonuses: 'auth/getRegBonuses',
       currency: 'auth/getCurrency',
       lang: 'auth/getLang'
     }),
@@ -168,26 +168,18 @@ export default {
   created() {
     this.$store.dispatch('auth/loadRegFields')
     this.$store.dispatch('auth/loadPaymentCurrencies')
-
-    //TODO fix this
-    let isBonusEnable = this.regFields[0].fields.find(item => {
-      return item.type === 'bonus'
-    })
-
-    if (isBonusEnable) {
-      API.get('lab/bonuses', {
-        params: {
-          activation_event: 'registration'
-        }
-      }).then(response => {
-        this.bonuses = response.data
-      })
-    }
-
-
   },
   watch: {
-    lang(newValue, oldValue) {
+    regFields() {
+      let isBonusEnable = this.regFields[0].fields.find(item => {
+        return item.type === 'bonus'
+      })
+
+      if (isBonusEnable) {
+        this.$store.dispatch('auth/loadRegistrationBonuses')
+      }
+    },
+    lang() {
       this.$store.dispatch('auth/getRegFields')
     },
   },

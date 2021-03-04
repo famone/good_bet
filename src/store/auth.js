@@ -10,6 +10,7 @@ const auth = {
 				fields: []
 			}
 		],
+		regBonuses: [],
 		currency: [],
 		faq: '',
 		slider: [],
@@ -33,6 +34,10 @@ const auth = {
 		},
 		SET_REG_FIELDS(state, payload) {
 			state.regFields = payload
+		},
+		SET_REG_BONUSES(state, payload) {
+			console.log(payload)
+			state.regBonuses = payload
 		},
 		SET_CURRENCY(state, payload) {
 			state.currency = payload
@@ -127,6 +132,15 @@ const auth = {
 				.then(res => {
 					commit('SET_REG_FIELDS', res.data)
 				})
+		},
+		loadRegistrationBonuses({commit}) {
+			API.get('lab/bonuses', {
+				params: {
+					activation_event: 'registration'
+				}
+			}).then(response => {
+				commit('SET_REG_BONUSES', response.data)
+			})
 		},
 		loadPaymentCurrencies({commit}) {
 			API.get('payment-currencies')
@@ -232,6 +246,9 @@ const auth = {
 		},
 		getRegFields(state) {
 			return state.regFields
+		},
+		getRegBonuses(state) {
+			return state.regBonuses
 		},
 		getCurrency(state) {
 			return state.currency
