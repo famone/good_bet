@@ -1,7 +1,7 @@
 <template>
     <div id="app">
       
-      <Header />
+      <Header/>
       
       
       <router-view></router-view>
@@ -23,8 +23,7 @@ import Copyright from './components/ui/Copyright.vue'
 
   export default{
   	components: {Header, Footer, Copyright},
-  	created(){
-    }
+  	
   }
 </script>
 

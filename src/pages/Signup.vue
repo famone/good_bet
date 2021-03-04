@@ -6,6 +6,9 @@
           <h2>REGISTRATION</h2>
 
 
+
+
+
           <form @submit.prevent="validate">
             <div class="field-box" v-for="field in regFields[0].fields">
               <div v-for="fl in field.inputs" v-if="field.type !== 'checkbox' "
@@ -21,12 +24,26 @@
                 </select>
 
 
-                <select :ref=" 'input' + field.id " :data-field="fl.name"
+                <!-- <select :ref=" 'input' + field.id " :data-field="fl.name"
                         @input="updateField($event)"
                         v-if="field.type === 'bonus' ">
                   <option value=""></option>
-                  <option v-if="bonuses.length" v-for="bonus in bonuses" :value="bonus.id">{{ bonus.title }}</option>
-                </select>
+                  <option v-for="bonus in bonuses" :value="bonus.id">{{ bonus.title }}</option>
+                </select> -->
+
+                <div v-if="field.type === 'bonus' ">
+                  <div class="bonus-select" v-if="bonuses" v-for="(bonus, index) in bonuses"
+                  :class="{checked : checkedBonusIndex == index}">
+                      <div class="ch-box" @click="selectBonusStat(index)"></div>
+                      <p style="color: red;">{{bonus.chosen}}</p>
+                      <div>
+                        <p class="white-txt">{{bonus.title}}</p>
+                        <p class="small-white" v-if="index == checkedBonusIndex"
+                        @click="readBonus(bonus)">Read More</p>
+                      </div>
+                  </div>
+                  <br>
+                </div>
 
                 <input :type="field.type" :data-field="fl.name" @input="updateField($event)"
                        :class="{hidden : ifCustomInput(fl.name) }">
@@ -89,6 +106,7 @@
         </div>
       </div>
     </div>
+    <avBonusPop v-if="avBonusDesc" :availableDesc="avBonusDesc" @closeAvDesc="closeAvDesc" />
   </section>
 </template>
 
@@ -97,13 +115,17 @@
 import VueRecaptcha from 'vue-recaptcha'
 import {mapGetters} from 'vuex'
 import {API} from '../api'
+import avBonusPop from '../components/ui/avBonusPop.vue'
 
 export default {
-  components: {VueRecaptcha},
-  data() {
+  components: { VueRecaptcha, avBonusPop },
+  data () {
     return {
+      avBonusDesc: null,
+      checkedBonId: 0,
       errors: null,
       isLoading: false,
+      bonuses: null,
       captchaToken: process.env.CASINO_APP_CAPTCHA_TOKEN,
       agreement: false,
       captchaResponseToken: null,
@@ -163,6 +185,9 @@ export default {
       }
 
       return arr
+    },
+    checkedBonusIndex(){
+      return this.checkedBonId
     }
   },
   created() {
@@ -184,9 +209,22 @@ export default {
     },
   },
   methods: {
-    ifCustomInput(name) {
-      return this.customFields.find(item => {
-        return item === name
+    closeAvDesc(){
+      this.avBonusDesc = null
+    },
+    readBonus(bon){
+      this.avBonusDesc = bon
+    },
+    selectBonusStat(id){
+      if(this.checkedBonId == id){
+        this.checkedBonId= null
+      }else{
+        this.checkedBonId = id
+      }
+    },
+    ifCustomInput(name){
+      return  this.customFields.find(item => {
+        return  item === name
       })
     },
     sbsEmail() {
@@ -330,5 +368,22 @@ export default {
 
 .errorInput select {
   border: 1px red solid !important;
+}
+.bonus-select{
+  padding: 10px 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: left;
+  margin-bottom: 5px;
+  border-bottom: 1px rgba(255,255,255, .1) solid;
+}
+.bonus-select .small-white{
+  text-decoration: underline;
+  transition: all .3s ease;
+}
+.bonus-select .small-white:hover{
+  opacity: .5;
 }
 </style>

@@ -60,7 +60,7 @@
 
                       
                       <button class="save-btn" @click="openAvailableBonus(bon)" >MORE</button>
-                      <button class="apply-btn">
+                      <button class="apply-btn" @click="subscribeBonus(bon.id)">
                         <img src="../../assets/img/apply.svg">
                       </button>
           
@@ -104,7 +104,29 @@ export default {
       avBonusDesc: null
     }
   },
+  mounted(){
+      document.addEventListener('keyup', this.closeEsc);
+  },
   methods: {
+    closeEsc(){
+        this.acBonusDesc = null
+        this.avBonusDesc = null
+    },
+    subscribeBonus(id){
+
+      let bonus = {
+        bonus_id: id
+      }
+
+      API.post('lab/bonus-transactions', bonus)
+          .then(res => {
+            console.log(res)
+          }).catch(error => {
+        
+      })
+
+
+    },
     openAvailableBonus(bonus){
       this.avBonusDesc = bonus
     },
@@ -133,7 +155,7 @@ export default {
       }else{
         API.get('lab/bonuses', {
           params: {
-            expand: 'banners',
+            expand: 'banners, budgets, accrual_rules, wagering_rules, free_spin_rules',
           }
         }).then(response => {
           this.loading = false

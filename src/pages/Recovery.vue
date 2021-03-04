@@ -17,6 +17,10 @@
             </div>
             <div v-else>
               <button type="submit" @click.prevent="resetPass()" class="reg-btn">{{ $t('recovery.loginUPPER') }}</button>
+              <br>
+              <br>
+              <p class="white-txt" v-if="success">
+                <img src="../assets/img/success.svg" style="height: 20px;">  {{$t('recovery.success')}}</p>
             </div>
           </form>
         </div>
@@ -33,7 +37,8 @@ import {API} from "../api";
           return{
             errors: false,
             isLoading: false,
-            login: ''
+            login: '',
+            success: false
           }
         },
         methods: {
@@ -54,6 +59,7 @@ import {API} from "../api";
               API.post('passwords', resetConfig)
               .then(response => {
                 this.isLoading = false
+                this.success = true
               })
               .catch(error =>{
                 this.isLoading = false

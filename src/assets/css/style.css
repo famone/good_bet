@@ -1428,6 +1428,14 @@ tbody tr:nth-child(2n){
 }
 
 
+.cross{
+	position: absolute;
+	top: -20px;
+	right: -20px;
+	font-size: 20px;
+	color: #fff;
+}
+
 
 /*ADAPTIIIIIIIIIV*/
 

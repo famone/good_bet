@@ -46,5 +46,7 @@
     border-radius: 30px;
     padding: 20px;
     width: 50%;
+    position: relative;
+    cursor: pointer;
 }
 </style>

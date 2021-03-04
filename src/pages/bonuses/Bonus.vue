@@ -16,9 +16,21 @@
             <section class="bonusBg"
                      :style="{'background-image': bonus.banners.length ? 'url(' + bonus.banners[0].url + ')' : ''}"></section>
 
-            <section>
+            <section id="about">
               <div class="container">
                 <p class="white-txt" v-html="bonus.description"></p>
+                <br>
+                <hr>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <h4>Amount: x {{bonus.wagering_rules[0].amount_as_currency}}</h4>
+                    <br>
+                    <h4>Wager type: {{bonus.wagering_rules[0].wagering_type}}</h4>
+                  </div>
+                  <div class="col-lg-6 text-right">
+                    <router-link class="save-btn" tag="button" to="/my-bonuses">SUBSCRIBE</router-link>
+                  </div>
+                </div>
               </div>
             </section>
           </div>

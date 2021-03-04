@@ -140,7 +140,8 @@
     "socialSignInTitle": "Укажите ваш e-mail",
     "email": "E-mail",
     "loginUPPER": "ВОССТАНОВИТЬ ПАРОЛЬ",
-    "title": "ЗАБЫЛИ ПАРОЛЬ"
+    "title": "ЗАБЫЛИ ПАРОЛЬ",
+     "success": "Сообщение отправлено вам на почту"
   },
   "newPass": {
     "passOne": "Новый пароль",

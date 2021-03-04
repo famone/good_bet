@@ -140,7 +140,8 @@
     "socialSignInTitle": "Indicate your e-mail",
     "email": "E-mail",
     "loginUPPER": "RESTORE PASSWORD",
-    "title": "FORGOT PASSWORD"
+    "title": "FORGOT PASSWORD",
+    "success": "Message sent to your e-mail"
   },
   "newPass": {
     "passOne": "New password",

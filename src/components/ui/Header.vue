@@ -2,6 +2,7 @@
   <header :class="{stickyHeader: stickyHeader}">
     <div class="container">
       <div class="header-box">
+       <span class="hidden"> {{closeOnEmpty}}</span>
         <div class="header-box-col al-center">
           <router-link tag="a" to="/">
             <img src="../../assets/img/logo.svg" class="logo">
@@ -126,7 +127,24 @@ export default {
     },
     haveSearchResult() {
       return this.searchResults.length > 0;
-    }
+    },
+    closeOnEmpty(){
+          let search = document.querySelector('.search-inp');
+          let allApp = document.querySelector('#app');
+
+        allApp.addEventListener('click', function(e){
+          if(e.target !== search){
+            this.search = ''
+            this.searchResults = []
+              // console.log('не поиск')
+          }else{
+             console.log('не поиск')
+             this.search = ''
+            this.searchResults = null
+          }
+        })
+        return this.search
+    },
   },
   methods: {
     closeMessage(){

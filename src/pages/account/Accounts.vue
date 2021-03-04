@@ -94,7 +94,9 @@ export default {
   methods: {
     changeAccount(accountId) {
       this.$store.dispatch('auth/changeAccount', accountId)
+      setTimeout(() => {
       this.$store.dispatch('auth/getUser')
+    }, 3000)
     },
     getAvailableCurrency() {
       API.get('payment-currencies', {
