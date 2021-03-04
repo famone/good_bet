@@ -125,7 +125,7 @@ export default {
       checkedBonId: 0,
       errors: null,
       isLoading: false,
-      bonuses: null,
+ 
       captchaToken: process.env.CASINO_APP_CAPTCHA_TOKEN,
       agreement: false,
       captchaResponseToken: null,
