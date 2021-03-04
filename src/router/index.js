@@ -2,29 +2,18 @@ import VueRouter from 'vue-router'
 import routes from './routes.js';
 
 import store from '../store'
-import { API } from '../api'
 
 const router = new VueRouter({
-    routes,
-    mode: 'history',
-    scrollBehavior(to, from, savedPosition) {
-        return { x: 0, y: 0 }
-    }
+	routes,
+	mode: 'history',
+	scrollBehavior(to, from, savedPosition) {
+		return {x: 0, y: 0}
+	}
 });
 
 
 router.beforeEach((to, from, next) => {
-	if (localStorage.getItem('player')) {
-		store.dispatch('auth/getUser')
-		store.dispatch('auth/initApp')
-		next()
-	} else {
-		if (localStorage.getItem('appToken')) {
-			next()
-		} else {
-			next()
-		}
-	}
+
 
 	/*
   For auth player

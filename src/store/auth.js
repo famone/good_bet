@@ -102,7 +102,6 @@ const auth = {
 			API.loadPlayer().then(response => {
 				commit('SET_PLAYER', response.data[0])
 				localStorage.setItem("player", JSON.stringify(response.data[0]));
-				dispatch("loadMessages")
 			})
 		},
 
