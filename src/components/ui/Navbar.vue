@@ -12,7 +12,7 @@
 
           <img v-if="item.images.length" :src="item.images[0].url" alt="">
 
-          <p class="small-white">{{ $t(item.name) }}</p>
+          <p class="small-white">{{ item.name }}</p>
         </router-link>
       </div>
     </div>

@@ -18,14 +18,12 @@ const gameGroups = {
 					expand: 'images,platform,place_code',
 				}
 			}).then(res => {
-				console.log(res)
 				commit('SET_MAIN', res.data)
 			})
 		}
 	},
 	getters: {
 		getMain(state) {
-			console.log(state.main)
 			return state.main
 		}
 	}

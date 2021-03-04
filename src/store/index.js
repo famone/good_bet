@@ -13,6 +13,7 @@ import lang from '../store/lang'
 import countries from '../store/countries'
 import timezones from '../store/timezones'
 import gameGroups from '../store/gameGroups'
+import account from '../store/account'
 
 export default new Vuex.Store({
 	modules: {
@@ -25,6 +26,7 @@ export default new Vuex.Store({
 		lang,
 		countries,
 		timezones,
-		gameGroups
+		gameGroups,
+		account
 	}
 }) 

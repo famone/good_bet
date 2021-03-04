@@ -14,7 +14,6 @@ const auth = {
 		switchDepo: true,
 	},
 	mutations: {
-
 		SET_REG_FIELDS(state, payload) {
 			state.regFields = payload
 		},
@@ -68,13 +67,6 @@ const auth = {
 		},
 		CHANGE_FIELD({commit}, payload) {
 			commit('SET_FIELD', payload)
-		},
-		changeAccount({commit}, payload) {
-			let currency = {
-				is_current: true
-			}
-
-			API.patch(`accounts/${payload}`, currency)
 		},
 		depoSwitcher({commit}, payload) {
 			commit('SET_DEPOSWITCH', payload)

@@ -161,7 +161,7 @@ export default {
     },
     changeAccount(e) {
       let valuteCode = e.target.value
-      this.$store.dispatch('auth/changeAccount', valuteCode)
+      this.$store.dispatch('account/changeAccount', valuteCode)
     },
     searchMethod() {
 
