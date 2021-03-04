@@ -24,12 +24,12 @@
             <div class="avatar" v-if="player.avatars.length !== 0"
             @click="showChat = !showChat"
                  :style="{'background-image': 'url(' + player.avatars[0].url + ')'}">
-                   <div class="ring"></div>
-                   <miniChat v-if="showChat && messages" :messages="messages" @lookMes="lookMes($event)"/>
+                   <div v-if="unreadMessageCount > 0" class="ring"></div>
+                   <miniChat v-if="showChat"/>
                  </div>
             <div class="avatar" v-else @click="showChat = !showChat">
-              <div class="ring"></div>
-              <miniChat v-if="showChat && messages" :messages="messages" @lookMes="lookMes($event)"/>
+              <div v-if="unreadMessageCount > 0" class="ring"></div>
+              <miniChat v-if="showChat"/>
               <span>{{ player.nickname.substr(0, 1) }}</span>
             </div>
             <div class="text-center">
@@ -114,6 +114,8 @@ import messagePop from '../ui/messagePop.vue'
 export default {
   components: {LangSwitcher, miniChat, messagePop},
   computed: {
+    isAuth : function(){ return this.$store.getters['auth/getAuthenticated']},
+    unreadMessageCount : function(){ return this.$store.getters['messages/getUnread']},
     ...mapGetters({player: "auth/getPlayer", messages: "auth/getMessages"}),
     getCurrentAccount() {
       if (this.player) {
@@ -183,10 +185,27 @@ export default {
     clearSearch() {
       this.search = ''
       this.searchResults = []
-    }
+    },
+    updateMessageCount(){
+      const self = this;
+      this.updateMessageCountInterval = setInterval(function(){
+        self.$store.dispatch('messages/getUnreadCount')
+        console.log (self.unreadMessageCount);
+      }, 3000);
+    },
+  },
+  watch: {
+    isAuth() {
+      if(this.isAuth){
+        this.updateMessageCount()
+      }else {
+        clearInterval(this.updateMessageCountInterval)
+      }
+    },
   },
   data() {
     return {
+      updateMessageCountInterval: null,
       activeMessage: '' ,
       showChat: false,
       search: '',
@@ -225,6 +244,11 @@ export default {
 
       this.stickyHeader = (winScroll > 5);
     })
+  },
+  created(){
+    if(this.isAuth){
+      this.updateMessageCount()
+    }
   }
 }
 </script>	
