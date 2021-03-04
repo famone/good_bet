@@ -144,8 +144,6 @@ export default {
         ]
       }
 
-      console.log(request)
-
       API.post('payments', request)
           .then(res => {
             this.acceptPop = true
@@ -158,7 +156,6 @@ export default {
               this.$router.replace('/success')
             }
           }).catch(err => {
-              console.log(err.response)
               this.errors = err.response.data
       })
 

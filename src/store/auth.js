@@ -180,16 +180,11 @@ const auth = {
 				})
 		},
 		changeAccount({commit}, payload) {
-
 			let currency = {
 				is_current: true
 			}
 
-
 			API.patch(`accounts/${payload}`, currency)
-				.then(res => {
-					//console.log(res.data)
-				})
 		},
 		loadPopular({commit}) {
 			// popular games

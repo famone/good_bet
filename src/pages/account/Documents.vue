@@ -129,7 +129,6 @@ export default {
       API.post('player-uploads', form2)
           .then(res => {
             this.documentType()
-            console.log(res)
             this.isLoading = false
           }).catch(error => {
         this.isLoading = false

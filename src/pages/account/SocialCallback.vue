@@ -49,10 +49,6 @@ export default {
 
     const encodedStr = btoa(jsonArrData)
 
-    console.log(str)
-    console.log(encodedStr)
-    console.log(this.player)
-
     let parameters = {
       service_name: 'socialmedia',
       service_data: encodedStr,

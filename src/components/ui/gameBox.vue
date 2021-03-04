@@ -61,20 +61,14 @@ export default {
       let request = {
         is_favorite: false
       }
-      API.patch('games/' + id, request)
-          .then(res => {
-            console.log(res)
-          })
+      API.patch('games/' + id, request);
     },
     like(id) {
       this.game.is_favorite = true
       let request = {
         is_favorite: true
       }
-      API.patch('games/' + id, request)
-          .then(res => {
-            console.log(res)
-          })
+      API.patch('games/' + id, request);
     }
   }
 }

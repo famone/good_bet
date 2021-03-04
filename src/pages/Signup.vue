@@ -180,7 +180,6 @@ export default {
           activation_event: 'registration'
         }
       }).then(response => {
-        console.log(response);
         this.bonuses = response.data
       })
     }
@@ -277,7 +276,6 @@ export default {
           })
           .catch((error) => {
             this.isLoading = false
-            console.log(error.response);
             this.errors = error.response.data
           })
 

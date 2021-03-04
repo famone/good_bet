@@ -81,8 +81,6 @@ export default {
       }).then(res => {
         this.disableAutoLoading = this.pageCount <= this.page;
         this.gamesArr = [...this.gamesArr, ...res.data];
-      }).catch(error => {
-        console.log(error);
       })
     },
     updateDynPage(id) {
