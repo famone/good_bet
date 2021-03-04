@@ -29,7 +29,7 @@
                 </select>
 
                 <input :type="field.type" :data-field="fl.name" @input="updateField($event)"
-                        :class="{hidden : ifCustomInput(fl.name) }">
+                       :class="{hidden : ifCustomInput(fl.name) }">
               </div>
             </div>
 
@@ -95,12 +95,12 @@
 
 <script>
 import VueRecaptcha from 'vue-recaptcha'
-import { mapGetters } from 'vuex'
-import { API } from '../api'
+import {mapGetters} from 'vuex'
+import {API} from '../api'
 
 export default {
-  components: { VueRecaptcha },
-  data () {
+  components: {VueRecaptcha},
+  data() {
     return {
       errors: null,
       isLoading: false,
@@ -153,7 +153,7 @@ export default {
       currency: 'auth/getCurrency',
       lang: 'auth/getLang'
     }),
-    checkErr () {
+    checkErr() {
       let arr = []
 
       if (this.errors) {
@@ -165,14 +165,15 @@ export default {
       return arr
     }
   },
-  created () {
+  created() {
+    this.$store.dispatch('auth/getRegFields')
+
     let isBonusEnable = this.regFields[0].fields.find(item => {
       return item.type === 'bonus'
     })
-    console.log(isBonusEnable)
 
-    if(isBonusEnable){
-      API.get('lab/bonuses',{
+    if (isBonusEnable) {
+      API.get('lab/bonuses', {
         params: {
           activation_event: 'registration'
         }
@@ -184,17 +185,17 @@ export default {
 
   },
   watch: {
-    lang (newValue, oldValue) {
+    lang(newValue, oldValue) {
       this.$store.dispatch('auth/getRegFields')
     },
   },
   methods: {
-    ifCustomInput(name){
-      return  this.customFields.find(item => {
-        return  item === name
+    ifCustomInput(name) {
+      return this.customFields.find(item => {
+        return item === name
       })
     },
-    sbsEmail () {
+    sbsEmail() {
       let fieldInArr = this.inpArr.find(item => {
         return item.name === this.mailSpam.name
       })
@@ -202,7 +203,7 @@ export default {
       fieldInArr.value = this.mailSpam.value
 
     },
-    sbsTel () {
+    sbsTel() {
       let fieldInArr = this.inpArr.find(item => {
         return item.name === this.telSpam.name
       })
@@ -210,7 +211,7 @@ export default {
       fieldInArr.value = this.telSpam.value
 
     },
-    makeTerm () {
+    makeTerm() {
       let fieldInArr = this.inpArr.find(item => {
         return item.name === this.terms.name
       })
@@ -218,7 +219,7 @@ export default {
       fieldInArr.value = this.terms.value
 
     },
-    updateField (e) {
+    updateField(e) {
       let attr = e.target.getAttribute('data-field')
 
       let fieldInArr = this.inpArr.find(item => {
@@ -230,10 +231,10 @@ export default {
         return
       }
 
-      this.inpArr.push({ name: attr, value: e.target.value })
+      this.inpArr.push({name: attr, value: e.target.value})
 
     },
-    submitForm () {
+    submitForm() {
 
       let fieldInArr = this.inpArr.find(item => {
         return item.name === 'recaptcha_response'
@@ -273,68 +274,52 @@ export default {
           })
           .catch((error) => {
             this.isLoading = false
+            console.log(error.response);
             this.errors = error.response.data
           })
 
       this.$refs.recaptcha.reset()
 
     },
-    validate () {
+    validate() {
       this.isLoading = true
       this.$refs.recaptcha.execute()
 
       return true
     },
-    onCaptchaExpired () {
+    onCaptchaExpired() {
       this.$refs.recaptcha.reset()
       this.captchaResponseToken = null
       this.isLoading = false
     },
-    onVerify (responseToken) {
+    onVerify(responseToken) {
       this.captchaResponseToken = responseToken
       this.submitForm()
     },
     // вход сразу
-    submitLog () {
+    submitLog() {
 
       let mailToLog = this.inpArr.find(item => item.name === 'email')
 
       let passToLog = this.inpArr.find(item => item.name === 'password_change')
 
-      let userLog = {
+      let tokenParams = {
         grant_type: 'password',
         username: mailToLog.value,
         password: passToLog.value,
         scope: 'casino:read bonus:read bonus.settings:read bonus:write lab:read lab:write game:read game:write game.history:read game.wallet:write game.launch:write player:read player:write message:read message:write payment:read payment:write player:write:all message:write winner:read faq:read news:read slider:read payment.callbacks:write'
       }
 
-      let config = {
-        headers: {
-          Authorization: 'Basic ' + process.env.CASINO_APP_API_AUTH_TOKEN,
-        }
-      }
-
-      API.post('oauth2/token', userLog, config)
+      API.getPlayerToken(tokenParams)
           .then(response => {
-            let tokenEntity = {
-              userToken: response.data.access_token,
-              timestamp: new Date().getTime()
-            }
-
-            localStorage.setItem('userToken', JSON.stringify(tokenEntity))
-
             this.$store.dispatch('auth/getUser')
             this.isLoading = false
+            this.$router.replace('/profile')
           })
           .catch(error => {
             this.isLoading = false
             this.errors = true
           })
-          .then(() => {
-            this.isLoading = false
-            this.$router.replace('/profile')
-          })
-
     }
   }
 }

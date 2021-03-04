@@ -53,27 +53,9 @@ export default {
       service_data: encodedStr,
     }
 
-    let config = {
-      headers: {
-        Authorization: 'Basic ' + process.env.CASINO_APP_API_AUTH_TOKEN,
-      }
-    }
-    API.post('oauth2/token', parameters, config)
+    API.getPlayerToken(parameters)
         .then(response => {
-
-          let currentTimeInTimestamp = new Date().getTime() / 1000 | 0;
-
-          let tokenEntity = {
-            userToken: response.data.access_token,
-            refreshToken: response.data.refresh_token,
-            expiresIn: currentTimeInTimestamp,
-            timestamp: new Date().getTime()
-          }
-
-          localStorage.setItem('userToken', JSON.stringify(tokenEntity))
-
           this.$store.dispatch('auth/getUser')
-
           this.$router.replace('/profile')
         })
         .catch(error => {

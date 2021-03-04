@@ -30,9 +30,10 @@ API.getPlayerToken = function (params) {
 
 				API.defaults.headers.common['Authorization'] = 'Bearer ' + tokenEntity.userToken
 
-				resolve()
+				resolve(response)
 			}.bind(this))
 			.catch(error => {
+				reject(error)
 				this.errors = true
 				this.isLoading = false
 			});
