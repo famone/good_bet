@@ -37,6 +37,9 @@ export default {
   components: {Navbar},
   computed: {
     ...mapGetters({news: "auth/getNews"}),
+  },
+  created() {
+    this.$store.dispatch("auth/loadNews");
   }
 }
 </script>

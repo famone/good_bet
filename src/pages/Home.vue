@@ -29,6 +29,12 @@ export default {
       slotsGames: "auth/getSlots",
       recommendedGames: "auth/getRecommended"
     }),
+  },
+  created() {
+    this.$store.dispatch("auth/loadSlider");
+    this.$store.dispatch("auth/loadPopular");
+    this.$store.dispatch("auth/loadRecommended");
+    this.$store.dispatch("auth/loadSlots");
   }
 }
 </script>

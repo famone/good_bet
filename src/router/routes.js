@@ -1,5 +1,3 @@
-import VueRouter from 'vue-router'
-import store from '../store'
 import Home from '../pages/Home.vue'
 import Login from '../pages/Login.vue'
 import Signup from '../pages/Signup.vue'

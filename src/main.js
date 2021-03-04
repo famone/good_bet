@@ -47,7 +47,6 @@ if (localStorage.getItem('player')) {
   store.dispatch('auth/initApp')
 } else {
   if (localStorage.getItem('appToken')) {
-    store.dispatch('auth/getInfo')
     store.dispatch('auth/initApp')
   } else {
     store.dispatch('auth/initApp')

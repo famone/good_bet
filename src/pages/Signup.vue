@@ -2,12 +2,12 @@
   <section id="login">
     <div class="container">
       <div class="col-lg-8 col-lg-offset-2">
-        <div class="form-box text-center">
+        <div class="form-box text-center" v-if="regFields[0].fields.length">
           <h2>REGISTRATION</h2>
 
 
           <form @submit.prevent="validate">
-            <div class="field-box" v-for="field in regFields[0].fields" v-if="regFields">
+            <div class="field-box" v-for="field in regFields[0].fields">
               <div v-for="fl in field.inputs" v-if="field.type !== 'checkbox' "
                    :class="{errorInput : checkErr.includes(fl.name)}">
                 <label for="" :class="{hidden : fl.name === 'confirm_terms' || fl.name === 'recaptcha_response' }">
@@ -166,8 +166,10 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('auth/getRegFields')
+    this.$store.dispatch('auth/loadRegFields')
+    this.$store.dispatch('auth/loadPaymentCurrencies')
 
+    //TODO fix this
     let isBonusEnable = this.regFields[0].fields.find(item => {
       return item.type === 'bonus'
     })
@@ -178,6 +180,7 @@ export default {
           activation_event: 'registration'
         }
       }).then(response => {
+        console.log(response);
         this.bonuses = response.data
       })
     }

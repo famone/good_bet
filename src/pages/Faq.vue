@@ -26,6 +26,9 @@ export default {
   components: {Navbar},
   computed: {
     ...mapGetters({faq: "auth/getFaq"}),
+  },
+  created() {
+    this.$store.dispatch("auth/loadFaqItems");
   }
 }
 </script>

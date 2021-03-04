@@ -20,7 +20,6 @@ router.beforeEach((to, from, next) => {
 		next()
 	} else {
 		if (localStorage.getItem('appToken')) {
-			store.dispatch('auth/getInfo')
 			next()
 		} else {
 			next()

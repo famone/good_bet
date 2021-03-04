@@ -5,7 +5,11 @@ const auth = {
 	state: {
 		authenticated: false,
 		games: [],
-		regFields: [],
+		regFields: [
+			{
+				fields: []
+			}
+		],
 		currency: [],
 		faq: '',
 		slider: [],
@@ -87,14 +91,7 @@ const auth = {
 	},
 	actions: {
 		initApp({commit, state, dispatch}) {
-			dispatch("loadNews")
-			dispatch("loadSlider")
-			dispatch("loadPopular")
-			dispatch("loadSlots")
-			dispatch("loadRecommended")
-			dispatch("getInfo")
 			dispatch("setLang", localStorage.getItem('selectedLang'))
-			// dispatch("loadTimezones")
 		},
 		getUser({commit, dispatch, state}) {
 			commit('CHANGE_AUTH', true)
@@ -104,41 +101,8 @@ const auth = {
 				dispatch("loadMessages")
 			})
 		},
-		getRegFields({commit, dispatch, state}) {
-			API.get('player-forms')
-				.then(res => {
-					commit('SET_REG_FIELDS', res.data)
-				})
-		},
-		getInfo({commit, dispatch, state}) {
-			API.get('games', {
-				params: {
-					expand: 'details,launch_types,images,type,provider,canonical'
-				}
-			}).then(res => {
-				commit('SET_GAMES', res.data)
-			})
 
-			API.get('faq-items')
-				.then(res => {
-					commit('SET_FAQ', res.data)
-				})
-
-
-			API.get('player-forms')
-				.then(res => {
-					commit('SET_REG_FIELDS', res.data)
-				})
-
-
-			API.get('payment-currencies')
-				.then(res => {
-					commit('SET_CURRENCY', res.data)
-				})
-
-
-			// получаем id всех групп
-
+		getGameGroups() {
 			API.get('game-groups', {
 				params: {
 					place_code: 'headline',
@@ -147,9 +111,34 @@ const auth = {
 			}).then(res => {
 				commit('SET_GROUPS', res.data)
 			})
+		},
 
-
-
+		getGames({commit}) {
+			API.get('games', {
+				params: {
+					expand: 'details,launch_types,images,type,provider,canonical'
+				}
+			}).then(res => {
+				commit('SET_GAMES', res.data)
+			})
+		},
+		loadRegFields({commit, dispatch, state}) {
+			API.get('player-forms')
+				.then(res => {
+					commit('SET_REG_FIELDS', res.data)
+				})
+		},
+		loadPaymentCurrencies({commit}) {
+			API.get('payment-currencies')
+				.then(res => {
+					commit('SET_CURRENCY', res.data)
+				})
+		},
+		loadFaqItems({commit}) {
+			API.get('faq-items')
+				.then(res => {
+					commit('SET_FAQ', res.data)
+				})
 		},
 		loadNews({commit}) {
 			API.get('news')
