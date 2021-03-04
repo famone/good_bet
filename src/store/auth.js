@@ -36,7 +36,6 @@ const auth = {
 			state.regFields = payload
 		},
 		SET_REG_BONUSES(state, payload) {
-			console.log(payload)
 			state.regBonuses = payload
 		},
 		SET_CURRENCY(state, payload) {
