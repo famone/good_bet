@@ -18,7 +18,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters({ player: 'auth/getPlayer' }),
+    ...mapGetters({ player: 'player/getCurrent' }),
   },
   data () {
     return {
@@ -55,7 +55,7 @@ export default {
 
     API.getPlayerToken(parameters)
         .then(response => {
-          this.$store.dispatch('auth/getUser')
+          this.$store.dispatch('player/loadCurrent')
           this.$router.replace('/profile')
         })
         .catch(error => {

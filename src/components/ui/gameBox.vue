@@ -40,7 +40,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({player: "auth/getPlayer"}),
+    ...mapGetters({player: "player/getCurrent"}),
   },
   methods: {
     updateFavs(){

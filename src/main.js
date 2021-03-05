@@ -45,7 +45,7 @@ const i18n = new VueI18n({
 store.dispatch('lang/setCurrent', localStorage.getItem('selectedLang'))
 
 if (localStorage.getItem('player')) {
-  store.dispatch('auth/getUser')
+  store.dispatch('player/loadCurrent')
 }
 
 const isDev = process.env.NODE_ENV !== 'production'

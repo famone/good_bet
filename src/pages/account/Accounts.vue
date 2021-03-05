@@ -81,7 +81,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({player: "auth/getPlayer"}),
+    ...mapGetters({player: "player/getCurrent"}),
     getCurrentAccount() {
       if (this.player) {
         let currentValue = this.player.accounts.find(item => {
@@ -95,7 +95,7 @@ export default {
     changeAccount(accountId) {
       this.$store.dispatch('account/changeAccount', accountId)
       setTimeout(() => {
-      this.$store.dispatch('auth/getUser')
+      this.$store.dispatch('player/loadCurrent')
     }, 3000)
     },
     getAvailableCurrency() {
@@ -119,7 +119,7 @@ export default {
       API.post('accounts', newAcc)
           .then(res => {
             this.newAccountId = ''
-            this.$store.dispatch('auth/getUser')
+            this.$store.dispatch('player/loadCurrent')
             this.getAvailableCurrency()
             this.isLoading = false
           }).catch(error => {

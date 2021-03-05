@@ -89,7 +89,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({player: "auth/getPlayer"})
+    ...mapGetters({player: "player/getCurrent"})
   },
   created() {
     API.get('payment-methods', {
@@ -109,7 +109,7 @@ export default {
     },
     accept() {
       let stat = 'pending'
-      this.$store.dispatch('auth/depoSwitcher', false)
+      this.$store.dispatch('transactions/switchCurrentTab', 'withdrawal')
 
       API.patch('payments/' + this.transId, stat)
           .then(res => {

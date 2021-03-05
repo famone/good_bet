@@ -68,7 +68,7 @@ export default {
 
       API.getPlayerToken(tokenParams)
           .then(function () {
-            this.$store.dispatch('auth/getUser').then(function () {
+            this.$store.dispatch('player/loadCurrent').then(function () {
               this.isLoading = false
               this.$router.replace("/profile");
             }.bind(this))

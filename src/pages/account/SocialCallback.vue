@@ -19,7 +19,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters({ player: 'auth/getPlayer' }),
+    ...mapGetters({ player: 'player/getCurrent' }),
   },
   data () {
     return {

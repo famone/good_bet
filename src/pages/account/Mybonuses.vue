@@ -94,7 +94,7 @@ import avBonusPop from '../../components/ui/avBonusPop.vue'
 export default {
   components: { Navbar, AcNav, acBonusPop, avBonusPop },
   computed: {
-    ...mapGetters({ player: 'auth/getPlayer' }),
+    ...mapGetters({ player: 'player/getCurrent' }),
   },
   data(){
     return{

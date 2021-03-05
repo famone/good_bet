@@ -53,7 +53,7 @@ import {mapGetters} from 'vuex'
 export default {
   components: {Navbar},
   computed: {
-    ...mapGetters({player: "auth/getPlayer"}),
+    ...mapGetters({player: "player/getCurrent"}),
   },
   data() {
     return {

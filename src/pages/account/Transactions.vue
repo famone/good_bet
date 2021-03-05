@@ -11,17 +11,17 @@
             <h2>{{ $t('pages.account.transactions') }}</h2>
 
             <button class="switch-btn"
-                    :class="{activeSwitch : switchDepo}"
-                    @click="changeDepo(true)">{{ $t('pages.account.deposit') }}
+                    :class="{activeSwitch : currentTab === 'deposit'}"
+                    @click="switchTab('deposit')">{{ $t('pages.account.deposit') }}
             </button>
             <button class="switch-btn"
-                    :class="{activeSwitch : !switchDepo}"
-                    @click="changeDepo(false)">{{ $t('pages.account.withdrawal') }}
+                    :class="{activeSwitch : currentTab === 'withdrawal'}"
+                    @click="switchTab('withdrawal')">{{ $t('pages.account.withdrawal') }}
             </button>
 
             <!-- depo -->
 
-            <div class="row" v-if="switchDepo">
+            <div class="row" v-if="currentTab === 'deposit'">
               <div class="col-lg-10">
                 <table>
                   <thead>
@@ -50,7 +50,7 @@
             <!-- withdrawl -->
 
 
-            <div class="row" v-else>
+            <div class="row" v-else-if="currentTab === 'withdrawal'">
               <div class="col-lg-10">
                 <table>
                   <thead>
@@ -102,7 +102,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({player: "auth/getPlayer", switchDepo: "auth/getSwitchDepo"})
+    ...mapGetters({
+      player: "player/getCurrent",
+      currentTab: "transactions/getCurrentTab"
+    })
   },
   created() {
     API.get('payments', {
@@ -122,8 +125,8 @@ export default {
     })
   },
   methods: {
-    changeDepo(res) {
-      this.$store.dispatch('auth/depoSwitcher', res)
+    switchTab(res) {
+      this.$store.dispatch('transactions/switchCurrentTab', res)
     }
   }
 }

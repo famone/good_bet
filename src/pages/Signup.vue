@@ -170,8 +170,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      regFields: 'auth/getRegFields',
-      bonuses: 'auth/getRegBonuses',
+      regFields: 'registerForm/getDefaultFields',
+      bonuses: 'bonuses/getRegistrationBonuses',
       currency: 'currency/getAll',
       currentLang: 'lang/getCurrent'
     }),
@@ -191,21 +191,12 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('auth/loadRegFields')
+    this.$store.dispatch('registerForm/loadDefaultFields')
     this.$store.dispatch('currency/loadAll')
   },
   watch: {
-    regFields() {
-      let isBonusEnable = this.regFields[0].fields.find(item => {
-        return item.type === 'bonus'
-      })
-
-      if (isBonusEnable) {
-        this.$store.dispatch('auth/loadRegistrationBonuses')
-      }
-    },
     currentLang() {
-      this.$store.dispatch('auth/getRegFields')
+      this.$store.dispatch('registerForm/loadDefaultFields')
     },
   },
   methods: {
@@ -343,7 +334,7 @@ export default {
 
       API.getPlayerToken(tokenParams)
           .then(response => {
-            this.$store.dispatch('auth/getUser')
+            this.$store.dispatch('player/loadCurrent')
             this.isLoading = false
             this.$router.replace('/profile')
           })

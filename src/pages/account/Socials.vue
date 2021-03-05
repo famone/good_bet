@@ -66,7 +66,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({ player: 'auth/getPlayer' }),
+    ...mapGetters({ player: 'player/getCurrent' }),
   },
   methods: {
     getAvailableSocials () {
@@ -108,7 +108,7 @@ export default {
           .post('accounts', newAcc)
           .then(res => {
             this.newAccountId = ''
-            this.$store.dispatch('auth/getUser')
+            this.$store.dispatch('player/loadCurrent')
             this.getAvailableCurrency()
           })
 

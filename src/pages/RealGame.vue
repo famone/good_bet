@@ -87,7 +87,7 @@ export default {
     this.$scrollTo('#gameSec', 300, options)
 
     setInterval(() => {
-      this.$store.dispatch('auth/getUser')
+      this.$store.dispatch('player/loadCurrent')
     }, 3000)
   },
   beforeDestroy() {

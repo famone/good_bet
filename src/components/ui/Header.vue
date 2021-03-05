@@ -116,7 +116,7 @@ export default {
   computed: {
     isAuth : function(){ return this.$store.getters['auth/getAuthenticated']},
     unreadMessageCount : function(){ return this.$store.getters['messages/getUnread']},
-    ...mapGetters({player: "auth/getPlayer", messages: "auth/getMessages"}),
+    ...mapGetters({player: "player/getCurrent", messages: "auth/getMessages"}),
     getCurrentAccount() {
       if (this.player) {
         return this.player.accounts.find(item => {
@@ -190,7 +190,6 @@ export default {
       const self = this;
       this.updateMessageCountInterval = setInterval(function(){
         self.$store.dispatch('messages/getUnreadCount')
-        console.log (self.unreadMessageCount);
       }, 3000);
     },
   },

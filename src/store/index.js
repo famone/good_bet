@@ -15,6 +15,10 @@ import timezones from '../store/timezones'
 import gameGroups from '../store/gameGroups'
 import account from '../store/account'
 import messages from '../store/messages'
+import player from '../store/player'
+import registerForm from '../store/registerForm'
+import bonuses from '../store/bonuses'
+import transactions from '../store/transactions'
 
 export default new Vuex.Store({
 	modules: {
@@ -29,6 +33,10 @@ export default new Vuex.Store({
 		timezones,
 		gameGroups,
 		account,
-		messages
+		messages,
+		player,
+		registerForm,
+		bonuses,
+		transactions
 	}
 }) 

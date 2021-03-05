@@ -146,7 +146,7 @@ export default {
   components: {Navbar, AcNav, AvatarCropper},
   computed: {
     ...mapGetters({
-      player: "auth/getPlayer",
+      player: "player/getCurrent",
       timezones: "timezones/getAll",
       countries: "countries/getAll",
       currentLang: "lang/getCurrent"
@@ -192,12 +192,12 @@ export default {
 
       if (fieldInArr) {
         fieldInArr.value = e.target.value
-        this.$store.dispatch('auth/CHANGE_FIELD', payload)
+        this.$store.dispatch('player/updateDataProperty', payload)
         return
       }
 
       this.inpArr.push({name: attr, value: e.target.value})
-      this.$store.dispatch('auth/CHANGE_FIELD', payload)
+      this.$store.dispatch('player/updateDataProperty', payload)
 
     },
     updateUser() {
@@ -220,7 +220,7 @@ export default {
 
       API.patch('players/' + this.player.id, objField)
           .then(response => {
-            this.$store.dispatch('auth/getUser')
+            this.$store.dispatch('player/loadCurrent')
             this.isLoading = false
             this.$toasted.show(this.$t('pages.account.profile.profileEditSuccess'), {
               duration: 1500
