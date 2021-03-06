@@ -2,20 +2,20 @@
   <div>
     <Navbar/>
 
-    <div class="col-lg-12 text-center" v-if="!newsItem">
-      <img src="../assets/img/icons/nv6.svg" class="spin">
+    <div class="col-lg-12 text-center" v-if="!news">
+      <img src="../assets/img/icons/nv6.svg" class="spin" alt="">
     </div>
 
-    <section id="news" v-if="newsItem">
+    <section v-if="news">
       <div class="container">
-        <h2 class="to-upper2">{{ newsItem.name }}</h2>
-        <div class="date">{{ new Date(newsItem.publish_date * 1000).toLocaleDateString() }}</div>
+        <h2 class="to-upper2">{{ news.name }}</h2>
+        <div class="date">{{ new Date(news.publish_date * 1000).toLocaleDateString() }}</div>
       </div>
     </section>
-    <section id="newsBg" :style="{'background-image': 'url(' + newsItem.image.url + ')'}"></section>
-    <section id="news">
+    <section v-if="news" id="newsBg" :style="{'background-image': 'url(' + news.image.url + ')'}"></section>
+    <section v-if="news">
       <div class="container">
-        <p class="white-txt" v-html="newsItem.body"></p>
+        <p class="white-txt" v-html="news.body"></p>
       </div>
     </section>
   </div>
@@ -23,23 +23,15 @@
 
 <script>
 import Navbar from '../components/ui/Navbar.vue'
-import {API} from "../api";
+import {mapGetters} from "vuex";
 
 export default {
   components: {Navbar},
-  data() {
-    return {
-      newsItem: null
-    }
+  computed: {
+    ...mapGetters({news: "singleNews/getNews"}),
   },
   created() {
-    let routeId = parseInt(this.$route.params.id)
-
-
-    API.get('news/' + routeId)
-        .then(response => {
-          this.newsItem = response.data
-        })
+    this.$store.dispatch('singleNews/loadById', parseInt(this.$route.params.id))
   }
 }
 </script>

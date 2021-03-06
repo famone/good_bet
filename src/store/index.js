@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 import auth from './Auth'
 import news from './News'
+import singleNews from './SingleNews'
 import games from './Games'
 import faq from './Faq'
 import currency from './Currency'
@@ -41,6 +42,7 @@ export default new Vuex.Store({
 		bonuses,
 		transactions,
 		loader,
-		paymentMethod
+		paymentMethod,
+		singleNews
 	}
 }) 
