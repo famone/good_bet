@@ -12,7 +12,7 @@
 
             <div class="row">
               <div class="col-lg-12 text-center" v-if="!player.accounts">
-                <img src="../../assets/img/icons/nv6.svg" class="spin">
+                <img src="../../assets/img/icons/nv6.svg" class="spin" alt="">
               </div>
 
 
@@ -20,9 +20,10 @@
                 <div class="document-box text-center">
                   <div class="text-center">
                     <img src="../../assets/img/success.svg" class="status-icon"
-                         v-if="account.id == getCurrentAccount.id">
-                    <h3>{{ account.amount.toLocaleString() }} {{ account.currency_code }}</h3>
-                    <button class="btn-cont" v-if="account.id !== getCurrentAccount.id" @click="changeAccount(account.id)">
+                         v-if="account.id === currentAccountId" alt="">
+                    <h3>{{ account.getFormattedAmount() }} {{ account.currency_code }}</h3>
+                    <button class="btn-cont" v-if="account.id !== currentAccountId"
+                            @click="changeAccount(account.id)">
                       {{ $t('pages.account.changeAccount') }}
                     </button>
                   </div>
@@ -32,13 +33,13 @@
 
             <br><br>
 
-            <div class="row" v-if="available.length">
+            <div class="row" v-if="availableCurrencies.length">
               <h2>{{ $t('pages.account.createAccount') }}</h2>
 
               <div class="row new-doc">
                 <div class="col-lg-4">
-                  <select name="" id="" v-model="newAccountId">
-                    <option v-for="av in available" :value="av.id">{{ av.code }}</option>
+                  <select v-model="newAccountId">
+                    <option v-for="currency in availableCurrencies" :value="currency.id">{{ av.code }}</option>
                   </select>
                 </div>
               </div>
@@ -47,7 +48,7 @@
 
                 <div class="col-lg-3">
                   <div v-if="isLoading">
-                    <button class="save-btn"><img src="../../assets/img/icons/nv6.svg" class="spin"></button>
+                    <button class="save-btn"><img src="../../assets/img/icons/nv6.svg" class="spin" alt=""></button>
                   </div>
                   <div v-else>
                     <button class="save-btn" @click="createAccount">{{ $t('pages.account.createAccount') }}</button>
@@ -69,69 +70,44 @@
 import Navbar from '../../components/ui/Navbar.vue'
 import AcNav from '../../components/ui/AcNav.vue'
 import {mapGetters} from 'vuex'
-import {API} from '../../api'
 
 export default {
   components: {Navbar, AcNav},
   data() {
     return {
       isLoading: false,
-      available: [],
       newAccountId: ''
     }
   },
   computed: {
-    ...mapGetters({player: "player/getCurrent"}),
-    getCurrentAccount() {
-      if (this.player) {
-        let currentValue = this.player.accounts.find(item => {
-          return item.is_current == true
-        })
-        return currentValue
-      }
-    }
+    ...mapGetters({
+      player: "player/getCurrent",
+      availableCurrencies: "currency/getAvailableCurrencies",
+      currentAccountId: "account/getCurrentId"
+    }),
   },
   methods: {
     changeAccount(accountId) {
       this.$store.dispatch('account/changeAccount', accountId)
       setTimeout(() => {
-      this.$store.dispatch('player/loadCurrent')
-    }, 3000)
-    },
-    getAvailableCurrency() {
-      API.get('payment-currencies', {
-        params: {
-          has_accounts: false,
-        }
-      }).then(res => {
-        this.available = res.data
-      })
+        this.$store.dispatch('player/loadCurrent')
+      }, 3000)
     },
     createAccount() {
-      this.isLoading = true
-
       if (this.newAccountId === '') {
         return
       }
 
-      let newAcc = {currency_id: this.newAccountId}
-
-      API.post('accounts', newAcc)
-          .then(res => {
-            this.newAccountId = ''
-            this.$store.dispatch('player/loadCurrent')
-            this.getAvailableCurrency()
-            this.isLoading = false
-          }).catch(error => {
-        this.isLoading = false
+      this.$store.dispatch('account/createAccount', {
+        currency_id: this.newAccountId
+      }).then(() => {
+        this.newAccountId = ''
       })
-
 
     }
   },
   created() {
-    // доступные валюты
-    this.getAvailableCurrency()
+    this.$store.dispatch('currency/loadNotForCurrentUser')
   }
 }
 
@@ -140,12 +116,6 @@ export default {
 <style scoped>
 select {
   width: 100% !important;
-}
-
-input#file-upload-button {
-  background-color: #fff !important;
-  border: none !important;
-  text-transform: uppercase !important;
 }
 
 .document-box h3 {

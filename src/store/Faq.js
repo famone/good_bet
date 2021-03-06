@@ -1,6 +1,6 @@
 import {API} from '../api'
 
-const currency = {
+const faq = {
 	namespaced: true,
 	state: {
 		all: []
@@ -12,8 +12,9 @@ const currency = {
 	},
 	actions: {
 		loadAll({commit}) {
-			API.get('payment-currencies')
+			API.get('faq-items')
 				.then(response => {
+					console.log(response.data)
 					commit('SET_ALL', response.data)
 				})
 		}
@@ -25,4 +26,4 @@ const currency = {
 	}
 }
 
-export default currency
+export default faq

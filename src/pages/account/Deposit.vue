@@ -12,14 +12,14 @@
             <div class="row">
 
               <div class="col-lg-12 text-center" v-if="!paymentMethods">
-                <img src="../../assets/img/icons/nv6.svg" class="spin">
+                <img src="../../assets/img/icons/nv6.svg" class="spin" alt="">
               </div>
 
               <!-- {{paymentMethods}} -->
               <div class="col-lg-4 text-center" v-else v-for="pay in paymentMethods">
                 <div class="payment-card">
-                  <img :src="pay.images[0].url" v-if="pay.images.length > 0">
-                  <img src="../../assets/img/coin.svg" v-else="" class="logoimg">
+                  <img :src="pay.images[0].url" v-if="pay.images.length > 0" alt="">
+                  <img src="../../assets/img/coin.svg" v-if="!pay.images.length" class="logoimg" alt="">
                   <br>
                   <button class="save-btn" @click="openPop(pay)">
                     {{ $t('pages.account.depositTopUpButtonText') }}
@@ -45,7 +45,7 @@
           <input id="" type="text" v-model="field.value">
         </div>
         <div class="errors" v-for="(er, index) in errors ">
-          <p style="color: red;">{{index+1}}. {{er.message}}</p>
+          <p style="color: red;">{{ index + 1 }}. {{ er.message }}</p>
         </div>
 
         <button type="submit" class="reg-btn" @click="setPayment">{{ $t('pages.account.depositMoney') }}</button>
@@ -98,12 +98,9 @@ export default {
       this.errors = null
     },
     accept() {
-      let pendingStatus = 'pending'
-
-      API.patch('payments/' + this.transId, pendingStatus)
-          .then(res => {
-            this.$router.replace("/transactions")
-          })
+      this.$store.dispatch('transactions/changeTransactionStatus', this.transId, 'pending').then(() => {
+        this.$router.replace("/transactions")
+      })
     },
     openPop(pay) {
       this.payMethod = pay
@@ -130,7 +127,6 @@ export default {
       let request = {
         method_id: this.payMethod.id,
         fields: newField,
-        direction: "deposit",
         amount: parseInt(this.amount),
         callbacks: [
           {
@@ -144,21 +140,19 @@ export default {
         ]
       }
 
-      API.post('payments', request)
-          .then(res => {
-            this.acceptPop = true
+      this.$store.dispatch('transactions/createDepositTransaction', request).then(response => {
+        this.acceptPop = true
 
-            this.transId = res.data.id
+        this.transId = response.data.id
 
-            if (res.data.redirect_url !== '') {
-              window.location.href = res.data.redirect_url
-            } else {
-              this.$router.replace('/success')
-            }
-          }).catch(err => {
-              this.errors = err.response.data
+        if (response.data.redirect_url !== '') {
+          window.location.href = response.data.redirect_url
+        } else {
+          this.$router.replace('/success')
+        }
+      }, error => {
+        this.errors = error.response.data
       })
-
     }
   }
 }

@@ -12,7 +12,6 @@ import * as Sentry from '@sentry/vue'
 import { Integrations } from '@sentry/tracing'
 import Toasted from 'vue-toasted';
 
-
 import 'swiper/css/swiper.css'
 import VueI18n from 'vue-i18n'
 import en from './locals/en.json'

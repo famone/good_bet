@@ -3,22 +3,23 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-import auth from '../store/auth'
-import news from '../store/news'
-import games from '../store/games'
-import faq from '../store/faq'
-import currency from '../store/currency'
-import slider from '../store/slider'
-import lang from '../store/lang'
-import countries from '../store/countries'
-import timezones from '../store/timezones'
-import gameGroups from '../store/gameGroups'
-import account from '../store/account'
-import messages from '../store/messages'
-import player from '../store/player'
-import registerForm from '../store/registerForm'
-import bonuses from '../store/bonuses'
-import transactions from '../store/transactions'
+import auth from './Auth'
+import news from './News'
+import games from './Games'
+import faq from './Faq'
+import currency from './Currency'
+import slider from './Slider'
+import lang from './Lang'
+import countries from './Countries'
+import timezones from './Timezones'
+import gameGroups from './GameGroups'
+import account from './Account'
+import messages from './Messages'
+import player from './Player'
+import registerForm from './RegisterForm'
+import bonuses from './Bonuses'
+import transactions from './Transactions'
+import loader from '../store/loader'
 
 export default new Vuex.Store({
 	modules: {
@@ -37,6 +38,7 @@ export default new Vuex.Store({
 		player,
 		registerForm,
 		bonuses,
-		transactions
+		transactions,
+		loader
 	}
 }) 

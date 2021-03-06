@@ -32,15 +32,10 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr v-for="dep in depositTrans">
-                    <td>
-                      {{ new Date(dep.time_create_as_iso8601).toLocaleDateString() }}
-                      {{
-                        new Date(dep.time_create_as_iso8601).getHours()
-                      }}:{{ new Date(dep.time_create_as_iso8601).getMinutes() }}
-                    </td>
-                    <td>{{ dep.amount_as_currency }}</td>
-                    <td>{{ $t('main.' + dep.status) }}</td>
+                  <tr v-for="transaction in depositTransactions">
+                    <td>{{ transaction.getFormattedCreatedDateTime() }}</td>
+                    <td>{{ transaction.amount_as_currency }}</td>
+                    <td>{{ $t('main.' + transaction.status) }}</td>
                   </tr>
                   </tbody>
                 </table>
@@ -61,15 +56,10 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr v-for="dep in withdrawalTrans">
-                    <td>
-                      {{ new Date(dep.time_create_as_iso8601).toLocaleDateString() }}
-                      {{
-                        new Date(dep.time_create_as_iso8601).getHours()
-                      }}:{{ new Date(dep.time_create_as_iso8601).getMinutes() }}
-                    </td>
-                    <td>{{ dep.amount_as_currency }}</td>
-                    <td>{{ $t('main.' + dep.status) }}</td>
+                  <tr v-for="transaction in withdrawalTransactions">
+                    <td>{{ transaction.getFormattedCreatedDateTime() }}</td>
+                    <td>{{ transaction.amount_as_currency }}</td>
+                    <td>{{ $t('main.' + transaction.status) }}</td>
                   </tr>
                   </tbody>
                 </table>
@@ -91,38 +81,20 @@
 import Navbar from '../../components/ui/Navbar.vue'
 import AcNav from '../../components/ui/AcNav.vue'
 import {mapGetters} from 'vuex'
-import {API} from "../../api";
 
 export default {
   components: {Navbar, AcNav},
-  data() {
-    return {
-      depositTrans: null,
-      withdrawalTrans: null
-    }
-  },
   computed: {
     ...mapGetters({
       player: "player/getCurrent",
-      currentTab: "transactions/getCurrentTab"
+      currentTab: "transactions/getCurrentTab",
+      depositTransactions: "transactions/getDepositTransactions",
+      withdrawalTransactions: "transactions/getWithdrawalTransactions"
     })
   },
   created() {
-    API.get('payments', {
-      params: {
-        direction: 'deposit'
-      }
-    }).then(res => {
-      this.depositTrans = res.data
-    })
-
-    API.get('payments', {
-      params: {
-        direction: 'withdrawal'
-      }
-    }).then(res => {
-      this.withdrawalTrans = res.data
-    })
+    this.$store.dispatch('transactions/loadDepositTransactions')
+    this.$store.dispatch('transactions/loadWithdrawalTransactions')
   },
   methods: {
     switchTab(res) {

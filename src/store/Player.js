@@ -1,4 +1,5 @@
 import {API} from '../api'
+import Player from "../dto/Player";
 
 const player = {
 	namespaced: true,
@@ -6,8 +7,12 @@ const player = {
 		current: null
 	},
 	mutations: {
-		SET_CURRENT(state, payload) {
-			state.current = payload
+		SET_CURRENT(state, player) {
+			if (player === null) {
+				state.current = null
+			} else {
+				state.current = new Player(player)
+			}
 		},
 		UPDATE_FIELD(state, field) {
 			state.current[field.name] = field.value
@@ -29,6 +34,10 @@ const player = {
 		}
 	},
 	getters: {
+		/**
+		 * @param state
+		 * @returns {Player}
+		 */
 		getCurrent(state) {
 			return state.current
 		}
