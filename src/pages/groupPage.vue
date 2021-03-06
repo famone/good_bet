@@ -7,23 +7,20 @@
         <div class="container">
           <div class="games-row-box">
 
-
             <div class="row">
               <div class="text-center" v-if="loader">
                 <img alt="loading" src="../assets/img/icons/nv6.svg" class="spin">
               </div>
 
-              <div class="text-center" v-else-if="gamesArr.length < 1">
+              <div class="text-center" v-else-if="!gamesArr.length">
                 <h3>{{ $t('games.noGamesTextInList') }}</h3>
               </div>
-              <div v-else>
-                <gameBox v-for="game in gamesArr" :game="game" v-bind:key="game.id"/>
 
-                <scroll-loader :loader-method="getGameList" :loader-disable="disableAutoLoading">
-                  <p class="white-txt">{{ $t('main.loading') }}</p>
-                </scroll-loader>
-              </div>
+              <gameBox v-if="gamesArr.length" v-for="game in gamesArr" :game="game" v-bind:key="game.id"/>
 
+              <scroll-loader v-if="gamesArr.length" :loader-method="getGameList" :loader-disable="disableAutoLoading">
+                <p class="white-txt">{{ $t('main.loading') }}</p>
+              </scroll-loader>
 
             </div>
           </div>
