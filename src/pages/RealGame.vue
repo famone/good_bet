@@ -25,7 +25,7 @@
               <br><br>
             </div>
             <div class="game-louncher" v-else :class="{fullscreenGame : flscrnMode}">
-               <div class="full-screen-btn exit-full hidden-xs" @click="flscrnMode = false" v-if="flscrnMode">
+              <div class="full-screen-btn exit-full hidden-xs" @click="flscrnMode = false" v-if="flscrnMode">
                 <img src="../assets/img/cross.svg" alt="">
               </div>
               <iframe :src="gameLauncher" frameborder="0"></iframe>
@@ -43,10 +43,10 @@
 
 
 <script>
-import {mapGetters} from 'vuex'
 import Navbar from '../components/ui/Navbar.vue'
 import accordeons from '../components/ui/accordeons.vue'
 import {API} from "../api";
+import {mapGetters} from "vuex";
 
 export default {
   components: {Navbar, accordeons},
@@ -58,20 +58,54 @@ export default {
       flscrnMode: false
     }
   },
+  computed: {
+    ...mapGetters({
+      player: 'player/getCurrent'
+    })
+  },
+  watch: {
+    player(newVersion, oldVersion) {
+      if (!newVersion || !oldVersion) {
+        return;
+      }
+
+      let oldAccount = oldVersion.accounts.find(item => {
+        if (item.is_current === true) {
+          return item;
+        }
+      })
+
+      let newAccount = newVersion.accounts.find(item => {
+        if (item.is_current === true) {
+          return item;
+        }
+      })
+
+      if (oldAccount.id !== newAccount.id) {
+        this.$router.go();
+      }
+    }
+  },
   created() {
     let routeId = parseInt(this.$route.params.id)
 
     let gameConfig = {
       game_id: routeId,
-      launch_type: "real"
+      launch_type: "real",
+      callbacks: [
+        {
+          "type": "return",
+          "redirect_uri": "http://casino.com"
+        }
+      ]
     }
 
 
-    API.post('game-launches', gameConfig)
-        .then(response => {
-          this.gameLauncher = response.data.launch_url
-          this.gameObj = response.data
-        })
+    API.post('game-launches', gameConfig).then(response => {
+      this.gameLauncher = response.data.launch_url
+      this.gameObj = response.data
+    }).catch(error => {
+    })
 
     API.get('games/' + routeId)
         .then(response => {
@@ -79,10 +113,9 @@ export default {
         })
   },
   mounted() {
-    var options = {
-          offset: -100,
-        } 
-    var VueScrollTo = require('vue-scrollto');
+    let options = {
+      offset: -100,
+    }
 
     this.$scrollTo('#gameSec', 300, options)
 
