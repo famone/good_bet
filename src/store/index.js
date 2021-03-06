@@ -19,7 +19,7 @@ import player from './Player'
 import registerForm from './RegisterForm'
 import bonuses from './Bonuses'
 import transactions from './Transactions'
-import loader from '../store/loader'
+import loader from './Loader'
 
 export default new Vuex.Store({
 	modules: {
