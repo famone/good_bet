@@ -42,22 +42,7 @@ export default {
   },
   methods: {
     favUpdate(index){
-
       delete this.gamesArr.splice(index, 1)
-
-
-      // this.loader = true
-      // this.gamesArr = []
-
-      //     API.get('games', {
-      //       params: {
-      //       expand: 'images, launch_types, type',
-      //       favorite: true
-      //       }
-      //     }).then(res => {
-      //         this.gamesArr = res.data
-      //         this.loader = false
-      //     })
     }
   },
   created() {
