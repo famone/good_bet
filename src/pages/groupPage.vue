@@ -16,14 +16,16 @@
               <div class="text-center" v-else-if="gamesArr.length < 1">
                 <h3>{{ $t('games.noGamesTextInList') }}</h3>
               </div>
-              <gameBox v-for="game in gamesArr" :game="game" v-bind:key="game.id" v-else/>
+              <div v-else>
+                <gameBox v-for="game in gamesArr" :game="game" v-bind:key="game.id"/>
+
+                <scroll-loader :loader-method="getGameList" :loader-disable="disableAutoLoading">
+                  <p class="white-txt">{{ $t('main.loading') }}</p>
+                </scroll-loader>
+              </div>
+
+
             </div>
-
-            <scroll-loader :loader-method="getGameList" :loader-disable="disableAutoLoading">
-              <p class="white-txt">{{ $t('main.loading') }}</p>
-            </scroll-loader>
-
-
           </div>
         </div>
       </div>

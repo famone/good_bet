@@ -30,7 +30,6 @@
 
 <script>
 import {mapGetters} from 'vuex'
-import {API} from "../../api";
 
 export default {
   props: {
