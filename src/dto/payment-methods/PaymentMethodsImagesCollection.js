@@ -1,16 +1,10 @@
-import PaymentMethodField from "./PaymentMethodField";
 import PaymentMethodsImage from "./PaymentMethodsImage";
+import AbstractDtoCollection from "../AbstractDtoCollection";
 
-export default class PaymentMethodsImagesCollection
+export default class PaymentMethodsImagesCollection extends AbstractDtoCollection
 {
-	static createFromArray(array)
+	static buildDto(image)
 	{
-		let result = [];
-
-		array.forEach(data => {
-			result.push(new PaymentMethodsImage(data))
-		})
-
-		return result;
+		return new PaymentMethodsImage(image)
 	}
 }

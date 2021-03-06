@@ -1,15 +1,9 @@
 import Avatar from "./Avatar";
+import AbstractDtoCollection from "./AbstractDtoCollection";
 
-export default class AvatarsCollection
+export default class AvatarsCollection extends AbstractDtoCollection
 {
-	static createFromArray(accountsArray)
-	{
-		let result = [];
-
-		accountsArray.forEach(avatarData => {
-			result.push(new Avatar(avatarData))
-		})
-
-		return result;
+	static buildDto(avatar) {
+		return new Avatar(avatar)
 	}
 }

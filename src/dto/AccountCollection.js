@@ -1,15 +1,9 @@
 import Account from "./Account";
+import AbstractDtoCollection from "./AbstractDtoCollection";
 
-export default class AccountCollection
+export default class AccountCollection extends AbstractDtoCollection
 {
-	static createFromArray(accountsArray)
-	{
-		let result = [];
-
-		accountsArray.forEach(accountData => {
-			result.push(new Account(accountData))
-		})
-
-		return result;
+	static buildDto(account) {
+		return new Account(account)
 	}
 }
