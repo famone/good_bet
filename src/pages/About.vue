@@ -55,7 +55,7 @@
             ></textarea>
 
             <div v-if="isLoading">
-              <button type="submit" class="reg-btn"><img src="../assets/img/icons/nv6.svg" class="spin"></button>
+              <button type="submit" class="reg-btn"><img src="../assets/img/icons/nv6.svg" class="spin" alt=""></button>
             </div>
             <div v-else>
               <button type="submit" class="reg-btn">SEND</button>
@@ -74,7 +74,6 @@
             </template>
 
 
-
           </form>
         </div>
       </div>
@@ -86,8 +85,7 @@
 <script>
 import Navbar from '../components/ui/Navbar.vue'
 import VueRecaptcha from 'vue-recaptcha'
-import {required, email, minLength} from "vuelidate/lib/validators";
-import {API} from "../api";
+import {required, email} from "vuelidate/lib/validators";
 
 export default {
   name: 'Register',
@@ -120,19 +118,18 @@ export default {
         recaptcha_response: this.captchaResponseToken
       }
 
-      API.post('feedback', feedback)
-          .then(response => {
-            this.isLoading = false
-            this.$toasted.show(this.$t('pages.about.notificationSuccess'), {
-              duration: 1500
-            })
-          })
-          .catch(error => {
-            this.isLoading = false
-            this.$toasted.show(this.$t('pages.about.notificationFail'), {
-              duration: 1500
-            })
-          })
+      //TODO refactor loader here build smth global
+      this.$store.dispatch('feedback/sendFeedback', feedback).then(() => {
+        this.isLoading = false
+        this.$toasted.show(this.$t('pages.about.notificationSuccess'), {
+          duration: 1500
+        })
+      }).catch(() => {
+        this.isLoading = false
+        this.$toasted.show(this.$t('pages.about.notificationFail'), {
+          duration: 1500
+        })
+      })
       this.$refs.recaptcha.reset();
     },
     validate() {
