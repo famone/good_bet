@@ -106,7 +106,8 @@
         "profileEditSuccess": "Changes successfully saved",
         "profileEditFail": "Changes saving saved",
         "avatarUploadedSuccess": "Avatar successfully updated",
-        "avatarUploadedFailed": "There is a problem with avatar update"
+        "avatarUploadedFailed": "There is a problem with avatar update",
+        "edit": "EDIT"
       }
     }
   },

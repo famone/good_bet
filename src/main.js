@@ -27,6 +27,8 @@ Vue.use(VueI18n)
 Vue.use(VueScrollTo)
 Vue.use(Toasted)
 
+
+
 let currentLocal = process.env.CASINO_APP_I18N_DEFAULT_LOCALE
 let localFromStorage = localStorage.getItem('selectedLang')
 if (localFromStorage) {

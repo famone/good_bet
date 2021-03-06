@@ -43,7 +43,10 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-6">
+              
+
+              <div v-if="editorMode" class="profile-box">
+                <div class="col-lg-6">
                 <label for="profile-nickname">{{ $t('pages.account.profile.nickname') }}</label>
                 <input id="profile-nickname" type="text" :value="player.nickname" @input="updateField($event)"
                        data-field="nickname">
@@ -110,7 +113,13 @@
                   <option :value="tmz.id" v-for="tmz in timezones">{{ tmz.name }}</option>
                 </select>
               </div>
-              <div class="col-lg-12">
+              </div>
+
+
+
+
+
+              <div class="col-lg-12" v-if="editorMode">
                 <div class="errors" v-for="(er, index) in errors ">
                   <p style="color: red;">{{ index + 1 }}. {{ er.message }}</p>
                 </div>
@@ -125,6 +134,75 @@
                   </button>
                 </div>
               </div>
+
+
+
+              <div v-if="!editorMode" class="row ma-0 profile-box2">
+                <div class="col-lg-4 account-field">
+                  <label for="">{{ $t('pages.account.profile.nickname') }}</label>
+                  <h4>{{player.nickname}}</h4>
+                </div>
+                <div class="col-lg-4 account-field">
+                  <label for="">{{ $t('pages.account.profile.email') }}</label>
+                  <h4>{{player.email}}</h4>
+                </div>
+                <div class="col-lg-4 account-field">
+                  <label for="">{{ $t('pages.account.profile.login') }}</label>
+                  <h4>{{player.username}}</h4>
+                </div>
+
+                <div class="col-lg-4 account-field">
+                  <label for="">{{ $t('pages.account.profile.name') }}</label>
+                  <h4>{{player.name}}</h4>
+                </div>
+                <div class="col-lg-4 account-field">
+                  <label for="">{{ $t('pages.account.profile.lastName') }}</label>
+                  <h4>{{player.surname}}</h4>
+                </div>
+                <div class="col-lg-4 account-field">
+                  <label for="">{{ $t('pages.account.profile.login') }}</label>
+                  <h4>{{player.username}}</h4>
+                </div>
+                <div class="col-lg-4 account-field">
+                  <label for="">{{ $t('pages.account.profile.sex') }}</label>
+                  <h4>{{player.gender}}</h4>
+                </div>
+                <div class="col-lg-4 account-field">
+                  <label for="">{{ $t('pages.account.profile.birthday') }}</label>
+                  <h4>{{player.birthdate}}</h4>
+                </div>
+                <div class="col-lg-4 account-field">
+                  <label for="">{{ $t('pages.account.profile.country') }}</label>
+                  <h4>{{player.country.code}}</h4>
+                </div>
+                <div class="col-lg-4 account-field">
+                  <label for="">{{ $t('pages.account.profile.address') }}</label>
+                  <h4>{{player.address}}</h4>
+                </div>
+                 <div class="col-lg-4 account-field">
+                  <label for="">{{ $t('pages.account.profile.city') }}</label>
+                  <h4>{{player.city}}</h4>
+                </div>
+                <div class="col-lg-4 account-field">
+                  <label for="">{{ $t('pages.account.profile.timezone') }}</label>
+                  <h4>{{player.timezone.name}}</h4>
+                </div>
+                <div class="col-lg-4 account-field">
+                  <label for="">{{ $t('pages.account.profile.timezone') }}</label>
+                  <h4>{{player.timezone.name}}</h4>
+                </div>
+                <div class="col-lg-12">
+                  <br>
+                  <button class="save-btn" @click="editorMode = true">
+                    {{ $t('pages.account.profile.edit') }}
+                  </button>
+                </div>
+
+
+              </div>
+
+
+
 
 
             </div>
@@ -171,6 +249,7 @@ export default {
   },
   data() {
     return {
+      editorMode: false,
       isLoading: false,
       file: null,
       inpArr: [],
@@ -222,6 +301,7 @@ export default {
           .then(response => {
             this.$store.dispatch('player/loadCurrent')
             this.isLoading = false
+            this.editorMode = false
             this.$toasted.show(this.$t('pages.account.profile.profileEditSuccess'), {
               duration: 1500
             })
@@ -259,3 +339,17 @@ export default {
   }
 }
 </script>
+
+
+
+<style>
+.account-field{
+  margin: 20px 0;
+}
+.profile-box2{
+  background-color: #272459;
+  padding: 25px;
+  border-radius: 15px;
+  margin: 15px;
+}
+</style>

@@ -40,26 +40,26 @@
 
             <div class="row new-doc" v-if="avilable">
               <div class="col-lg-4">
+                <vue2Dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"></vue2Dropzone>
+              </div>
+              <div class="col-lg-4">
                 <select name="" id="" v-model="addedId">
                   <option v-for="av in avilable" :value="av.id">{{ av.value }}</option>
                 </select>
-              </div>
-              <div class="col-lg-4">
-                <input type="file" @change="changeFile($event)">
-              </div>
-            </div>
-
-            <div class="row">
-
-
-              <div class="col-lg-3">
-
-              </div>
+                <br>
+             
               <button v-if="isLoading" class="save-btn"><img src="../../assets/img/icons/nv6.svg" class="spin"></button>
-              <button class="save-btn" v-if="!isLoading" @click="applyDocs">{{
+              <button class="save-btn"  v-if="!isLoading" @click="applyDocs">{{
                   $t('pages.account.applyDocuments')
                 }}
               </button>
+               <p style="color: red;" v-if="error"><br>Please attach the file!</p>
+              </div>
+            </div>
+
+            <div class="row" style="margin: 0;">
+
+              
             </div>
 
 
@@ -67,6 +67,9 @@
         </div>
       </div>
     </section>
+
+
+    
 
 
   </div>
@@ -79,15 +82,25 @@ import AcNav from '../../components/ui/AcNav.vue'
 import { mapGetters } from 'vuex'
 import { API } from '../../api'
 
+import vue2Dropzone from 'vue2-dropzone'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+
 export default {
-  components: { Navbar, AcNav },
+  components: { Navbar, AcNav, vue2Dropzone },
   data () {
     return {
       isLoading: false,
       documents: null,
       avilable: null,
       addedId: null,
-      addedFile: ''
+      addedFile: '',
+      error: false,
+      dropzoneOptions: {
+          url: 'https://httpbin.org/post',
+          thumbnailWidth: 150,
+          maxFilesize: 0.5,
+          headers: { "My-Awesome-Header": "header value" }
+      }
     }
   },
   computed: {
@@ -113,11 +126,25 @@ export default {
       })
     },
     applyDocs () {
+
+      this.addedFile = this.$refs.myVueDropzone.getAcceptedFiles()
+
+      if(this.addedFile === ''){
+        this.error = true
+        return
+      }else if(!this.addedId){
+        this.error = true
+        return
+      }else{
+        this.error = false
+      }
+
+
       this.isLoading = true
 
       let emailBody = {
         type_id: this.addedId,
-        file: this.addedFile
+        file: this.addedFile[0]
       }
 
       let form2 = new FormData()
@@ -130,6 +157,8 @@ export default {
           .then(res => {
             this.documentType()
             this.isLoading = false
+            this.$refs.myVueDropzone.removeAllFiles()
+            this.addedFile = ''
           }).catch(error => {
         this.isLoading = false
       })
@@ -156,5 +185,12 @@ input#file-upload-button {
   background-color: #fff !important;
   border: none !important;
   text-transform: uppercase !important;
+}
+.vue-dropzone{
+  border-radius: 15px;
+  border:none;
+}
+.save-btn{
+  width: 100%;
 }
 </style>
