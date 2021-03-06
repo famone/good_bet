@@ -106,7 +106,8 @@
         "profileEditSuccess": "Изминения сохранены",
         "profileEditFail": "Произошла ошибка",
         "avatarUploadedSuccess": "Аватарка успешно обновлена",
-        "avatarUploadedFailed": "Проблемы с обновлением аватарки"
+        "avatarUploadedFailed": "Проблемы с обновлением аватарки",
+        "edit": "РЕДАКТИРОВАТЬ"
       }
     }
   },
