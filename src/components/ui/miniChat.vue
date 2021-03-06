@@ -10,8 +10,7 @@
 
 
 <script>
-import {mapActions} from 'vuex'
-import {API} from "../../api";
+import {mapGetters} from 'vuex'
 
 export default{
 	props: {
@@ -21,24 +20,14 @@ export default{
 		}
 	},
 	computed: {
-		...mapActions({
-	      		loadMessages: "auth/loadMessages",
+		...mapGetters({
+        loadMessages: "messages/getMessages",
 			}),
 	},
 	methods: {
 		lookMes(mes){
 			this.$emit('lookMes', mes)
-
-
-				let stat = {
-					delivery_status: "read"
-				}
-
-				API.patch( `messages/${mes.id}`, stat)
-				.then(() => {
-					this.loadMessages
-				})
-			
+      this.$store.dispatch('message/setUnreadByMessageId', this.id)
 		}
 	}
 }	

@@ -30,13 +30,17 @@
 <script>
 import Navbar from '../../components/ui/Navbar.vue'
 import gameBox from '../../components/ui/gameBox.vue'
-import {API} from "../../api";
+import {mapGetters} from "vuex";
 
 export default {
   components: {gameBox, Navbar},
+  computed: {
+    ...mapGetters({
+      gamesArr: 'games/getFavorites'
+    })
+  },
   data() {
     return {
-      gamesArr: [],
       loader: true
     }
   },
@@ -46,15 +50,11 @@ export default {
     }
   },
   created() {
-    API.get('games', {
-      params: {
-        expand: 'images, launch_types, type',
-        favorite: true
-      }
-    }).then(res => {
-      this.gamesArr = res.data
+    this.$store.dispatch('games/loadFavorites').then(() => {
       this.loader = false
-    })
+    });
+    //TODO resolve this on promise
+
   },
 }
 </script>

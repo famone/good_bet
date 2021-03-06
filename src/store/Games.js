@@ -4,14 +4,18 @@ const games = {
 	namespaced: true,
 	state: {
 		all: [],
+		favorites: [],
 		searchResult: [],
 		popularGames: [],
 		slotsGames: [],
-		recommendedGames: [],
+		recommendedGames: []
 	},
 	mutations: {
 		SET_ALL(state, payload) {
 			state.all = payload
+		},
+		SET_FAVORITES(state, payload) {
+			state.favorites = payload
 		},
 		SET_SEARCH_RESULT(state, payload) {
 			state.searchResult = payload
@@ -34,6 +38,16 @@ const games = {
 				}
 			}).then(res => {
 				commit('SET_ALL', res.data)
+			})
+		},
+		loadFavorites({commit}) {
+			return API.get('games', {
+				params: {
+					expand: 'images, launch_types, type',
+					favorite: true
+				}
+			}).then(res => {
+				commit('SET_FAVORITES', res.data)
 			})
 		},
 		loadPopular({commit}) {
@@ -96,6 +110,9 @@ const games = {
 	getters: {
 		getAll(state) {
 			return state.all
+		},
+		getFavorites(state) {
+			return state.favorites
 		},
 		getSearchResult(state) {
 			return state.searchResult

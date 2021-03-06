@@ -23,6 +23,7 @@ import transactions from './Transactions'
 import loader from './Loader'
 import paymentMethod from './PaymentMethods'
 import feedback from './Feedback'
+import message from './Message'
 
 export default new Vuex.Store({
 	modules: {
@@ -45,6 +46,7 @@ export default new Vuex.Store({
 		loader,
 		paymentMethod,
 		singleNews,
-		feedback
+		feedback,
+		message
 	}
 }) 
