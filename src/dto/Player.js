@@ -1,5 +1,5 @@
-import AccountCollection from "./AccountCollection";
-import AvatarsCollection from "./AvatarsCollection";
+import AccountCollection from "./account/AccountCollection";
+import AvatarsCollection from "./account/AvatarsCollection";
 import Country from "./Country";
 import Timezone from "./Timezone";
 

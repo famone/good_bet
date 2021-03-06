@@ -1,5 +1,5 @@
 import Avatar from "./Avatar";
-import AbstractDtoCollection from "./AbstractDtoCollection";
+import AbstractDtoCollection from "../AbstractDtoCollection";
 
 export default class AvatarsCollection extends AbstractDtoCollection
 {
