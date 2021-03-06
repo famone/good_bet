@@ -20,9 +20,9 @@
                 <div class="document-box text-center">
                   <div class="text-center">
                     <img src="../../assets/img/success.svg" class="status-icon"
-                         v-if="account.id === currentAccountId" alt="">
+                         v-if="account.id === currentAccount.id" alt="">
                     <h3>{{ account.getFormattedAmount() }} {{ account.currency_code }}</h3>
-                    <button class="btn-cont" v-if="account.id !== currentAccountId"
+                    <button class="btn-cont" v-if="account.id !== currentAccount.id"
                             @click="changeAccount(account.id)">
                       {{ $t('pages.account.changeAccount') }}
                     </button>
@@ -83,8 +83,14 @@ export default {
     ...mapGetters({
       player: "player/getCurrent",
       availableCurrencies: "currency/getAvailableCurrencies",
-      currentAccountId: "account/getCurrentId"
     }),
+    currentAccount() {
+      if (this.player) {
+        return this.player.accounts.find(item => {
+          return item.is_current === true
+        })
+      }
+    },
   },
   methods: {
     changeAccount(accountId) {

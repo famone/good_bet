@@ -5,7 +5,7 @@
        <span class="hidden"> {{closeOnEmpty}}</span>
         <div class="header-box-col al-center">
           <router-link tag="a" to="/">
-            <img src="../../assets/img/logo.svg" class="logo">
+            <img src="../../assets/img/logo.svg" class="logo" alt="">
           </router-link>
           <ul>
             <router-link
@@ -38,24 +38,24 @@
                 <strong>{{player.accounts[0].amount.toLocaleString()}} {{player.accounts[0].currency_code}}</strong>
               </p> -->
 
-              <select class="acc-select" id="" v-if="player.accounts" :value="getCurrentAccount.id"
+              <select class="acc-select" v-if="player.accounts.length" :value="currentAccount.id"
                       @change="changeAccount($event)">
                 <option :value="account.id" v-for="account in player.accounts">
-                  {{ account.amount.toLocaleString() }} {{ account.currency_code }}
+                  {{ account.getFormattedAmount() }} {{ account.currency_code }}
                 </option>
               </select>
             </div>
             <router-link tag="button" to="/profile" class="settings">
-              <img src="../../assets/img/settings.svg">
+              <img src="../../assets/img/settings.svg" alt="">
             </router-link>
             <router-link tag="button" to="/deposit" class="coins">
-              <img src="../../assets/img/coinsgold.svg">
+              <img src="../../assets/img/coinsgold.svg" alt="">
             </router-link>
             <router-link tag="button" to="/favorite" class="coins">
-              <img src="../../assets/img/like2.svg">
+              <img src="../../assets/img/like2.svg" alt="">
             </router-link>
             <button class="reg-btn" @click="logOut()">
-              <img src="../../assets/img/loguot.svg" style="margin: 0;">
+              <img src="../../assets/img/loguot.svg" style="margin: 0;" alt="">
             </button>
           </div>
 
@@ -95,8 +95,8 @@
       </div>
     </div>
 
-        <messagePop v-if="activeMessage !== '' " 
-        :activeMessage="activeMessage" 
+        <messagePop v-if="activeMessage !== '' "
+        :activeMessage="activeMessage"
         @closeMessage="closeMessage"/>
 
 
@@ -107,20 +107,23 @@
 <script>
 import {mapGetters} from 'vuex'
 import LangSwitcher from "./LangSwitcher";
-import {API} from "../../api";
 import miniChat from '../ui/miniChat.vue'
 import messagePop from '../ui/messagePop.vue'
 
 export default {
   components: {LangSwitcher, miniChat, messagePop},
   computed: {
-    isAuth : function(){ return this.$store.getters['auth/getAuthenticated']},
-    unreadMessageCount : function(){ return this.$store.getters['messages/getUnread']},
-    ...mapGetters({player: "player/getCurrent", messages: "auth/getMessages"}),
-    getCurrentAccount() {
+    ...mapGetters({
+      player: "player/getCurrent",
+      messages: "messages/getMessages",
+      searchResults: "games/getSearchResult",
+      unreadMessageCount: "messages/getUnread",
+      isAuth: "auth/getAuthenticated"
+    }),
+    currentAccount() {
       if (this.player) {
         return this.player.accounts.find(item => {
-          return item.is_current == true
+          return item.is_current === true
         })
       }
     },
@@ -131,19 +134,11 @@ export default {
       return this.searchResults.length > 0;
     },
     closeOnEmpty(){
-          let search = document.querySelector('.search-inp');
           let allApp = document.querySelector('#app');
 
-        allApp.addEventListener('click', function(e){
-          if(e.target !== search){
-            this.search = ''
-            this.searchResults = []
-              // console.log('не поиск')
-          }else{
-             console.log('не поиск')
-             this.search = ''
-            this.searchResults = null
-          }
+        allApp.addEventListener('click', () => {
+          this.search = ''
+          this.$store.dispatch('games/emptySearch')
         })
         return this.search
     },
@@ -166,15 +161,7 @@ export default {
       this.$store.dispatch('account/changeAccount', valuteCode)
     },
     searchMethod() {
-
-      API.get('games', {
-        params: {
-          expand: 'images',
-          q: this.search
-        }
-      }).then(res => {
-        this.searchResults = res.data
-      })
+      this.$store.dispatch('games/searchGame', this.search)
     },
     gameSearchRoute() {
       if (this.player) {
@@ -184,7 +171,7 @@ export default {
     },
     clearSearch() {
       this.search = ''
-      this.searchResults = []
+      this.$store.dispatch('games/emptySearch')
     },
     updateMessageCount(){
       const self = this;
@@ -208,7 +195,6 @@ export default {
       activeMessage: '' ,
       showChat: false,
       search: '',
-      searchResults: [],
       stickyHeader: false,
       menuLinks: [
         {
@@ -235,9 +221,6 @@ export default {
     }
   },
   mounted() {
-    let pageHeight = document.documentElement.scrollHeight;
-    // let headerHeight = document.querySelector('.header').clientHeight;
-
     window.addEventListener('scroll', () => {
       let winScroll = document.documentElement.scrollTop;
 

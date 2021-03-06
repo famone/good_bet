@@ -35,7 +35,7 @@ export default{
 				}
 
 				API.patch( `messages/${mes.id}`, stat)
-				.then(res => {
+				.then(() => {
 					this.loadMessages
 				})
 			

@@ -20,6 +20,7 @@ import registerForm from './RegisterForm'
 import bonuses from './Bonuses'
 import transactions from './Transactions'
 import loader from './Loader'
+import paymentMethod from './PaymentMethods'
 
 export default new Vuex.Store({
 	modules: {
@@ -39,6 +40,7 @@ export default new Vuex.Store({
 		registerForm,
 		bonuses,
 		transactions,
-		loader
+		loader,
+		paymentMethod
 	}
 }) 

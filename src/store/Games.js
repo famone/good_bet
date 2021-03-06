@@ -4,6 +4,7 @@ const games = {
 	namespaced: true,
 	state: {
 		all: [],
+		searchResult: [],
 		popularGames: [],
 		slotsGames: [],
 		recommendedGames: [],
@@ -11,6 +12,9 @@ const games = {
 	mutations: {
 		SET_ALL(state, payload) {
 			state.all = payload
+		},
+		SET_SEARCH_RESULT(state, payload) {
+			state.searchResult = payload
 		},
 		SET_POPULAR(state, payload) {
 			state.popularGames = payload
@@ -65,10 +69,36 @@ const games = {
 				commit('SET_RECOMMENDED', res.data)
 			})
 		},
+		searchGame({commit}, needleGame) {
+			API.get('games', {
+				params: {
+					expand: 'images',
+					q: needleGame
+				}
+			}).then(result => {
+				commit('SET_SEARCH_RESULT', result.data)
+			})
+		},
+		emptySearch({commit}) {
+			commit('SET_SEARCH_RESULT', [])
+		},
+		likeGameById({commit}, id) {
+			API.patch('games/' + id, {
+				is_favorite: true
+			});
+		},
+		unLikeGameById({commit}, id) {
+			API.patch('games/' + id, {
+				is_favorite: false
+			});
+		}
 	},
 	getters: {
 		getAll(state) {
 			return state.all
+		},
+		getSearchResult(state) {
+			return state.searchResult
 		},
 		getPopular(state) {
 			return state.popularGames

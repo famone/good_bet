@@ -53,6 +53,11 @@ const transactions = {
 			transactionData.direction = "deposit"
 			return API.post('payments', transactionData);
 		},
+		createWithdrawalTransaction({commit}, transactionData)
+		{
+			transactionData.direction = "withdrawal"
+			return API.post('payments', transactionData);
+		},
 		changeTransactionStatus({commit}, transactionId, status)
 		{
 			return API.patch('payments/' + transactionId, status)

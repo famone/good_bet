@@ -57,18 +57,16 @@ export default {
       return this.game.launch_types.includes('demo');
     },
     unLike(id) {
+      //TODO move to entity
       this.game.is_favorite = false
-      let request = {
-        is_favorite: false
-      }
-      API.patch('games/' + id, request);
+
+      this.$store.dispatch("games/unLikeGameById", id)
     },
     like(id) {
+      //TODO move to entity
       this.game.is_favorite = true
-      let request = {
-        is_favorite: true
-      }
-      API.patch('games/' + id, request);
+
+      this.$store.dispatch("games/likeGameById", id)
     }
   }
 }

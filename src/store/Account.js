@@ -19,6 +19,7 @@ const account = {
 				is_current: true
 			}).then(function () {
 				dispatch('loader/disable', null, {root: true})
+				dispatch('player/loadCurrent', null, {root: true})
 				commit('SET_CURRENT_ID', accountId)
 			})
 		},

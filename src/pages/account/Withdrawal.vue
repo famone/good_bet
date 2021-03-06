@@ -12,14 +12,14 @@
             <div class="row">
 
               <div class="col-lg-12 text-center" v-if="!paymentMethods">
-                <img src="../../assets/img/icons/nv6.svg" class="spin">
+                <img src="../../assets/img/icons/nv6.svg" class="spin" alt="">
               </div>
 
               <!-- {{paymentMethods}} -->
               <div class="col-lg-4 text-center" v-else v-for="pay in paymentMethods">
                 <div class="payment-card">
-                  <img :src="pay.images[0].url" v-if="pay.images.length > 0">
-                  <img src="../../assets/img/coin.svg" v-else="" class="logoimg">
+                  <img :src="pay.images[0].url" v-if="pay.images.length > 0" alt="">
+                  <img src="../../assets/img/coin.svg" v-else class="logoimg" alt="">
                   <br>
                   <button class="save-btn" @click="openPop(pay)">{{ $t('pages.account.withdrawalMoney') }}</button>
                 </div>
@@ -44,7 +44,7 @@
         </div>
 
         <div class="errors" v-for="(er, index) in errors ">
-          <p style="color: red;">{{index+1}}. {{er.message}}</p>
+          <p style="color: red;">{{ index + 1 }}. {{ er.message }}</p>
         </div>
 
         <button type="submit" class="reg-btn" @click="setPayment">{{
@@ -72,13 +72,11 @@
 import Navbar from '../../components/ui/Navbar.vue'
 import AcNav from '../../components/ui/AcNav.vue'
 import {mapGetters} from 'vuex'
-import {API} from "../../api";
 
 export default {
   components: {Navbar, AcNav},
   data() {
     return {
-      paymentMethods: null,
       payMethod: null,
       amount: 0,
       acceptPop: false,
@@ -89,18 +87,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({player: "player/getCurrent"})
+    ...mapGetters({
+      player: "player/getCurrent",
+      paymentMethods: "paymentMethod/getWithdrawalMethods"
+    })
   },
   created() {
-    API.get('payment-methods', {
-      params: {
-        direction: 'withdrawal',
-        expand: 'fields,images'
-      }
-    }).then(res => {
-      this.paymentMethods = res.data
-      this.fee = res.data.fee_amount_as_currency
-    })
+    this.$store.dispatch('paymentMethod/loadWithdrawalMethods');
   },
   methods: {
     cancel() {
@@ -108,13 +101,9 @@ export default {
       this.payMethod = null
     },
     accept() {
-      let stat = 'pending'
       this.$store.dispatch('transactions/switchCurrentTab', 'withdrawal')
 
-      API.patch('payments/' + this.transId, stat)
-          .then(res => {
-            this.$router.replace("/transactions")
-          })
+      this.$store.dispatch('transactions/changeTransactionStatus', this.transId, 'pending')
     },
     openPop(pay) {
       this.payMethod = pay
@@ -154,26 +143,23 @@ export default {
         ]
       }
 
-      API.post('payments', request)
-          .then(res => {
-            this.transId = res.data.id
+      this.$store.dispatch('transactions/createWithdrawalTransaction', request).then(response => {
+        this.transId = response.data.id
 
-            if (res.data.fee_amount > 0) {
-              this.acceptPop = true
-            } else {
-              this.accept()
-            }
+        if (response.data.fee_amount > 0) {
+          this.acceptPop = true
+        } else {
+          this.accept()
+        }
 
-            if (res.data.redirect_url !== '') {
-              window.location.href = res.data.redirect_url
-            } else {
-              this.$router.replace('/fail')
-            }
-
-          })
-          .catch(err => {
-            this.errors = err.response.data
-          })
+        if (response.data.redirect_url !== '') {
+          window.location.href = response.data.redirect_url
+        } else {
+          this.$router.replace('/fail')
+        }
+      }).catch(error => {
+        this.errors = error.response.data
+      })
     }
   }
 }

@@ -60,13 +60,11 @@
 import Navbar from '../../components/ui/Navbar.vue'
 import AcNav from '../../components/ui/AcNav.vue'
 import {mapGetters} from 'vuex'
-import {API} from "../../api";
 
 export default {
   components: {Navbar, AcNav},
   data() {
     return {
-      paymentMethods: null,
       payMethod: null,
       amount: 0,
       acceptPop: false,
@@ -77,19 +75,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({player: "player/getCurrent"})
+    ...mapGetters({
+      player: "player/getCurrent",
+      paymentMethods: "paymentMethod/getDepositMethods"
+    })
   },
   created() {
-
-    API.get('payment-methods', {
-      params: {
-        expand: 'fields,images',
-        direction: 'deposit',
-      }
-    }).then(res => {
-      this.paymentMethods = res.data
-      this.fee = res.data.fee_amount_as_currency
-    })
+    this.$store.dispatch("paymentMethod/loadDepositMethods");
   },
   methods: {
     cancel() {
