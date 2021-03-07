@@ -44,22 +44,21 @@
               </div>
               <div class="col-lg-4">
                 <select name="" id="" v-model="addedId">
-                  <option v-for="av in available" :value="av.id">{{ av.value }}</option>
+                  <option v-for="availableDocument in available" :value="availableDocument.id">{{ availableDocument.value }}</option>
                 </select>
                 <br>
-             
-              <button v-if="isLoading" class="save-btn"><img src="../../assets/img/icons/nv6.svg" class="spin" alt=""></button>
-              <button class="save-btn"  v-if="!isLoading" @click="applyDocs">{{
-                  $t('pages.account.applyDocuments')
-                }}
-              </button>
-               <p style="color: red;" v-if="error"><br>Please attach the file!</p>
+
+                <button v-if="isLoading" class="save-btn"><img src="../../assets/img/icons/nv6.svg" class="spin" alt="">
+                </button>
+                <button class="save-btn" v-if="!isLoading" @click="uploadDocs">{{ $t('pages.account.applyDocuments') }}
+                </button>
+                <p style="color: red;" v-if="error"><br>Please attach the file!</p>
               </div>
             </div>
 
             <div class="row" style="margin: 0;">
 
-              
+
             </div>
 
 
@@ -69,9 +68,6 @@
     </section>
 
 
-    
-
-
   </div>
 </template>
 
@@ -79,24 +75,24 @@
 <script>
 import Navbar from '../../components/ui/Navbar.vue'
 import AcNav from '../../components/ui/AcNav.vue'
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 
 import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
 export default {
-  components: { Navbar, AcNav, vue2Dropzone },
-  data () {
+  components: {Navbar, AcNav, vue2Dropzone},
+  data() {
     return {
       isLoading: false,
       addedId: null,
       addedFile: '',
       error: false,
       dropzoneOptions: {
-          url: 'https://httpbin.org/post',
-          thumbnailWidth: 150,
-          maxFilesize: 0.5,
-          headers: { "My-Awesome-Header": "header value" }
+        url: 'https://httpbin.org/post',
+        thumbnailWidth: 150,
+        maxFilesize: 0.5,
+        headers: {"My-Awesome-Header": "header value"}
       }
     }
   },
@@ -115,35 +111,29 @@ export default {
     },
   },
   methods: {
-    applyDocs () {
+    uploadDocs() {
 
       this.addedFile = this.$refs.myVueDropzone.getAcceptedFiles()
 
-      if(this.addedFile === ''){
+      if (this.addedFile === '') {
         this.error = true
         return
-      }else if(!this.addedId){
+      } else if (!this.addedId) {
         this.error = true
         return
-      }else{
+      } else {
         this.error = false
       }
 
 
       this.isLoading = true
 
-      let emailBody = {
-        type_id: this.addedId,
-        file: this.addedFile[0]
-      }
 
-      let form2 = new FormData()
+      let uploadData = new FormData()
+      uploadData.append('type_id', this.addedId)
+      uploadData.append('file', this.addedFile[0])
 
-      for (let field in emailBody) {
-        form2.append(field, emailBody[field])
-      }
-
-      this.$store.dispatch('playerUpload/upload', form2).then(() => {
+      this.$store.dispatch('playerUpload/upload', uploadData).then(() => {
         this.isLoading = false
         this.$refs.myVueDropzone.removeAllFiles()
         this.addedFile = ''
@@ -153,7 +143,7 @@ export default {
 
     }
   },
-  created () {
+  created() {
     this.$store.dispatch('playerUpload/loadAll')
     this.$store.dispatch('playerUploadTypes/loadAll')
   }
@@ -166,16 +156,14 @@ select {
   width: 100% !important;
 }
 
-input#file-upload-button {
-  background-color: #fff !important;
-  border: none !important;
-  text-transform: uppercase !important;
-}
-.vue-dropzone{
+
+/*TODO refactor this class name create custom wrapper, don't use global class names for customization*/
+.vue-dropzone {
   border-radius: 15px;
-  border:none;
+  border: none;
 }
-.save-btn{
+
+.save-btn {
   width: 100%;
 }
 </style>
