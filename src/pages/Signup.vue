@@ -39,7 +39,7 @@
                 <br>
               </div>
 
-              <div v-else-if="input.isCheckboxWithLink()">
+              <div v-else-if="input.isTermsAndConditions()">
                 <div class="remember-me" :class="{checked: input.value}" @click="input.value = !input.value">
                   <div class="ch-box"></div>
                   <span>{{ input.label }}</span>

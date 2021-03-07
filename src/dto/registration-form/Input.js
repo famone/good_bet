@@ -13,7 +13,7 @@ export default class Input
 		]
 	}
 
-	getCheckboxWithLinkInputNames() {
+	getTermsAndCondionsInputNames() {
 		return [
 			'confirm_terms',
 		]
@@ -81,8 +81,8 @@ export default class Input
 		return this.getCheckboxInputNames().includes(this.name)
 	}
 
-	isCheckboxWithLink() {
-		return this.getCheckboxWithLinkInputNames().includes(this.name)
+	isTermsAndConditions() {
+		return this.getTermsAndCondionsInputNames().includes(this.name)
 	}
 
 	isCaptcha() {
