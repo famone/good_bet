@@ -39,7 +39,7 @@
               <div class="row new-doc">
                 <div class="col-lg-4">
                   <select v-model="newAccountId">
-                    <option v-for="currency in availableCurrencies" :value="currency.id">{{ av.code }}</option>
+                    <option v-for="currency in availableCurrencies" :value="currency.id">{{ currency.code }}</option>
                   </select>
                 </div>
               </div>
