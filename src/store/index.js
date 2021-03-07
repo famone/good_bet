@@ -30,6 +30,7 @@ import game from "./Game";
 import gameLauncher from "./GameLauncher";
 import counter from "./Counter";
 import password from "./Password";
+import socialNetworks from "./SocialNetworks";
 
 export default new Vuex.Store({
 	modules: {
@@ -59,6 +60,7 @@ export default new Vuex.Store({
 		game,
 		gameLauncher,
 		counter,
-		password
+		password,
+		socialNetworks
 	}
 }) 

@@ -8,24 +8,28 @@
         <div class="row">
           <AcNav/>
           <div class="col-lg-9">
-            <h2>{{ $t('social.name') }}</h2>
+            <div v-if="networks">
+              <h2>{{ $t('social.name') }}</h2>
 
-            <div class="row">
-              <div class="col-lg-12 text-center" v-if="!hasNetworks">
-                <img src="../../assets/img/icons/nv6.svg" class="spin">
-              </div>
+              <div class="row">
+                <div class="col-lg-12 text-center" v-if="!hasNetworks">
+                  <img src="../../assets/img/icons/nv6.svg" class="spin" alt="">
+                </div>
 
 
-              <div class="col-lg-3" v-else v-for="network in networks">
-                <div class="document-box text-center">
-                  <div class="text-center">
-                    <h3>{{ network.network }}</h3>
-                    <button class="btn-cont" v-if="network.is_deletable" @click="deleteNetwork(network.id)">{{ $t('social.delete') }}
-                    </button>
+                <div class="col-lg-3" v-else v-for="network in networks">
+                  <div class="document-box text-center">
+                    <div class="text-center">
+                      <h3>{{ network.network }}</h3>
+                      <button class="btn-cont" v-if="network.is_deletable" @click="deleteNetwork(network.id)">
+                        {{ $t('social.delete') }}
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+
 
             <br><br>
 
@@ -54,68 +58,44 @@
 <script>
 import Navbar from '../../components/ui/Navbar.vue'
 import AcNav from '../../components/ui/AcNav.vue'
-import { mapGetters } from 'vuex'
-import { API } from '../../api'
+import {mapGetters} from 'vuex'
+import {API} from '../../api'
 
 export default {
-  components: { Navbar, AcNav },
-  data () {
+  components: {Navbar, AcNav},
+  data() {
     return {
-      networks: [],
       availableNetworks: ['google', 'facebook']
     }
   },
   computed: {
-    ...mapGetters({ player: 'player/getCurrent' }),
+    ...mapGetters({
+      player: 'player/getCurrent',
+      networks: 'socialNetworks/getAll'
+    }),
   },
   methods: {
-    getAvailableSocials () {
-      API.get('networks')
-          .then(res => {
-            this.networks = res.data
-          })
-    },
     availableNetworkList() {
       return this.availableNetworks
     },
-    hasNetworks () {
+    hasNetworks() {
       return this.networks.length >= 0
     },
-    deleteNetwork (networkId) {
-      API.delete('networks/' + networkId)
-          .then(res => {
-            this.getAvailableSocials()
-          })
+    deleteNetwork(networkId) {
+      this.$store.dispatch('socialNetworks/deleteById', networkId)
     },
     addNetwork(networkName) {
-        let apiUrl = process.env.SOCIAL_APP_URL
-        let casinoUrl = process.env.CASINO_APP_URL
-        let token = process.env.SOCIAL_APP_PUBLIC_TOKEN
+      let apiUrl = process.env.SOCIAL_APP_URL
+      let casinoUrl = process.env.CASINO_APP_URL
+      let token = process.env.SOCIAL_APP_PUBLIC_TOKEN
 
-        let backUrl = casinoUrl + '/social/callback';
+      let backUrl = casinoUrl + '/social/callback';
 
-        return apiUrl + '/social/login/'+ networkName +'/'+ token + '?back_url=' + backUrl
-    },
-    createAccount () {
-
-      if (this.newAccountId === '') {
-        return
-      }
-
-      let newAcc = { currency_id: this.newAccountId }
-
-      API
-          .post('accounts', newAcc)
-          .then(res => {
-            this.newAccountId = ''
-            this.$store.dispatch('player/loadCurrent')
-            this.getAvailableCurrency()
-          })
-
+      return apiUrl + '/social/login/' + networkName + '/' + token + '?back_url=' + backUrl
     }
   },
-  created () {
-    this.getAvailableSocials()
+  created() {
+    this.$store.dispatch('socialNetworks/loadAll')
   }
 }
 

@@ -12,10 +12,15 @@ const slider = {
 	},
 	actions: {
 		loadAll({commit}) {
-			API.get('sliders')
-				.then(res => {
+			return new Promise((resolve, reject) => {
+				API.get('sliders').then(res => {
 					commit('SET_ALL', res.data)
+
+					resolve(res)
+				}).catch(error => {
+					reject(error)
 				})
+			});
 		}
 	},
 	getters: {
