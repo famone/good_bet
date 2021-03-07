@@ -12,7 +12,7 @@
 
             <div class="row">
               <div class="col-lg-12 text-center" v-if="!documents">
-                <img src="../../assets/img/icons/nv6.svg" class="spin">
+                <img src="../../assets/img/icons/nv6.svg" class="spin" alt="">
               </div>
               <div class="col-lg-3" v-else v-for="doc in documents">
                 <div class="document-box text-center">
@@ -22,13 +22,13 @@
                     <a class="download-link" target="_blank" :href="doc.file_preview">Download document</a>
                     <p class="white-txt">{{ doc.type.value }}</p>
                     <img src="../../assets/img/success.svg" class="status-icon"
-                         v-if="doc.status === 'verified' ">
+                         v-if="doc.status === 'verified' " alt="">
                     <img src="../../assets/img/new.svg" class="status-icon"
-                         v-if="doc.status === 'new' ">
+                         v-if="doc.status === 'new' " alt="">
                     <img src="../../assets/img/progress.svg" class="status-icon"
-                         v-if="doc.status === 'in_progress' ">
+                         v-if="doc.status === 'in_progress' " alt="">
                     <img src="../../assets/img/declined.svg" class="status-icon"
-                         v-if="doc.status === 'declined' ">
+                         v-if="doc.status === 'declined' " alt="">
                   </div>
                 </div>
               </div>
@@ -48,7 +48,7 @@
                 </select>
                 <br>
              
-              <button v-if="isLoading" class="save-btn"><img src="../../assets/img/icons/nv6.svg" class="spin"></button>
+              <button v-if="isLoading" class="save-btn"><img src="../../assets/img/icons/nv6.svg" class="spin" alt=""></button>
               <button class="save-btn"  v-if="!isLoading" @click="applyDocs">{{
                   $t('pages.account.applyDocuments')
                 }}
@@ -80,7 +80,6 @@
 import Navbar from '../../components/ui/Navbar.vue'
 import AcNav from '../../components/ui/AcNav.vue'
 import { mapGetters } from 'vuex'
-import { API } from '../../api'
 
 import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
