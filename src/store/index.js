@@ -24,6 +24,8 @@ import loader from './Loader'
 import paymentMethod from './PaymentMethods'
 import feedback from './Feedback'
 import message from './Message'
+import playerUploadTypes from "./PlayerUploadTypes";
+import playerUpload from "./PlayerUpload";
 
 export default new Vuex.Store({
 	modules: {
@@ -47,6 +49,8 @@ export default new Vuex.Store({
 		paymentMethod,
 		singleNews,
 		feedback,
-		message
+		message,
+		playerUploadTypes,
+		playerUpload
 	}
 }) 

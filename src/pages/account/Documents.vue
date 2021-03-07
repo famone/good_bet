@@ -38,13 +38,13 @@
 
             <h2>{{ $t('pages.account.addDocuments') }}</h2>
 
-            <div class="row new-doc" v-if="avilable">
+            <div class="row new-doc" v-if="available">
               <div class="col-lg-4">
                 <vue2Dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"></vue2Dropzone>
               </div>
               <div class="col-lg-4">
                 <select name="" id="" v-model="addedId">
-                  <option v-for="av in avilable" :value="av.id">{{ av.value }}</option>
+                  <option v-for="av in available" :value="av.id">{{ av.value }}</option>
                 </select>
                 <br>
              
@@ -90,8 +90,6 @@ export default {
   data () {
     return {
       isLoading: false,
-      documents: null,
-      avilable: null,
       addedId: null,
       addedFile: '',
       error: false,
@@ -104,27 +102,20 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({ player: 'player/getCurrent' }),
+    ...mapGetters({
+      player: 'player/getCurrent',
+      available: 'playerUploadTypes/getAll',
+      currentLang: 'lang/getCurrent',
+      documents: 'playerUpload/getAll'
+    }),
+  },
+  watch: {
+    currentLang() {
+      this.$store.dispatch('playerUploadTypes/loadAll')
+      this.$store.dispatch('playerUpload/loadAll')
+    },
   },
   methods: {
-    getDocName (id) {
-      let docum = this.avilable.find(item => {
-        return item.id == id
-      })
-      return docum.value
-    },
-    changeFile (e) {
-      this.addedFile = event.target.files[0]
-    },
-    documentType () {
-      API.get('player-uploads', {
-        params: {
-          expand: 'type'
-        }
-      }).then(res => {
-        this.documents = res.data
-      })
-    },
     applyDocs () {
 
       this.addedFile = this.$refs.myVueDropzone.getAcceptedFiles()
@@ -153,24 +144,19 @@ export default {
         form2.append(field, emailBody[field])
       }
 
-      API.post('player-uploads', form2)
-          .then(res => {
-            this.documentType()
-            this.isLoading = false
-            this.$refs.myVueDropzone.removeAllFiles()
-            this.addedFile = ''
-          }).catch(error => {
+      this.$store.dispatch('playerUpload/upload', form2).then(() => {
+        this.isLoading = false
+        this.$refs.myVueDropzone.removeAllFiles()
+        this.addedFile = ''
+      }).catch(() => {
         this.isLoading = false
       })
+
     }
   },
   created () {
-    this.documentType()
-
-    API.get('player-upload-types')
-        .then(res => {
-          this.avilable = res.data
-        })
+    this.$store.dispatch('playerUpload/loadAll')
+    this.$store.dispatch('playerUploadTypes/loadAll')
   }
 }
 
