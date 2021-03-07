@@ -21,10 +21,29 @@ const player = {
 	actions: {
 		loadCurrent({commit, dispatch}) {
 			dispatch('auth/setAuthenticated', true, {root: true})
-			API.loadPlayer().then(response => {
-				commit('SET_CURRENT', response.data[0])
-				localStorage.setItem("player", JSON.stringify(response.data[0]));
-			})
+			return new Promise((resolve, reject) => {
+				API.loadPlayer().then(response => {
+					commit('SET_CURRENT', response.data[0])
+					localStorage.setItem("player", JSON.stringify(response.data[0]));
+
+					resolve(response)
+				}).catch(error => {
+					reject(error)
+				})
+			});
+
+		},
+		updateData({commit, dispatch}, data) {
+			return new Promise((resolve, reject) => {
+				API.patch('players/' + this.player.id, data).then(response => {
+					dispatch('player/loadCurrent', null, {root: true})
+
+					resolve(response)
+				}).catch(error => {
+
+					reject(error)
+				})
+			});
 		},
 		logOut({commit}) {
 			commit('SET_CURRENT', null)

@@ -211,7 +211,6 @@ import Navbar from '../../components/ui/Navbar.vue'
 import AcNav from '../../components/ui/AcNav.vue'
 import AvatarCropper from "vue-avatar-cropper"
 import {mapGetters} from 'vuex'
-import {API} from "../../api";
 
 export default {
   components: {Navbar, AcNav, AvatarCropper},
@@ -289,38 +288,29 @@ export default {
         }
       }
 
-
-      API.patch('players/' + this.player.id, objField)
-          .then(() => {
-            this.$store.dispatch('player/loadCurrent')
-            this.isLoading = false
-            this.editorMode = false
-            this.$toasted.show(this.$t('pages.account.profile.profileEditSuccess'), {
-              duration: 1500
-            })
-          })
-          .catch(err => {
-            this.errors = err.response.data
-            this.isLoading = false
-            this.$toasted.show(this.$t('pages.account.profile.profileEditFail'), {
-              duration: 1500
-            })
-          })
+      this.$store.dispatch('player/updateData', objField).then(() => {
+        this.isLoading = false
+        this.editorMode = false
+        this.$toasted.show(this.$t('pages.account.profile.profileEditSuccess'), {
+          duration: 1500
+        })
+      }).catch(err => {
+        this.errors = err.response.data
+        this.isLoading = false
+        this.$toasted.show(this.$t('pages.account.profile.profileEditFail'), {
+          duration: 1500
+        })
+      })
 
     },
     avatarUploadHandler(cropper) {
       cropper.getCroppedCanvas().toBlob(function (blob) {
         let formData = new FormData();
         formData.append('image', blob, 'avatar.png')
-        API.post('player-avatars', formData,
-            {
-              headers: {"Content-Type": "multipart/form-data"}
-            }
-        ).then(response => {
+        this.$store.dispatch('playerAvatar/upload', formData).then(response => {
           if (this.player.avatars.length) {
             this.player.avatars.items[0].url = response.data.url
-          }
-          else {
+          } else {
             this.player.avatars.addItem(response.data)
           }
 

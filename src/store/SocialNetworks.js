@@ -32,6 +32,15 @@ const socialNetworks = {
 					reject(error)
 				})
 			});
+		},
+		updateSocialMediaData({commit, dispatch}, data) {
+			return new Promise((resolve, reject) => {
+				API.post('networks', data).then(response => {
+					resolve(response)
+				}).catch(error => {
+					reject(error)
+				})
+			});
 		}
 	},
 	getters: {

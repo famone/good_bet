@@ -14,20 +14,19 @@
 
 <script>
 
-import { API } from '../../api'
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters({ player: 'player/getCurrent' }),
+    ...mapGetters({player: 'player/getCurrent'}),
   },
-  data () {
+  data() {
     return {
       errorBind: false,
     }
   },
   methods: {
-    socialLogin (socialName) {
+    socialLogin(socialName) {
 
       let apiUrl = process.env.SOCIAL_APP_URL
       let casinoUrl = process.env.CASINO_APP_URL
@@ -38,7 +37,7 @@ export default {
       return apiUrl + '/social/login/' + socialName + '/' + token + '?back_url=' + backUrl
     }
   },
-  created () {
+  created() {
     let tokenAccess = this.$route.query.token_access
 
     let str = {
@@ -49,18 +48,11 @@ export default {
 
     const encodedStr = btoa(jsonArrData)
 
-    let parameters = {
-      service_name: 'socialmedia',
-      service_data: encodedStr,
-    }
-
-    API.post('networks', parameters)
-        .then(response => {
-          this.$route.push('account_socials')
-        })
-        .catch(error => {
-          this.errorBind = true
-        })
+    this.$store.dispatch('socialNetworks/updateSocialMediaData', encodedStr).then(response => {
+      this.$router.push('account_socials')
+    }).catch(() => {
+      this.errorBind = true
+    })
   }
 }
 </script>
