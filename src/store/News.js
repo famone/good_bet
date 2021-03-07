@@ -12,10 +12,15 @@ const news = {
 	},
 	actions: {
 		loadAll({commit}) {
-			API.get('news')
-				.then(response => {
+			return new Promise((resolve, reject) => {
+				API.get('news').then(response => {
 					commit('SET_ALL', response.data)
+
+					resolve(response)
+				}).catch(error => {
+					reject(error)
 				})
+			})
 		}
 	},
 	getters: {

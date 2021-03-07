@@ -38,12 +38,6 @@ const gameLauncher = {
 					reject(error)
 				})
 			})
-		},
-		loadById({commit}, id) {
-			return new Promise((resolve, reject) => {
-
-			})
-
 		}
 	},
 	getters: {

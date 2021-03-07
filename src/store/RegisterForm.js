@@ -15,16 +15,23 @@ const registerForm = {
 	},
 	actions: {
 		loadDefaultFields({commit, dispatch}) {
-			API.get('player-forms').then(response => {
-				commit('SET_DEFAULT_FORM', response.data[0])
-				let isBonusEnable = response.data[0].fields.find(item => {
-					return item.type === 'bonus'
-				})
+			return new Promise((resolve, reject) => {
+				API.get('player-forms').then(response => {
+					commit('SET_DEFAULT_FORM', response.data[0])
+					let isBonusEnable = response.data[0].fields.find(item => {
+						return item.type === 'bonus'
+					})
 
-				if (isBonusEnable) {
-					dispatch('bonuses/loadRegistrationBonuses', null, {root: true})
-				}
+					if (isBonusEnable) {
+						dispatch('bonuses/loadRegistrationBonuses', null, {root: true})
+					}
+
+					resolve(response)
+				}).catch(error => {
+					reject(error)
+				})
 			})
+
 		},
 		submit({commit}, formInputs) {
 			formInputs.clearErrors()

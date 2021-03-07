@@ -4,10 +4,16 @@ const message = {
 	namespaced: true,
 	actions: {
 		setUnreadByMessageId({commit, dispatch}, id) {
-			API.patch( `messages/${id}`, {
-				delivery_status: "read"
-			}).then(() => {
-				dispatch('messages/loadMessages', null, {root: true})
+			return new Promise((resolve, reject) => {
+				API.patch( `messages/${id}`, {
+					delivery_status: "read"
+				}).then(response => {
+					dispatch('messages/loadMessages', null, {root: true})
+
+					resolve(response)
+				}).catch(error => {
+					reject(error)
+				})
 			})
 		},
 	}

@@ -32,78 +32,124 @@ const games = {
 	},
 	actions: {
 		loadAll({commit}) {
-			API.get('games', {
-				params: {
-					expand: 'details,launch_types,images,type,provider,canonical'
-				}
-			}).then(res => {
-				commit('SET_ALL', res.data)
+			return new Promise((resolve, reject) => {
+				API.get('games', {
+					params: {
+						expand: 'details,launch_types,images,type,provider,canonical'
+					}
+				}).then(response => {
+					commit('SET_ALL', response.data)
+
+					resolve(response)
+				}).catch(error => {
+					reject(error)
+				})
 			})
 		},
 		loadFavorites({commit}) {
-			return API.get('games', {
-				params: {
-					expand: 'images, launch_types, type',
-					favorite: true
-				}
-			}).then(res => {
-				commit('SET_FAVORITES', res.data)
+			return new Promise((resolve, reject) => {
+				API.get('games', {
+					params: {
+						expand: 'images, launch_types, type',
+						favorite: true
+					}
+				}).then(response => {
+					commit('SET_FAVORITES', response.data)
+
+					resolve(response)
+				}).catch(error => {
+					reject(error)
+				})
 			})
 		},
 		loadPopular({commit}) {
-			// popular games
-			API.get('games', {
-				params: {
-					expand: 'details,launch_types,images,type,provider,canonical',
-					group_id: 115,
-				}
-			}).then(res => {
-				commit('SET_POPULAR', res.data)
+			return new Promise((resolve, reject) => {
+				API.get('games', {
+					params: {
+						expand: 'details,launch_types,images,type,provider,canonical',
+						group_id: 115,
+					}
+				}).then(response => {
+					commit('SET_POPULAR', response.data)
+
+					resolve(response)
+				}).catch(error => {
+					reject(error)
+				})
 			})
 		},
 		loadSlots({commit}) {
-			// slots games
-			API.get('games', {
-				params: {
-					expand: 'details,launch_types,images,type,provider,canonical',
-					group_id: 126,
-				}
-			}).then(res => {
-				commit('SET_SLOTS', res.data)
+			return new Promise((resolve, reject) => {
+				API.get('games', {
+					params: {
+						expand: 'details,launch_types,images,type,provider,canonical',
+						group_id: 126,
+					}
+				}).then(response => {
+					commit('SET_SLOTS', response.data)
+
+					resolve(response)
+				}).catch(error => {
+					reject(error)
+				})
 			})
 		},
 		loadRecommended({commit}) {
-			// recommended games
-			API.get('games', {
-				params: {
-					expand: 'details,launch_types,images,type,provider,canonical',
-					group_id: 124,
-				}
-			}).then(res => {
-				commit('SET_RECOMMENDED', res.data)
+			return new Promise((resolve, reject) => {
+				API.get('games', {
+					params: {
+						expand: 'details,launch_types,images,type,provider,canonical',
+						group_id: 124,
+					}
+				}).then(response => {
+					commit('SET_RECOMMENDED', response.data)
+
+					resolve(response)
+				}).catch(error => {
+					reject(error)
+				})
 			})
 		},
 		searchGame({commit}, needleGame) {
-			API.get('games', {
-				params: {
-					expand: 'images',
-					q: needleGame
-				}
-			}).then(result => {
-				commit('SET_SEARCH_RESULT', result.data)
+			return new Promise((resolve, reject) => {
+				API.get('games', {
+					params: {
+						expand: 'images',
+						q: needleGame
+					}
+				}).then(response => {
+					commit('SET_SEARCH_RESULT', response.data)
+
+					resolve(response)
+				}).catch(error => {
+					reject(error)
+				})
 			})
 		},
 		emptySearch({commit}) {
 			commit('SET_SEARCH_RESULT', [])
 		},
 		likeGameById({commit}, id) {
-			API.patch('games/' + id, {
-				is_favorite: true
+			return new Promise((resolve, reject) => {
+				API.patch('games/' + id, {
+					is_favorite: true
+				}).then(response => {
+					resolve(response)
+				}).catch(error => {
+					reject(error)
+				})
 			});
+
 		},
 		unLikeGameById({commit}, id) {
-			API.patch('games/' + id, {
-				is_favorite: false
+			return new Promise((resolve, reject) => {
+				API.patch('games/' + id, {
+					is_favorite: false
+				}).then(response => {
+					resolve(response)
+				}).catch(error => {
+					reject(error)
+				})
 			});
 		}
 	},
