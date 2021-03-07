@@ -12,13 +12,18 @@ const bonuses = {
 	},
 	actions: {
 		loadRegistrationBonuses({commit}) {
-			API.get('lab/bonuses', {
-				params: {
-					activation_event: 'registration'
-				}
-			}).then(response => {
-				commit('SET_REGISTRATION_BONUSES', response.data)
-			})
+			return new Promise((resolve, reject) => {
+				API.get('lab/bonuses', {
+					params: {
+						activation_event: 'registration'
+					}
+				}).then(response => {
+					commit('SET_REGISTRATION_BONUSES', response.data)
+					resolve(response)
+				}).catch(error => {
+					reject(error)
+				})
+			});
 		},
 	},
 	getters: {

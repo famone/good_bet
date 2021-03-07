@@ -12,11 +12,15 @@ const countries = {
 	},
 	actions: {
 		loadAll({commit}) {
-			//TODO fix hardcode
-			API.get('countries?per-page=400')
-				.then(res => {
-					commit('SET_ALL', res.data)
+			return new Promise((resolve, reject) => {
+				//TODO fix hardcode
+				API.get('countries?per-page=400').then(response => {
+					commit('SET_ALL', response.data)
+					resolve(response)
+				}).catch(error => {
+					reject(error)
 				})
+			});
 		}
 	},
 	getters: {

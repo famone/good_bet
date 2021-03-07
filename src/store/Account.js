@@ -12,27 +12,38 @@ const account = {
 	},
 	actions: {
 		changeAccount({commit, dispatch}, accountId) {
+			return new Promise((resolve, reject) => {
+				dispatch('loader/enable', null, {root: true})
 
-			dispatch('loader/enable', null, {root: true})
+				API.patch(`accounts/${accountId}`, {
+					is_current: true
+				}).then(response => {
+					dispatch('loader/disable', null, {root: true})
+					dispatch('player/loadCurrent', null, {root: true})
+					commit('SET_CURRENT_ID', accountId)
 
-			API.patch(`accounts/${accountId}`, {
-				is_current: true
-			}).then(function () {
-				dispatch('loader/disable', null, {root: true})
-				dispatch('player/loadCurrent', null, {root: true})
-				commit('SET_CURRENT_ID', accountId)
-			})
+					resolve(response)
+				}).catch(error => {
+					reject(error)
+				})
+			});
 		},
 		createAccount({dispatch}, params) {
-			dispatch('loader/enable', null, {root: true})
+			return new Promise((resolve, reject) => {
+				dispatch('loader/enable', null, {root: true})
 
-			API.post('accounts', params).then(() => {
-				dispatch('player/loadCurrent', null, {root: true})
-				dispatch('currency/loadNotForCurrentUser', null, {root: true})
-				dispatch('loader/disable', null, {root: true})
-			}).catch(() => {
-				dispatch('loader/disable', null, {root: true})
-			})
+				API.post('accounts', params).then(response => {
+					dispatch('player/loadCurrent', null, {root: true})
+					dispatch('currency/loadNotForCurrentUser', null, {root: true})
+					dispatch('loader/disable', null, {root: true})
+
+					resolve(response)
+				}).catch(error => {
+					dispatch('loader/disable', null, {root: true})
+
+					reject(error)
+				})
+			});
 		}
 	},
 	getters: {
