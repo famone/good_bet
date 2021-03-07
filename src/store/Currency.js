@@ -16,18 +16,28 @@ const currency = {
 	},
 	actions: {
 		loadAll({commit}) {
-			API.get('payment-currencies')
-				.then(response => {
+			return new Promise((resolve, reject) => {
+				API.get('payment-currencies').then(response => {
 					commit('SET_ALL', response.data)
+					resolve(response)
+				}).catch(error => {
+					reject(error)
 				})
+			});
 		},
 		loadNotForCurrentUser({commit}) {
-			API.get('payment-currencies', {
-				params: {
-					has_accounts: false,
-				}
-			}).then(response => {
-				commit('SET_NOT_FOR_CURRENT_USER', response.data)
+			return new Promise((resolve, reject) => {
+				API.get('payment-currencies', {
+					params: {
+						has_accounts: false,
+					}
+				}).then(response => {
+					commit('SET_NOT_FOR_CURRENT_USER', response.data)
+
+					resolve(response)
+				}).catch(error => {
+					reject(error)
+				})
 			})
 		}
 	},

@@ -12,13 +12,19 @@ const gameGroups = {
 	},
 	actions: {
 		loadMain({commit}) {
-			API.get('game-groups', {
-				params: {
-					place_code: 'headline',
-					expand: 'images,platform,place_code',
-				}
-			}).then(res => {
-				commit('SET_MAIN', res.data)
+			return new Promise((resolve, reject) => {
+				API.get('game-groups', {
+					params: {
+						place_code: 'headline',
+						expand: 'images,platform,place_code',
+					}
+				}).then(response => {
+					commit('SET_MAIN', response.data)
+
+					resolve(response)
+				}).catch(error => {
+					reject(error)
+				})
 			})
 		}
 	},

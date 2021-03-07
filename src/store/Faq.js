@@ -12,11 +12,15 @@ const faq = {
 	},
 	actions: {
 		loadAll({commit}) {
-			API.get('faq-items')
-				.then(response => {
-					console.log(response.data)
+			return new Promise((resolve, reject) => {
+				API.get('faq-items').then(response => {
 					commit('SET_ALL', response.data)
+					resolve(response)
+				}).catch(error => {
+					reject(error)
 				})
+			})
+
 		}
 	},
 	getters: {

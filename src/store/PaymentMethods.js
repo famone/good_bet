@@ -10,7 +10,6 @@ const paymentMethod = {
 	},
 	mutations: {
 		SET_DEPOSIT_METHODS(state, methods) {
-			console.log(methods)
 			state.depositMethods = PaymentMethodsCollection.createFromArray(methods);
 		},
 		SET_WITHDRAWAL_METHODS(state, methods) {
