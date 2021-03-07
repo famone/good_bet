@@ -26,6 +26,10 @@ import feedback from './Feedback'
 import message from './Message'
 import playerUploadTypes from "./PlayerUploadTypes";
 import playerUpload from "./PlayerUpload";
+import game from "./Game";
+import gameLauncher from "./GameLauncher";
+import counter from "./Counter";
+import password from "./Password";
 
 export default new Vuex.Store({
 	modules: {
@@ -51,6 +55,10 @@ export default new Vuex.Store({
 		feedback,
 		message,
 		playerUploadTypes,
-		playerUpload
+		playerUpload,
+		game,
+		gameLauncher,
+		counter,
+		password
 	}
 }) 

@@ -2,7 +2,7 @@
   <header :class="{stickyHeader: stickyHeader}">
     <div class="container">
       <div class="header-box">
-       <span class="hidden"> {{closeOnEmpty}}</span>
+        <span class="hidden"> {{ closeOnEmpty }}</span>
         <div class="header-box-col al-center">
           <router-link tag="a" to="/">
             <img src="../../assets/img/logo.svg" class="logo" alt="">
@@ -22,11 +22,11 @@
           <input type="text" class="search-inp" placeholder="Game name" @input="searchMethod" v-model="search">
           <div class="player-row">
             <div class="avatar" v-if="player.avatars.length !== 0"
-            @click="showChat = !showChat"
+                 @click="showChat = !showChat"
                  :style="{'background-image': 'url(' + player.avatars.items[0].url + ')'}">
-                   <div v-if="unreadMessageCount > 0" class="ring"></div>
-                   <miniChat v-if="showChat"/>
-                 </div>
+              <div v-if="unreadMessageCount > 0" class="ring"></div>
+              <miniChat v-if="showChat"/>
+            </div>
             <div class="avatar" v-else @click="showChat = !showChat">
               <div v-if="unreadMessageCount > 0" class="ring"></div>
               <miniChat v-if="showChat"/>
@@ -89,15 +89,15 @@
           </div>
         </div>
 
-        <lang-switcher />
+        <lang-switcher/>
 
 
       </div>
     </div>
 
-        <messagePop v-if="activeMessage !== '' "
-        :activeMessage="activeMessage"
-        @closeMessage="closeMessage"/>
+    <messagePop v-if="activeMessage !== '' "
+                :activeMessage="activeMessage"
+                @closeMessage="closeMessage"/>
 
 
   </header>
@@ -118,7 +118,8 @@ export default {
       messages: "messages/getMessages",
       searchResults: "games/getSearchResult",
       unreadMessageCount: "messages/getUnread",
-      isAuth: "auth/getAuthenticated"
+      isAuth: "auth/getAuthenticated",
+      counter: "counter/get"
     }),
     currentAccount() {
       if (this.player) {
@@ -133,21 +134,21 @@ export default {
     haveSearchResult() {
       return this.searchResults.length > 0;
     },
-    closeOnEmpty(){
-          let allApp = document.querySelector('#app');
+    closeOnEmpty() {
+      let allApp = document.querySelector('#app');
 
-        allApp.addEventListener('click', () => {
-          this.search = ''
-          this.$store.dispatch('games/emptySearch')
-        })
-        return this.search
+      allApp.addEventListener('click', () => {
+        this.search = ''
+        this.$store.dispatch('games/emptySearch')
+      })
+      return this.search
     },
   },
   methods: {
-    closeMessage(){
+    closeMessage() {
       this.activeMessage = ''
     },
-    lookMes(mes){
+    lookMes(mes) {
       this.activeMessage = mes
     },
     logOut() {
@@ -173,18 +174,27 @@ export default {
       this.search = ''
       this.$store.dispatch('games/emptySearch')
     },
-    updateMessageCount(){
+    updateMessageCount() {
       const self = this;
-      this.updateMessageCountInterval = setInterval(function(){
+      this.updateMessageCountInterval = setInterval(function () {
         self.$store.dispatch('messages/getUnreadCount')
       }, 3000);
     },
   },
   watch: {
+    counter(newVersion, oldVersion) {
+      if (oldVersion) {
+        if (newVersion.balance.current === oldVersion.balance.current) {
+          return;
+        }
+      }
+
+      this.$store.dispatch('player/loadCurrent')
+    },
     isAuth() {
-      if(this.isAuth){
+      if (this.isAuth) {
         this.updateMessageCount()
-      }else {
+      } else {
         clearInterval(this.updateMessageCountInterval)
       }
     },
@@ -192,7 +202,7 @@ export default {
   data() {
     return {
       updateMessageCountInterval: null,
-      activeMessage: '' ,
+      activeMessage: '',
       showChat: false,
       search: '',
       stickyHeader: false,
@@ -227,8 +237,8 @@ export default {
       this.stickyHeader = (winScroll > 5);
     })
   },
-  created(){
-    if(this.isAuth){
+  created() {
+    if (this.isAuth) {
       this.updateMessageCount()
     }
   }

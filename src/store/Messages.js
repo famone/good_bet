@@ -19,8 +19,8 @@ const messages = {
     }
   },
   actions: {
-    getUnreadCount({commit}) {
-      API.get('counters').then(res => {
+    getUnreadCount({commit, dispatch}) {
+      dispatch('counter/load', null, {root: true}).then(res => {
         commit('SET_UNREAD', res.data.messages.unread)
         commit('SET_TOTAL', res.data.messages.total)
       })

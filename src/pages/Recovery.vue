@@ -7,20 +7,22 @@
           <p class="white-txt">{{ $t('recovery.socialSignInTitle') }}</p>
           <form>
             <input type="text" :placeholder="$t('recovery.email')" v-model="login">
-           
-            <p style="color: red;" class="text-center" v-if="errors">{{ $t('login.error') }}</p>
 
+            <p style="color: red;" class="text-center" v-if="errors">{{ $t('login.error') }}</p>
 
 
             <div v-if="isLoading">
               <button type="submit" class="reg-btn"><img src="../assets/img/icons/nv6.svg" class="spin"></button>
             </div>
             <div v-else>
-              <button type="submit" @click.prevent="resetPass()" class="reg-btn">{{ $t('recovery.loginUPPER') }}</button>
+              <button type="submit" @click.prevent="resetPass()" class="reg-btn">{{
+                  $t('recovery.loginUPPER')
+                }}
+              </button>
               <br>
               <br>
               <p class="white-txt" v-if="success">
-                <img src="../assets/img/success.svg" style="height: 20px;">  {{$t('recovery.success')}}</p>
+                <img src="../assets/img/success.svg" style="height: 20px;"> {{ $t('recovery.success') }}</p>
             </div>
           </form>
         </div>
@@ -29,42 +31,29 @@
   </section>
 </template>
 
-<script> 
+<script>
 import {API} from "../api";
 
-    export default{
-        data(){
-          return{
-            errors: false,
-            isLoading: false,
-            login: '',
-            success: false
-          }
-        },
-        methods: {
-            resetPass(){
-              this.isLoading = true
-
-                let resetConfig = {
-                    login: this.login ,
-                    callbacks: [
-                      {
-                        type: "reset",
-                        redirect_uri: "https://casino.com/new-password"
-                      }
-                    ]
-                }
-
-
-              API.post('passwords', resetConfig)
-              .then(response => {
-                this.isLoading = false
-                this.success = true
-              })
-              .catch(error =>{
-                this.isLoading = false
-              })
-            }
-        }
+export default {
+  data() {
+    return {
+      errors: false,
+      isLoading: false,
+      login: '',
+      success: false
     }
+  },
+  methods: {
+    resetPass() {
+      this.isLoading = true
+
+      this.$store.dispatch('password/reset', this.login).then(response => {
+        this.isLoading = false
+        this.success = true
+      }).catch(error => {
+        this.isLoading = false
+      })
+    }
+  }
+}
 </script> 
