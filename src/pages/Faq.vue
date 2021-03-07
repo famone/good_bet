@@ -25,7 +25,15 @@ import {mapGetters} from 'vuex'
 export default {
   components: {Navbar},
   computed: {
-    ...mapGetters({faq: "faq/getAll"}),
+    ...mapGetters({
+      faq: "faq/getAll",
+      currentLang: 'lang/getCurrent'
+    }),
+  },
+  watch: {
+    currentLang() {
+      this.$store.dispatch("faq/loadAll");
+    },
   },
   created() {
     this.$store.dispatch("faq/loadAll");
