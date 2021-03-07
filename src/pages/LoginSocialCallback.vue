@@ -13,20 +13,20 @@
 
 <script>
 
-import { API } from '../api'
-import { mapGetters } from 'vuex'
+import {API} from '../api'
+import {mapGetters} from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters({ player: 'player/getCurrent' }),
+    ...mapGetters({player: 'player/getCurrent'}),
   },
-  data () {
+  data() {
     return {
       errorMessage: false,
     }
   },
   methods: {
-    socialLogin (socialName) {
+    socialLogin(socialName) {
 
       let apiUrl = process.env.SOCIAL_APP_URL
       let casinoUrl = process.env.CASINO_APP_URL
@@ -37,7 +37,7 @@ export default {
       return apiUrl + '/social/login/' + socialName + '/' + token + '?back_url=' + backUrl
     }
   },
-  created () {
+  created() {
     let tokenAccess = this.$route.query.token_access
 
     let str = {
@@ -53,14 +53,12 @@ export default {
       service_data: encodedStr,
     }
 
-    API.getPlayerToken(parameters)
-        .then(() => {
-          this.$store.dispatch('player/loadCurrent')
-          this.$router.replace('/profile')
-        })
-        .catch(() => {
-          this.errorMessage = true
-        });
+    API.getPlayerToken(parameters).then(() => {
+      this.$store.dispatch('player/loadCurrent')
+      this.$router.replace('/profile')
+    }).catch(() => {
+      this.errorMessage = true
+    });
   }
 }
 </script>

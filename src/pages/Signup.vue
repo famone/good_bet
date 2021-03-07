@@ -187,18 +187,12 @@ export default {
     // вход сразу
     submitLog() {
 
-      let mailToLog = this.formInputs.find(item => item.name === 'email')
+      let username = this.formInputs.find(item => item.name === 'email')
 
-      let passToLog = this.formInputs.find(item => item.name === 'password_change')
+      let password = this.formInputs.find(item => item.name === 'password_change')
 
-      let tokenParams = {
-        grant_type: 'password',
-        username: mailToLog.value,
-        password: passToLog.value,
-        scope: 'casino:read bonus:read bonus.settings:read bonus:write lab:read lab:write game:read game:write game.history:read game.wallet:write game.launch:write player:read player:write message:read message:write payment:read payment:write player:write:all message:write winner:read faq:read news:read slider:read payment.callbacks:write counters'
-      }
 
-      API.getPlayerToken(tokenParams).then(() => {
+      API.getPlayerTokenByUsernamePassword(username.value, password.value).then(() => {
         this.$store.dispatch('player/loadCurrent').then(() => {
           this.isLoading = false
           this.$router.replace("/profile");

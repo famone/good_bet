@@ -59,24 +59,15 @@ export default {
     submitLog() {
       this.isLoading = true
 
-      let tokenParams = {
-        grant_type: "password",
-        username: this.login,
-        password: btoa(this.password),
-        scope: "casino:read bonus:read bonus.settings:read bonus:write lab:read lab:write game:read game:write game.history:read game.wallet:write game.launch:write player:read player:write message:read message:write payment:read payment:write player:write:all message:write winner:read faq:read news:read slider:read payment.callbacks:write counters"
-      }
-
-      API.getPlayerToken(tokenParams)
-          .then(function () {
-            this.$store.dispatch('player/loadCurrent').then(function () {
-              this.isLoading = false
-              this.$router.replace("/profile");
-            }.bind(this))
-          }.bind(this))
-          .catch(error => {
-            this.errors = true
-            this.isLoading = false
-          })
+      API.getPlayerTokenByUsernamePassword(this.login, btoa(this.password)).then(() => {
+        this.$store.dispatch('player/loadCurrent').then(() => {
+          this.isLoading = false
+          this.$router.replace("/profile");
+        })
+      }).catch(() => {
+        this.errors = true
+        this.isLoading = false
+      })
     },
     socialLoginFacebook() {
       return this.socialLogin('facebook')

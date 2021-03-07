@@ -5,6 +5,16 @@ const API = axios.create({
 	baseURL: process.env.CASINO_APP_API_URL,
 })
 
+API.getPlayerTokenByUsernamePassword = function(username, password) {
+	let params = {
+		grant_type: 'password',
+		username: username,
+		password: password
+	}
+
+	return API.getPlayerToken(params)
+}
+
 API.getPlayerToken = function (params) {
 	return new Promise((resolve, reject) => {
 		let config = {
@@ -14,6 +24,7 @@ API.getPlayerToken = function (params) {
 			}
 		}
 
+		params.scope = 'casino:read bonus:read bonus.settings:read bonus:write lab:read lab:write game:read game:write game.history:read game.wallet:write game.launch:write player:read player:write message:read message:write payment:read payment:write player:write:all message:write winner:read faq:read news:read slider:read payment.callbacks:write counters';
 		axios.post('oauth2/token', params, config)
 			.then(function (response) {
 
