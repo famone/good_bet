@@ -43,12 +43,6 @@ const i18n = new VueI18n({
   }
 })
 
-store.dispatch('lang/setCurrent', localStorage.getItem('selectedLang'))
-
-if (localStorage.getItem('player')) {
-  store.dispatch('player/loadCurrent')
-}
-
 const isDev = process.env.NODE_ENV !== 'production'
 Vue.config.performance = isDev
 
@@ -66,11 +60,28 @@ if (isDev === false) {
   })
 }
 
-new Vue({
-  el: '#app',
-  render: h => h(App),
-  router,
-  store,
-  i18n
-})
+store.dispatch('lang/setCurrent', localStorage.getItem('selectedLang'))
+
+if (localStorage.getItem('player')) {
+  store.dispatch('player/loadCurrent').then(response => {
+    new Vue({
+      el: '#app',
+      render: h => h(App),
+      router,
+      store,
+      i18n
+    })
+  })
+}
+else {
+  new Vue({
+    el: '#app',
+    render: h => h(App),
+    router,
+    store,
+    i18n
+  })
+}
+
+
 
