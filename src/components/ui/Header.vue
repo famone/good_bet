@@ -23,7 +23,7 @@
           <div class="player-row">
             <div class="avatar" v-if="player.avatars.length !== 0"
             @click="showChat = !showChat"
-                 :style="{'background-image': 'url(' + player.avatars[0].url + ')'}">
+                 :style="{'background-image': 'url(' + player.avatars.items[0].url + ')'}">
                    <div v-if="unreadMessageCount > 0" class="ring"></div>
                    <miniChat v-if="showChat"/>
                  </div>
@@ -40,7 +40,7 @@
 
               <select class="acc-select" v-if="player.accounts.length" :value="currentAccount.id"
                       @change="changeAccount($event)">
-                <option :value="account.id" v-for="account in player.accounts">
+                <option :value="account.id" v-for="account in player.accounts.items">
                   {{ account.getFormattedAmount() }} {{ account.currency_code }}
                 </option>
               </select>
@@ -80,7 +80,7 @@
           <div v-if="haveSearchResult">
             <router-link tag="div" :to=" gameSearchRoute() + res.id.toString() " class="game-result"
                          v-for="res in searchResults" v-bind:key="res.id" @click="clearSearch()">
-              <img :src="res.images[0].url" @click="clearSearch()">
+              <img :src="res.images.items[0].url" @click="clearSearch()">
               <p class="small-white" @click="clearSearch()">{{ res.name }}</p>
             </router-link>
           </div>

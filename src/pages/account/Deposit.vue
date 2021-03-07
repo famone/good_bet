@@ -15,17 +15,16 @@
                 <img src="../../assets/img/icons/nv6.svg" class="spin" alt="">
               </div>
 
-              <!-- {{paymentMethods}} -->
-              <div class="col-lg-4 text-center" v-else v-for="pay in paymentMethods">
+              <div class="col-lg-4 text-center" v-else v-for="method in paymentMethods.items">
                 <div class="payment-card">
-                  <img :src="pay.images[0].url" v-if="pay.images.length > 0" alt="">
-                  <img src="../../assets/img/coin.svg" v-if="!pay.images.length" class="logoimg" alt="">
+                  <img :src="method.images.items[0].url" v-if="method.images.length > 0" alt="">
+                  <img src="../../assets/img/coin.svg" v-if="!method.images.length" class="logoimg" alt="">
                   <br>
-                  <button class="save-btn" @click="openPop(pay)">
+                  <button class="save-btn" @click="openPop(method)">
                     {{ $t('pages.account.depositTopUpButtonText') }}
                   </button>
                 </div>
-                <h4>{{ pay.name }}</h4>
+                <h4>{{ method.name }}</h4>
               </div>
             </div>
           </div>
@@ -82,6 +81,29 @@ export default {
   },
   created() {
     this.$store.dispatch("paymentMethod/loadDepositMethods");
+  },
+  watch: {
+    player(newVersion, oldVersion) {
+      if (!newVersion || !oldVersion) {
+        return;
+      }
+
+      let oldAccount = oldVersion.accounts.find(item => {
+        if (item.is_current === true) {
+          return item;
+        }
+      })
+
+      let newAccount = newVersion.accounts.find(item => {
+        if (item.is_current === true) {
+          return item;
+        }
+      })
+
+      if (oldAccount.id !== newAccount.id) {
+        this.$router.go();
+      }
+    }
   },
   methods: {
     cancel() {

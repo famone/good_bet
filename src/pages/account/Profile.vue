@@ -16,10 +16,10 @@
                       :labels="avatarUploaderLabels"
                   />
                   <div id="pick-avatar" class="ava-edit">
-                    <div  class="ava-box-edit">
+                    <div class="ava-box-edit">
 
                       <div class="avatar" v-if="player.avatars.length !== 0"
-                           :style="{'background-image': 'url(' + player.avatars[0].url + ')'}"></div>
+                           :style="{'background-image': 'url(' + player.avatars.items[0].url + ')'}"></div>
                       <div class="avatar" v-else>
                         <span>{{ player.nickname.substr(0, 1) }}</span>
                       </div>
@@ -43,80 +43,77 @@
                   </div>
                 </div>
               </div>
-              
+
 
               <div v-if="editorMode" class="profile-box">
                 <div class="col-lg-6">
-                <label for="profile-nickname">{{ $t('pages.account.profile.nickname') }}</label>
-                <input id="profile-nickname" type="text" :value="player.nickname" @input="updateField($event)"
-                       data-field="nickname">
-              </div>
-              <div class="col-lg-6">
-                <label for="profile-email">{{ $t('pages.account.profile.email') }}</label>
-                <input id="profile-email" type="text" :value="player.email" @input="updateField($event)"
-                       data-field="email">
-              </div>
-              <div class="col-lg-6">
-                <label for="profile-login">{{ $t('pages.account.profile.login') }}</label>
-                <input id="profile-login" type="text" :value="player.username" @input="updateField($event)"
-                       data-field="username">
-              </div>
-              <div class="col-lg-6">
-                <label for="profile-name">{{ $t('pages.account.profile.name') }}</label>
-                <input id="profile-name" type="text" :value="player.name" @input="updateField($event)"
-                       data-field="name">
-              </div>
-              <div class="col-lg-6">
-                <label for="profile-last-name">{{ $t('pages.account.profile.lastName') }}</label>
-                <input id="profile-last-name" type="text" :value="player.surname" @input="updateField($event)"
-                       data-field="surname">
-              </div>
+                  <label for="profile-nickname">{{ $t('pages.account.profile.nickname') }}</label>
+                  <input id="profile-nickname" type="text" :value="player.nickname" @input="updateField($event)"
+                         data-field="nickname">
+                </div>
+                <div class="col-lg-6">
+                  <label for="profile-email">{{ $t('pages.account.profile.email') }}</label>
+                  <input id="profile-email" type="text" :value="player.email" @input="updateField($event)"
+                         data-field="email">
+                </div>
+                <div class="col-lg-6">
+                  <label for="profile-login">{{ $t('pages.account.profile.login') }}</label>
+                  <input id="profile-login" type="text" :value="player.username" @input="updateField($event)"
+                         data-field="username">
+                </div>
+                <div class="col-lg-6">
+                  <label for="profile-name">{{ $t('pages.account.profile.name') }}</label>
+                  <input id="profile-name" type="text" :value="player.name" @input="updateField($event)"
+                         data-field="name">
+                </div>
+                <div class="col-lg-6">
+                  <label for="profile-last-name">{{ $t('pages.account.profile.lastName') }}</label>
+                  <input id="profile-last-name" type="text" :value="player.surname" @input="updateField($event)"
+                         data-field="surname">
+                </div>
 
-              <div class="col-lg-6">
-                <label for="profile-sex">{{ $t('pages.account.profile.sex') }}</label>
-                <select name="" id="profile-sex" v-model="player.gender" @input="updateField($event)"
-                        data-field="gender">
-                  <option value="null"></option>
-                  <option value="male">{{ $t('pages.account.profile.male') }}</option>
-                  <option value="female">{{ $t('pages.account.profile.female') }}</option>
-                </select>
-              </div>
-              <div class="col-lg-6">
-                <label for="profile-birthday">{{ $t('pages.account.profile.birthday') }}</label>
-                <input id="profile-birthday" type="date" :value="player.birthdate" @input="updateField($event)"
-                       data-field="birthdate">
-              </div>
-              <div class="col-lg-6">
-                <label for="profile-country">{{ $t('pages.account.profile.country') }}</label>
-                <select id="profile-country" name="" v-model="player.country_id" @input="updateField($event)"
-                        data-field="country_id">
-                  <option value=""></option>
-                  <option :value="count.id" v-for="count in countries">{{ count.name }}</option>
-                </select>
-              </div>
-              <div class="col-lg-6">
-                <label for="profile-address">{{ $t('pages.account.profile.address') }}</label>
-                <input id="profile-address" type="text" :value="player.address" @input="updateField($event)"
-                       data-field="address">
-              </div>
-              <div class="col-lg-6">
-                <label for="profile-city">{{ $t('pages.account.profile.city') }}</label>
-                <input id="profile-city" type="text" :value="player.city" @input="updateField($event)"
-                       data-field="city">
-              </div>
-              <div class="col-lg-6">
-                <label for="profile-timezone">{{ $t('pages.account.profile.timezone') }}</label>
+                <div class="col-lg-6">
+                  <label for="profile-sex">{{ $t('pages.account.profile.sex') }}</label>
+                  <select name="" id="profile-sex" v-model="player.gender" @input="updateField($event)"
+                          data-field="gender">
+                    <option value="null"></option>
+                    <option value="male">{{ $t('pages.account.profile.male') }}</option>
+                    <option value="female">{{ $t('pages.account.profile.female') }}</option>
+                  </select>
+                </div>
+                <div class="col-lg-6">
+                  <label for="profile-birthday">{{ $t('pages.account.profile.birthday') }}</label>
+                  <input id="profile-birthday" type="date" :value="player.birthdate" @input="updateField($event)"
+                         data-field="birthdate">
+                </div>
+                <div class="col-lg-6">
+                  <label for="profile-country">{{ $t('pages.account.profile.country') }}</label>
+                  <select id="profile-country" name="" v-model="player.country_id" @input="updateField($event)"
+                          data-field="country_id">
+                    <option value=""></option>
+                    <option :value="count.id" v-for="count in countries">{{ count.name }}</option>
+                  </select>
+                </div>
+                <div class="col-lg-6">
+                  <label for="profile-address">{{ $t('pages.account.profile.address') }}</label>
+                  <input id="profile-address" type="text" :value="player.address" @input="updateField($event)"
+                         data-field="address">
+                </div>
+                <div class="col-lg-6">
+                  <label for="profile-city">{{ $t('pages.account.profile.city') }}</label>
+                  <input id="profile-city" type="text" :value="player.city" @input="updateField($event)"
+                         data-field="city">
+                </div>
+                <div class="col-lg-6">
+                  <label for="profile-timezone">{{ $t('pages.account.profile.timezone') }}</label>
 
-                <select id="profile-timezone" name="" v-model="player.timezone_id" @input="updateField($event)"
-                        data-field="timezone_id">
-                  <option value=""></option>
-                  <option :value="tmz.id" v-for="tmz in timezones">{{ tmz.name }}</option>
-                </select>
+                  <select id="profile-timezone" name="" v-model="player.timezone_id" @input="updateField($event)"
+                          data-field="timezone_id">
+                    <option value=""></option>
+                    <option :value="tmz.id" v-for="tmz in timezones">{{ tmz.name }}</option>
+                  </select>
+                </div>
               </div>
-              </div>
-
-
-
 
 
               <div class="col-lg-12" v-if="editorMode">
@@ -125,7 +122,7 @@
                 </div>
 
                 <div v-if="isLoading">
-                  <button class="save-btn"><img src="../../assets/img/icons/nv6.svg" class="spin"></button>
+                  <button class="save-btn"><img src="../../assets/img/icons/nv6.svg" class="spin" alt=""></button>
                 </div>
                 <div v-else>
                   <button class="save-btn" @click="updateUser">{{
@@ -136,60 +133,59 @@
               </div>
 
 
-
               <div v-if="!editorMode" class="row ma-0 profile-box2">
                 <div class="col-lg-4 account-field">
-                  <label for="">{{ $t('pages.account.profile.nickname') }}</label>
-                  <h4>{{player.nickname}}</h4>
+                  <label>{{ $t('pages.account.profile.nickname') }}</label>
+                  <h4>{{ player.nickname }}</h4>
                 </div>
                 <div class="col-lg-4 account-field">
-                  <label for="">{{ $t('pages.account.profile.email') }}</label>
-                  <h4>{{player.email}}</h4>
+                  <label>{{ $t('pages.account.profile.email') }}</label>
+                  <h4>{{ player.email }}</h4>
                 </div>
                 <div class="col-lg-4 account-field">
-                  <label for="">{{ $t('pages.account.profile.login') }}</label>
-                  <h4>{{player.username}}</h4>
+                  <label>{{ $t('pages.account.profile.login') }}</label>
+                  <h4>{{ player.username }}</h4>
                 </div>
 
                 <div class="col-lg-4 account-field">
-                  <label for="">{{ $t('pages.account.profile.name') }}</label>
-                  <h4>{{player.name}}</h4>
+                  <label>{{ $t('pages.account.profile.name') }}</label>
+                  <h4>{{ player.name }}</h4>
                 </div>
                 <div class="col-lg-4 account-field">
-                  <label for="">{{ $t('pages.account.profile.lastName') }}</label>
-                  <h4>{{player.surname}}</h4>
+                  <label>{{ $t('pages.account.profile.lastName') }}</label>
+                  <h4>{{ player.surname }}</h4>
                 </div>
                 <div class="col-lg-4 account-field">
-                  <label for="">{{ $t('pages.account.profile.login') }}</label>
-                  <h4>{{player.username}}</h4>
+                  <label>{{ $t('pages.account.profile.login') }}</label>
+                  <h4>{{ player.username }}</h4>
                 </div>
                 <div class="col-lg-4 account-field">
-                  <label for="">{{ $t('pages.account.profile.sex') }}</label>
-                  <h4>{{player.gender}}</h4>
+                  <label>{{ $t('pages.account.profile.sex') }}</label>
+                  <h4>{{ player.gender }}</h4>
                 </div>
                 <div class="col-lg-4 account-field">
-                  <label for="">{{ $t('pages.account.profile.birthday') }}</label>
-                  <h4>{{player.birthdate}}</h4>
+                  <label>{{ $t('pages.account.profile.birthday') }}</label>
+                  <h4>{{ player.birthdate }}</h4>
                 </div>
                 <div class="col-lg-4 account-field">
-                  <label for="">{{ $t('pages.account.profile.country') }}</label>
-                  <h4>{{player.country.code}}</h4>
+                  <label>{{ $t('pages.account.profile.country') }}</label>
+                  <h4 v-if="player.country">{{ player.country.code }}</h4>
                 </div>
                 <div class="col-lg-4 account-field">
-                  <label for="">{{ $t('pages.account.profile.address') }}</label>
-                  <h4>{{player.address}}</h4>
-                </div>
-                 <div class="col-lg-4 account-field">
-                  <label for="">{{ $t('pages.account.profile.city') }}</label>
-                  <h4>{{player.city}}</h4>
+                  <label>{{ $t('pages.account.profile.address') }}</label>
+                  <h4 v-if="player.address">{{ player.address }}</h4>
                 </div>
                 <div class="col-lg-4 account-field">
-                  <label for="">{{ $t('pages.account.profile.timezone') }}</label>
-                  <h4>{{player.timezone.name}}</h4>
+                  <label>{{ $t('pages.account.profile.city') }}</label>
+                  <h4>{{ player.city }}</h4>
                 </div>
                 <div class="col-lg-4 account-field">
-                  <label for="">{{ $t('pages.account.profile.timezone') }}</label>
-                  <h4>{{player.timezone.name}}</h4>
+                  <label>{{ $t('pages.account.profile.timezone') }}</label>
+                  <h4 v-if="player.timezone">{{ player.timezone.name }}</h4>
+                </div>
+                <div class="col-lg-4 account-field">
+                  <label>{{ $t('pages.account.profile.timezone') }}</label>
+                  <h4 v-if="player.timezone">{{ player.timezone.name }}</h4>
                 </div>
                 <div class="col-lg-12">
                   <br>
@@ -200,9 +196,6 @@
 
 
               </div>
-
-
-
 
 
             </div>
@@ -232,7 +225,7 @@ export default {
     getCurrentAccount() {
       if (this.player) {
         return this.player.accounts.find(item => {
-          return item.is_current == true
+          return item.is_current === true
         })
       }
     },
@@ -298,7 +291,7 @@ export default {
 
 
       API.patch('players/' + this.player.id, objField)
-          .then(response => {
+          .then(() => {
             this.$store.dispatch('player/loadCurrent')
             this.isLoading = false
             this.editorMode = false
@@ -324,11 +317,17 @@ export default {
               headers: {"Content-Type": "multipart/form-data"}
             }
         ).then(response => {
-          this.player.avatars[0].url = response.data.url;
+          if (this.player.avatars.length) {
+            this.player.avatars.items[0].url = response.data.url
+          }
+          else {
+            this.player.avatars.addItem(response.data)
+          }
+
           this.$toasted.show(this.$t('pages.account.profile.avatarUploadedSuccess'), {
             duration: 1500
           })
-        }).catch(error => {
+        }).catch(() => {
           this.$toasted.show(this.$t('pages.account.profile.avatarUploadedFailed'), {
             duration: 1500
           })
@@ -341,12 +340,12 @@ export default {
 </script>
 
 
-
 <style>
-.account-field{
+.account-field {
   margin: 20px 0;
 }
-.profile-box2{
+
+.profile-box2 {
   background-color: #272459;
   padding: 25px;
   border-radius: 15px;

@@ -54,11 +54,11 @@ export default {
     }
 
     API.getPlayerToken(parameters)
-        .then(response => {
+        .then(() => {
           this.$store.dispatch('player/loadCurrent')
           this.$router.replace('/profile')
         })
-        .catch(error => {
+        .catch(() => {
           this.errorMessage = true
         });
   }

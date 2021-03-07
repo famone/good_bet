@@ -5,11 +5,12 @@ import PaymentMethodsCollection from "../dto/payment-methods/PaymentMethodsColle
 const paymentMethod = {
 	namespaced: true,
 	state: {
-		depositMethods: [],
-		withdrawalMethods: [],
+		depositMethods: new PaymentMethodsCollection(),
+		withdrawalMethods: new PaymentMethodsCollection(),
 	},
 	mutations: {
 		SET_DEPOSIT_METHODS(state, methods) {
+			console.log(methods)
 			state.depositMethods = PaymentMethodsCollection.createFromArray(methods);
 		},
 		SET_WITHDRAWAL_METHODS(state, methods) {

@@ -14,7 +14,7 @@ export default class Player
 		this.bonuses_allowed = player['bonuses_allowed'];
 		this.casino_id = player['casino_id']
 		this.city = player['city']
-		this.country = new Country(player['country'])
+		this.country = player['country'] ? new Country(player['country']) : null
 		this.country_id = player['country_id']
 		this.default_language = player['default_language']
 		this.email = player['email']
@@ -37,7 +37,7 @@ export default class Player
 		this.registration_date_as_iso8601 = player['registration_date_as_iso8601']
 		this.secret_question = player['secret_question']
 		this.surname = player['surname']
-		this.timezone = new Timezone(player['timezone'])
+		this.timezone =  player['timezone'] ? new Timezone(player['timezone']) : null
 		this.timezone_id = player['timezone_id']
 		this.username = player['username']
 	}

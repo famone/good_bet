@@ -11,12 +11,12 @@
             <h2>{{ $t('pages.account.accountsUPPER') }}</h2>
 
             <div class="row">
-              <div class="col-lg-12 text-center" v-if="!player.accounts">
+              <div class="col-lg-12 text-center" v-if="!player.accounts.items">
                 <img src="../../assets/img/icons/nv6.svg" class="spin" alt="">
               </div>
 
 
-              <div class="col-lg-3" v-else v-for="account in player.accounts">
+              <div class="col-lg-3" v-else v-for="account in player.accounts.items">
                 <div class="document-box text-center">
                   <div class="text-center">
                     <img src="../../assets/img/success.svg" class="status-icon"
