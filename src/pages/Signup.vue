@@ -175,9 +175,7 @@ export default {
     submitLog() {
 
       let username = this.formInputs.find(item => item.name === 'email')
-
       let password = this.formInputs.find(item => item.name === 'password_change')
-
 
       API.getPlayerTokenByUsernamePassword(username.value, password.value).then(() => {
         this.$store.dispatch('player/loadCurrent').then(() => {
