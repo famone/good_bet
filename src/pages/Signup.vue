@@ -55,7 +55,7 @@
 
               <div v-else-if="!input.isCaptcha()">
                 <label :for="input.id">{{ input.label }}</label>
-                <input :type="input.type" :data-field="input.name" @change="input.onInputUpdate($event)">
+                <input :id="input.id" :type="input.type" :data-field="input.name" @change="input.onInputUpdate($event)">
               </div>
 
               <div v-if="input.errors.length">
@@ -104,7 +104,6 @@ export default {
     return {
       avBonusDesc: null,
       checkedBonusId: null,
-      errors: null,
       isLoading: false,
 
       captchaToken: process.env.CASINO_APP_CAPTCHA_TOKEN,
@@ -119,17 +118,6 @@ export default {
       currencies: 'currency/getAll',
       currentLang: 'lang/getCurrent'
     }),
-    checkErr() {
-      let arr = []
-
-      if (this.errors) {
-        this.errors.forEach(item => {
-          arr.push(item.field)
-        })
-      }
-
-      return arr
-    }
   },
   created() {
     this.$store.dispatch('registerForm/loadDefaultFields')
@@ -198,7 +186,6 @@ export default {
         })
       }).catch(() => {
         this.isLoading = false
-        this.errors = true
       })
     }
   }
