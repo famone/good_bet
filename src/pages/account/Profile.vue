@@ -169,7 +169,7 @@
                 </div>
                 <div class="col-lg-4 account-field">
                   <label>{{ $t('pages.account.profile.country') }}</label>
-                  <h4 v-if="player.country">{{ player.country.code }}</h4>
+                  <h4 v-if="player.country">{{ player.country.name }}</h4>
                 </div>
                 <div class="col-lg-4 account-field">
                   <label>{{ $t('pages.account.profile.address') }}</label>
