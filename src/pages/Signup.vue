@@ -6,7 +6,7 @@
           <h2>REGISTRATION</h2>
 
           <form @submit.prevent="validate">
-            <div v-for="input in formInputs.items" :class="{'field-box': true, errorInput : checkErr.includes(input.name)}">
+            <div v-for="input in formInputs.items" :class="{'field-box': true, errorInput : input.errors.length}">
 
 
               <div v-if="input.isCurrency()">
@@ -114,7 +114,6 @@ export default {
   },
   computed: {
     ...mapGetters({
-      regFields: 'registerForm/getDefaultFields',
       formInputs: 'registerForm/getDefaultFormInputs',
       bonuses: 'bonuses/getRegistrationBonuses',
       currencies: 'currency/getAll',
