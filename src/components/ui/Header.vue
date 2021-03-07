@@ -80,7 +80,7 @@
           <div v-if="haveSearchResult">
             <router-link tag="div" :to=" gameSearchRoute() + res.id.toString() " class="game-result"
                          v-for="res in searchResults" v-bind:key="res.id" @click="clearSearch()">
-              <img :src="res.images.items[0].url" @click="clearSearch()">
+              <img :src="res.images[0].url" @click="clearSearch()">
               <p class="small-white" @click="clearSearch()">{{ res.name }}</p>
             </router-link>
           </div>

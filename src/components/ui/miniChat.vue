@@ -1,6 +1,6 @@
 <template>
 	<div class="mini-chat">
-		<div class="chat-box" v-for="mes in messages" @click="lookMes(mes)">
+		<div class="chat-box" v-for="mes in loadMessages" @click="lookMes(mes)">
 			<p>{{mes.title}}</p>
 			<p class="small-white" v-html="mes.message.substr(0, 38) + '...' "></p>
 			<div class="onliner" v-if="mes.status === 'delivered' "></div>
