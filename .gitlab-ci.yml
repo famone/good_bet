@@ -1,0 +1,37 @@
+image: node:14
+
+stages:
+  - build
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+
+build:
+  stage: build
+  script:
+    - echo "Building deploy package"
+    - npm install --progress=false
+    - npm run build
+    - echo "Build successful"
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - build
+
+
+deploy_staging:
+  stage: deploy
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - rsync -rav --delete dist/ user@server.com:/your/project/path/
+  environment:
+    name: staging
+    url: https://goodbet.casinoplatform.site
+  only:
+    - main
