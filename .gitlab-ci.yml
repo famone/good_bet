@@ -1,0 +1,73 @@
+image: node:14
+
+stages:
+  - build
+  - pre-deploy
+  - deploy
+  - post-deploy
+  - notification
+
+variables:
+  SERVER: deploy@159.89.111.248
+  RELEASE_TAG: "$CI_COMMIT_SHORT_SHA"
+  TELEGRAM_CHAT_ID: -358913421 # Casino front
+
+cache:
+  paths:
+    - node_modules/
+
+build:
+  stage: build
+  script:
+    - echo "Building deploy package"
+    - npm install --progress=false
+    - npm run build
+    - echo "Build successful"
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - dist
+
+Sentry Release:
+  stage: pre-deploy
+  image: getsentry/sentry-cli
+  script:
+    - sentry-cli releases -o "$SENTRY_ORG" new -p "$SENTRY_PROJECT" "$RELEASE_TAG"
+    #- sentry-cli releases -o $SENTRY_ORG set-commits --auto "$CI_COMMIT_SHA" #todo added commits
+  only:
+    - main
+
+Sentry Finalize Release & Deploy:
+  stage: post-deploy
+  image: getsentry/sentry-cli
+  script:
+    - sentry-cli releases -o "$SENTRY_ORG" finalize "$RELEASE_TAG"
+    - sentry-cli releases -o "$SENTRY_ORG" deploys "$RELEASE_TAG" new -e "staging"
+    - echo "Finalized release for $RELEASE_TAG"
+  only:
+    - main
+
+deploy_staging:
+  stage: deploy
+  image: alpine
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - rsync -rav dist/ $SERVER:/var/www/goodbet/dist
+  environment:
+    name: staging
+    url: https://goodbet.casinoplatform.site
+  only:
+    - main
+
+notification_deploy:
+  stage: notification
+  variables:
+    ENVIRONMENT_NAME: staging
+  script:
+    - curl -s -X POST https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage -d chat_id=$TELEGRAM_CHAT_ID -d text="Deploy on $ENVIRONMENT_NAME commit $RELEASE_TAG"
+  only:
+    - main
