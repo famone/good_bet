@@ -36,5 +36,5 @@ deploy_staging:
   environment:
     name: staging
     url: https://goodbet.casinoplatform.site
-  only:
-    - main
+#  only:
+#    - main
