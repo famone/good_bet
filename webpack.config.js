@@ -70,7 +70,9 @@ module.exports = {
       template:  path.resolve(__dirname, 'index.html'),
       chunks: ["main"],
     }),
-    new Dotenv()
+    new Dotenv({
+      systemvars: true
+    })
   ]
 }
 
