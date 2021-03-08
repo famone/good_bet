@@ -4,6 +4,9 @@ stages:
   - build
   - deploy
 
+variables:
+  SERVER: 159.89.111.248
+
 cache:
   paths:
     - node_modules/
@@ -29,7 +32,7 @@ deploy_staging:
     - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_dsa
     - chmod 600 ~/.ssh/id_dsa
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - rsync -rav --delete dist/ user@server.com:/your/project/path/
+    - rsync -rav --delete dist/ $SERVER:/var/www/goodbet
   environment:
     name: staging
     url: https://goodbet.casinoplatform.site
