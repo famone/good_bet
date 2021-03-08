@@ -36,7 +36,6 @@ Sentry Release:
     #- sentry-cli releases -o $SENTRY_ORG set-commits --auto "$CI_COMMIT_SHA" #todo added commits
   only:
     - main
-    - feature/deploy
 
 Sentry Finalize Release & Deploy:
   stage: post-deploy
@@ -47,7 +46,6 @@ Sentry Finalize Release & Deploy:
     - echo "Finalized release for $RELEASE_TAG"
   only:
     - main
-    - feature/deploy
 
 deploy_staging:
   stage: deploy
@@ -64,12 +62,12 @@ deploy_staging:
     url: https://goodbet.casinoplatform.site
   only:
     - main
-    - feature/deploy
 
 notification_deploy:
   stage: notification
+  variables:
+    ENVIRONMENT_NAME: staging
   script:
-    - curl -s -X POST https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage -d chat_id=$TELEGRAM_CHAT_ID -d text="Deploy $RELEASE_TAG"
+    - curl -s -X POST https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage -d chat_id=$TELEGRAM_CHAT_ID -d text="Deploy on $ENVIRONMENT_NAME commit $RELEASE_TAG"
   only:
     - main
-    - feature/deploy
