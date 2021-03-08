@@ -21,7 +21,7 @@ build:
   artifacts:
     expire_in: 1 hour
     paths:
-      - build
+      - dist
 
 
 deploy_staging:
