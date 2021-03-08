@@ -288,7 +288,7 @@ export default {
         }
       }
 
-      this.$store.dispatch('player/updateData', objField).then(() => {
+      this.$store.dispatch('player/updateData', this.player.id, objField).then(response => {
         this.isLoading = false
         this.editorMode = false
         this.$toasted.show(this.$t('pages.account.profile.profileEditSuccess'), {

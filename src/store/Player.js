@@ -33,17 +33,18 @@ const player = {
 			});
 
 		},
-		updateData({commit, dispatch}, data) {
+		updateData({commit, dispatch}, playerId, data) {
 			return new Promise((resolve, reject) => {
-				API.patch('players/' + this.player.id, data).then(response => {
+
+				API.patch('players/' + playerId, data).then(response => {
 					dispatch('player/loadCurrent', null, {root: true})
 
 					resolve(response)
 				}).catch(error => {
-
+					console.log(error)
 					reject(error)
 				})
-			});
+			})
 		},
 		logOut({commit}) {
 			commit('SET_CURRENT', null)
