@@ -278,6 +278,8 @@ export default {
 
 
       let objField = {
+        // default_lang: 'ru', TODO add default lang selector
+        timezone_id: this.player.timezone_id,
         form: {
           id: this.player.id,
           fields: [
@@ -288,13 +290,14 @@ export default {
         }
       }
 
-      this.$store.dispatch('player/updateData', this.player.id, objField).then(response => {
+      this.$store.dispatch('player/updateData', objField).then(() => {
         this.isLoading = false
         this.editorMode = false
         this.$toasted.show(this.$t('pages.account.profile.profileEditSuccess'), {
           duration: 1500
         })
       }).catch(err => {
+        console.log(err);
         this.errors = err.response.data
         this.isLoading = false
         this.$toasted.show(this.$t('pages.account.profile.profileEditFail'), {

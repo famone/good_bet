@@ -33,10 +33,10 @@ const player = {
 			});
 
 		},
-		updateData({commit, dispatch}, playerId, data) {
+		updateData({commit, dispatch}, data) {
 			return new Promise((resolve, reject) => {
 
-				API.patch('players/' + playerId, data).then(response => {
+				API.patch('players/' + data.form.id, data).then(response => {
 					dispatch('player/loadCurrent', null, {root: true})
 
 					resolve(response)
