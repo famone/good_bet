@@ -5,7 +5,7 @@ stages:
   - deploy
 
 variables:
-  SERVER: 159.89.111.248
+  SERVER: deploy@159.89.111.248
 
 cache:
   paths:
