@@ -1,4 +1,4 @@
-image: node:14
+image: registry.gitlab.com/gitlab-ci-utils/docker-puppeteer:node-14
 
 stages:
   - build
