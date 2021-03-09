@@ -3,7 +3,7 @@
 		<div class="account-navigation">
 			<h2>PROFILE</h2>
 			<ul>
-				<router-link tag="li" :to="item.link" v-for="item in profileNav" v-bind:key="item.id" 
+				<router-link tag="li" :to="item.link" v-for="item in profileNav" v-bind:key="item.id"
 				:class="{gold: item.link === '/deposit' }">
 					<img :src="item.icon" alt=""> <span>{{$t(item.text)}}</span>
 				</router-link>

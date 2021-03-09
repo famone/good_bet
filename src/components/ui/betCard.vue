@@ -10,6 +10,6 @@
 			<img src="../../assets/img/teleph.svg" alt="">
 			<a href="mailto:guest.relation@mail.com" class="mail">guest.relation@mail.com</a>
 		</div>
-		<router-link tag="button" to="/about" class="btn-cont">{{ $t('betCard.contacts') }}</router-link>
+		<router-link tag="a" to="/about" class="btn-cont">{{ $t('betCard.contacts') }}</router-link>
 	</div>
 </template>

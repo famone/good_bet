@@ -9,11 +9,11 @@
           </router-link>
           <ul>
             <router-link
-                tag="li"
+                tag="a"
                 :to="lnk.link"
                 v-for="lnk in menuLinks"
                 v-bind:key="lnk.id"
-                class="link">{{ $t(lnk.title) }}
+                class="link"><li>{{ $t(lnk.title) }}</li>
             </router-link>
           </ul>
         </div>
@@ -45,13 +45,13 @@
                 </option>
               </select>
             </div>
-            <router-link tag="button" to="/profile" class="settings">
+            <router-link tag="a" to="/profile" class="settings">
               <img src="../../assets/img/settings.svg" alt="">
             </router-link>
-            <router-link tag="button" to="/deposit" class="coins">
+            <router-link tag="a" to="/deposit" class="coins">
               <img src="../../assets/img/coinsgold.svg" alt="">
             </router-link>
-            <router-link tag="button" to="/favorite" class="coins">
+            <router-link tag="a" to="/favorite" class="coins">
               <img src="../../assets/img/like2.svg" alt="">
             </router-link>
             <button class="reg-btn" @click="logOut()">

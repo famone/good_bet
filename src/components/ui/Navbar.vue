@@ -4,15 +4,15 @@
       <div class="navbar-box" @click="chDynamicly($emit)">
         <router-link
             v-if="groups.length"
-            tag="div"
+            tag="a"
+            class="navbar-btn"
             :to=" '/game-groups/' + item.id"
-            class="navbar-btn text-center"
             v-for="item in groups"
             v-bind:key="item.id">
-
-          <img v-if="item.images.length" :src="item.images[0].url" alt="">
-
-          <p class="small-white">{{ item.name }}</p>
+          <div class="text-center">
+            <img v-if="item.images.length" :src="item.images[0].url" alt="">
+            <p class="small-white">{{ item.name }}</p>
+          </div>
         </router-link>
       </div>
     </div>
