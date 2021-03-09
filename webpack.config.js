@@ -1,11 +1,10 @@
 const path = require('path')
 const webpack = require('webpack')
-const ImageminPlugin = require('imagemin-webpack-plugin').default
-const TerserPlugin = require('terser-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
+const PrerenderSPAPlugin = require("prerender-spa-plugin");
 
 module.exports = {
 
@@ -96,5 +95,11 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.LoaderOptionsPlugin({
       minimize: true
     }),
+    new PrerenderSPAPlugin({
+      // Required - The path to the webpack-outputted app to prerender.
+      staticDir: path.join(__dirname, 'dist'),
+      // Required - Routes to render.
+      routes: [ '/', '/about', '/news' ],
+    })
   ])
 }
