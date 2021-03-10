@@ -3,9 +3,13 @@ import {API} from '../api'
 const bonuses = {
 	namespaced: true,
 	state: {
-		registrationBonuses: []
+		registrationBonuses: [],
+		all: []
 	},
 	mutations: {
+		SET_ALL(state, bonuses) {
+			state.all = bonuses
+		},
 		SET_REGISTRATION_BONUSES(state, bonuses) {
 			state.registrationBonuses = bonuses
 		},
@@ -25,8 +29,25 @@ const bonuses = {
 				})
 			});
 		},
+		loadAll({commit}) {
+			return new Promise((resolve, reject) => {
+				API.get('lab/bonuses', {
+					params: {
+						expand: 'banners, budgets, accrual_rules, wagering_rules, free_spin_rules',
+					}
+				}).then(response => {
+					commit('SET_REGISTRATION_BONUSES', response.data)
+					resolve(response)
+				}).catch(error => {
+					reject(error)
+				})
+			});
+		},
 	},
 	getters: {
+		getAll(state) {
+			return state.registrationBonuses
+		},
 		getRegistrationBonuses(state) {
 			return state.registrationBonuses
 		}

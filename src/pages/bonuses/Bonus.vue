@@ -45,25 +45,19 @@
 
 <script>
 import Navbar from "../../components/ui/Navbar";
-import {API} from "../../api";
+import {mapGetters} from "vuex";
 
 export default {
   components: {Navbar},
-  data() {
-    return {
-      bonus: false
-    }
+  computed: {
+    ...mapGetters({
+      bonus: "bonus/getBonus"
+    }),
   },
   created() {
     let routeId = parseInt(this.$route.params.id)
 
-    API.get('lab/bonuses/' + routeId, {
-      params: {
-        expand: 'banners, budgets, accrual_rules, wagering_rules, free_spin_rules',
-      }
-    }).then(response => {
-      this.bonus = response.data
-    })
+    this.$store.dispatch('bonus/loadBonusById', routeId)
   }
 }
 </script>
