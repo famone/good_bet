@@ -523,6 +523,7 @@ h3{
 	background: #1D1B49;
 	padding:30px;
 	transition: all .4s ease;
+	max-height: 190px;
 }
 .date{
 	font-size: 14px;
