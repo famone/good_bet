@@ -18,11 +18,10 @@
 
               <gameBox v-if="gamesArr.length" v-for="game in gamesArr" :game="game" v-bind:key="game.id"/>
 
-              <scroll-loader v-if="gamesArr.length" :loader-method="getGameList" :loader-disable="disableAutoLoading">
-                <p class="white-txt">{{ $t('main.loading') }}</p>
-              </scroll-loader>
-
             </div>
+            <scroll-loader v-if="gamesArr.length" :loader-method="getGameList" :loader-disable="disableAutoLoading">
+              <p class="white-txt">{{ $t('main.loading') }}</p>
+            </scroll-loader>
           </div>
         </div>
       </div>
