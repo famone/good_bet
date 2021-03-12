@@ -37,7 +37,7 @@ Sentry Finalize Release & Deploy:
 Build and deploy staging:
   stage: deploy
   before_script:
-    - apk add --no-cache rsync openssh
+    - apt-get install rsync openssh
     - mkdir -p ~/.ssh
     - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_dsa
     - chmod 600 ~/.ssh/id_dsa
