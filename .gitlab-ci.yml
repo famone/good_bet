@@ -1,7 +1,6 @@
 image: exileed/puppeteer:node-14
 
 stages:
-  - build
   - pre-deploy
   - deploy
   - post-deploy
@@ -15,18 +14,6 @@ variables:
 cache:
   paths:
     - node_modules/
-
-build:
-  stage: build
-  script:
-    - echo "Building deploy package"
-    - npm install --progress=false
-    - npm run build
-    - echo "Build successful"
-  artifacts:
-    expire_in: 1 hour
-    paths:
-      - dist
 
 Sentry Release:
   stage: pre-deploy
@@ -47,15 +34,20 @@ Sentry Finalize Release & Deploy:
   only:
     - main
 
-deploy_staging:
+Build and deploy staging:
   stage: deploy
-  image: alpine
-  script:
-    - apk add --no-cache rsync openssh
+  before_script:
+    - apt-get update -y
+    - apt-get -y install rsync openssh-client
     - mkdir -p ~/.ssh
     - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_dsa
     - chmod 600 ~/.ssh/id_dsa
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+  script:
+    - echo "Building deploy package"
+    - npm install --progress=false
+    - npm run build
+    - echo "Deploy package"
     - rsync -rav dist/ $SERVER:/var/www/goodbet/dist
   environment:
     name: staging
