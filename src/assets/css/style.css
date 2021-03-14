@@ -489,13 +489,16 @@ h3{
 #news{
 	padding-bottom: 60px;
 }
-#newsBg{
+.news-img-section{
 	height: 400px;
-	background-image: url(../img/slider1.png);
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
 	margin-bottom: 60px;
+}
+
+.news-img-section.defaultImg {
+	background-image: url(../img/slider1.png);
 }
 
 .news-row{
