@@ -28,10 +28,15 @@ import {mapGetters} from "vuex";
 export default {
   components: {Navbar},
   computed: {
-    ...mapGetters({news: "singleNews/getNews"}),
+    ...mapGetters({
+      news: "singleNews/getNews"
+    }),
   },
   created() {
     this.$store.dispatch('singleNews/loadById', parseInt(this.$route.params.id))
+  },
+  beforeDestroy() {
+    this.$store.dispatch('singleNews/reset')
   }
 }
 </script>
