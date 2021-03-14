@@ -80,11 +80,11 @@ API.getGuestToken = function (params) {
 API.loadPlayer = function() {
 	let userToken = JSON.parse(localStorage.getItem('userToken'))
 
+	let headers = API.defaults.headers.common;
+	headers['Authorization'] = 'Bearer ' + userToken.userToken;
 	return axios.get('players', {
 		baseURL: process.env.CASINO_APP_API_URL,
-		headers: {
-			Authorization: 'Bearer ' + userToken.userToken,
-		},
+		headers: headers,
 		params: {
 			expand: 'avatars,accounts,country,timezone'
 		}
