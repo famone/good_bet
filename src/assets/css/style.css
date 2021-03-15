@@ -1559,7 +1559,12 @@ tbody tr:nth-child(2n){
     cursor: pointer;
 }
 
-
+.account-box{
+	margin-bottom: 35px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
 
 
 
@@ -1579,7 +1584,9 @@ tbody tr:nth-child(2n){
 	}
 }
 @media (max-width: 1199px) {
-
+	.news-body{
+		min-height: 200px;
+	}
 }
 @media (max-width: 991px) {
 	
@@ -1687,6 +1694,9 @@ tbody tr:nth-child(2n){
 	.deposit-pop-box{
 		width: 90%;
 		overflow-y: scroll;
+	}
+	footer .logo{
+		height: 40px;
 	}
 }
 @media (max-width: 390px) {

@@ -15,7 +15,7 @@
                 <img src="../../assets/img/icons/nv6.svg" class="spin" alt="">
               </div>
 
-              <div class="col-lg-4 text-center" v-else v-for="method in paymentMethods.items">
+              <div class="col-lg-4 col-sm-6 text-center" v-else v-for="method in paymentMethods.items">
                 <div class="payment-card">
                   <img :src="method.images.items[0].url" v-if="method.images.length > 0" alt="">
                   <img src="../../assets/img/coin.svg" v-if="!method.images.length" class="logoimg" alt="">

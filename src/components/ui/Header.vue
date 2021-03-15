@@ -7,7 +7,7 @@
           <router-link tag="a" to="/">
             <img src="../../assets/img/logo.svg" class="logo" alt="">
           </router-link>
-          <ul class="hidden-xs">
+          <ul class="hidden-xs hidden-md hidden-sm">
             <router-link
                 tag="a"
                 :to="lnk.link"
@@ -18,7 +18,7 @@
           </ul>
         </div>
 
-        <div class="header-box-col al-center hidden-xs" v-if="player">
+        <div class="header-box-col al-center hidden-xs hidden-sm" v-if="player">
           <input type="text" class="search-inp" placeholder="Game name" @input="searchMethod" v-model="search">
           <div class="player-row">
             <div class="avatar" v-if="player.avatars.length !== 0"
@@ -62,7 +62,7 @@
         </div>
 
 
-        <div class="header-box-col al-center hidden-xs" v-else>
+        <div class="header-box-col al-center hidden-xs hidden-sm" v-else>
           <input type="text" class="search-inp" :placeholder="$t('games.gamesSearchFieldTitle')" @input="searchMethod"
                  v-model="search">
           <router-link tag="button" to="/enter" class="login-btn"><img src="../../assets/img/login.svg" alt="">
@@ -92,7 +92,7 @@
         <div class="header-box-col al-center">
           <lang-switcher/>
 
-          <div class="mobile-menu hidden-lg hidden-md" 
+          <div class="mobile-menu hidden-lg " 
           :class="{menuBtnAc: mobileMenuOpened}" @click="mobileMenuOpened = !mobileMenuOpened">
              <span></span>
              <span></span>

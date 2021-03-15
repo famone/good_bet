@@ -9,7 +9,7 @@
           <div class="col-lg-9">
             <div class="row">
               <div class="row ma-0">
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-sm-6">
                   <avatar-cropper
                       :upload-handler="avatarUploadHandler"
                       trigger="#pick-avatar"
@@ -33,7 +33,7 @@
                     <div class="edit-btn"></div>
                   </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-sm-6">
                   <div class="small-depo-box">
                     <div class="small-depo-box-in">
                       <router-link tag="div" to="/cash-withdrawal" class="minusik"></router-link>

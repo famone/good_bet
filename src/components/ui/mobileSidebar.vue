@@ -4,9 +4,44 @@
 		<router-link tag="a" to="/" >
             <img src="../../assets/img/logo.svg" class="logo" @click="closeMobileSidebar($emit)">
           </router-link>
+
+
+
+    <div class="sidebar-box" @click="closeMobileSidebar($emit)" v-if="player">
+      
+          <div class="account-box">
+            <div class="avatar" v-if="player.avatars.length !== 0"
+                 @click="showChat = !showChat"
+                 :style="{'background-image': 'url(' + player.avatars.items[0].url + ')'}">
+              <div v-if="unreadMessageCount > 0" class="ring"></div>
+              <!-- <miniChat v-if="showChat"/> -->
+            </div>
+        
+        <div class="avatar" v-else @click="showChat = !showChat">
+              <div v-if="unreadMessageCount > 0" class="ring"></div>
+              <miniChat v-if="showChat"/>
+              <span>{{ player.nickname.substr(0, 1) }}</span>
+        </div>
+        <p class="small-white" style="font-size: 14px;">{{ player.nickname }}</p>
+          </div>
+
+
+            <router-link tag="a" to="/profile" class="settings">
+              <img src="../../assets/img/settings.svg" alt="">
+            </router-link>
+            <router-link tag="a" to="/deposit" class="coins">
+              <img src="../../assets/img/coinsgold.svg" alt="">
+            </router-link>
+            <router-link tag="a" to="/favorite" class="coins">
+              <img src="../../assets/img/like2.svg" alt="">
+            </router-link>
+            <button class="reg-btn" @click="logOut()">
+              <img src="../../assets/img/loguot.svg" style="margin: 0;" alt="">
+            </button>
+    </div>
      
 
-    <div class="sidebar-box" @click="closeMobileSidebar($emit)">
+    <div class="sidebar-box" @click="closeMobileSidebar($emit)" v-else>
       <router-link tag="button" to="/enter" class="login-btn"><img src="../../assets/img/login.svg" alt="">
             {{ $t('main.loginUPPER') }}
           </router-link>
@@ -59,11 +94,29 @@
 
 
 <script>
+import {mapGetters} from 'vuex'
+
   export default{
     methods: {
       closeMobileSidebar(){
         this.$emit('closeMobileSidebar')
+      },
+      logOut() {
+      this.$store.dispatch('auth/logOut')
+          .then(() => {
+            this.$router.replace("/enter");
+          });
       }
+    },
+    computed: {
+       ...mapGetters({
+          player: "player/getCurrent",
+          messages: "messages/getMessages",
+          searchResults: "games/getSearchResult",
+          unreadMessageCount: "messages/getUnread",
+          isAuth: "auth/getAuthenticated",
+          counter: "counter/get"
+        }),
     }
   }
 </script>

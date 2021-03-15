@@ -25,7 +25,7 @@
             </div>-->
 
             <div class="row-bonuses" v-if="activeBonusList && activeBonusTab">
-              <div v-for="bon in activeBonusList" class="col-lg-4">
+              <div v-for="bon in activeBonusList" class="col-lg-4 col-sm-6">
                 <div class="news-card">
 
                   <!-- <pre>{{bon}}</pre> -->
@@ -48,7 +48,7 @@
 
 
             <div class="row-bonuses" v-if=" availableBonusList && !activeBonusTab">
-              <div v-for="bon in availableBonusList" class="col-lg-4">
+              <div v-for="bon in availableBonusList" class="col-lg-4 col-sm-6">
                 <div class="news-card">
 
                   <!-- <pre>{{bon}}</pre> -->

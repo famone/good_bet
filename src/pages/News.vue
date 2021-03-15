@@ -8,7 +8,7 @@
           <img src="../assets/img/icons/nv6.svg" class="spin">
         </div>
 
-        <div class="col-lg-4" v-for="item in news" v-bind:key="item.id">
+        <div class="col-lg-4 col-sm-6" v-for="item in news" v-bind:key="item.id">
           <div class="news-card">
             <div class="news-img">
               <div class="read-news">

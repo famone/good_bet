@@ -17,7 +17,7 @@
                 </div>
 
 
-                <div class="col-lg-3" v-else v-for="network in networks">
+                <div class="col-lg-3 col-sm-4" v-else v-for="network in networks">
                   <div class="document-box text-center">
                     <div class="text-center">
                       <h3>{{ network.network }}</h3>
@@ -36,7 +36,7 @@
             <div class="row" v-if="availableNetworkList()">
               <h2>{{ $t('social.add_social') }}</h2>
 
-              <div class="col-lg-3" v-for="network in availableNetworkList()">
+              <div class="col-lg-3 col-sm-4" v-for="network in availableNetworkList()">
                 <div class="document-box text-center">
                   <div class="text-center">
                     <h3>{{ network }}</h3>

@@ -14,7 +14,7 @@
               <div class="col-lg-12 text-center" v-if="!documents">
                 <img src="../../assets/img/icons/nv6.svg" class="spin" alt="">
               </div>
-              <div class="col-lg-3" v-else v-for="doc in documents">
+              <div class="col-lg-3 col-sm-4" v-else v-for="doc in documents">
                 <div class="document-box text-center">
                   <div class="text-center">
 

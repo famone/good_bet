@@ -16,7 +16,7 @@
               </div>
 
 
-              <div class="col-lg-3" v-else v-for="account in player.accounts.items">
+              <div class="col-lg-3 col-sm-4" v-else v-for="account in player.accounts.items">
                 <div class="document-box text-center">
                   <div class="text-center">
                     <img src="../../assets/img/success.svg" class="status-icon"

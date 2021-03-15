@@ -30,7 +30,7 @@
                      :class="{checked : checkedBonusId === bonus.id}">
                   <div class="ch-box" @click="input.value = bonus.id; checkedBonusId = bonus.id "></div>
                   <p style="color: red;"></p>
-                  <div>
+                  <div class="description">
                     <p class="white-txt">{{ bonus.title }}</p>
                     <p class="small-white" v-if="bonus.id === checkedBonusId"
                        @click="readBonus(bonus)">Read More</p>
@@ -214,7 +214,9 @@ export default {
   margin-bottom: 5px;
   border-bottom: 1px rgba(255, 255, 255, .1) solid;
 }
-
+.bonus-select .description{
+  width: 80%;
+}
 .bonus-select .small-white {
   text-decoration: underline;
   transition: all .3s ease;
