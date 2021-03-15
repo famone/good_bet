@@ -297,7 +297,7 @@ header li{
 .swiper-container{
 	overflow:inherit!important;
 }
-.swiper-container:before{
+/*.swiper-container:before{
 	z-index: 1;
 	opacity: 0.4;
 	position: absolute;
@@ -308,7 +308,7 @@ header li{
 	width: 100%;
 	content: '';
 	background-color: #000;
-}
+}*/
 .swiper-pagination{
 	position: absolute;
 	width: 100%;
@@ -339,7 +339,7 @@ header li{
 .slider-row{
 	position: relative;
 }
-.slider-row:before{
+/*.slider-row:before{
 	z-index: 0;
 	opacity: 0.35;
 	position: absolute;
@@ -350,7 +350,7 @@ header li{
 	width: 100%;
 	content: '';
 	background-color: #CE36C9;
-}
+}*/
 
 .button-next, .button-prev{
 	background-color: #110F2B;
