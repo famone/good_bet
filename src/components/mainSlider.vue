@@ -1,81 +1,73 @@
 <template>
-	<section id="mainSlider">
-		<div class="container">
-			<div class="row slider-row">
-				<img src="../assets/img/blurcoins.svg" class="blur-coins">
-				<img src="../assets/img/smallbone.svg" class="small-bone">
-				<img src="../assets/img/blur-pastic.svg" class="blur-plastic">
+  <section id="mainSlider">
+    <div class="container">
+      <div class="row slider-row">
+        <img src="../assets/img/blurcoins.svg" class="blur-coins">
+        <img src="../assets/img/smallbone.svg" class="small-bone">
+        <img src="../assets/img/blur-pastic.svg" class="blur-plastic">
 
-				<swiper ref="mySwiper" :options="swiperOptions">
-		    		<swiper-slide v-for="item in slider" v-bind:key="item.id">
-			    		<div class="slider-banner" :style="{'background-image': 'url(' + item.image.url + ')'}">
-			    		</div>
-		    		</swiper-slide>
-		    <div class="swiper-pagination"></div>
-		    
-		</swiper>
-		<!-- btns -->
-		    <div class="nav-btns">
-				<div class="button-prev"></div>
-		    	<div class="button-next"></div>
-		    </div>
-				
-			</div>
-		</div>
-	</section>
+        <swiper ref="mySwiper" :options="swiperOptions">
+          <swiper-slide v-for="item in slider" v-bind:key="item.id">
+            <router-link tag="a" :to="item.body" class="main-slider-slide-link">
+              <div class="slider-banner" :style="{'background-image': 'url(' + item.image.url + ')'}"></div>
+            </router-link>
+          </swiper-slide>
+          <div class="swiper-pagination"></div>
+
+        </swiper>
+        <!-- btns -->
+        <div class="nav-btns">
+          <div class="button-prev"></div>
+          <div class="button-next"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
 </template>
 
 
 <script>
 import {mapGetters} from 'vuex'
 
-	export default{
-		data(){
-			return{
-				slides: [
-					{
-						img: require('../assets/img/slider2.png')
-					},
-					{
-						img: require('../assets/img/slider1.png')
-					},
-					{
-						img: require('../assets/img/slider2.png')
-					},
-
-				],
-				swiperOptions: {
-                  slidesPerView: 1,
-                  spaceBetween: 0,
-                  draggable: true,
-                  loop: true,    
-                  infinite: true,
-                  speed: 1000,
-                  centeredSlides: true,
-                  effect: 'fade',
-                  pagination: {
-			        el: '.swiper-pagination',
-			        clickable: true,
-			      },
-			      autoplay: {
-			        delay: 2500,
-			        disableOnInteraction: false,
-			      },
-			      navigation: {
-			        nextEl: '.button-next',
-			        prevEl: '.button-prev',
-			      },
-            	}
-			}
-		},
-		computed: {
-			swiper(){
-	       		return this.$refs.mySwiper.$swiper
-	    	},
-	    	...mapGetters({ slider: "slider/getAll"}),
-		},
-		created() {
-      this.$store.dispatch("slider/loadAll");
+export default {
+  data() {
+    return {
+      swiperOptions: {
+        slidesPerView: 1,
+        spaceBetween: 0,
+        draggable: true,
+        loop: true,
+        infinite: true,
+        speed: 1000,
+        centeredSlides: true,
+        effect: 'fade',
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: true,
+        },
+        navigation: {
+          nextEl: '.button-next',
+          prevEl: '.button-prev',
+        },
+      }
     }
+  },
+  computed: {
+    ...mapGetters({slider: "slider/getAll"}),
+  },
+  created() {
+    this.$store.dispatch("slider/loadAll");
   }
+}
 </script>
+
+<style>
+.main-slider-slide-link {
+  display: block;
+}
+</style>
