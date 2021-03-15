@@ -2,14 +2,14 @@
 	<section id="mainSlider">
 		<div class="container">
 			<div class="row slider-row">
-				<img src="../assets/img/blurcoins.svg" class="blur-coins hidden-xs hidden-sm hidden-md">
-				<img src="../assets/img/smallbone.svg" class="small-bone hidden-xs hidden-sm hidden-md">
-				<img src="../assets/img/blur-pastic.svg" class="blur-plastic hidden-xs hidden-sm hidden-md">
+				<img src="../assets/img/blurcoins.svg" class="blur-coins hidden-xs hidden-sm hidden-md" alt="">
+				<img src="../assets/img/smallbone.svg" class="small-bone hidden-xs hidden-sm hidden-md" alt="">
+				<img src="../assets/img/blur-pastic.svg" class="blur-plastic hidden-xs hidden-sm hidden-md" alt="">
 
         <swiper ref="mySwiper" :options="swiperOptions">
           <swiper-slide v-for="item in slider" v-bind:key="item.id">
             <router-link tag="a" :to="item.body" class="main-slider-slide-link">
-              <div class="slider-banner" :style="{'background-image': 'url(' + item.image.url + ')'}"></div>
+              <div class="slider-banner" :style="{'background-image': 'url(\'' + item.image.url + '\')'}"></div>
             </router-link>
           </swiper-slide>
           <div class="swiper-pagination"></div>
