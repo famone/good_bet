@@ -1,7 +1,7 @@
 <template>
   <section id="mainSlider">
     <div class="container">
-      <div class="row slider-row" v-if="imagesLoaded">
+      <div class="row slider-row">
         <img src="../assets/img/blurcoins.svg" class="blur-coins hidden-xs hidden-sm hidden-md">
         <img src="../assets/img/smallbone.svg" class="small-bone hidden-xs hidden-sm hidden-md">
         <img src="../assets/img/blur-pastic.svg" class="blur-plastic hidden-xs hidden-sm hidden-md">
