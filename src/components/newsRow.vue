@@ -48,10 +48,10 @@ export default {
     }
   },
   computed: {
-    swiper() {
-      return this.$refs.mySwiper2.$swiper
-    },
     ...mapGetters({news: "news/getAll"}),
+  },
+  created() {
+    this.$store.dispatch('news/loadAll')
   }
 }
 </script>

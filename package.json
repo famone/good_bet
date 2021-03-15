@@ -17,7 +17,6 @@
     "filepond": "^4.25.1",
     "fs": "0.0.1-security",
     "imagemin-webpack-plugin": "^2.4.2",
-    "prerender-spa-plugin": "^3.4.0",
     "swiper": "^5.4.5",
     "vue": "^2.6.12",
     "vue-awesome-swiper": "^4.1.1",
