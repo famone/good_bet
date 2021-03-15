@@ -65,16 +65,16 @@
 
 		<h5>GAMES</h5>
 			<ul @click="closeMobileSidebar($emit)">
-            	<router-link tag="a" to="/game-groups/124"><li>{{ $t('main.recommended') }}</li></router-link>
-                <router-link tag="a" to="/game-groups/125"><li>{{ $t('main.new') }}</li></router-link>
-                <router-link tag="a" to="/game-groups/115"><li>{{ $t('main.popular') }}</li></router-link>
-                <router-link tag="a" to="/game-groups/126"><li>{{ $t('main.slots') }}</li></router-link>
-                <router-link tag="a" to="/game-groups/127"><li>{{ $t('main.liveGame') }}</li></router-link>
-                <router-link tag="a" to="/game-groups/128"><li>{{ $t('main.roulette') }}</li></router-link>
-                <router-link tag="a" to="/game-groups/129"><li>{{ $t('main.card') }}</li></router-link>
-                <router-link tag="a" to="/game-groups/130"><li>{{ $t('main.virtualSport') }}</li></router-link>
-                <router-link tag="a" to="/game-groups/131"><li>{{ $t('main.loto') }}</li></router-link>
-                <router-link tag="a" to="/game-groups/132"><li>{{ $t('main.tableGames') }}</li></router-link>
+            	<router-link tag="a" to="/game-groups/124"><li><img src="../../assets/img/icons/nv1.svg">{{ $t('main.recommended') }}</li></router-link>
+                <router-link tag="a" to="/game-groups/125"><li><img src="../../assets/img/icons/nv2.svg">{{ $t('main.new') }}</li></router-link>
+                <router-link tag="a" to="/game-groups/115"><li><img src="../../assets/img/icons/nv3.svg">{{ $t('main.popular') }}</li></router-link>
+                <router-link tag="a" to="/game-groups/126"><li><img src="../../assets/img/icons/nv4.svg">{{ $t('main.slots') }}</li></router-link>
+                <router-link tag="a" to="/game-groups/127"><li><img src="../../assets/img/icons/nv5.svg">{{ $t('main.liveGame') }}</li></router-link>
+                <router-link tag="a" to="/game-groups/128"><li><img src="../../assets/img/icons/nv6.svg">{{ $t('main.roulette') }}</li></router-link>
+                <router-link tag="a" to="/game-groups/129"><li><img src="../../assets/img/icons/nv7.svg">{{ $t('main.card') }}</li></router-link>
+                <router-link tag="a" to="/game-groups/130"><li><img src="../../assets/img/icons/nv8.svg">{{ $t('main.virtualSport') }}</li></router-link>
+                <router-link tag="a" to="/game-groups/131"><li><img src="../../assets/img/icons/nv9.svg">{{ $t('main.loto') }}</li></router-link>
+                <router-link tag="a" to="/game-groups/132"><li><img src="../../assets/img/icons/nv10.svg">{{ $t('main.tableGames') }}</li></router-link>
 			</ul>
 			<br>
 
