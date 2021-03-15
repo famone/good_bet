@@ -43,9 +43,9 @@ import {mapGetters} from 'vuex'
                   speed: 800,
                   centeredSlides: false,
                   pagination: {
-      			        el: '.swiper-pagination',
-      			        clickable: true,
-      			      },
+			        el: '.swiper-pagination',
+			        clickable: true,
+			      },
 			      autoplay: {
 			        delay: 2500,
 			        disableOnInteraction: false,

@@ -27,8 +27,16 @@ export default {
     ...mapGetters({
       popularGames: "games/getPopular",
       slotsGames: "games/getSlots",
-      recommendedGames: "games/getRecommended"
+      recommendedGames: "games/getRecommended",
+      currentLang: 'lang/getCurrent'
     }),
+  },
+  watch: {
+    currentLang() {
+      this.$store.dispatch("games/loadPopular");
+      this.$store.dispatch("games/loadRecommended");
+      this.$store.dispatch("games/loadSlots");
+    },
   },
   created() {
     this.$store.dispatch("games/loadPopular");
