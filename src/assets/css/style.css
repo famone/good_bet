@@ -1612,6 +1612,10 @@ tbody tr:nth-child(2n){
 	height: 16px;
 	background-color: #19173a;
 }
+.slider-skeleton{
+	height: 450px;
+	border-radius: 30px;
+}
 
 
 .skeleton {
