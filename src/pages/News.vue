@@ -8,9 +8,9 @@
           <img src="../assets/img/icons/nv6.svg" class="spin">
         </div>
 
-        <div class="col-lg-4 col-sm-6" v-for="item in news" v-bind:key="item.id">
+        <div class="col-lg-4 col-sm-6" v-if="news" v-for="item in news" v-bind:key="item.id">
           <div class="news-card">
-            <div class="news-img">
+            <div class="news-img" :style="{backgroundImage: 'url(\'' + (item.image.url ? item.image.url : 'slider1.png') +'\')'}">
               <div class="read-news">
                 <router-link tag="div" :to=" '/news/' + item.id " class="read-btn">
                   <img src="../assets/img/see.svg" alt="">

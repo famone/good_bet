@@ -6,23 +6,24 @@
 				<img src="../assets/img/smallbone.svg" class="small-bone hidden-xs hidden-sm hidden-md">
 				<img src="../assets/img/blur-pastic.svg" class="blur-plastic hidden-xs hidden-sm hidden-md">
 
-				<swiper ref="mySwiper" :options="swiperOptions">
-		    		<swiper-slide v-for="item in slider" v-bind:key="item.id">
-			    		<div class="slider-banner" :style="{'background-image': 'url(' + item.image.url + ')'}">
-			    		</div>
-		    		</swiper-slide>
-		    <div class="swiper-pagination"></div>
-		    
-		</swiper>
-		<!-- btns -->
-		    <div class="nav-btns">
-				<div class="button-prev"></div>
-		    	<div class="button-next"></div>
-		    </div>
-				
-			</div>
-		</div>
-	</section>
+        <swiper ref="mySwiper" :options="swiperOptions">
+          <swiper-slide v-for="item in slider" v-bind:key="item.id">
+            <router-link tag="a" :to="item.body" class="main-slider-slide-link">
+              <div class="slider-banner" :style="{'background-image': 'url(' + item.image.url + ')'}"></div>
+            </router-link>
+          </swiper-slide>
+          <div class="swiper-pagination"></div>
+
+        </swiper>
+        <!-- btns -->
+        <div class="nav-btns">
+          <div class="button-prev"></div>
+          <div class="button-next"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
 </template>
 
 
@@ -32,22 +33,10 @@ import {mapGetters} from 'vuex'
 	export default{
 		data(){
 			return{
-				slides: [
-					{
-						img: require('../assets/img/slider2.png')
-					},
-					{
-						img: require('../assets/img/slider1.png')
-					},
-					{
-						img: require('../assets/img/slider2.png')
-					},
-
-				],
 				swiperOptions: {
                   slidesPerView: 1,
                   spaceBetween:30,
-                  loop: true,    
+                  loop: true,
                   touchRatio: 1,
                   infinite: true,
                    effect: 'slide',
@@ -69,13 +58,16 @@ import {mapGetters} from 'vuex'
 			}
 		},
 		computed: {
-			swiper(){
-	       		return this.$refs.mySwiper.$swiper
-	    	},
-	    	...mapGetters({ slider: "slider/getAll"}),
+	    	...mapGetters({slider: "slider/getAll"}),
 		},
 		created() {
       this.$store.dispatch("slider/loadAll");
     }
   }
 </script>
+
+<style>
+.main-slider-slide-link {
+  display: block;
+}
+</style>

@@ -4,7 +4,7 @@
 				<swiper ref="mySwiper2" :options="swiperOptions" v-if="news">
 				    <swiper-slide v-for="item in news" v-bind:key="item.id">
 				    	<div class="news-card">
-				    		<div class="news-img">
+				    		<div class="news-img" :style="{backgroundImage: 'url(\'' + (item.image.url ? item.image.url : 'slider1.png') +'\')'}">
 				    			<div class="read-news">
 				    				<router-link tag="a" :to="'/news/' + item.id" class="read-btn">
 				    					<img src="../assets/img/see.svg" alt="">

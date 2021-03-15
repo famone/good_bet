@@ -231,6 +231,7 @@ export default {
   },
   watch: {
     currentLang() {
+      this.$store.dispatch('player/loadCurrent')
       this.$store.dispatch('timezones/loadAll')
       this.$store.dispatch('countries/loadAll')
     },
