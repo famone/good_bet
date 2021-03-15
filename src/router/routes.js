@@ -100,7 +100,10 @@ const routes = [
 	},
 	{
 		path: '/favorite',
-		component: Favorite
+		component: Favorite,
+		meta: {
+			playerAuth: true
+		}
 	},
 	{
 		path: '/news/:id',

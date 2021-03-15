@@ -191,9 +191,15 @@ export default {
       this.$store.dispatch('games/emptySearch')
     },
     updateMessageCount() {
-      const self = this;
-      this.updateMessageCountInterval = setInterval(function () {
-        self.$store.dispatch('messages/getUnreadCount')
+      this.updateMessageCountInterval = setInterval(() => {
+        this.$store.dispatch('messages/getUnreadCount').catch(error => {
+          if (error.response.status === 403) {
+            this.$store.dispatch('auth/logOut').then(() => {
+              this.$router.push('/enter')
+              clearInterval(this.updateMessageCountInterval)
+            })
+          }
+        })
       }, 3000);
     },
   },

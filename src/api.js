@@ -129,6 +129,7 @@ API.interceptors.response.use(null, function (error) {
 			//todo refactor me
 			localStorage.removeItem("player");
 			localStorage.removeItem("appToken");
+			localStorage.removeItem("userToken");
 
 			let credentials = {
 				grant_type: "client_credentials",
