@@ -7,6 +7,91 @@ body{
 }
 
 /*HEADER*/
+
+.mobile-sidebar{
+	height: 100%;
+	width: 300px;
+	background-color: #0b0a1b;
+	position: fixed;
+	left: -300px;
+	top: 0;
+	transition: all .3s ease;
+	padding:35px;
+	overflow-y: scroll;
+}
+.mobSideAc{
+	left: 0;
+}
+.mobile-sidebar .reg-btn{
+	height: unset;
+}
+
+.mobile-sidebar ul{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	display: block;
+}
+.mobile-sidebar li{
+	font-size: 11px;
+	font-weight: 400;
+	color: #BFBFBF;
+	letter-spacing: 0.17em;
+	margin-bottom: 25px;
+	cursor: pointer;
+	transition: all .3s ease;
+	text-transform: uppercase;
+	padding:0;
+}
+.mobile-sidebar li:hover{
+	color: #4D2ADC;
+	text-decoration: underline;
+}
+
+
+.mobile-menu{
+	height: 52px;
+	width: 52px;
+	border-radius: 9px;
+	background: #4D2ADC;
+	position: relative;
+	margin-left: 15px;
+}
+.mobile-menu span{
+	position: absolute;
+	left: 9px;
+	top: 25px;
+	height: 2px;
+	width: 34px;
+	background: #fff;
+	border-radius: 2px;
+	transition: all .3s ease;
+}
+.mobile-menu span:first-child{
+	top: 14px;
+}
+.mobile-menu span:last-child{
+	top: 36px;
+}
+.menuBtnAc span{
+	transform: rotate(135deg);
+	opacity: 0;
+}
+.menuBtnAc span:last-child{
+	transform: rotate(135deg);
+	opacity: 1;
+	top: 25px;
+}
+.menuBtnAc span:first-child{
+	transform: rotate(-135deg);
+	opacity: 1;
+	top: 25px;
+}
+
+
+
+
+
 header{
 	width: 100%;
 	position: fixed;
@@ -14,7 +99,6 @@ header{
 	left: 0;
 	transition: all .4s ease;
 	z-index: 50;
-
 }
 .stickyHeader{
 	top: 0;
@@ -534,6 +618,7 @@ h3{
 }
 .news-body h3{
 	margin-bottom: 7px;
+	height: 38px;
 }
 .news-descr{
 	font-size: 16px;
@@ -1448,6 +1533,44 @@ tbody tr:nth-child(2n){
 }
 
 
+.sidebar-box{
+	margin: 45px 0;
+}
+
+
+.mes-pop{
+	position: fixed;
+    z-index: 150;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0, .7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}	
+.mes-pop-box{
+	background-color: #1A1840;
+    border-radius: 30px;
+    padding: 20px;
+    width: 50%;
+    position: relative;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*ADAPTIIIIIIIIIV*/
 
 @media (min-width: 1200px){
@@ -1471,7 +1594,100 @@ tbody tr:nth-child(2n){
 	
 }
 @media (max-width: 512px) {
-	
+	.about-box{
+		padding: 20px 25px;
+	}
+	.slider-row{
+		margin-right: 0;
+		margin-left: 0;
+	}
+	.slider-banner{
+		height: 200px;
+	}
+	.navbar-box{
+		display: flex;
+		border-radius: 10px 10px 0 0;
+    	overflow-x: scroll!important;
+    	padding-bottom: 10px;
+	}
+	.navbar-btn{
+		width: 150px;
+	}
+	#mainSlider {
+    	margin: 100px 0 45px 0;
+	}
+	.form-box{
+		padding: 20px;
+	}
+	.remember{
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+	.remember-me{
+		margin-bottom: 20px;
+	}
+	header{
+		top: 0px!important;
+		padding:8px 0!important;
+		background-color: #1D1B49!important;
+	}
+	h2{
+		font-size: 17px;
+	}
+	.button-next {
+		margin-right:-10px;
+	}
+	.button-prev {
+		margin-left:-10px;
+	}
+	#groupPage{
+		padding-top:80px;
+	}
+	.swiper-container{
+		overflow: hidden!important;
+	}
+	#faq{
+		padding-top: 100px;
+	}
+	#about{
+		padding-top: 100px;
+	}
+	#news{
+		padding-top: 100px;
+	}
+	#policy{
+		padding-top: 100px;
+	}
+	#bonus-list{
+		padding-top: 100px;
+	}
+	#account{
+		padding-top: 85px;
+	}
+	.mes-pop-box{
+		width: 90%;
+		overflow-y: scroll;
+		overflow-x: hidden;
+		max-height: 80%;
+	}
+	.cross{
+		top: -10px;
+		right: -10px
+	}
+	#bonus-content{
+		padding-top: 100px;
+	}
+	#bonus-content .save-btn{
+		margin-top: 15px;
+		width: 100%;
+	}
+	.switch-btn{
+		margin-right: 15px;
+	}
+	.deposit-pop-box{
+		width: 90%;
+		overflow-y: scroll;
+	}
 }
 @media (max-width: 390px) {
 	
@@ -1511,3 +1727,82 @@ a:focus{
 	max-width: 1360px!important;
 }*/
 
+
+.navbar-box::-webkit-scrollbar {
+	height: 5px;
+	margin: 0;
+	border-radius: 0px;
+}
+
+/* Track */
+.navbar-box::-webkit-scrollbar-track {
+	background: #272459;
+	border-radius: 0px;
+}
+
+/* Handle */
+.navbar-box::-webkit-scrollbar-thumb {
+	background: #db9e3f;
+	border-radius: 20px;
+}
+
+/* Handle on hover */
+.navbar-box::-webkit-scrollbar-thumb:hover {
+	background: #EF7F1A;
+	border-radius: 20px;
+}
+
+
+.lang-flags{
+	height: 52px;
+	width: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #0c0b25;
+	border-radius: 4px;
+	cursor: pointer;
+	position: relative;
+}
+.lang-flags img{
+	height: 20px;
+}
+.lang-drop{
+	position: absolute;
+	width: 100%;
+	top: calc(100% - 2px);
+	left: 0;
+	background: #0c0b25;
+	z-index: 120;
+	display: none;
+}
+.lang-flags:hover .lang-drop{
+	display: block;
+}
+.flag{
+	transition: all .3s ease;
+	height: 40px;
+	width: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #0c0b25;
+	cursor: pointer;
+	position: relative;
+}
+.flag:hover{
+	background: #4D2ADC;
+}
+.flag span{
+	height: 20px;
+	width: 20px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.en{
+	background-image: url(../img/lang_en.svg);
+}
+.ru{
+	background-image: url(../img/lang_ru.svg);
+}

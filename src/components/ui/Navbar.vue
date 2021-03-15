@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar" :class="{ma140 : this.$route.path !== '/'}">
+  <div class="navbar hidden-xs" :class="{ma140 : this.$route.path !== '/'}">
     <div class="container">
       <div class="navbar-box" @click="chDynamicly($emit)">
         <router-link

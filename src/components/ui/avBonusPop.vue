@@ -34,23 +34,3 @@
 	}
 </script>
 
-<style>
-.mes-pop{
-	position: fixed;
-    z-index: 150;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgb(0, 0, 0, .7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}	
-.mes-pop-box{
-	background-color: #1A1840;
-    border-radius: 30px;
-    padding: 20px;
-    width: 50%;
-}
-</style>

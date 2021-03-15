@@ -1,11 +1,20 @@
 <template>
-  <div class="locale-changer">
+  <!-- <div class="locale-changer">
     <select v-model="$root.$i18n.locale" @change="switchLocale">
       <option v-for="(lang, i) in locales" :key="`Lang${i}`" :value="lang">
         {{ lang }}
       </option>
     </select>
-  </div>
+  </div> -->
+        <div class="lang-flags">
+          <img src="../../assets/img/lang_en.svg" v-if="$root.$i18n.locale === 'en' ">
+          <img src="../../assets/img/lang_ru.svg" v-else="">
+          <div class="lang-drop">
+            <div class="flag" v-for="lang in locales" @click="switchLocale(lang)">
+              <span :class="lang"></span>
+            </div>
+          </div>
+        </div>
 </template>
 
 <script>
@@ -18,9 +27,10 @@ export default {
     }
   },
   methods: {
-    switchLocale($event) {
-      this.$store.dispatch('lang/setCurrent', $event.target.value).then(r => {
-        localStorage.setItem('selectedLang', $event.target.value)
+    switchLocale(lang) {
+      this.$root.$i18n.locale = lang
+      this.$store.dispatch('lang/setCurrent', lang).then(r => {
+        localStorage.setItem('selectedLang', lang)
       })
     }
   },

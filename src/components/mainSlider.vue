@@ -2,9 +2,9 @@
 	<section id="mainSlider">
 		<div class="container">
 			<div class="row slider-row">
-				<img src="../assets/img/blurcoins.svg" class="blur-coins">
-				<img src="../assets/img/smallbone.svg" class="small-bone">
-				<img src="../assets/img/blur-pastic.svg" class="blur-plastic">
+				<img src="../assets/img/blurcoins.svg" class="blur-coins hidden-xs">
+				<img src="../assets/img/smallbone.svg" class="small-bone hidden-xs">
+				<img src="../assets/img/blur-pastic.svg" class="blur-plastic hidden-xs">
 
 				<swiper ref="mySwiper" :options="swiperOptions">
 		    		<swiper-slide v-for="item in slider" v-bind:key="item.id">
@@ -46,13 +46,13 @@ import {mapGetters} from 'vuex'
 				],
 				swiperOptions: {
                   slidesPerView: 1,
-                  spaceBetween: 0,
-                  draggable: true,
+                  spaceBetween:30,
                   loop: true,    
+                  touchRatio: 1,
                   infinite: true,
-                  speed: 1000,
-                  centeredSlides: true,
-                  effect: 'fade',
+                   effect: 'slide',
+                  speed: 800,
+                  centeredSlides: false,
                   pagination: {
 			        el: '.swiper-pagination',
 			        clickable: true,

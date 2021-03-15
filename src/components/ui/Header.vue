@@ -7,7 +7,7 @@
           <router-link tag="a" to="/">
             <img src="../../assets/img/logo.svg" class="logo" alt="">
           </router-link>
-          <ul>
+          <ul class="hidden-xs">
             <router-link
                 tag="a"
                 :to="lnk.link"
@@ -18,7 +18,7 @@
           </ul>
         </div>
 
-        <div class="header-box-col al-center" v-if="player">
+        <div class="header-box-col al-center hidden-xs" v-if="player">
           <input type="text" class="search-inp" placeholder="Game name" @input="searchMethod" v-model="search">
           <div class="player-row">
             <div class="avatar" v-if="player.avatars.length !== 0"
@@ -62,7 +62,7 @@
         </div>
 
 
-        <div class="header-box-col al-center" v-else>
+        <div class="header-box-col al-center hidden-xs" v-else>
           <input type="text" class="search-inp" :placeholder="$t('games.gamesSearchFieldTitle')" @input="searchMethod"
                  v-model="search">
           <router-link tag="button" to="/enter" class="login-btn"><img src="../../assets/img/login.svg" alt="">
@@ -89,7 +89,16 @@
           </div>
         </div>
 
-        <lang-switcher/>
+        <div class="header-box-col al-center">
+          <lang-switcher/>
+
+          <div class="mobile-menu hidden-lg hidden-md" 
+          :class="{menuBtnAc: mobileMenuOpened}" @click="mobileMenuOpened = !mobileMenuOpened">
+             <span></span>
+             <span></span>
+              <span></span>
+          </div>
+        </div>
 
 
       </div>
@@ -98,6 +107,9 @@
     <messagePop v-if="activeMessage !== '' "
                 :activeMessage="activeMessage"
                 @closeMessage="closeMessage"/>
+
+
+    <mobileSidebar :class="{mobSideAc : mobileMenuOpened}" @closeMobileSidebar="closeMobileSidebar" />
 
 
   </header>
@@ -109,9 +121,10 @@ import {mapGetters} from 'vuex'
 import LangSwitcher from "./LangSwitcher";
 import miniChat from '../ui/miniChat.vue'
 import messagePop from '../ui/messagePop.vue'
+import mobileSidebar from '../ui/mobileSidebar.vue'
 
 export default {
-  components: {LangSwitcher, miniChat, messagePop},
+  components: {LangSwitcher, miniChat, messagePop, mobileSidebar},
   computed: {
     ...mapGetters({
       player: "player/getCurrent",
@@ -145,6 +158,9 @@ export default {
     },
   },
   methods: {
+    closeMobileSidebar(){
+      this.mobileMenuOpened = false
+    },
     closeMessage() {
       this.activeMessage = ''
     },
@@ -201,6 +217,7 @@ export default {
   },
   data() {
     return {
+      mobileMenuOpened: false,
       updateMessageCountInterval: null,
       activeMessage: '',
       showChat: false,
@@ -234,7 +251,10 @@ export default {
     window.addEventListener('scroll', () => {
       let winScroll = document.documentElement.scrollTop;
 
-      this.stickyHeader = (winScroll > 5);
+
+        this.stickyHeader = (winScroll > 5);
+
+      
     })
   },
   created() {
