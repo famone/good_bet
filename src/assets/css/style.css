@@ -60,7 +60,7 @@ body{
 	border-radius: 9px;
 	background: #4D2ADC;
 	position: relative;
-	margin-left: 15px;
+	margin-left: 10px;
 }
 .mobile-menu span{
 	position: absolute;
@@ -1771,6 +1771,12 @@ tbody tr:nth-child(2n){
 	footer .logo{
 		height: 40px;
 	}
+	.news-row .row{
+		padding: 0 15px;
+	}
+	#gameSec{
+		padding-top: 100px;
+	}
 }
 @media (max-width: 390px) {
 	
@@ -1833,6 +1839,26 @@ a:focus{
 .navbar-box::-webkit-scrollbar-thumb:hover {
 	background: #EF7F1A;
 	border-radius: 20px;
+}
+
+
+.mobile-sidebar::-webkit-scrollbar {
+	display: none;
+}
+
+/* Track */
+.mobile-sidebar::-webkit-scrollbar-track {
+	display: none;
+}
+
+/* Handle */
+.mobile-sidebar::-webkit-scrollbar-thumb {
+	display: none;
+}
+
+/* Handle on hover */
+.mobile-sidebar::-webkit-scrollbar-thumb:hover {
+	display: none;
 }
 
 

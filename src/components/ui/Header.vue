@@ -89,7 +89,19 @@
           </div>
         </div>
 
+
+        
+
+
+
         <div class="header-box-col al-center">
+           <select class="acc-select hidden-lg" v-if="player && player.accounts.length" :value="currentAccount.id"
+                      @change="changeAccount($event)" style="margin-right: 5px;">
+                <option :value="account.id" v-for="account in player.accounts.items">
+                  {{ account.getFormattedAmount() }} {{ account.currency_code }}
+                </option>
+              </select>
+
           <lang-switcher/>
 
           <div class="mobile-menu hidden-lg " 

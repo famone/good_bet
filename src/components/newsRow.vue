@@ -44,6 +44,24 @@ export default {
 			delay: 2500,
 			disableOnInteraction: false,
 		},
+		breakpoints: {
+			320: {
+			    slidesPerView: 1.18,
+			    centeredSlides: true,
+			    spaceBetween: 15,
+			    touchRatio: 1
+			},
+			768: {
+				slidesPerView: 2,
+				touchRatio: 1
+			},
+			1150: {
+			slidesPerView: 4,
+				spaceBetween: 20,
+				touchRatio: 1
+			}
+		}
+      
       }
     }
   },
