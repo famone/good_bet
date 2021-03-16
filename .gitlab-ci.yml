@@ -8,19 +8,19 @@ stages:
 
 .deploy:
   stage: deploy
-    before_script:
-      - apt-get update -y
-      - apt-get -y install rsync openssh-client
-      - mkdir -p ~/.ssh
-      - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_dsa
-      - chmod 600 ~/.ssh/id_dsa
-      - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    script:
-      - echo "Building deploy package"
-      - npm install --progress=false
-      - npm run build
-      - echo "Deploy package"
-      - rsync -rav dist/ $SERVER:$DEPLOY_PATH
+  before_script:
+    - apt-get update -y
+    - apt-get -y install rsync openssh-client
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+  script:
+    - echo "Building deploy package"
+    - npm install --progress=false
+    - npm run build
+    - echo "Deploy package"
+    - rsync -rav dist/ $SERVER:$DEPLOY_PATH
 
 variables:
   SERVER: deploy@159.89.111.248
