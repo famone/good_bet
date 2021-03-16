@@ -6,6 +6,22 @@ stages:
   - post-deploy
   - notification
 
+.deploy:
+  stage: deploy
+    before_script:
+      - apt-get update -y
+      - apt-get -y install rsync openssh-client
+      - mkdir -p ~/.ssh
+      - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_dsa
+      - chmod 600 ~/.ssh/id_dsa
+      - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    script:
+      - echo "Building deploy package"
+      - npm install --progress=false
+      - npm run build
+      - echo "Deploy package"
+      - rsync -rav dist/ $SERVER:$DEPLOY_PATH
+
 variables:
   SERVER: deploy@159.89.111.248
   RELEASE_TAG: "$CI_COMMIT_SHORT_SHA"
@@ -36,21 +52,21 @@ Sentry Finalize Release & Deploy:
 
 Build and deploy staging:
   stage: deploy
-  before_script:
-    - apt-get update -y
-    - apt-get -y install rsync openssh-client
-    - mkdir -p ~/.ssh
-    - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_dsa
-    - chmod 600 ~/.ssh/id_dsa
-    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-  script:
-    - echo "Building deploy package"
-    - npm install --progress=false
-    - npm run build
-    - echo "Deploy package"
-    - rsync -rav dist/ $SERVER:/var/www/goodbet/dist
+  variables:
+    CASINO_APP_API_URL: http://staging.api.casinoplatform.site/v3/
+    CASINO_APP_URL: http://staging.goodbet.casinoplatform.site
+  extends: .deploy
   environment:
     name: staging
+    url: https://staging.goodbet.casinoplatform.site
+  only:
+    - main
+
+Build and deploy prod:
+  stage: deploy
+  extends: .deploy
+  environment:
+    name: prod
     url: https://goodbet.casinoplatform.site
   only:
     - main
