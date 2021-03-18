@@ -183,10 +183,6 @@
                   <label>{{ $t('pages.account.profile.timezone') }}</label>
                   <h4 v-if="player.timezone">{{ player.timezone.name }}</h4>
                 </div>
-                <div class="col-lg-4 account-field">
-                  <label>{{ $t('pages.account.profile.timezone') }}</label>
-                  <h4 v-if="player.timezone">{{ player.timezone.name }}</h4>
-                </div>
                 <div class="col-lg-12">
                   <br>
                   <button class="save-btn" @click="editorMode = true">
