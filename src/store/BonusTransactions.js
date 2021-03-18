@@ -4,17 +4,37 @@ const bonusTransactions = {
 	namespaced: true,
 	state: {
 		bonusActiveTransactions: [],
-		bonusAvailableTransactions: []
+		bonusSubscribedTransactions: [],
+		bonusAllTransactions: []
 	},
 	mutations: {
 		SET_ACTIVE_BONUS_TRANSACTIONS(state, bonusTransactions) {
 			state.bonusActiveTransactions = bonusTransactions
 		},
-		SET_AVAILABLE_BONUS_TRANSACTIONS(state, bonusTransactions) {
-			state.bonusAvailableTransactions = bonusTransactions
+		SET_SUBSCRIBED_BONUS_TRANSACTIONS(state, bonusTransactions) {
+			state.bonusSubscribedTransactions = bonusTransactions
+		},
+		SET_ALL_BONUS_TRANSACTIONS(state, bonusTransactions) {
+			console.log(bonusTransactions)
+			state.bonusAllTransactions = bonusTransactions
 		},
 	},
 	actions: {
+		loadAll({commit}) {
+			return new Promise((resolve, reject) => {
+				API.get('lab/bonus-transactions', {
+					params: {
+						expand: 'bonus, bonus.banners, bonus.budgets, bonus.accrual_rules, bonus.wagering_rules, bonus.free_spin_rules'
+					}
+				}).then(response => {
+					commit('SET_ALL_BONUS_TRANSACTIONS', response.data)
+
+					resolve(response)
+				}).catch(error => {
+					reject(error)
+				})
+			});
+		},
 		loadActive({commit}) {
 			return new Promise((resolve, reject) => {
 				API.get('lab/bonus-transactions', {
@@ -24,6 +44,22 @@ const bonusTransactions = {
 					}
 				}).then(response => {
 					commit('SET_ACTIVE_BONUS_TRANSACTIONS', response.data)
+
+					resolve(response)
+				}).catch(error => {
+					reject(error)
+				})
+			});
+		},
+		loadSubscribed({commit}) {
+			return new Promise((resolve, reject) => {
+				API.get('lab/bonus-transactions', {
+					params: {
+						status: 'subscribed',
+						expand: 'bonus, bonus.banners, bonus.budgets, bonus.accrual_rules, bonus.wagering_rules, bonus.free_spin_rules'
+					}
+				}).then(response => {
+					commit('SET_SUBSCRIBED_BONUS_TRANSACTIONS', response.data)
 
 					resolve(response)
 				}).catch(error => {
@@ -50,8 +86,11 @@ const bonusTransactions = {
 		getActiveBonusTransactions(state) {
 			return state.bonusActiveTransactions
 		},
-		getAvailableBonusTransactions(state) {
-			return state.bonusAvailableTransactions
+		getSubscribedBonusTransactions(state) {
+			return state.bonusSubscribedTransactions
+		},
+		getAllBonusTransactions(state) {
+			return state.bonusAllTransactions
 		}
 	}
 }

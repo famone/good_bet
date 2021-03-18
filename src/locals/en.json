@@ -150,9 +150,12 @@
     "loginUPPER": "CONFIRM",
     "title": "NEW PASSWORD"
   },
-  "Mybonuses": {
+  "MyBonuses": {
     "name": "MY BONUSES",
     "active": "Active",
-    "available": "Available"
+    "available": "Available",
+    "subscribed": "Subscribed",
+    "all": "All",
+    "more": "more"
   }
 }

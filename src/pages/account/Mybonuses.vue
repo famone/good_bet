@@ -8,38 +8,59 @@
         <div class="row">
           <AcNav/>
           <div class="col-lg-9">
-            <h2>{{ $t('Mybonuses.name') }}</h2>
+            <h2>{{ $t('MyBonuses.name') }}</h2>
 
             <button class="switch-btn"
-                    :class="{activeSwitch : activeBonusTab}"
-                    @click="switchToActiveBonuses()">{{ $t('Mybonuses.active') }}
+                    :class="{activeSwitch : currentBonusTab === 'active'}"
+                    @click="switchToActiveBonuses()">{{ $t('MyBonuses.active') }}
             </button>
             <button class="switch-btn"
-                    :class="{activeSwitch : !activeBonusTab}"
-                    @click="switchToAvailableBonuses()">{{ $t('Mybonuses.available') }}
+                    :class="{activeSwitch : currentBonusTab === 'subscribed'}"
+                    @click="switchToSubscribedBonuses()">{{ $t('MyBonuses.subscribed') }}
+            </button>
+            <button class="switch-btn"
+                    :class="{activeSwitch : currentBonusTab === 'all'}"
+                    @click="switchToAllBonuses()">{{ $t('MyBonuses.all') }}
             </button>
 
-
-            <!--<div class="text-center" v-if="!bonusList">
-              <img alt="loading" src="../../assets/img/icons/nv6.svg" class="spin">
-            </div>-->
-
-            <div class="row-bonuses" v-if="activeBonusList && activeBonusTab">
-              <div v-for="bon in activeBonusList" class="col-lg-4 col-sm-6">
+            <div class="row-bonuses" v-if="subscribedBonusTransactionList && currentBonusTab === 'subscribed'">
+              <div v-for="bonusTransaction in subscribedBonusTransactionList" class="col-lg-4 col-sm-6">
                 <div class="news-card">
 
                   <!-- <pre>{{bon}}</pre> -->
                   <div class="news-img"
-                       :style="{'background-image': bon.bonus.banners.length ? 'url(' + bon.bonus.banners[0].url + ')' : ''}">
+                       :style="{'background-image': bonusTransaction.bonus.banners.length ? 'url(' + bonusTransaction.bonus.banners[0].url + ')' : ''}">
 
                   </div>
                   <div class="news-body">
-                    <h3>{{ bon.bonus.title }}</h3>
-                    <p class="bonus-descr" v-if="bon.bonus.description"
-                       v-html="bon.bonus.description.substring(0,90) + '...'"></p>
+                    <h3>{{ bonusTransaction.bonus.title }}</h3>
+                    <p class="bonus-descr" v-if="bonusTransaction.bonus.description"
+                       v-html="bonusTransaction.bonus.description.substring(0,90) + '...'"></p>
                     <p class="bonus-descr" v-else></p>
 
-                    <button class="save-btn" @click="openActiveBonus(bon)">MORE</button>
+                    <button class="save-btn" @click="openActiveBonus(bonusTransaction)">{{ $t('MyBonuses.more') }}</button>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row-bonuses" v-if="activeBonusTransactionList && currentBonusTab === 'active'">
+              <div v-for="bonusTransaction in activeBonusTransactionList" class="col-lg-4 col-sm-6">
+                <div class="news-card">
+
+                  <!-- <pre>{{bon}}</pre> -->
+                  <div class="news-img"
+                       :style="{'background-image': bonusTransaction.bonus.banners.length ? 'url(' + bonusTransaction.bonus.banners[0].url + ')' : ''}">
+
+                  </div>
+                  <div class="news-body">
+                    <h3>{{ bonusTransaction.bonus.title }}</h3>
+                    <p class="bonus-descr" v-if="bonusTransaction.bonus.description"
+                       v-html="bonusTransaction.bonus.description.substring(0,90) + '...'"></p>
+                    <p class="bonus-descr" v-else></p>
+
+                    <button class="save-btn" @click="openActiveBonus(bonusTransaction)">{{ $t('MyBonuses.more') }}</button>
 
                   </div>
                 </div>
@@ -47,25 +68,40 @@
             </div>
 
 
-            <div class="row-bonuses" v-if=" availableBonusList && !activeBonusTab">
-              <div v-for="bon in availableBonusList" class="col-lg-4 col-sm-6">
-                <div class="news-card">
+            <div class="row-bonuses" v-if="allBonusTransactionList && currentBonusTab === 'all'">
+              <div v-for="bonusTransaction in allBonusTransactionList" class="col-lg-4 col-sm-6">
+                <div v-if="bonusTransaction.bonus" class="news-card">
 
                   <!-- <pre>{{bon}}</pre> -->
-                  <div class="news-img"
-                       :style="{'background-image': bon.banners.length ? 'url(' + bon.banners[0].url + ')' : ''}">
-
+                  <div v-if="bonusTransaction.bonus.banners.length"
+                        class="news-img"
+                       :style="{'background-image': 'url(\'' + bonusTransaction.bonus.banners[0].url + '\')'}">
                   </div>
+
+                  <div v-else class="news-img" :style="{'background-image': ''}"></div>
+
                   <div class="news-body">
-                    <h3>{{ bon.title }}</h3>
-                    <p class="bonus-descr" v-if="bon.description" v-html="bon.description.substring(0,90) + '...'"></p>
+                    <h3>{{ bonusTransaction.bonus.title }}</h3>
+                    <p class="bonus-descr" v-if="bonusTransaction.description" v-html="bonusTransaction.description.substring(0,90) + '...'"></p>
                     <p class="bonus-descr" v-else></p>
 
 
-                    <button class="save-btn" @click="openAvailableBonus(bon)">MORE</button>
-                    <button class="apply-btn" @click="subscribeBonus(bon.id)">
+                    <button class="save-btn" @click="openAvailableBonus(bonusTransaction)">MORE</button>
+                    <button class="apply-btn" @click="subscribeBonus(bonusTransaction.id)">
                       <img src="../../assets/img/apply.svg">
                     </button>
+                  </div>
+                </div>
+
+                <div v-else class="news-card">
+
+                  <!-- <pre>{{bon}}</pre> -->
+                  <div class="news-img"
+                       :style="{'background-image': 'url(' + '../../assets/img/apply.svg' + ')'}">
+                  </div>
+
+                  <div class="news-body">
+                    <h3>Bonus deleted</h3>
 
                   </div>
                 </div>
@@ -99,13 +135,14 @@ export default {
   computed: {
     ...mapGetters({
       player: 'player/getCurrent',
-      activeBonusList: 'bonusTransactions/getActiveBonusTransactions',
-      availableBonusList: 'bonuses/getAll'
+      activeBonusTransactionList: 'bonusTransactions/getActiveBonusTransactions',
+      subscribedBonusTransactionList: 'bonusTransactions/getSubscribedBonusTransactions',
+      allBonusTransactionList: 'bonusTransactions/getAllBonusTransactions'
     }),
   },
   data() {
     return {
-      activeBonusTab: true,
+      currentBonusTab: 'active',
       acBonusDesc: null,
       avBonusDesc: null
     }
@@ -138,16 +175,23 @@ export default {
       this.acBonusDesc = null
     },
     switchToActiveBonuses() {
-      this.activeBonusTab = true;
-      this.loader = true;
+      this.currentBonusTab = 'active'
+      this.loader = true
       this.$store.dispatch('bonusTransactions/loadActive').then(() => {
-        this.loader = false;
+        this.loader = false
       })
     },
-    switchToAvailableBonuses() {
-      this.activeBonusTab = false;
+    switchToSubscribedBonuses() {
+      this.currentBonusTab = 'subscribed'
+      this.loader = true
+      this.$store.dispatch('bonusTransactions/loadSubscribed').then(() => {
+        this.loader = false
+      })
+    },
+    switchToAllBonuses() {
+      this.currentBonusTab = 'all'
       this.loader = true;
-      this.$store.dispatch('bonuses/loadAll').then(() => {
+      this.$store.dispatch('bonusTransactions/loadAll').then(() => {
         this.loader = false;
       })
     }
