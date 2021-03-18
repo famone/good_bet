@@ -3,9 +3,9 @@
     <mainSlider/>
 
     <Navbar/>
-    <gamesRow :gamesArr="popularGames" :titleRow="$t('home.popularGames')" :link=" '/game-groups/115' "/>
-    <gamesRow :gamesArr="slotsGames" :titleRow="$t('home.slots')" :link=" '/game-groups/126' "/>
-    <gamesRow :gamesArr="recommendedGames" :titleRow="$t('home.recommended')" :link=" '/game-groups/124' "/>
+    <gamesRow v-view.once="loadPopularGames" :gamesArr="popularGames" :titleRow="$t('home.popularGames')" :link=" '/game-groups/115' "/>
+    <gamesRow v-view.once="loadSlotGames" :gamesArr="slotsGames" :titleRow="$t('home.slots')" :link=" '/game-groups/126' "/>
+    <gamesRow v-view.once="loadRecommendedGames" :gamesArr="recommendedGames" :titleRow="$t('home.recommended')" :link=" '/game-groups/124' "/>
     <newsRow/>
     <Banner/>
     <About/>
@@ -33,15 +33,21 @@ export default {
   },
   watch: {
     currentLang() {
-      this.$store.dispatch("games/loadPopular");
-      this.$store.dispatch("games/loadRecommended");
-      this.$store.dispatch("games/loadSlots");
+      this.$store.dispatch("games/loadPopular")
+      this.$store.dispatch("games/loadRecommended")
+      this.$store.dispatch("games/loadSlots")
     },
   },
-  created() {
-    this.$store.dispatch("games/loadPopular");
-    this.$store.dispatch("games/loadRecommended");
-    this.$store.dispatch("games/loadSlots");
+  methods: {
+    loadPopularGames() {
+      this.$store.dispatch("games/loadPopular")
+    },
+    loadSlotGames() {
+      this.$store.dispatch("games/loadSlots")
+    },
+    loadRecommendedGames() {
+      this.$store.dispatch("games/loadRecommended")
+    }
   }
 }
 </script>

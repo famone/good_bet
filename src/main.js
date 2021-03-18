@@ -10,7 +10,9 @@ import ScrollLoader from 'vue-scroll-loader'
 import VueScrollTo from 'vue-scrollto'
 import * as Sentry from '@sentry/vue'
 import { Integrations } from '@sentry/tracing'
-import Toasted from 'vue-toasted';
+import Toasted from 'vue-toasted'
+import checkView from 'vue-check-view'
+
 
 import 'swiper/css/swiper.css'
 import VueI18n from 'vue-i18n'
@@ -26,6 +28,7 @@ Vue.use(ScrollLoader)
 Vue.use(VueI18n)
 Vue.use(VueScrollTo)
 Vue.use(Toasted)
+Vue.use(checkView)
 
 
 

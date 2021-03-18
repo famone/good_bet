@@ -20,6 +20,7 @@
     "swiper": "^5.4.5",
     "vue": "^2.6.12",
     "vue-awesome-swiper": "^4.1.1",
+    "vue-check-view": "^0.3.0",
     "vue-cookies": "^1.7.4",
     "vue-filepond": "^7.0.0",
     "vue-i18n": "^8.22.4",
