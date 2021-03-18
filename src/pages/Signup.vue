@@ -17,15 +17,15 @@
                     :ref=" 'input' + input.id "
                     :data-field="input.name"
                     @input="input.onInputUpdate($event)"
+                    @change="onCurrencySelect"
                 >
-
-                  <option value=""></option>
-
-                  <option v-for="currency in currencies" :value="currency.code">{{ currency.code }}</option>
+                  <option v-for="currency in currencies" :data-currency-id="currency.id" :value="currency.code">
+                    {{ currency.code }}
+                  </option>
                 </select>
               </div>
               <div v-else-if="input.isBonus()">
-                <label :for="input.id">{{ input.label }}</label>
+                <label :for="input.id" v-if="bonuses.length">{{ input.label }}</label>
                 <div class="bonus-select" v-if="bonuses" v-for="bonus in bonuses"
                      :class="{checked : checkedBonusId === bonus.id}">
                   <div class="ch-box" @click="input.value = bonus.id; checkedBonusId = bonus.id "></div>
@@ -124,6 +124,9 @@ export default {
     this.$store.dispatch('currency/loadAll')
   },
   watch: {
+    currencies(newValue, oldValue) {
+      this.$store.dispatch('bonuses/loadRegistrationBonuses', newValue[0].id)
+    },
     currentLang() {
       this.$store.dispatch('registerForm/loadDefaultFields')
     },
@@ -173,7 +176,6 @@ export default {
 
     // вход сразу
     submitLog() {
-
       let username = this.formInputs.find(item => item.name === 'email')
       let password = this.formInputs.find(item => item.name === 'password_change')
 
@@ -185,6 +187,10 @@ export default {
       }).catch(() => {
         this.isLoading = false
       })
+    },
+    onCurrencySelect(event) {
+      let selectedCurrencyId = event.target.options[event.target.selectedIndex].getAttribute('data-currency-id')
+      this.$store.dispatch('bonuses/loadRegistrationBonuses', selectedCurrencyId)
     }
   }
 }

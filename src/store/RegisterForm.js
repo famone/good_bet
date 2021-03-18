@@ -22,10 +22,6 @@ const registerForm = {
 						return item.type === 'bonus'
 					})
 
-					if (isBonusEnable) {
-						dispatch('bonuses/loadRegistrationBonuses', null, {root: true})
-					}
-
 					resolve(response)
 				}).catch(error => {
 					reject(error)

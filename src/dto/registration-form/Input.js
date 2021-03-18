@@ -62,7 +62,6 @@ export default class Input
 		else {
 			this.value = event.target.value
 		}
-
 	}
 
 	clearErrors() {
