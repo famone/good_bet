@@ -8,9 +8,7 @@
           <div class="games-row-box">
 
             <div class="row">
-              <div class="text-center" v-if="loader">
-                <img alt="loading" src="../assets/img/icons/nv6.svg" class="spin">
-              </div>
+              <Skeletons v-if="loader"  v-bind:row-count="4" />
 
               <div class="text-center" v-else-if="!gamesArr.length">
                 <h3>{{ $t('games.noGamesTextInList') }}</h3>
@@ -38,11 +36,12 @@
 
 import Navbar from '../components/ui/Navbar.vue'
 import gameBox from '../components/ui/gameBox.vue'
+import Skeletons from '../components/Skeletons.vue'
 import {API} from "../api";
 
 const API_GAMES_DEFAULT_FIELDS = 'details,launch_types,images,type,provider,canonical';
 export default {
-  components: {gameBox, Navbar},
+  components: {gameBox, Navbar, Skeletons},
   props: ["id"],
   data() {
     return {

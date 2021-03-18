@@ -22,7 +22,6 @@
 
 <script>
 import gameBox from '../components/ui/gameBox.vue'
-import {mapGetters, mapState} from 'vuex'
 import Skeletons from '../components/Skeletons.vue'
 
 export default{
