@@ -30,7 +30,7 @@
                      :class="{checked : checkedBonusId === bonus.id}">
                   <div class="ch-box" @click="input.value = bonus.id; checkedBonusId = bonus.id "></div>
                   <p style="color: red;"></p>
-                  <div class="description">
+                  <div class="description" @click="input.value = bonus.id; checkedBonusId = bonus.id ">
                     <p class="white-txt">{{ bonus.title }}</p>
                     <p class="small-white" v-if="bonus.id === checkedBonusId"
                        @click="readBonus(bonus)">Read More</p>
