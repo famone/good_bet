@@ -192,10 +192,7 @@ export default {
     onCurrencySelect(event) {
       let selectedCurrencyId = event.target.options[event.target.selectedIndex].getAttribute('data-currency-id')
       this.$store.dispatch('bonuses/loadRegistrationBonuses', selectedCurrencyId)
-    },
-    onCurrenciesLoaded(input) {
-      input.value = this.currencies[0].code
-    },
+    }
   }
 }
 </script>
