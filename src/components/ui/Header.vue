@@ -180,10 +180,9 @@ export default {
       this.activeMessage = mes
     },
     logOut() {
-      this.$store.dispatch('auth/logOut')
-          .then(() => {
-            this.$router.replace("/enter");
-          });
+      this.$store.dispatch('auth/logOut').then(() => {
+        this.$router.replace("/enter");
+      });
     },
     changeAccount(e) {
       let valuteCode = e.target.value

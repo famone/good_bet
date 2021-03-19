@@ -16,13 +16,14 @@ import VueScrollTo from "vue-scrollto";
 import Toasted from "vue-toasted";
 import checkView from "vue-check-view";
 import AuthException from "./store/AuthException";
+import {CasinoLocalStorage} from "./CasinoLocalStorage";
 
 export default class Casino {
 	constructor() {
 		this.loadModules()
 		this.sentryInit()
 
-		if (localStorage.getItem('player')) {
+		if (CasinoLocalStorage.getPlayer()) {
 			store.dispatch('player/loadCurrent').then(() => {
 				this.intiApplication()
 			}).catch(error => {
@@ -60,12 +61,12 @@ export default class Casino {
 	}
 	getI18n() {
 		let currentLocal = process.env.CASINO_APP_I18N_DEFAULT_LOCALE
-		let localFromStorage = localStorage.getItem('selectedLang')
+		let localFromStorage = CasinoLocalStorage.getSelectedLang()
 		if (localFromStorage) {
 			currentLocal = localFromStorage
 		}
 
-		store.dispatch('lang/setCurrent', localStorage.getItem('selectedLang'))
+		store.dispatch('lang/setCurrent', CasinoLocalStorage.getSelectedLang())
 
 		return new VueI18n({
 			locale: currentLocal,

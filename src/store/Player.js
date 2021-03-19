@@ -1,6 +1,7 @@
 import {API} from '../api'
 import Player from "../dto/Player";
 import AuthException from "./AuthException";
+import {CasinoLocalStorage} from "../CasinoLocalStorage";
 
 const player = {
 	namespaced: true,
@@ -23,17 +24,23 @@ const player = {
 		loadCurrent({commit, dispatch}) {
 			dispatch('auth/setAuthenticated', true, {root: true})
 			return new Promise((resolve, reject) => {
-				API.loadPlayer().then(response => {
+				let player = CasinoLocalStorage.getPlayer()
+
+				API.get('players', {
+					params: {
+						expand: 'avatars,accounts,country,timezone'
+					}
+				}).then(response => {
 					commit('SET_CURRENT', response.data[0])
-					localStorage.setItem("player", JSON.stringify(response.data[0]));
+					player.data = response.data[0]
+					CasinoLocalStorage.savePlayer(player)
 
 					resolve(response)
 				}).catch(error => {
 					if (error.response.status === 401) {
 						dispatch('auth/logOut', null, {root: true})
 						reject(new AuthException())
-					}
-					else {
+					} else {
 						reject(error)
 					}
 				})

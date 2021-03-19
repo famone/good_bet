@@ -20,6 +20,8 @@
 <script>
 
 
+import {CasinoLocalStorage} from "../../CasinoLocalStorage";
+
 export default {
   data () {
     return {
@@ -29,8 +31,8 @@ export default {
   methods: {
     switchLocale(lang) {
       this.$root.$i18n.locale = lang
-      this.$store.dispatch('lang/setCurrent', lang).then(r => {
-        localStorage.setItem('selectedLang', lang)
+      this.$store.dispatch('lang/setCurrent', lang).then(() => {
+        CasinoLocalStorage.setSelectedLang(lang)
       })
     }
   },

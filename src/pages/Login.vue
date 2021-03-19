@@ -42,9 +42,6 @@
 
 <script>
 
-import {API} from "../api";
-import store from "../store";
-
 export default {
   data() {
     return {
@@ -58,8 +55,11 @@ export default {
   methods: {
     submitLog() {
       this.isLoading = true
-
-      API.getPlayerTokenByUsernamePassword(this.login, btoa(this.password)).then(() => {
+      let params = {
+        username: this.login,
+        password: btoa(this.password)
+      }
+      this.$store.dispatch('auth/loadPlayerTokenByUsernamePassword', params).then(() => {
         this.$store.dispatch('player/loadCurrent').then(() => {
           this.isLoading = false
           this.$router.replace("/profile");

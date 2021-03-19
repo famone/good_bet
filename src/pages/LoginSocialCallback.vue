@@ -53,7 +53,7 @@ export default {
       service_data: encodedStr,
     }
 
-    API.getPlayerToken(parameters).then(() => {
+    this.$store.dispatch('auth/loadPlayerToken', parameters).then(() => {
       this.$store.dispatch('player/loadCurrent')
       this.$router.replace('/profile')
     }).catch(() => {
