@@ -66,10 +66,6 @@ API.getGuestToken = function (params) {
 			let object = {appToken: token, timestamp: new Date().getTime()}
 			localStorage.setItem("appToken", JSON.stringify(object));
 
-			if (response.status === 401) {
-				router.push('/Login')
-			}
-
 			API.defaults.headers.common['Authorization'] = 'Bearer ' + token
 
 			resolve(response)
@@ -88,7 +84,7 @@ API.loadPlayer = function() {
 		params: {
 			expand: 'avatars,accounts,country,timezone'
 		}
-	});
+	})
 }
 
 let isAlreadyFetchingAccessToken = false

@@ -1,5 +1,6 @@
 import {API} from '../api'
 import Player from "../dto/Player";
+import AuthException from "./AuthException";
 
 const player = {
 	namespaced: true,
@@ -28,7 +29,13 @@ const player = {
 
 					resolve(response)
 				}).catch(error => {
-					reject(error)
+					if (error.response.status === 401) {
+						dispatch('auth/logOut', null, {root: true})
+						reject(new AuthException())
+					}
+					else {
+						reject(error)
+					}
 				})
 			});
 
