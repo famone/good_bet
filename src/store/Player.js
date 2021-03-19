@@ -24,16 +24,14 @@ const player = {
 		loadCurrent({commit, dispatch}) {
 			dispatch('auth/setAuthenticated', true, {root: true})
 			return new Promise((resolve, reject) => {
-				let player = CasinoLocalStorage.getPlayer()
-
 				API.get('players', {
 					params: {
 						expand: 'avatars,accounts,country,timezone'
 					}
 				}).then(response => {
 					commit('SET_CURRENT', response.data[0])
-					player.data = response.data[0]
-					CasinoLocalStorage.savePlayer(player)
+
+					CasinoLocalStorage.savePlayerData(response.data[0])
 
 					resolve(response)
 				}).catch(error => {

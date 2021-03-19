@@ -26,6 +26,11 @@ class CasinoLocalStorage
 		localStorage.setItem("player", JSON.stringify(data))
 	}
 
+	static savePlayerData(data) {
+		let existData = this.getPlayer()
+		existData.data = data
+	}
+
 	static deletePlayer() {
 		localStorage.removeItem("player");
 	}
