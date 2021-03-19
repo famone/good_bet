@@ -22,10 +22,16 @@
                     <img src="../../assets/img/success.svg" class="status-icon"
                          v-if="account.id === currentAccount.id" alt="">
                     <h3>{{ account.getFormattedAmount() }} {{ account.currency_code }}</h3>
-                    <button class="btn-cont" v-if="account.id !== currentAccount.id"
-                            @click="changeAccount(account.id)">
-                      {{ $t('pages.account.changeAccount') }}
-                    </button>
+                    <div v-if="isLoading && account.id === changeAccountId">
+                      <button type="submit" class="btn-cont"><img src="../../assets/img/icons/nv6.svg" class="spin"></button>
+                    </div>
+                    <div v-else>
+                      <button :disabled="isLoading" class="btn-cont" v-if="account.id !== currentAccount.id"
+                              @click="changeAccount(account.id)">
+                        {{ $t('pages.account.changeAccount') }}
+                      </button>
+                    </div>
+
                   </div>
                 </div>
               </div>
@@ -76,6 +82,7 @@ export default {
   data() {
     return {
       isLoading: false,
+      changeAccountId: null,
       newAccountId: ''
     }
   },
@@ -94,7 +101,11 @@ export default {
   },
   methods: {
     changeAccount(accountId) {
-      this.$store.dispatch('account/changeAccount', accountId)
+      this.isLoading = true
+      this.changeAccountId = accountId
+      this.$store.dispatch('account/changeAccount', accountId).then(() => {
+        this.isLoading = false
+      })
       setTimeout(() => {
         this.$store.dispatch('player/loadCurrent')
       }, 3000)
