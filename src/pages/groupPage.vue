@@ -38,10 +38,11 @@ import Navbar from '../components/ui/Navbar.vue'
 import gameBox from '../components/ui/gameBox.vue'
 import Skeletons from '../components/Skeletons.vue'
 import {API} from "../api";
+import {mapGetters} from "vuex";
 
 const API_GAMES_DEFAULT_FIELDS = 'details,launch_types,images,type,provider,canonical';
 export default {
-  components: {gameBox, Navbar, Skeletons},
+  components: {gameBox, Navbar, Skeletons, },
   props: ["id"],
   data() {
     return {
@@ -61,14 +62,15 @@ export default {
     }).then(this._resCallback.bind(this))
   },
   computed: {
+    ...mapGetters({
+      currentLang: 'lang/getCurrent'
+    }),
     loadgames(){
       return this.updateDynPage(this.id.toString())
     }
   },
   methods: {
     getGameList() {
-      // this.loader = true
-
       API.get('games', {
         params: {
           expand: API_GAMES_DEFAULT_FIELDS,

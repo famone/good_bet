@@ -65,7 +65,7 @@ export default class Input
 	}
 
 	clearErrors() {
-		this.errprs = []
+		this.errors = []
 	}
 
 	addError(error) {

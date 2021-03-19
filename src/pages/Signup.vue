@@ -105,10 +105,10 @@ export default {
       avBonusDesc: null,
       checkedBonusId: null,
       isLoading: false,
-
       captchaToken: process.env.CASINO_APP_CAPTCHA_TOKEN,
       agreement: false,
       captchaResponseToken: null,
+      currency: null
     }
   },
   computed: {
@@ -116,8 +116,8 @@ export default {
       formInputs: 'registerForm/getDefaultFormInputs',
       bonuses: 'bonuses/getRegistrationBonuses',
       currencies: 'currency/getAll',
-      currentLang: 'lang/getCurrent'
-    }),
+      currentLang: 'lang/getCurrent',
+    })
   },
   created() {
     this.$store.dispatch('registerForm/loadDefaultFields')
@@ -125,6 +125,8 @@ export default {
   },
   watch: {
     currencies(newValue, oldValue) {
+      this.currency = newValue[0].code
+      console.log(this.currency);
       this.$store.dispatch('bonuses/loadRegistrationBonuses', newValue[0].id)
     },
     currentLang() {
@@ -177,8 +179,8 @@ export default {
     // вход сразу
     submitLog() {
       let params = {
-        username: this.formInputs.find(item => item.name === 'email'),
-        password: this.formInputs.find(item => item.name === 'password_change')
+        username: this.formInputs.find(item => item.name === 'email').value,
+        password: this.formInputs.find(item => item.name === 'password_change').value
       }
 
       this.$store.dispatch('auth/loadPlayerTokenByUsernamePassword', params).then(() => {
