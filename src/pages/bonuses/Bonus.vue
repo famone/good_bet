@@ -28,11 +28,13 @@
                     <h4>Wager type: {{bonus.wagering_rules[0].wagering_type}}</h4>
                   </div>
                   <div class="col-lg-6 text-right">
-                    <router-link class="save-btn" tag="button" to="/my-bonuses">SUBSCRIBE</router-link>
+                    <button @click="openConfirmationPopup(bonus)" class="save-btn">SUBSCRIBE</button>
                   </div>
                 </div>
               </div>
             </section>
+
+            <SubscribePopup v-if="isBonusSubscriptionConfirmationPopup" :bonus="bonus" @cancelBonusSubscription="closeConfirmationPopup"/>
           </div>
           <div v-else>
             <h3>Bonuses not found</h3>
@@ -41,23 +43,38 @@
       </div>
     </section>
   </div>
+
 </template>
 
 <script>
 import Navbar from "../../components/ui/Navbar";
 import {mapGetters} from "vuex";
+import SubscribePopup from "../../components/bonus/SubscribePopup";
 
 export default {
-  components: {Navbar},
+  components: {SubscribePopup, Navbar},
   computed: {
     ...mapGetters({
       bonus: "bonus/getBonus"
     }),
   },
+  data() {
+    return {
+      isBonusSubscriptionConfirmationPopup: false
+    }
+  },
   created() {
     let routeId = parseInt(this.$route.params.id)
 
     this.$store.dispatch('bonus/loadBonusById', routeId)
+  },
+  methods: {
+    openConfirmationPopup() {
+      this.isBonusSubscriptionConfirmationPopup = true
+    },
+    closeConfirmationPopup() {
+      this.isBonusSubscriptionConfirmationPopup = false
+    }
   }
 }
 </script>

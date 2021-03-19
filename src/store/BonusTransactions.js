@@ -15,7 +15,6 @@ const bonusTransactions = {
 			state.bonusSubscribedTransactions = bonusTransactions
 		},
 		SET_ALL_BONUS_TRANSACTIONS(state, bonusTransactions) {
-			console.log(bonusTransactions)
 			state.bonusAllTransactions = bonusTransactions
 		},
 	},
@@ -67,10 +66,12 @@ const bonusTransactions = {
 				})
 			});
 		},
-		create({commit}, payload) {
+		subscribe({commit}, bonusId) {
 			//TODO refactor this
 			return new Promise((resolve, reject) => {
-				API.post('lab/bonus-transactions', payload).then(res => {
+				API.post('lab/bonus-transactions', {
+					bonus_id: bonusId
+				}).then(res => {
 					console.log(res)
 
 					resolve(res)
@@ -79,7 +80,34 @@ const bonusTransactions = {
 					reject(error)
 				})
 			})
+		},
+		unsubscribe({commit}, transactionId) {
+			return new Promise((resolve, reject) => {
+				API.patch('lab/bonus-transactions/' + transactionId, {
+					status: 'unsubscribed'
+				}).then(res => {
+					console.log(res)
 
+					resolve(res)
+				}).catch(error => {
+
+					reject(error)
+				})
+			})
+		},
+		cancel({commit}, transactionId) {
+			return new Promise((resolve, reject) => {
+				API.patch('lab/bonus-transactions/' + transactionId, {
+					status: 'cancel'
+				}).then(res => {
+					console.log(res)
+
+					resolve(res)
+				}).catch(error => {
+
+					reject(error)
+				})
+			})
 		}
 	},
 	getters: {

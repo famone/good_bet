@@ -27,7 +27,7 @@
                 <p class="bonus-descr" v-if="bonus.description" v-html="bonus.description.substring(0,90) + '...'"></p>
                 <p class="bonus-descr" v-else></p>
                 <div v-if="player">
-                  <button class="save-btn"><img src="../../assets/img/apply.svg" alt=""></button>
+                  <button class="save-btn" @click="subscribeToBonus(bonus)"><img src="../../assets/img/apply.svg" alt=""></button>
                   <button class="save-btn"><img src="../../assets/img/aplyed.svg" alt=""></button>
                 </div>
               </div>
@@ -65,6 +65,11 @@ export default {
     this.$store.dispatch('bonuses/loadAll').then(() => {
       this.loading = false
     })
+  },
+  methods: {
+    subscribeToBonus(bonus) {
+      this.$store.dispatch('bonusTransactions/subscribe', bonus.id)
+    }
   }
 
 }

@@ -38,7 +38,12 @@
                        v-html="bonusTransaction.bonus.description.substring(0,90) + '...'"></p>
                     <p class="bonus-descr" v-else></p>
 
+                    <button class="apply-btn" @click="unsubscribeTransaction(bonusTransaction)">
+                      <img src="../../assets/img/minus.svg" alt="">
+                    </button>
                     <button class="save-btn" @click="openActiveBonus(bonusTransaction)">{{ $t('MyBonuses.more') }}</button>
+
+
 
                   </div>
                 </div>
@@ -56,10 +61,13 @@
                   </div>
                   <div class="news-body">
                     <h3>{{ bonusTransaction.bonus.title }}</h3>
-                    <p class="bonus-descr" v-if="bonusTransaction.bonus.description"
+                    <!--<p class="bonus-descr" v-if="bonusTransaction.bonus.description"
                        v-html="bonusTransaction.bonus.description.substring(0,90) + '...'"></p>
-                    <p class="bonus-descr" v-else></p>
+                    <p class="bonus-descr" v-else></p>-->
 
+                    <button class="apply-btn" @click="cancelActiveTransaction(bonusTransaction)">
+                      <img src="../../assets/img/minus.svg" alt="">
+                    </button>
                     <button class="save-btn" @click="openActiveBonus(bonusTransaction)">{{ $t('MyBonuses.more') }}</button>
 
                   </div>
@@ -82,6 +90,7 @@
 
                   <div class="news-body">
                     <h3>{{ bonusTransaction.bonus.title }}</h3>
+                    <h3>{{ bonusTransaction.status }}</h3>
                     <p class="bonus-descr" v-if="bonusTransaction.description" v-html="bonusTransaction.description.substring(0,90) + '...'"></p>
                     <p class="bonus-descr" v-else></p>
 
@@ -160,7 +169,7 @@ export default {
       let bonus = {
         bonus_id: id
       }
-      this.$store.dispatch('bonusTransactions/create', bonus)
+      this.$store.dispatch('bonusTransactions/subscribe', bonus)
     },
     openAvailableBonus(bonus) {
       this.avBonusDesc = bonus
@@ -170,6 +179,12 @@ export default {
     },
     openActiveBonus(bonus) {
       this.acBonusDesc = bonus
+    },
+    cancelActiveTransaction(transaction) {
+      this.$store.dispatch('bonusTransactions/cancel', transaction.id)
+    },
+    unsubscribeTransaction(transaction) {
+      this.$store.dispatch('bonusTransactions/unsubscribe', transaction.id)
     },
     closeAcDesc() {
       this.acBonusDesc = null

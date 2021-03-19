@@ -22,7 +22,6 @@ export default class AbstractDtoCollection
 		return this.items.forEach(callback)
 	}
 
-	//TODO refactor this return collection nor array
 	static createFromArray(array)
 	{
 		let collection = new this();
