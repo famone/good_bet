@@ -12,7 +12,7 @@
               <div v-if="input.isCurrency()">
                 <label :for="input.id">{{ input.label }}</label>
 
-                <select
+                <select v-if="currencies"
                     :id="input.id"
                     :ref=" 'input' + input.id "
                     :data-field="input.name"
@@ -95,7 +95,6 @@
 <script>
 import VueRecaptcha from 'vue-recaptcha'
 import {mapGetters} from 'vuex'
-import {API} from '../api'
 import avBonusPop from '../components/ui/avBonusPop.vue'
 
 export default {
@@ -120,13 +119,13 @@ export default {
     })
   },
   created() {
-    this.$store.dispatch('registerForm/loadDefaultFields')
-    this.$store.dispatch('currency/loadAll')
+    this.$store.dispatch('registerForm/loadDefaultFields').then(() => {
+      this.$store.dispatch('currency/loadAll')
+    })
   },
   watch: {
-    currencies(newValue, oldValue) {
-      this.currency = newValue[0].code
-      console.log(this.currency);
+    currencies(newValue) {
+      this.formInputs.find(item => item.isCurrency()).value = newValue[0].code
       this.$store.dispatch('bonuses/loadRegistrationBonuses', newValue[0].id)
     },
     currentLang() {
@@ -142,8 +141,7 @@ export default {
     },
     submitForm() {
       this.$store.dispatch('registerForm/submit', this.formInputs).then(() => {
-        this.submitLog()
-        this.isLoading = false
+        this.autoLogin()
       }).catch(() => {
         this.isLoading = false
       })
@@ -176,8 +174,7 @@ export default {
       this.submitForm()
     },
 
-    // вход сразу
-    submitLog() {
+    autoLogin() {
       let params = {
         username: this.formInputs.find(item => item.name === 'email').value,
         password: this.formInputs.find(item => item.name === 'password_change').value
@@ -195,7 +192,10 @@ export default {
     onCurrencySelect(event) {
       let selectedCurrencyId = event.target.options[event.target.selectedIndex].getAttribute('data-currency-id')
       this.$store.dispatch('bonuses/loadRegistrationBonuses', selectedCurrencyId)
-    }
+    },
+    onCurrenciesLoaded(input) {
+      input.value = this.currencies[0].code
+    },
   }
 }
 </script>
