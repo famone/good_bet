@@ -8,15 +8,15 @@
 
 
             <div class="row">
-              <div class="text-center" v-if="loader">
-                <img src="../../assets/img/icons/nv6.svg" class="spin">
-              </div>
-              <div class="text-center" v-else-if="gamesArr < 1">
+              <Skeletons v-if="loader" v-bind:row-count="2" />
+
+              <div v-else-if="gamesArr < 1" class="text-center" >
                 <h3>{{ $t('games.noGamesTextInList') }}</h3>
               </div>
 
-              <gameBox v-for="(game, index) in gamesArr" v-bind:key="game.id" :game="game" @updateFavs="favUpdate(index)" v-else/>
+              <gameBox v-else v-for="(game, index) in gamesArr" v-bind:key="game.id" :game="game" @updateFavs="favUpdate(index)" />
             </div>
+
 
 
           </div>
@@ -31,9 +31,10 @@
 import Navbar from '../../components/ui/Navbar.vue'
 import gameBox from '../../components/ui/gameBox.vue'
 import {mapGetters} from "vuex";
+import Skeletons from "../../components/Skeletons";
 
 export default {
-  components: {gameBox, Navbar},
+  components: {Skeletons, gameBox, Navbar},
   computed: {
     ...mapGetters({
       gamesArr: 'games/getFavorites'
