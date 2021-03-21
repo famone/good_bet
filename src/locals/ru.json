@@ -150,7 +150,7 @@
     "loginUPPER": "ПОДТВЕРДИТЬ",
     "title": "НОВЫЙ ПАРОЛЬ"
   },
-  "MyBonusTransactions": {
+  "myBonusTransactions": {
     "name": "МОИ БОНУСЫ",
     "active": "Активные",
     "available": "Доступные",

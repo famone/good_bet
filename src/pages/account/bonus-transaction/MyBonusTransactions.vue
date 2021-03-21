@@ -8,19 +8,19 @@
         <div class="row">
           <AcNav/>
           <div class="col-lg-9">
-            <h2>{{ $t('MyBonusTransactions.name') }}</h2>
+            <h2>{{ $t('myBonusTransactions.name') }}</h2>
 
             <button class="switch-btn"
                     :class="{activeSwitch : currentBonusTab === 'active'}"
-                    @click="switchToActiveBonuses()">{{ $t('MyBonusTransactions.active') }}
+                    @click="switchToActiveBonuses()">{{ $t('myBonusTransactions.active') }}
             </button>
             <button class="switch-btn"
                     :class="{activeSwitch : currentBonusTab === 'subscribed'}"
-                    @click="switchToSubscribedBonuses()">{{ $t('MyBonusTransactions.subscribed') }}
+                    @click="switchToSubscribedBonuses()">{{ $t('myBonusTransactions.subscribed') }}
             </button>
             <button class="switch-btn"
                     :class="{activeSwitch : currentBonusTab === 'all'}"
-                    @click="switchToAllBonuses()">{{ $t('MyBonusTransactions.all') }}
+                    @click="switchToAllBonuses()">{{ $t('myBonusTransactions.all') }}
             </button>
 
             <active-bonus-transactions v-if="currentBonusTab === 'active'"/>
@@ -43,7 +43,7 @@
                     <button class="apply-btn" @click="unsubscribeTransaction(bonusTransaction)">
                       <img src="../../../assets/img/minus.svg" alt="">
                     </button>
-                    <button class="save-btn" @click="openActiveBonus(bonusTransaction)">{{ $t('MyBonusTransactions.more') }}</button>
+                    <button class="save-btn" @click="openActiveBonus(bonusTransaction)">{{ $t('myBonusTransactions.more') }}</button>
 
 
 

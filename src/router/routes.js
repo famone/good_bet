@@ -14,7 +14,7 @@ import RealGame from '../pages/RealGame.vue'
 import Withdrawal from '../pages/account/Withdrawal.vue'
 import Transactions from '../pages/account/Transactions.vue'
 import Deposit from '../pages/account/Deposit.vue'
-import MyBonusTransactions from '../pages/account/bonus-transaction/MyBonusTransactions.vue'
+import myBonusTransactions from '../pages/account/bonus-transaction/MyBonusTransactions.vue'
 import Failed from '../pages/Failed.vue'
 import Succed from '../pages/Succed.vue'
 import Favorite from '../pages/account/Favorite.vue'
@@ -162,7 +162,7 @@ const routes = [
 	},
 	{
 		path: '/my-bonuses',
-		component: MyBonusTransactions,
+		component: myBonusTransactions,
 		meta: {
 			playerAuth: true
 		}

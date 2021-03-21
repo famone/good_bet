@@ -16,7 +16,7 @@
 
             <div class="bonus-transaction-action-buttons">
               <button class="show-more-transaction-btn bonus-transaction-action-button"
-                      @click="showMore(bonusTransaction)">{{ $t('MyBonusTransactions.more') }}
+                      @click="showMore(bonusTransaction)">{{ $t('myBonusTransactions.more') }}
               </button>
 
               <button class="cancel-transaction-btn bonus-transaction-action-button"

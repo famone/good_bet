@@ -38,7 +38,7 @@
     "withdrawal": "Cash withdrawal",
     "accounts": "Accounts",
     "transactions": "Transactions",
-    "MyBonusTransactions": "My bonuses",
+    "myBonusTransactions": "My bonuses",
     "documents": "Documents"
   },
   "social": {
@@ -150,7 +150,7 @@
     "loginUPPER": "CONFIRM",
     "title": "NEW PASSWORD"
   },
-  "MyBonusTransactions": {
+  "myBonusTransactions": {
     "name": "MY BONUSES",
     "active": "Active",
     "available": "Available",
