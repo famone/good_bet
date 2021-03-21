@@ -56,6 +56,13 @@ export default {
       bonuses: "bonuses/getAll"
     }),
   },
+  watch: {
+    player() {
+      this.$store.dispatch('bonuses/loadAll').then(() => {
+        this.loading = false
+      })
+    }
+  },
   data() {
     return {
       loading: true
