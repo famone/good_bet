@@ -31,8 +31,11 @@ export default class Casino {
 				if (error instanceof AuthException) {
 					this.intiApplication()
 				} else if(error instanceof AccessDeniedException) {
-					CasinoLocalStorage.deleteUsers()
-					this.intiApplication()
+					store.dispatch('auth/setAuthenticated', false, {root: true}).then(() => {
+						CasinoLocalStorage.deleteUsers()
+						this.intiApplication()
+					})
+
 				}
 			})
 		}
