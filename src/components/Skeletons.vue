@@ -2,11 +2,7 @@
 
   <div class="games-row-box">
     <div class="row" v-for="row in rowCount">
-
-      <!-- копировать это -->
-
-
-      <div class="col-lg-3" v-for="item in elementPerCount">
+      <div :class="elementWrapperClass" v-for="item in elementPerCount">
         <div class="skeleton-box">
           <div class="skeleton-img skeleton"></div>
           <div class="skeleton-body">
@@ -15,9 +11,6 @@
           </div>
         </div>
       </div>
-
-      <!-- копировать это -->
-
     </div>
   </div>
 </template>
@@ -33,9 +26,16 @@ export default {
     elementPerCount: {
       type: Number,
       default: 4
+    },
+    elementWrapperClass: {
+      type: String,
+      default: 'col-lg-3'
     }
   },
   methods: {
+    getElementColClassName() {
+      return 'col-lg-3';
+    },
     closeMessage() {
       this.$emit('closeMessage')
     }

@@ -38,7 +38,7 @@
     "withdrawal": "Вывод",
     "accounts": "Счета",
     "transactions": "Транзакции",
-    "myBonuses": "Мои бонусы",
+    "myBonusTransactions": "Мои бонусы",
     "documents": "Документы"
   },
   "social": {
@@ -150,7 +150,7 @@
     "loginUPPER": "ПОДТВЕРДИТЬ",
     "title": "НОВЫЙ ПАРОЛЬ"
   },
-  "MyBonuses": {
+  "MyBonusTransactions": {
     "name": "МОИ БОНУСЫ",
     "active": "Активные",
     "available": "Доступные",

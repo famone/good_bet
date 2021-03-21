@@ -49,7 +49,7 @@
 							icon: require('../../assets/img/icons/pr4.svg')
 						},
 						{
-							text:  'myProfile.myBonuses',
+							text:  'myProfile.MyBonusTransactions',
 							link: '/my-bonuses',
 							icon: require('../../assets/img/icons/pr5.svg')
 						},

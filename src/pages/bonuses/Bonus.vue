@@ -82,7 +82,7 @@ export default {
 <style scoped>
 .bonusBg {
   height: 400px;
-  background-image: url(../../assets/img/slider1.png);
+  background-image: url(../../assets/img/bonus/default.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

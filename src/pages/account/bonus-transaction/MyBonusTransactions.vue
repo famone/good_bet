@@ -8,20 +8,22 @@
         <div class="row">
           <AcNav/>
           <div class="col-lg-9">
-            <h2>{{ $t('MyBonuses.name') }}</h2>
+            <h2>{{ $t('MyBonusTransactions.name') }}</h2>
 
             <button class="switch-btn"
                     :class="{activeSwitch : currentBonusTab === 'active'}"
-                    @click="switchToActiveBonuses()">{{ $t('MyBonuses.active') }}
+                    @click="switchToActiveBonuses()">{{ $t('MyBonusTransactions.active') }}
             </button>
             <button class="switch-btn"
                     :class="{activeSwitch : currentBonusTab === 'subscribed'}"
-                    @click="switchToSubscribedBonuses()">{{ $t('MyBonuses.subscribed') }}
+                    @click="switchToSubscribedBonuses()">{{ $t('MyBonusTransactions.subscribed') }}
             </button>
             <button class="switch-btn"
                     :class="{activeSwitch : currentBonusTab === 'all'}"
-                    @click="switchToAllBonuses()">{{ $t('MyBonuses.all') }}
+                    @click="switchToAllBonuses()">{{ $t('MyBonusTransactions.all') }}
             </button>
+
+            <active-bonus-transactions v-if="currentBonusTab === 'active'"/>
 
             <div class="row-bonuses" v-if="subscribedBonusTransactionList && currentBonusTab === 'subscribed'">
               <div v-for="bonusTransaction in subscribedBonusTransactionList" class="col-lg-4 col-sm-6">
@@ -39,9 +41,9 @@
                     <p class="bonus-descr" v-else></p>
 
                     <button class="apply-btn" @click="unsubscribeTransaction(bonusTransaction)">
-                      <img src="../../assets/img/minus.svg" alt="">
+                      <img src="../../../assets/img/minus.svg" alt="">
                     </button>
-                    <button class="save-btn" @click="openActiveBonus(bonusTransaction)">{{ $t('MyBonuses.more') }}</button>
+                    <button class="save-btn" @click="openActiveBonus(bonusTransaction)">{{ $t('MyBonusTransactions.more') }}</button>
 
 
 
@@ -50,30 +52,7 @@
               </div>
             </div>
 
-            <div class="row-bonuses" v-if="activeBonusTransactionList && currentBonusTab === 'active'">
-              <div v-for="bonusTransaction in activeBonusTransactionList" class="col-lg-4 col-sm-6">
-                <div class="news-card">
 
-                  <!-- <pre>{{bon}}</pre> -->
-                  <div class="news-img"
-                       :style="{'background-image': bonusTransaction.bonus.banners.length ? 'url(' + bonusTransaction.bonus.banners[0].url + ')' : ''}">
-
-                  </div>
-                  <div class="news-body">
-                    <h3>{{ bonusTransaction.bonus.title }}</h3>
-                    <!--<p class="bonus-descr" v-if="bonusTransaction.bonus.description"
-                       v-html="bonusTransaction.bonus.description.substring(0,90) + '...'"></p>
-                    <p class="bonus-descr" v-else></p>-->
-
-                    <button class="apply-btn" @click="cancelActiveTransaction(bonusTransaction)">
-                      <img src="../../assets/img/minus.svg" alt="">
-                    </button>
-                    <button class="save-btn" @click="openActiveBonus(bonusTransaction)">{{ $t('MyBonuses.more') }}</button>
-
-                  </div>
-                </div>
-              </div>
-            </div>
 
 
             <div class="row-bonuses" v-if="allBonusTransactionList && currentBonusTab === 'all'">
@@ -97,7 +76,7 @@
 
                     <button class="save-btn" @click="openAvailableBonus(bonusTransaction)">MORE</button>
                     <button class="apply-btn" @click="subscribeBonus(bonusTransaction.id)">
-                      <img src="../../assets/img/apply.svg">
+                      <img src="../../../assets/img/apply.svg">
                     </button>
                   </div>
                 </div>
@@ -123,7 +102,7 @@
     </section>
 
 
-    <acBonusPop v-if="acBonusDesc" :activeDesc="acBonusDesc" @closeAcDesc="closeAcDesc"/>
+
     <avBonusPop v-if="avBonusDesc" :availableDesc="avBonusDesc" @closeAvDesc="closeAvDesc"/>
 
 
@@ -132,19 +111,17 @@
 
 
 <script>
-import Navbar from '../../components/ui/Navbar.vue'
-import AcNav from '../../components/ui/AcNav.vue'
+import Navbar from '../../../components/ui/Navbar.vue'
+import AcNav from '../../../components/ui/AcNav.vue'
 import {mapGetters} from 'vuex'
-import {API} from '../../api'
-import acBonusPop from '../../components/ui/acBonusPop.vue'
-import avBonusPop from '../../components/ui/avBonusPop.vue'
+import avBonusPop from '../../../components/ui/avBonusPop.vue'
+import ActiveBonusTransactions from "./ActiveBonusTransactions";
 
 export default {
-  components: {Navbar, AcNav, acBonusPop, avBonusPop},
+  components: {ActiveBonusTransactions, Navbar, AcNav, avBonusPop},
   computed: {
     ...mapGetters({
       player: 'player/getCurrent',
-      activeBonusTransactionList: 'bonusTransactions/getActiveBonusTransactions',
       subscribedBonusTransactionList: 'bonusTransactions/getSubscribedBonusTransactions',
       allBonusTransactionList: 'bonusTransactions/getAllBonusTransactions'
     }),
@@ -152,7 +129,6 @@ export default {
   data() {
     return {
       currentBonusTab: 'active',
-      acBonusDesc: null,
       avBonusDesc: null
     }
   },
@@ -161,7 +137,6 @@ export default {
   },
   methods: {
     closeEsc() {
-      this.acBonusDesc = null
       this.avBonusDesc = null
     },
     subscribeBonus(id) {
@@ -177,24 +152,12 @@ export default {
     closeAvDesc() {
       this.avBonusDesc = null
     },
-    openActiveBonus(bonus) {
-      this.acBonusDesc = bonus
-    },
-    cancelActiveTransaction(transaction) {
-      this.$store.dispatch('bonusTransactions/cancel', transaction.id)
-    },
     unsubscribeTransaction(transaction) {
       this.$store.dispatch('bonusTransactions/unsubscribe', transaction.id)
-    },
-    closeAcDesc() {
-      this.acBonusDesc = null
     },
     switchToActiveBonuses() {
       this.currentBonusTab = 'active'
       this.loader = true
-      this.$store.dispatch('bonusTransactions/loadActive').then(() => {
-        this.loader = false
-      })
     },
     switchToSubscribedBonuses() {
       this.currentBonusTab = 'subscribed'
@@ -210,48 +173,12 @@ export default {
         this.loader = false;
       })
     }
-  },
-  created() {
-    this.$store.dispatch('bonusTransactions/loadActive').then(() => {
-      this.loading = false
-    })
   }
 }
 
 </script>
 
 <style scoped>
-.bonus-descr {
-  font-size: 16px;
-  font-weight: 400;
-  opacity: .4;
-  color: #fff;
-  line-height: 22px;
-  height: 50px;
-}
 
-.news-card:hover .news-body {
-  background: #1D1B49;
-}
 
-.apply-btn {
-  border: none;
-  height: 49px;
-  width: 49px;
-  font-size: 12px;
-  background: #4D2ADC;
-  color: #fff;
-  transition: all .3s ease;
-  letter-spacing: 0.17em;
-  border-radius: 16px;
-  margin-left: 10px;
-}
-
-.apply-btn:hover {
-  box-shadow: 0px 2px 16px 2px rgb(206 54 201 / 22%);
-}
-
-.apply-btn img {
-  height: 20px;
-}
 </style>

@@ -79,7 +79,7 @@ export default {
 .bonus-img {
   height: 180px;
   width: 100%;
-  background-image: url(../../assets/img/slider1.png);
+  background-image: url(../../assets/img/bonus/default.png);
   background-position: center right;
   background-repeat: no-repeat;
   background-size: cover;
