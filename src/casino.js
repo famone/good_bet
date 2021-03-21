@@ -17,6 +17,7 @@ import Toasted from "vue-toasted";
 import checkView from "vue-check-view";
 import AuthException from "./store/AuthException";
 import {CasinoLocalStorage} from "./CasinoLocalStorage";
+import AccessDeniedException from "./store/AccessDeniedException";
 
 export default class Casino {
 	constructor() {
@@ -28,6 +29,9 @@ export default class Casino {
 				this.intiApplication()
 			}).catch(error => {
 				if (error instanceof AuthException) {
+					this.intiApplication()
+				} else if(error instanceof AccessDeniedException) {
+					CasinoLocalStorage.deleteUsers()
 					this.intiApplication()
 				}
 			})

@@ -27,7 +27,7 @@
                 <p class="bonus-descr" v-if="bonus.description" v-html="bonus.description.substring(0,90) + '...'"></p>
                 <p class="bonus-descr" v-else></p>
                 <div v-if="player">
-                  <button class="save-btn" @click="subscribeToBonus(bonus)"><img src="../../assets/img/apply.svg" alt=""></button>
+                  <button class="save-btn" @click="openConfirmationPopup(bonus)">Subscribe</button>
                   <button class="save-btn"><img src="../../assets/img/aplyed.svg" alt=""></button>
                 </div>
               </div>
@@ -39,6 +39,7 @@
 
         </div>
       </div>
+      <SubscribePopup v-if="isBonusSubscriptionConfirmationPopup" :bonus="currentSubscriptionBonusInPopup" @cancelBonusSubscription="closeConfirmationPopup"/>
 
     </section>
   </div>
@@ -47,9 +48,10 @@
 <script>
 import Navbar from '../../components/ui/Navbar.vue'
 import {mapGetters} from 'vuex'
+import SubscribePopup from "../../components/bonus/SubscribePopup";
 
 export default {
-  components: {Navbar},
+  components: {SubscribePopup, Navbar},
   computed: {
     ...mapGetters({
       player: "player/getCurrent",
@@ -65,7 +67,9 @@ export default {
   },
   data() {
     return {
-      loading: true
+      loading: true,
+      isBonusSubscriptionConfirmationPopup: false,
+      currentSubscriptionBonusInPopup: null
     }
   },
   created() {
@@ -74,8 +78,12 @@ export default {
     })
   },
   methods: {
-    subscribeToBonus(bonus) {
-      this.$store.dispatch('bonusTransactions/subscribe', bonus.id)
+    openConfirmationPopup(bonus) {
+      this.currentSubscriptionBonusInPopup =  bonus
+      this.isBonusSubscriptionConfirmationPopup = true
+    },
+    closeConfirmationPopup() {
+      this.isBonusSubscriptionConfirmationPopup = false
     }
   }
 

@@ -2,6 +2,7 @@ import {API} from '../api'
 import Player from "../dto/Player";
 import AuthException from "./AuthException";
 import {CasinoLocalStorage} from "../CasinoLocalStorage";
+import AccessDeniedException from "./AccessDeniedException";
 
 const player = {
 	namespaced: true,
@@ -38,6 +39,8 @@ const player = {
 					if (error.response.status === 401) {
 						dispatch('auth/logOut', null, {root: true})
 						reject(new AuthException())
+					} else if(error.response.status === 403) {
+						reject(new AccessDeniedException())
 					} else {
 						reject(error)
 					}
