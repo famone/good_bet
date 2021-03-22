@@ -50,7 +50,7 @@
 						},
 						{
 							text:  'myProfile.myBonusTransactions',
-							link: '/my-bonuses',
+							link: '/my-bonuses/active',
 							icon: require('../../assets/img/icons/pr5.svg')
 						},
 						{

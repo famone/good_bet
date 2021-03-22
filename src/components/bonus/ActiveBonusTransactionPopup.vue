@@ -22,6 +22,9 @@ export default {
       type: Object
     }
   },
+  mounted() {
+    document.addEventListener('keyup', this.closeBonusTransactionShowMore);
+  },
   methods: {
     closeBonusTransactionShowMore() {
       this.$emit('closeBonusTransactionShowMore')

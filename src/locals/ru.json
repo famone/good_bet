@@ -22,7 +22,7 @@
     "cancelUPPER": "ОТМЕНИТЬ",
     "acceptUPPER": "ПРИНЯТЬ",
     "approved": "одобрено",
-    "denied": "откланено",
+    "denied": "отклонено",
     "pending": "ожидание",
     "goHomeLink": "Перейти на главную",
     "loading": "Загрузка...",
@@ -157,5 +157,21 @@
     "subscribed": "Подписки",
     "all": "Все",
     "more": "ещё"
+  },
+  "bonus": {
+    "statuses": {
+      "active": "Активный",
+      "finished": "Завершён",
+      "cancel": "Отменён",
+      "expired": "Просрочен",
+      "threshold": "Достигнут лимит",
+      "waiting": "Ожидание",
+      "subscribed": "Подписан",
+      "unsubscribed": "Отписан",
+      "pending_cancel": "Ожидает отмены"
+    },
+    "name": "Название",
+    "status": "Статус",
+    "transactionData": "Время создания"
   }
 }

@@ -150,6 +150,22 @@
     "loginUPPER": "CONFIRM",
     "title": "NEW PASSWORD"
   },
+  "bonus": {
+    "statuses": {
+      "active": "Active",
+      "finished": "Finished",
+      "cancel": "Cancel",
+      "expired": "Expired",
+      "threshold": "Threshold",
+      "waiting": "Waiting",
+      "subscribed": "Subscribed",
+      "unsubscribed": "Unsubscribed",
+      "pending_cancel": "Pending_cancel"
+    },
+    "name": "Name",
+    "status": "Status",
+    "transactionData": "Transaction Data"
+  },
   "myBonusTransactions": {
     "name": "MY BONUSES",
     "active": "Active",

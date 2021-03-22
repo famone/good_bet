@@ -118,6 +118,7 @@ const bonusTransactions = {
 			return state.bonusSubscribedTransactions
 		},
 		getAllBonusTransactions(state) {
+			console.log(state.bonusAllTransactions)
 			return state.bonusAllTransactions
 		}
 	}

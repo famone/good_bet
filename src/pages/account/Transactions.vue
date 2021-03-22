@@ -2,7 +2,6 @@
   <div>
     <Navbar/>
 
-
     <section id="account" v-if="player">
       <div class="container">
         <div class="row">

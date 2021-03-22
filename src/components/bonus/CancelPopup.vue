@@ -45,13 +45,16 @@ export default {
       }]
     }
   },
+  mounted() {
+    document.addEventListener('keyup', this.cancelBonusTransactionCancellation);
+  },
   methods: {
     cancelBonusTransactionCancellation() {
       this.$emit('cancelBonusTransactionCancellation')
     },
     cancelBonusTransaction(transaction) {
       this.$store.dispatch('bonusTransactions/cancel', transaction.id).then(() => {
-        this.$router.push('/my-bonuses')
+        this.$router.push('/my-bonuses/all')
       })
     }
   }

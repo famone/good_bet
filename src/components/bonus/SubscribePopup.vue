@@ -22,13 +22,16 @@ export default {
       type: Object
     }
   },
+  mounted() {
+    document.addEventListener('keyup', this.cancelBonusSubscription);
+  },
   methods: {
     cancelBonusSubscription() {
       this.$emit('cancelBonusSubscription')
     },
     subscribeToBonus(bonus) {
       this.$store.dispatch('bonusTransactions/subscribe', bonus.id).then(() => {
-        this.$router.push('/my-bonuses')
+        this.$router.push('/my-bonuses/subscribed')
       })
     }
   }

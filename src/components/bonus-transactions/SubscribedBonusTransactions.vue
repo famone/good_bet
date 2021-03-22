@@ -19,9 +19,9 @@
                       @click="showMore(bonusTransaction)">{{ $t('myBonusTransactions.more') }}
               </button>
 
-              <button class="cancel-transaction-btn bonus-transaction-action-button"
-                      @click="cancelActiveTransaction(bonusTransaction)">
-                <img src="../../../assets/img/minus.svg" alt="">
+              <button class="unsubscribe-transaction-btn bonus-transaction-action-button"
+                      @click="unsubscribeTransaction(bonusTransaction)">
+                <img src="../../assets/img/minus.svg" alt="">
               </button>
             </div>
           </div>
@@ -29,13 +29,13 @@
         </div>
       </div>
       <div v-else>
-        <h4>There is no bonuses yet</h4>
+        <h4>There are no bonuses yet</h4>
       </div>
     </div>
 
-    <cancel-popup v-if="isBonusCancellationConfirmationPopup"
-                  :bonusTransaction="transactionForCancellation"
-                  @cancelBonusTransactionCancellation="closeConfirmationPopup"/>
+    <unsubscribe-popup v-if="isBonusUnsubscriptionConfirmationPopup"
+                  :bonusTransaction="transactionForUnsubscription"
+                  @cancelBonusTransactionUnsubscription="closeConfirmationPopup"/>
 
     <active-bonus-transaction-popup v-if="isShowMorePopup"
                                     :transaction="transactionInShowMore"
@@ -48,22 +48,22 @@
 
 <script>
 
-import ActiveBonusTransactionPopup from "../../../components/bonus/ActiveBonusTransactionPopup";
-import CancelPopup from "../../../components/bonus/CancelPopup";
+import ActiveBonusTransactionPopup from "../bonus/ActiveBonusTransactionPopup";
 import {mapGetters} from "vuex";
-import Skeletons from "../../../components/Skeletons";
+import Skeletons from "../Skeletons";
+import UnsubscribePopup from "../bonus/UnsubscribePopup";
 
 export default {
-  components: {Skeletons, CancelPopup, ActiveBonusTransactionPopup},
+  components: {UnsubscribePopup, Skeletons, ActiveBonusTransactionPopup},
   computed: {
     ...mapGetters({
-      bonusTransactions: 'bonusTransactions/getActiveBonusTransactions',
+      bonusTransactions: 'bonusTransactions/getSubscribedBonusTransactions',
       player: 'player/getCurrent'
     }),
   },
   watch: {
     player() {
-      this.$store.dispatch('bonusTransactions/loadActive').then(() => {
+      this.$store.dispatch('bonusTransactions/loadSubscribed').then(() => {
         this.loading = false
       })
     },
@@ -71,14 +71,14 @@ export default {
   data() {
     return {
       loading: true,
-      isBonusCancellationConfirmationPopup: false,
+      isBonusUnsubscriptionConfirmationPopup: false,
       isShowMorePopup: false,
       transactionInShowMore: null,
-      transactionForCancellation: null
+      transactionForUnsubscription: null
     }
   },
   created() {
-    this.$store.dispatch('bonusTransactions/loadActive').then(() => {
+    this.$store.dispatch('bonusTransactions/loadSubscribed').then(() => {
       this.loading = false
     })
   },
@@ -91,13 +91,13 @@ export default {
       this.transactionInShowMore = null
       this.isShowMorePopup = false
     },
-    cancelActiveTransaction(transaction) {
-      this.transactionForCancellation = transaction
-      this.isBonusCancellationConfirmationPopup = true
+    unsubscribeTransaction(transaction) {
+      this.transactionForUnsubscription = transaction
+      this.isBonusUnsubscriptionConfirmationPopup = true
     },
     closeConfirmationPopup() {
       this.transactionInShowMore = null
-      this.isBonusCancellationConfirmationPopup = false
+      this.isBonusUnsubscriptionConfirmationPopup = false
     }
   }
 }
@@ -132,7 +132,7 @@ export default {
 .bonus-transaction-img {
   height: 180px;
   width: 100%;
-  background-image: url(../../../assets/img/bonus/default.png);
+  background-image: url(../../assets/img/bonus/default.png);
   background-position: center right;
   background-repeat: no-repeat;
   background-size: cover;
@@ -154,7 +154,7 @@ export default {
   display: block;
 }
 
-.cancel-transaction-btn,
+.unsubscribe-transaction-btn,
 .show-more-transaction-btn {
   border: none;
   height: 49px;
@@ -167,7 +167,7 @@ export default {
   border-radius: 16px;
 }
 
-.cancel-transaction-btn {
+.unsubscribe-transaction-btn {
   margin-left: 10px;
 }
 
@@ -177,12 +177,12 @@ export default {
   width: 120px;
 }
 
-.cancel-transaction-btn:hover,
+.unsubscribe-transaction-btn:hover,
 .show-more-transaction-btn:hover {
   box-shadow: 0px 2px 16px 2px rgb(206 54 201 / 22%);
 }
 
-.cancel-transaction-btn img {
+.unsubscribe-transaction-btn img {
   height: 20px;
 }
 </style>

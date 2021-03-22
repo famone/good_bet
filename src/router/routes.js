@@ -161,7 +161,7 @@ const routes = [
 		}
 	},
 	{
-		path: '/my-bonuses',
+		path: '/my-bonuses/:status',
 		component: myBonusTransactions,
 		meta: {
 			playerAuth: true
