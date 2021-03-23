@@ -19,4 +19,8 @@ export default class Account
 	getFormattedAmount() {
 		return this.amount.toLocaleString();
 	}
+
+	getFormattedBonusAmount() {
+		return this.bonus_left.toLocaleString();
+	}
 }

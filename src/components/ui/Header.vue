@@ -34,23 +34,23 @@
             </div>
             <div class="text-center">
               <p class="small-white" style="font-size: 14px;">{{ player.nickname }}</p>
-              <!-- <p class="small-white" v-if="player.accounts">
-                <strong>{{player.accounts[0].amount.toLocaleString()}} {{player.accounts[0].currency_code}}</strong>
-              </p> -->
 
-              <select class="acc-select" v-if="player.accounts.length" :value="currentAccount.id"
-                      @change="changeAccount($event)">
-                <option :value="account.id" v-for="account in player.accounts.items">
-                  {{ account.getFormattedAmount() }} {{ account.currency_code }}
-                </option>
-              </select>
+              <account-select
+                  v-if="player.accounts.length"
+                  :accounts="player.accounts.items"
+                  @onAccountSelect="changeAccount"
+              />
+
             </div>
-            <router-link tag="a" to="/profile" class="settings">
-              <img src="../../assets/img/settings.svg" alt="">
-            </router-link>
+
             <router-link tag="a" to="/deposit" class="coins">
               <img src="../../assets/img/coinsgold.svg" alt="">
             </router-link>
+
+            <router-link tag="a" to="/profile" class="settings">
+              <img src="../../assets/img/settings.svg" alt="">
+            </router-link>
+
             <router-link tag="a" to="/favorite" class="coins">
               <img src="../../assets/img/like2.svg" alt="">
             </router-link>
@@ -134,9 +134,10 @@ import LangSwitcher from "./LangSwitcher";
 import miniChat from '../ui/miniChat.vue'
 import messagePop from '../ui/messagePop.vue'
 import mobileSidebar from '../ui/mobileSidebar.vue'
+import accountSelect from '../ui/AccountSelect.vue'
 
 export default {
-  components: {LangSwitcher, miniChat, messagePop, mobileSidebar},
+  components: {LangSwitcher, miniChat, messagePop, mobileSidebar, accountSelect},
   computed: {
     ...mapGetters({
       player: "player/getCurrent",
@@ -184,9 +185,8 @@ export default {
         this.$router.replace("/enter");
       });
     },
-    changeAccount(e) {
-      let valuteCode = e.target.value
-      this.$store.dispatch('account/changeAccount', valuteCode)
+    changeAccount(accountId) {
+      this.$store.dispatch('account/changeAccount', accountId)
     },
     searchMethod() {
       this.$store.dispatch('games/searchGame', this.search)
@@ -261,7 +261,8 @@ export default {
           link: '/bonuses',
           title: 'main.bonuses'
         }
-      ]
+      ],
+      opened: false
     }
   },
   mounted() {
@@ -280,4 +281,4 @@ export default {
     }
   }
 }
-</script>	
+</script>
