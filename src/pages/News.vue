@@ -4,11 +4,9 @@
 
     <section id="news">
       <div class="container">
-        <div class="col-lg-12 text-center" v-if="!news">
-          <img src="../assets/img/icons/nv6.svg" class="spin">
-        </div>
+        <skeletons v-if="!news.length" :element-per-count="3" element-wrapper-class="col-lg-4 col-sm-6"/>
 
-        <div class="col-lg-4 col-sm-6" v-if="news" v-for="item in news" v-bind:key="item.id">
+        <div class="col-lg-4 col-sm-6" v-else v-for="item in news" v-bind:key="item.id">
           <div class="news-card">
             <div class="news-img" :style="{backgroundImage: 'url(\'' + (item.image.url ? item.image.url : 'slider1.png') +'\')'}">
               <div class="read-news">
@@ -32,9 +30,10 @@
 <script>
 import {mapGetters} from 'vuex'
 import Navbar from '../components/ui/Navbar.vue'
+import Skeletons from "../components/Skeletons";
 
 export default {
-  components: {Navbar},
+  components: {Skeletons, Navbar},
   computed: {
     ...mapGetters({news: "news/getAll"}),
   },
