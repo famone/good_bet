@@ -33,7 +33,7 @@
                   <div class="description" @click="input.value = bonus.id; checkedBonusId = bonus.id ">
                     <p class="white-txt">{{ bonus.title }}</p>
                     <p class="small-white" v-if="bonus.id === checkedBonusId"
-                       @click="readBonus(bonus)">Read More</p>
+                       @click="showMoreBonus(bonus)">Read More</p>
                   </div>
                 </div>
                 <br>
@@ -87,7 +87,7 @@
         </div>
       </div>
     </div>
-    <avBonusPop v-if="avBonusDesc" :availableDesc="avBonusDesc" @closeAvDesc="closeAvDesc"/>
+    <bonus-show-more-popup v-if="isBonusShowMorePopup" :bonus="currentBonusInShowMore" @closeShowMore="closeBonusShowMore"/>
   </section>
 </template>
 
@@ -95,13 +95,14 @@
 <script>
 import VueRecaptcha from 'vue-recaptcha'
 import {mapGetters} from 'vuex'
-import avBonusPop from '../components/ui/avBonusPop.vue'
+import BonusShowMorePopup from "../components/bonus/BonusShowMorePopup";
 
 export default {
-  components: {VueRecaptcha, avBonusPop},
+  components: {BonusShowMorePopup, VueRecaptcha},
   data() {
     return {
-      avBonusDesc: null,
+      currentBonusInShowMore: null,
+      isBonusShowMorePopup: false,
       checkedBonusId: null,
       isLoading: false,
       captchaToken: process.env.CASINO_APP_CAPTCHA_TOKEN,
@@ -133,11 +134,12 @@ export default {
     },
   },
   methods: {
-    closeAvDesc() {
-      this.avBonusDesc = null
+    closeBonusShowMore() {
+      this.isBonusShowMorePopup = false
     },
-    readBonus(bon) {
-      this.avBonusDesc = bon
+    showMoreBonus(bonus) {
+      this.currentBonusInShowMore = bonus
+      this.isBonusShowMorePopup = true
     },
     submitForm() {
       this.$store.dispatch('registerForm/submit', this.formInputs).then(() => {

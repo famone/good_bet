@@ -24,8 +24,8 @@
                 <p class="bonus-descr" v-if="bonus.description" v-html="bonus.description.substring(0,90) + '...'"></p>
                 <p class="bonus-descr" v-else></p>
                 <div v-if="player">
+                  <button class="save-btn" @click="openShowMorePopup(bonus)">More</button>
                   <button class="save-btn" @click="openConfirmationPopup(bonus)">Subscribe</button>
-                  <button class="save-btn"><img src="../../assets/img/aplyed.svg" alt=""></button>
                 </div>
               </div>
             </div>
@@ -36,7 +36,9 @@
 
         </div>
       </div>
-      <SubscribePopup v-if="isBonusSubscriptionConfirmationPopup" :bonus="currentSubscriptionBonusInPopup" @cancelBonusSubscription="closeConfirmationPopup"/>
+
+      <subscribe-popup v-if="isBonusSubscriptionConfirmationPopup" :bonus="currentSubscriptionBonusInPopup" @cancelBonusSubscription="closeConfirmationPopup"/>
+      <bonus-show-more-popup v-if="isBonusShowMorePopup" :bonus="currentBonusInShowMore" @closeShowMore="closeShowMorePopup"/>
 
     </section>
   </div>
@@ -47,9 +49,10 @@ import Navbar from '../../components/ui/Navbar.vue'
 import {mapGetters} from 'vuex'
 import SubscribePopup from "../../components/bonus/SubscribePopup";
 import Skeletons from "../../components/Skeletons";
+import BonusShowMorePopup from "../../components/bonus/BonusShowMorePopup";
 
 export default {
-  components: {Skeletons, SubscribePopup, Navbar},
+  components: {BonusShowMorePopup, Skeletons, SubscribePopup, Navbar},
   computed: {
     ...mapGetters({
       player: "player/getCurrent",
@@ -67,7 +70,9 @@ export default {
     return {
       loading: true,
       isBonusSubscriptionConfirmationPopup: false,
-      currentSubscriptionBonusInPopup: null
+      currentSubscriptionBonusInPopup: null,
+      isBonusShowMorePopup: false,
+      currentBonusInShowMore: null
     }
   },
   created() {
@@ -76,6 +81,13 @@ export default {
     })
   },
   methods: {
+    openShowMorePopup(bonus) {
+      this.currentBonusInShowMore =  bonus
+      this.isBonusShowMorePopup = true
+    },
+    closeShowMorePopup() {
+      this.isBonusShowMorePopup = false
+    },
     openConfirmationPopup(bonus) {
       this.currentSubscriptionBonusInPopup =  bonus
       this.isBonusSubscriptionConfirmationPopup = true
@@ -106,6 +118,7 @@ export default {
   color: #fff;
   line-height: 22px;
   height: 50px;
+  overflow: hidden;
 }
 
 .news-body .save-btn img {

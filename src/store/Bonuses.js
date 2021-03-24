@@ -20,7 +20,8 @@ const bonuses = {
 				API.get('lab/bonuses', {
 					params: {
 						activation_event: 'registration',
-						currency_id: currencyId
+						currency_id: currencyId,
+						expand: 'banners, budgets, accrual_rules, wagering_rules, free_spin_rules',
 					}
 				}).then(response => {
 					commit('SET_REGISTRATION_BONUSES', response.data)
