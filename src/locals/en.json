@@ -61,6 +61,9 @@
   "games": {
     "noGamesTextInList": "Oops, No games yet!",
     "connecting": "Connecting",
+    "gameLaunchErrorMsg": "Error in game launch on this currency, please change account, or contact support",
+    "changeAccount": "Change current account",
+    "connectUs": "Connect us",
     "seeAllLinkTitle": "See All",
     "gamesUPPER": "GAMES",
     "gamesSearchFieldTitle": "Game name"

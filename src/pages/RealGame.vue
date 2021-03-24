@@ -6,34 +6,41 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8">
-            <div  v-if="game && gameLauncher">
+            <div v-if="game">
               <div class="breadcrumbs">
                 <h2>
                   <router-link tag="span" to="/games" class="br-link">{{ $t('games.gamesUPPER') }}</router-link>
                   /
                   <span class="to-upper">{{ game.name }}</span>
                 </h2>
-                <div class="tool-btns">
+                <div class="tool-btns" v-if="gameLauncher && gameLauncher.launch_url">
                   <div class="full-screen-btn hidden-xs" @click="fullScreenMode = true">
                     <img src="../assets/img/screen.svg" alt="">
                   </div>
                 </div>
               </div>
-              <div class="conection text-center" v-if="gameLauncher.launch_url === '' ">
+              <div class="conection text-center" v-if="gameLauncher && gameLauncher.launch_url === '' ">
                 <br><br>
                 <img alt="$t('main.loading')" src="../assets/img/icons/nv6.svg" class="spin">
                 <p class="white-txt">{{ $t('games.connecting') }}</p>
                 <br><br>
               </div>
-              <div class="game-louncher" v-else :class="{fullscreenGame : fullScreenMode}">
+              <div class="game-louncher" v-else-if="gameLauncher && gameLauncher.launch_url" :class="{fullscreenGame : fullScreenMode}">
                 <div class="full-screen-btn exit-full hidden-xs" @click="fullScreenMode = false" v-if="fullScreenMode">
                   <img src="../assets/img/cross.svg" alt="">
                 </div>
                 <iframe :src="gameLauncher.launch_url" frameborder="0"></iframe>
               </div>
+              <div v-else-if="errorInLaunch" class="game-launch-error text-center">
+                <br><br>
+                <br><br>
+                <p class="white-txt">{{ $t('games.gameLaunchErrorMsg') }}</p>
+                <router-link to="/accounts" tag="button" class="save-btn">{{ $t('games.changeAccount') }}</router-link>
+                <router-link to="/about" tag="button" class="save-btn">{{ $t('games.connectUs') }}</router-link>
+              </div>
             </div>
-
           </div>
+
           <div class="col-lg-4 game-right-side-information-block">
             <accordions :data="accordionsData"/>
           </div>
@@ -55,6 +62,8 @@ export default {
   data() {
     return {
       fullScreenMode: false,
+      errorInLaunch: false,
+      loading: true,
       accordionsData: [
         {
           name: 'Recent winners',
@@ -112,7 +121,13 @@ export default {
   created() {
     let routeId = parseInt(this.$route.params.id)
 
-    this.$store.dispatch('gameLauncher/createReal', routeId)
+    this.$store.dispatch('gameLauncher/createReal', routeId).then(() => {
+      this.loading = false
+    }).catch(() => {
+      this.errorInLaunch = true
+      this.loading = false
+    })
+
     this.$store.dispatch('game/loadById', routeId)
   },
   mounted() {
@@ -130,6 +145,16 @@ export default {
 
 
 <style>
+.game-launch-error {
+  margin: auto;
+  text-align: center;
+  font-size: 25px;
+}
+
+.game-launch-error a.white-txt:hover {
+  color: #4D2ADC;
+}
+
 .game-right-side-information-block {
   margin-top: 85px;
 }

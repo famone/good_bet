@@ -61,6 +61,9 @@
   "games": {
     "noGamesTextInList": "Оппа, тут нет игр",
     "connecting": "Соединение",
+    "gameLaunchErrorMsg": "Ошибка при запуске игры, пожалуйста смените счет, или свяжитесь с поддержкой",
+    "changeAccount": "Сменить счёт",
+    "connectUs": "Связатся с нами",
     "seeAllLinkTitle": "Еще",
     "gamesUPPER": "ИГРЫ",
     "gamesSearchFieldTitle": "Название игры"

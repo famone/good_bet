@@ -294,7 +294,6 @@ export default {
           duration: 1500
         })
       }).catch(err => {
-        console.log(err);
         this.errors = err.response.data
         this.isLoading = false
         this.$toasted.show(this.$t('pages.account.profile.profileEditFail'), {

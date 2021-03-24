@@ -72,8 +72,6 @@ const bonusTransactions = {
 				API.post('lab/bonus-transactions', {
 					bonus_id: bonusId
 				}).then(res => {
-					console.log(res)
-
 					resolve(res)
 				}).catch(error => {
 
@@ -86,8 +84,6 @@ const bonusTransactions = {
 				API.patch('lab/bonus-transactions/' + transactionId, {
 					status: 'unsubscribed'
 				}).then(res => {
-					console.log(res)
-
 					resolve(res)
 				}).catch(error => {
 
@@ -100,8 +96,6 @@ const bonusTransactions = {
 				API.patch('lab/bonus-transactions/' + transactionId, {
 					status: 'cancel'
 				}).then(res => {
-					console.log(res)
-
 					resolve(res)
 				}).catch(error => {
 
@@ -118,7 +112,6 @@ const bonusTransactions = {
 			return state.bonusSubscribedTransactions
 		},
 		getAllBonusTransactions(state) {
-			console.log(state.bonusAllTransactions)
 			return state.bonusAllTransactions
 		}
 	}
