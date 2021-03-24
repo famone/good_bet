@@ -75,6 +75,15 @@ export default {
       opened: false
     }
   },
+  mounted() {
+    let allApp = document.querySelector('#app')
+
+    allApp.addEventListener('click', (e) => {
+      if (!this.$el.contains(e.target)) {
+        this.opened = false
+      }
+    })
+  },
   methods: {
     toggleSelectBox() {
       this.opened = !this.opened
