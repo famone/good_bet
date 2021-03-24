@@ -9,25 +9,38 @@
           <skeletons v-if="loading" :element-per-count="3" element-wrapper-class="col-lg-4 col-sm-6"/>
 
           <div v-else-if="bonuses" v-for="bonus in bonuses" v-bind:key="bonus.id" class="col-lg-4">
-            <div class="news-card">
-              <div class="bonus-img"
-                   :style="{'background-image': bonus.banners.length ? 'url(' + bonus.banners[0].url + ')' : ''}">
-                <div class="read-news">
+            <div class="bonus-card">
+              <div v-if="bonus.banners.length"
+                   class="bonus-img"
+                   :style="{'background-image': 'url(' + bonus.banners[0].url + ')'}">
+                  <div class="bonus-read-more">
+                    <router-link tag="a" :to=" '/bonuses/' + bonus.id " class="read-btn">
+                      <img src="../../assets/img/see.svg" alt="">
+                    </router-link>
+                  </div>
+              </div>
+              <div v-else class="bonus-img">
+                <div class="bonus-read-more">
                   <router-link tag="a" :to=" '/bonuses/' + bonus.id " class="read-btn">
                     <img src="../../assets/img/see.svg" alt="">
                   </router-link>
                 </div>
-
               </div>
-              <div class="news-body">
-                <h3>{{ bonus.title }}</h3>
-                <p class="bonus-descr" v-if="bonus.description" v-html="bonus.description.substring(0,90) + '...'"></p>
-                <p class="bonus-descr" v-else></p>
-                <div v-if="player">
-                  <button class="save-btn" @click="openShowMorePopup(bonus)">More</button>
-                  <button class="save-btn" @click="openConfirmationPopup(bonus)">Subscribe</button>
+
+              <div class="bonus-body">
+                <p class="bonus-title">{{ bonus.title }}</p>
+
+                <p class="bonus-description" v-if="bonus.description" v-html="bonus.description.substring(0,90) + '...'"></p>
+                <p class="bonus-description" v-else></p>
+
+                <div  class="bonus-action-buttons">
+                  <button class="show-more-btn" @click="openShowMorePopup(bonus)">More</button>
+
+                  <button v-if="player" class="subscribe-btn" @click="openConfirmationPopup(bonus)">Subscribe</button>
+                  <router-link v-else to="/enter" class="subscribe-btn" tag="button">SUBSCRIBE</router-link>
                 </div>
               </div>
+
             </div>
           </div>
           <div v-else>
@@ -101,6 +114,31 @@ export default {
 </script>
 
 <style scoped>
+
+
+.bonus-card {
+  border-radius: 30px;
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.bonus-title {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  margin-top: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 20px;
+}
+
+.bonus-action-buttons {
+
+}
+
 .bonus-img {
   height: 180px;
   width: 100%;
@@ -111,7 +149,32 @@ export default {
   position: relative;
 }
 
-.bonus-descr {
+.bonus-read-more {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(26, 24, 64, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all .4s ease;
+  opacity: 0;
+}
+
+.bonus-card:hover .bonus-read-more{
+  opacity: 1;
+}
+
+.bonus-body {
+  background: #1D1B49;
+  padding: 30px;
+  transition: all .4s ease;
+  max-height: 190px;
+}
+
+.bonus-description {
   font-size: 16px;
   font-weight: 400;
   opacity: .4;
@@ -121,7 +184,43 @@ export default {
   overflow: hidden;
 }
 
-.news-body .save-btn img {
-  height: 15px;
+.bonus-card:hover {
+  box-shadow: 0 2px 16px 2px rgb(206 54 201 / 10%)
+}
+
+.bonus-action-buttons {
+  display: block;
+}
+
+.subscribe-btn,
+.show-more-btn {
+  border: none;
+  height: 49px;
+  font-size: 12px;
+  background: #4D2ADC;
+  color: #fff;
+  transition: all .3s ease;
+  letter-spacing: 0.17em;
+  border-radius: 16px;
+}
+
+.subscribe-btn {
+  margin-left: 10px;
+}
+
+.subscribe-btn,
+.show-more-btn {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  width: 120px;
+}
+
+.subscribe-btn:hover,
+.show-more-btn:hover {
+  box-shadow: 0px 2px 16px 2px rgb(206 54 201 / 22%);
+}
+
+.subscribe-btn img {
+  height: 20px;
 }
 </style>

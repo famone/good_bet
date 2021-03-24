@@ -28,7 +28,8 @@
                     <h4>Wager type: {{bonus.wagering_rules[0].wagering_type}}</h4>
                   </div>
                   <div class="col-lg-6 text-right">
-                    <button @click="openConfirmationPopup(bonus)" class="save-btn">SUBSCRIBE</button>
+                    <button v-if="player" @click="openConfirmationPopup(bonus)" class="save-btn">SUBSCRIBE</button>
+                    <router-link v-else to="/enter" class="save-btn" tag="button">SUBSCRIBE</router-link>
                   </div>
                 </div>
               </div>
@@ -55,6 +56,7 @@ export default {
   components: {SubscribePopup, Navbar},
   computed: {
     ...mapGetters({
+      player: "player/getCurrent",
       bonus: "bonus/getBonus"
     }),
   },
