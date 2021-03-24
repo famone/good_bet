@@ -62,6 +62,8 @@
     "noGamesTextInList": "Oops, No games yet!",
     "connecting": "Connecting",
     "gameLaunchErrorMsg": "Error in game launch on this currency, please change account, or contact support",
+    "playerIsNotVerifiedMsg": "You are not verified yet, please provide documents for verification and wait for verification",
+    "uploadDocuments": "Upload documents",
     "changeAccount": "Change current account",
     "connectUs": "Connect us",
     "seeAllLinkTitle": "See All",

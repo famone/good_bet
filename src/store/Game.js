@@ -13,7 +13,11 @@ const game = {
 	actions: {
 		loadById({commit}, id) {
 			return new Promise((resolve, reject) => {
-				API.get('games/' + id).then(response => {
+				API.get('games/' + id, {
+					params: {
+						expand: 'provider,groups'
+					}
+				}).then(response => {
 					commit('SET_GAME', response.data)
 
 					resolve(response)

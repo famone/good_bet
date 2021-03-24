@@ -6,7 +6,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8">
-            <div v-if="game">
+            <div v-if="game && player && player.is_verified">
               <div class="breadcrumbs">
                 <h2>
                   <router-link tag="span" to="/games" class="br-link">{{ $t('games.gamesUPPER') }}</router-link>
@@ -19,6 +19,7 @@
                   </div>
                 </div>
               </div>
+
               <div class="conection text-center" v-if="gameLauncher && gameLauncher.launch_url === '' ">
                 <br><br>
                 <img alt="$t('main.loading')" src="../assets/img/icons/nv6.svg" class="spin">
@@ -39,9 +40,20 @@
                 <router-link to="/about" tag="button" class="save-btn">{{ $t('games.connectUs') }}</router-link>
               </div>
             </div>
+
+            <div v-else-if="player && !player.is_verified">
+              <br><br>
+              <br><br>
+              <br><br>
+              <br><br>
+              <br><br>
+              <p class="white-txt">{{ $t('games.playerIsNotVerifiedMsg') }}</p>
+              <router-link to="/documents" tag="button" class="save-btn">{{ $t('games.uploadDocuments') }}</router-link>
+              <router-link to="/about" tag="button" class="save-btn">{{ $t('games.connectUs') }}</router-link>
+            </div>
           </div>
 
-          <div class="col-lg-4 game-right-side-information-block">
+          <div class="col-lg-4 game-right-side-information-block" v-if="game">
             <accordions :data="accordionsData"/>
           </div>
         </div>
@@ -56,36 +68,16 @@
 import Navbar from '../components/ui/Navbar.vue'
 import {mapGetters} from "vuex";
 import Accordions from "../components/ui/accordions";
+import Skeletons from "../components/Skeletons";
 
 export default {
-  components: {Accordions, Navbar},
+  components: {Accordions, Navbar, Skeletons},
   data() {
     return {
       fullScreenMode: false,
       errorInLaunch: false,
       loading: true,
-      accordionsData: [
-        {
-          name: 'Recent winners',
-          desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing, elit. Natus quod, itaque placeat possimus quos labore culpa eius magnam aliquam eos obcaecati molestias odit autem quisquam cum, et dolor perspiciatis quo atque, ad. Fuga, voluptatibus ipsum, autem corrupti dignissimos exercitationem temporibus.',
-          active: false
-        },
-        {
-          name: 'Game information',
-          desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing, elit. Natus quod, itaque placeat possimus quos labore culpa eius magnam aliquam eos obcaecati molestias odit autem quisquam cum, et dolor perspiciatis quo atque, ad. Fuga, voluptatibus ipsum, autem corrupti dignissimos exercitationem temporibus.',
-          active: false
-        },
-        {
-          name: 'Related gamesv',
-          desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing, elit. Natus quod, itaque placeat possimus quos labore culpa eius magnam aliquam eos obcaecati molestias odit autem quisquam cum, et dolor perspiciatis quo atque, ad. Fuga, voluptatibus ipsum, autem corrupti dignissimos exercitationem temporibus.',
-          active: false
-        },
-        {
-          name: 'Description',
-          desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing, elit. Natus quod, itaque placeat possimus quos labore culpa eius magnam aliquam eos obcaecati molestias odit autem quisquam cum, et dolor perspiciatis quo atque, ad. Fuga, voluptatibus ipsum, autem corrupti dignissimos exercitationem temporibus.',
-          active: false
-        },
-      ]
+      gameId: null
     }
   },
   computed: {
@@ -93,7 +85,33 @@ export default {
       player: 'player/getCurrent',
       game: 'game/get',
       gameLauncher: 'gameLauncher/get'
-    })
+    }),
+    accordionsData() {
+      return [
+        {
+          name: 'Recent winners',
+          desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing, elit. Natus quod, itaque placeat possimus quos labore culpa eius magnam aliquam eos obcaecati molestias odit autem quisquam cum, et dolor perspiciatis quo atque, ad. Fuga, voluptatibus ipsum, autem corrupti dignissimos exercitationem temporibus.',
+          active: false
+        },
+        {
+          name: 'Game information',
+          desc: '<div>' + this.game.name + '</div>' +
+              '<div>Provider: ' + this.game.provider.name +'</div>' +
+              '<div>Groups: ' + this.game.groups.map(group => group.name) +'</div>',
+          active: true
+        },
+        {
+          name: 'Related games',
+          desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing, elit. Natus quod, itaque placeat possimus quos labore culpa eius magnam aliquam eos obcaecati molestias odit autem quisquam cum, et dolor perspiciatis quo atque, ad. Fuga, voluptatibus ipsum, autem corrupti dignissimos exercitationem temporibus.',
+          active: false
+        },
+        {
+          name: 'Description',
+          desc: this.game.description,
+          active: true
+        },
+      ]
+    }
   },
   watch: {
     player(newVersion, oldVersion) {
@@ -119,16 +137,16 @@ export default {
     }
   },
   created() {
-    let routeId = parseInt(this.$route.params.id)
+    this.gameId = parseInt(this.$route.params.id)
 
-    this.$store.dispatch('gameLauncher/createReal', routeId).then(() => {
+    this.$store.dispatch('gameLauncher/createReal', this.gameId).then(() => {
       this.loading = false
     }).catch(() => {
       this.errorInLaunch = true
       this.loading = false
     })
 
-    this.$store.dispatch('game/loadById', routeId)
+    this.$store.dispatch('game/loadById', this.gameId)
   },
   mounted() {
     let options = {
@@ -139,7 +157,7 @@ export default {
   },
   beforeDestroy() {
 
-  }
+  },
 }
 </script>
 

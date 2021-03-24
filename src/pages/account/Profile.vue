@@ -156,10 +156,6 @@
                   <h4>{{ player.surname }}</h4>
                 </div>
                 <div class="col-lg-4 account-field">
-                  <label>{{ $t('pages.account.profile.login') }}</label>
-                  <h4>{{ player.username }}</h4>
-                </div>
-                <div class="col-lg-4 account-field">
                   <label>{{ $t('pages.account.profile.sex') }}</label>
                   <h4>{{ player.gender }}</h4>
                 </div>
