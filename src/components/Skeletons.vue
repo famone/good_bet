@@ -1,6 +1,6 @@
 <template>
 
-  <div class="games-row-box">
+  <div>
     <div class="row" v-for="row in rowCount">
       <div :class="elementWrapperClass" v-for="item in elementPerCount">
         <div class="skeleton-box">
