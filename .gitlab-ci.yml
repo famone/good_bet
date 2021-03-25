@@ -55,6 +55,7 @@ Build and deploy staging:
   variables:
     CASINO_APP_API_URL: http://staging.api.casinoplatform.site/v3/
     CASINO_APP_URL: http://staging.goodbet.casinoplatform.site
+    CASINO_SOCKET_URL: http://staging.goodbet.casinoplatform.site:2052
     DEPLOY_PATH: /var/www/staging.goodbet/dist
   extends: .deploy
   environment:
@@ -68,6 +69,7 @@ Build and deploy prod:
   variables:
     CASINO_APP_API_URL: http://api.casinoplatform.site/v3/
     CASINO_APP_URL: http://goodbet.casinoplatform.site
+    CASINO_SOCKET_URL: http://goodbet.casinoplatform.site:2052
     DEPLOY_PATH: /var/www/goodbet/dist
   extends: .deploy
   environment:

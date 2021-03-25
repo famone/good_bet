@@ -13,7 +13,8 @@
                 :to="lnk.link"
                 v-for="lnk in menuLinks"
                 v-bind:key="lnk.id"
-                class="link"><li>{{ $t(lnk.title) }}</li>
+                class="link">
+              <li>{{ $t(lnk.title) }}</li>
             </router-link>
           </ul>
         </div>
@@ -21,17 +22,25 @@
         <div class="header-box-col al-center hidden-xs hidden-sm" v-if="player">
           <input type="text" class="search-inp" placeholder="Game name" @input="searchMethod" v-model="search">
           <div class="player-row">
-            <div class="avatar" v-if="player.avatars.length !== 0"
-                 @click="showChat = !showChat"
-                 :style="{'background-image': 'url(' + player.avatars.items[0].url + ')'}">
-              <div v-if="unreadMessageCount > 0" class="ring"></div>
-              <miniChat v-if="showChat"/>
+            <div class="avatar-wrapper">
+              <div class="avatar" v-if="player.avatars.length !== 0"
+                   ref="miniChatOpenButton"
+                   @click="showChat = !showChat"
+                   :style="{'background-image': 'url(' + player.avatars.items[0].url + ')'}">
+                <div v-if="unreadMessageCount > 0" class="ring"></div>
+              </div>
+              <div class="avatar" v-else @click="showChat = !showChat" ref="miniChatOpenButton">
+                <div v-if="unreadMessageCount > 0" class="ring"></div>
+                <span>{{ player.nickname.substr(0, 1) }}</span>
+              </div>
+              <messages-small-popup
+                  v-if="showChat"
+                  :openButton="miniChatOpenButton"
+                  @closeMiniChat="showChat = false"
+                  @openMessage="openCertainMessage"
+              />
             </div>
-            <div class="avatar" v-else @click="showChat = !showChat">
-              <div v-if="unreadMessageCount > 0" class="ring"></div>
-              <miniChat v-if="showChat"/>
-              <span>{{ player.nickname.substr(0, 1) }}</span>
-            </div>
+
             <div class="text-center">
               <p class="small-white" style="font-size: 14px;">{{ player.nickname }}</p>
 
@@ -90,25 +99,21 @@
         </div>
 
 
-        
-
-
-
         <div class="header-box-col al-center">
-           <select class="acc-select hidden-lg" v-if="player && player.accounts.length" :value="currentAccount.id"
-                      @change="changeAccount($event)" style="margin-right: 5px;">
-                <option :value="account.id" v-for="account in player.accounts.items">
-                  {{ account.getFormattedAmount() }} {{ account.currency_code }}
-                </option>
-              </select>
+          <select class="acc-select hidden-lg" v-if="player && player.accounts.length" :value="currentAccount.id"
+                  @change="changeAccount($event)" style="margin-right: 5px;">
+            <option :value="account.id" v-for="account in player.accounts.items">
+              {{ account.getFormattedAmount() }} {{ account.currency_code }}
+            </option>
+          </select>
 
           <lang-switcher/>
 
-          <div class="mobile-menu hidden-lg " 
-          :class="{menuBtnAc: mobileMenuOpened}" @click="mobileMenuOpened = !mobileMenuOpened">
-             <span></span>
-             <span></span>
-              <span></span>
+          <div class="mobile-menu hidden-lg "
+               :class="{menuBtnAc: mobileMenuOpened}" @click="mobileMenuOpened = !mobileMenuOpened">
+            <span></span>
+            <span></span>
+            <span></span>
           </div>
         </div>
 
@@ -116,12 +121,14 @@
       </div>
     </div>
 
-    <messagePop v-if="activeMessage !== '' "
+    <message-popup v-if="activeMessage !== '' "
                 :activeMessage="activeMessage"
                 @closeMessage="closeMessage"/>
 
 
-    <mobileSidebar :class="{mobSideAc : mobileMenuOpened}" @closeMobileSidebar="closeMobileSidebar" />
+    <mobileSidebar :class="{mobSideAc : mobileMenuOpened}" @closeMobileSidebar="closeMobileSidebar"/>
+
+    <socket v-if="player"/>
 
 
   </header>
@@ -131,13 +138,14 @@
 <script>
 import {mapGetters} from 'vuex'
 import LangSwitcher from "./LangSwitcher";
-import miniChat from '../ui/miniChat.vue'
-import messagePop from '../ui/messagePop.vue'
 import mobileSidebar from '../ui/mobileSidebar.vue'
 import accountSelect from '../ui/AccountSelect.vue'
+import Socket from "./Socket";
+import MessagesSmallPopup from "./MessagesSmallPopup";
+import MessagePopup from "./MessagePopup";
 
 export default {
-  components: {LangSwitcher, miniChat, messagePop, mobileSidebar, accountSelect},
+  components: {MessagePopup, MessagesSmallPopup, Socket, LangSwitcher, mobileSidebar, accountSelect},
   computed: {
     ...mapGetters({
       player: "player/getCurrent",
@@ -171,14 +179,14 @@ export default {
     },
   },
   methods: {
-    closeMobileSidebar(){
+    closeMobileSidebar() {
       this.mobileMenuOpened = false
     },
     closeMessage() {
       this.activeMessage = ''
     },
-    lookMes(mes) {
-      this.activeMessage = mes
+    openCertainMessage(message) {
+      this.activeMessage = message
     },
     logOut() {
       this.$store.dispatch('auth/logOut').then(() => {
@@ -236,6 +244,7 @@ export default {
     return {
       mobileMenuOpened: false,
       updateMessageCountInterval: null,
+      miniChatOpenButton: null,
       activeMessage: '',
       showChat: false,
       search: '',
@@ -266,13 +275,11 @@ export default {
     }
   },
   mounted() {
+    this.miniChatOpenButton = this.$refs.miniChatOpenButton;
+
     window.addEventListener('scroll', () => {
-      let winScroll = document.documentElement.scrollTop;
-
-
-        this.stickyHeader = (winScroll > 5);
-
-      
+      let winScroll = document.documentElement.scrollTop
+      this.stickyHeader = (winScroll > 5);
     })
   },
   created() {

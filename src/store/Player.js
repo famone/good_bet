@@ -3,6 +3,7 @@ import Player from "../dto/Player";
 import AuthException from "./AuthException";
 import {CasinoLocalStorage} from "../CasinoLocalStorage";
 import AccessDeniedException from "./AccessDeniedException";
+import Socket from "../socket";
 
 const player = {
 	namespaced: true,
@@ -33,6 +34,8 @@ const player = {
 					commit('SET_CURRENT', response.data[0])
 
 					CasinoLocalStorage.savePlayerData(response.data[0])
+
+					Socket.firePlayerOnlineEvent(this._vm.$socket, response.data[0])
 
 					resolve(response)
 				}).catch(error => {

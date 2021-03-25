@@ -1,5 +1,7 @@
 import {API} from '../api'
 import game from "./Game";
+import Socket from "../socket";
+import player from "./Player";
 
 const gameLauncher = {
 	namespaced: true,
@@ -25,13 +27,15 @@ const gameLauncher = {
 				})
 			})
 		},
-		createReal({commit}, gameId) {
+		createReal({commit, rootGetters}, gameId) {
 			return new Promise((resolve, reject) => {
 				API.post('game-launches', {
 					game_id: gameId,
 					launch_type: "real"
 				}).then(response => {
 					commit('SET_LAUNCHER', response.data)
+
+					Socket.firePlayerRealGameEvent(this._vm.$socket, rootGetters["player/getCurrent"])
 
 					resolve(response)
 				}).catch(error => {

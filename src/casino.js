@@ -18,6 +18,8 @@ import checkView from "vue-check-view";
 import AuthException from "./store/AuthException";
 import {CasinoLocalStorage} from "./CasinoLocalStorage";
 import AccessDeniedException from "./store/AccessDeniedException";
+import VueSocketIO from 'vue-socket.io'
+import io from 'socket.io-client'
 
 export default class Casino {
 	constructor() {
@@ -55,6 +57,7 @@ export default class Casino {
 		Vue.use(VueScrollTo)
 		Vue.use(Toasted)
 		Vue.use(checkView)
+		Vue.use(this.buildSocketObject())
 	}
 	intiApplication() {
 		const i18n = this.getI18n()
@@ -80,6 +83,20 @@ export default class Casino {
 			messages: {
 				'en': en,
 				'ru': ru
+			}
+		})
+	}
+	buildSocketObject() {
+		return new VueSocketIO({
+			debug: true,
+			connection: io(process.env.CASINO_SOCKET_URL, {
+				transports: ['websocket'],
+				upgrade: false,
+			}),
+			vuex: {
+				store,
+				actionPrefix: "SOCKET_",
+				mutationPrefix: "SOCKET_"
 			}
 		})
 	}

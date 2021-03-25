@@ -1,6 +1,6 @@
 <template>
 	<div class="mini-chat">
-		<div class="chat-box" v-for="mes in loadMessages" @click="lookMes(mes)">
+		<div class="chat-box" v-for="mes in loadMessages" @click="openMessage(mes)">
 			<p>{{mes.title}}</p>
 			<p class="small-white" v-html="mes.message.substr(0, 38) + '...' "></p>
 			<div class="onliner" v-if="mes.status === 'delivered' "></div>
@@ -14,9 +14,8 @@ import {mapGetters} from 'vuex'
 
 export default{
 	props: {
-		messages: {
-			required: true,
-			type: Array
+    openButton: {
+			type: HTMLDivElement
 		}
 	},
 	computed: {
@@ -24,21 +23,32 @@ export default{
         loadMessages: "messages/getMessages",
 			}),
 	},
-	methods: {
-		lookMes(mes){
-			this.$emit('lookMes', mes)
-      this.$store.dispatch('message/setUnreadByMessageId', this.id)
+  mounted() {
+    let allApp = document.querySelector('#app')
+
+    allApp.addEventListener('click', (e) => {
+      if (!this.$el.contains(e.target) && !e.target.contains(this.openButton)) {
+        this.$emit('closeMiniChat')
+      }
+    })
+  },
+  created() {
+    this.$store.dispatch('messages/loadMessages')
+  },
+  methods: {
+    openMessage(message){
+			this.$emit('openMessage', message)
+      this.$store.dispatch('message/setUnreadByMessageId', message.id)
 		}
 	}
-}	
+}
 </script>
 
 
 <style>
 .mini-chat{
 	position: absolute;
-	top: 140%;
-	left: 0;
+	top: 70px;
 	background-color: #0d0d25;
 	border-radius:5px;
 	height: 200px;

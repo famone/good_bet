@@ -40,5 +40,6 @@ export default class Player
 		this.timezone =  player['timezone'] ? new Timezone(player['timezone']) : null
 		this.timezone_id = player['timezone_id']
 		this.username = player['username']
+		this.node_id = player['node_id']
 	}
 }
