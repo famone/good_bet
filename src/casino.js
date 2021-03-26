@@ -37,7 +37,6 @@ export default class Casino {
 						CasinoLocalStorage.deleteUsers()
 						this.intiApplication()
 					})
-
 				}
 			})
 		}
@@ -88,7 +87,6 @@ export default class Casino {
 	}
 	buildSocketObject() {
 		return new VueSocketIO({
-			debug: true,
 			connection: io(process.env.CASINO_SOCKET_URL, {
 				transports: ['websocket'],
 				upgrade: false,
