@@ -27,6 +27,7 @@ import SocialCallback from '../pages/account/SocialCallback'
 import Socials from '../pages/account/Socials'
 import BonusList from '../pages/bonuses/List'
 import Bonus from "../pages/bonuses/Bonus";
+import Settings from "../pages/account/Settings";
 
 const routes = [
 	{
@@ -128,6 +129,13 @@ const routes = [
 	{
 		path: '/profile',
 		component: Profile,
+		meta: {
+			playerAuth: true
+		}
+	},
+	{
+		path: '/settings',
+		component: Settings,
 		meta: {
 			playerAuth: true
 		}

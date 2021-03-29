@@ -58,6 +58,11 @@
 							link: '/documents',
 							icon: require('../../assets/img/icons/pr6.svg')
 						},
+          {
+            text: 'myProfile.settings',
+            link: '/settings',
+            icon: require('../../assets/img/icons/pr1.svg')
+          },
 				]
 			}
 		}

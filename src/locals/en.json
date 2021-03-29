@@ -39,7 +39,14 @@
     "accounts": "Accounts",
     "transactions": "Transactions",
     "myBonusTransactions": "My bonuses",
-    "documents": "Documents"
+    "documents": "Documents",
+    "settings": "Settings"
+  },
+  "deleteAccount": {
+    "title": "Delete account. Are you ABSOLUTELY SURE?",
+    "description": "The account can be restored within 14 days after deletion. After 14 days, the account and associated data will be deleted permanently",
+    "passwordField": "Please type password to confirm:",
+    "button": "DELETE ACCOUNT"
   },
   "social": {
     "name": "Socials",

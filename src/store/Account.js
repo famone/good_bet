@@ -44,7 +44,32 @@ const account = {
 					reject(error)
 				})
 			});
+		},
+		deleteAccount({dispatch}, data) {
+			return new Promise((resolve, reject) => {
+				dispatch('loader/enable', null, {root: true})
+				API.post('player/delete', data).then(response => {
+					resolve(response)
+				}).catch(error => {
+					dispatch('loader/disable', null, {root: true})
+
+					reject(error)
+				})
+			});
+		},
+		restoreAccount({dispatch}) {
+			return new Promise((resolve, reject) => {
+				dispatch('loader/enable', null, {root: true})
+				API.post('player/restore').then(response => {
+					resolve(response)
+				}).catch(error => {
+					dispatch('loader/disable', null, {root: true})
+
+					reject(error)
+				})
+			});
 		}
+
 	},
 	getters: {
 		getCurrentId(state) {
