@@ -11,6 +11,9 @@
               <div class="row ma-0 profile-box2">
                 <div class="col-lg-12">
                   <br>
+                  <button class="password-reset-btn" @click="showPasswordResetPopup()">
+                    {{ $t('deleteAccount.button') }}
+                  </button>
                   <button class="delete-account-btn" @click="showDeleteAccountPopup()">
                     {{ $t('deleteAccount.button') }}
                   </button>
@@ -21,7 +24,9 @@
           </div>
         </div>
 
-        <DeleteAccountPopup v-if="deleteAccountPopup" @closePopup="hideDeleteAccountPopup"/>
+        <delete-account-popup v-if="deleteAccountPopup" @closePopup="hideDeleteAccountPopup"/>
+        <restore-password-popup v-if="passwordResetPopup" :player-id="player.id" @closePopup="hidePasswordResetPopup"/>
+
       </div>
     </section>
   </div>
@@ -31,25 +36,33 @@
 import Navbar from '../../components/ui/Navbar.vue'
 import AcNav from '../../components/ui/AcNav.vue'
 import DeleteAccountPopup from "../../components/accounts/DeleteAccountPopup";
-import { mapGetters } from 'vuex'
+import RestorePasswordPopup from "../../components/accounts/RestorePasswordPopup";
+import {mapGetters} from 'vuex'
 
 export default {
-  components: { Navbar, AcNav, DeleteAccountPopup },
+  components: {Navbar, AcNav, DeleteAccountPopup, RestorePasswordPopup},
   computed: {
     ...mapGetters({
       player: 'player/getCurrent',
     }),
   },
-  data () {
+  data() {
     return {
       deleteAccountPopup: false,
+      passwordResetPopup: false
     }
   },
   methods: {
-    showDeleteAccountPopup () {
+    showPasswordResetPopup() {
+      this.passwordResetPopup = true
+    },
+    hidePasswordResetPopup() {
+      this.passwordResetPopup = false
+    },
+    showDeleteAccountPopup() {
       this.deleteAccountPopup = true
     },
-    hideDeleteAccountPopup () {
+    hideDeleteAccountPopup() {
       this.deleteAccountPopup = false
     },
   }
@@ -69,10 +82,22 @@ export default {
   margin: 15px;
 }
 
+.password-reset-btn {
+  color: #fff;
+  border: none;
+  padding: 16px 60px;
+  font-size: 12px;
+  background: #4D2ADC;
+  transition: all .3s ease;
+  height: 100%;
+  letter-spacing: 0.17em;
+  border-radius: 16px;
+}
+
 .delete-account-btn {
   color: #fff;
   border: none;
-  padding:16px 60px;
+  padding: 16px 60px;
   font-size: 12px;
   background: #f85149;
   transition: all .3s ease;

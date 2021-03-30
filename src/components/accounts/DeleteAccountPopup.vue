@@ -1,7 +1,7 @@
 <template>
-  <div class="mes-pop settings-popup" @click="closeBonusPopup">
+  <div class="mes-pop settings-popup" @click="closePopup">
     <div class="mes-pop-box" @click.stop>
-      <div class="cross" @click="closeBonusPopup">✕</div>
+      <div class="cross" @click="closePopup">✕</div>
       <h2>{{ $t('deleteAccount.title') }}</h2>
       <div class="col-lg-12">
         <p class="popup-content white-txt">{{ $t('deleteAccount.description') }}</p>
@@ -37,7 +37,7 @@ export default {
     }
   },
   methods: {
-    closeBonusPopup () {
+    closePopup () {
       this.$emit('closePopup')
     },
     deleteAccount () {
