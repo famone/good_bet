@@ -42,10 +42,10 @@ export default {
     },
     deleteAccount () {
       let payload = {
-        password: this.password
+        password: btoa(this.password)
       }
-      console.log(payload)
-      this.$store.dispatch('account/deleteAccount', payload).then(() => {
+
+      this.$store.dispatch('player/deleteAccount', payload).then(() => {
         this.$store.dispatch('player/logOut')
       }).catch(() => {
         this.passwordError = true

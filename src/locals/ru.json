@@ -151,10 +151,16 @@
   },
   "recovery": {
     "socialSignInTitle": "Укажите ваш e-mail",
+    "recoveryPasswordDeletedTitle": "Укажите ваш пароль",
     "email": "E-mail",
+    "password": "Пароль",
     "loginUPPER": "ВОССТАНОВИТЬ ПАРОЛЬ",
     "title": "ЗАБЫЛИ ПАРОЛЬ",
-     "success": "Сообщение отправлено вам на почту"
+    "success": "Сообщение отправлено вам на почту"
+  },
+  "recoveryDeleted": {
+    "title": "Восстанавление удаленной учетной записи",
+    "submitButtonTitle": "Восстановить"
   },
   "newPass": {
     "passOne": "Новый пароль",

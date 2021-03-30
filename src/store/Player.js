@@ -68,6 +68,32 @@ const player = {
 		},
 		updateDataProperty({commit}, field) {
 			commit('UPDATE_FIELD', field)
+		},
+		deleteAccount({dispatch}, data) {
+			return new Promise((resolve, reject) => {
+				dispatch('loader/enable', null, {root: true})
+				API.post('player/delete', data).then(response => {
+					resolve(response)
+				}).catch(error => {
+					dispatch('loader/disable', null, {root: true})
+
+					reject(error)
+				})
+			});
+		},
+		restoreAccount({dispatch}, params) {
+			return new Promise((resolve, reject) => {
+				dispatch('loader/enable', null, {root: true})
+				API.post('player/restore', {
+					params: params
+				}).then(response => {
+					resolve(response)
+				}).catch(error => {
+					dispatch('loader/disable', null, {root: true})
+
+					reject(error)
+				})
+			});
 		}
 	},
 	getters: {

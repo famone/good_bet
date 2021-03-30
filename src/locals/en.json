@@ -151,10 +151,16 @@
   },
   "recovery": {
     "socialSignInTitle": "Indicate your e-mail",
+    "recoveryPasswordDeletedTitle": "Indicate your password",
     "email": "E-mail",
+    "password": "Password",
     "loginUPPER": "RESTORE PASSWORD",
     "title": "FORGOT PASSWORD",
     "success": "Message sent to your e-mail"
+  },
+  "recoveryDeleted": {
+    "title": "Recovery deleted account",
+    "submitButtonTitle": "Restore"
   },
   "newPass": {
     "passOne": "New password",

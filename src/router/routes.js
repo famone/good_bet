@@ -21,6 +21,7 @@ import Favorite from '../pages/account/Favorite.vue'
 import Documents from '../pages/account/Documents.vue'
 import Accounts from '../pages/account/Accounts.vue'
 import Recovery from '../pages/Recovery.vue'
+import RecoveryDeleted from '../pages/RecoveryDeleted.vue'
 import Newpass from '../pages/Newpass.vue'
 import LoginSocialCallback from '../pages/LoginSocialCallback'
 import SocialCallback from '../pages/account/SocialCallback'
@@ -51,6 +52,13 @@ const routes = [
 	{
 		path: '/recovery',
 		component: Recovery,
+		meta: {
+			guest: true
+		}
+	},
+	{
+		path: '/recovery-deleted/:secretToken',
+		component: RecoveryDeleted,
 		meta: {
 			guest: true
 		}
