@@ -48,6 +48,15 @@
     "passwordField": "Введите пароль чтобы продолжить:",
     "button": "Удалить аккаунт"
   },
+  "changePassword": {
+    "title": "Поменять пороль",
+    "description": "После смены пороля, учетная запись не будет доступна по страрому поролью",
+    "oldPassword": "Введите текущий пароль",
+    "newPassword": "Новый пароль",
+    "repeatPassword": "Новый пароль ещё раз",
+    "button": "Поменять",
+    "resetButtonTitle": "Поменять пороль"
+  },
   "social": {
     "name": "Socials",
     "add_social": "Add social",

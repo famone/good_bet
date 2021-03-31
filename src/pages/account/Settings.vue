@@ -12,7 +12,7 @@
                 <div class="col-lg-12">
                   <br>
                   <button class="password-reset-btn" @click="showPasswordResetPopup()">
-                    {{ $t('deleteAccount.button') }}
+                    {{ $t('changePassword.resetButtonTitle') }}
                   </button>
                   <button class="delete-account-btn" @click="showDeleteAccountPopup()">
                     {{ $t('deleteAccount.button') }}

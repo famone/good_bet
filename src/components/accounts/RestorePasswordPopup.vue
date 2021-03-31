@@ -2,29 +2,29 @@
   <div class="mes-pop settings-popup" @click="closePopup">
     <div class="mes-pop-box" @click.stop>
       <div class="cross" @click="closePopup">✕</div>
-      <h2>{{ $t('deleteAccount.title') }}</h2>
+      <h2>{{ $t('changePassword.title') }}</h2>
       <div class="col-lg-12">
-        <p class="popup-content white-txt">{{ $t('deleteAccount.description') }}</p>
+        <p class="popup-content white-txt">{{ $t('changePassword.description') }}</p>
 
       </div>
 
       <div class="col-lg-12">
-        <label for="profile-password-old">Old password</label>
+        <label for="profile-password-old">{{ $t('changePassword.oldPassword') }}</label>
         <input id="profile-password-old" type="password" v-model="oldPassword" :class="{errorInp: passwordError}">
       </div>
 
       <div class="col-lg-12">
-        <label for="profile-password">New Password</label>
+        <label for="profile-password">{{ $t('changePassword.newPassword') }}</label>
         <input id="profile-password" type="password" v-model="password" :class="{errorInp: passwordError}">
       </div>
       <div class="col-lg-12">
-        <label for="profile-password-repeat">Repeat password</label>
+        <label for="profile-password-repeat">{{ $t('changePassword.repeatPassword') }}</label>
         <input id="profile-password-repeat" type="password" v-model="passwordRepeat" :class="{errorInp: passwordError}">
       </div>
       <div class="col-lg-12">
         <br>
-        <button class="reset-password-confirm-btn" @click="deleteAccount()">
-          Reset
+        <button class="reset-password-confirm-btn" @click="changePassword()">
+          {{ $t('changePassword.button') }}
         </button>
       </div>
     </div>
@@ -55,7 +55,7 @@ export default {
     closePopup() {
       this.$emit('closePopup')
     },
-    deleteAccount() {
+    changePassword() {
       let data = {
         form: {
           id: this.playerId,

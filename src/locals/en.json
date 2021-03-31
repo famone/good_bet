@@ -48,6 +48,15 @@
     "passwordField": "Please type password to confirm:",
     "button": "DELETE ACCOUNT"
   },
+  "changePassword": {
+    "title": "Change password",
+    "description": "After password changing, account should not available to use with current password",
+    "oldPassword": "Enter old password",
+    "newPassword": "Enter new password",
+    "repeatPassword": "Reenter new password",
+    "button": "Reset",
+    "resetButtonTitle": "Change password"
+  },
   "social": {
     "name": "Socials",
     "add_social": "Add social",
