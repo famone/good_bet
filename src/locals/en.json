@@ -57,6 +57,15 @@
     "button": "Reset",
     "resetButtonTitle": "Change password"
   },
+  "selfExclusion": {
+    "title": "Temporarily block the profile",
+    "description": "You can block the profile until the selected date, the profile will be available from 00:00 on the selected date.",
+    "dateLabel": "Profile activation date",
+    "password": "Password",
+    "button": "Block account",
+    "excludeButtonTitle": "Self-exclude",
+    "confirmationDescription": "Confirmation description"
+  },
   "social": {
     "name": "Socials",
     "add_social": "Add social",
@@ -146,6 +155,11 @@
     "popularGames": "POPULAR GAMES",
     "slots": "SLOTS",
     "recommended": "RECOMMENDED"
+  },
+  "confirmPopup": {
+    "title": "Confirm",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
   },
   "login": {
     "socialSignInTitle": "Sign in with your social network",

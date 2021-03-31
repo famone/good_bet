@@ -57,6 +57,15 @@
     "button": "Поменять",
     "resetButtonTitle": "Поменять пороль"
   },
+  "selfExclusion": {
+    "title": "Временно заблокировать профиль",
+    "description": "Вы можете заблакировать профиль до выбранной даты, профиль будет доступен с 00:00 выбронной даты.",
+    "dateLabel": "Дата активации профиля",
+    "password": "Ваш текущий пароль",
+    "button": "Заблокировать",
+    "excludeButtonTitle": "Заблокировать профиль",
+    "confirmationDescription": "Описание для"
+  },
   "social": {
     "name": "Socials",
     "add_social": "Add social",
@@ -146,6 +155,11 @@
     "popularGames": "Популярные игры",
     "slots": "Слот машины",
     "recommended": "Рекамендовано вам"
+  },
+  "confirmPopup": {
+    "title": "Подтвердите действие",
+    "confirm": "Поддтвердить",
+    "cancel": "Отменить"
   },
   "login": {
     "socialSignInTitle": "Войти через социальные сети",

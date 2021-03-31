@@ -69,6 +69,18 @@ const player = {
 		updateDataProperty({commit}, field) {
 			commit('UPDATE_FIELD', field)
 		},
+		excludeAccount({dispatch}, data) {
+			return new Promise((resolve, reject) => {
+				dispatch('loader/enable', null, {root: true})
+				API.post('player/self-exclusion', data).then(response => {
+					resolve(response)
+				}).catch(error => {
+					dispatch('loader/disable', null, {root: true})
+
+					reject(error)
+				})
+			});
+		},
 		deleteAccount({dispatch}, data) {
 			return new Promise((resolve, reject) => {
 				dispatch('loader/enable', null, {root: true})

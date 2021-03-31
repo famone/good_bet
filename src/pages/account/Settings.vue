@@ -14,6 +14,9 @@
                   <button class="password-reset-btn" @click="showPasswordResetPopup()">
                     {{ $t('changePassword.resetButtonTitle') }}
                   </button>
+                  <button class="password-reset-btn" @click="showSelfExclusionPopup()">
+                    {{ $t('selfExclusion.excludeButtonTitle') }}
+                  </button>
                   <button class="delete-account-btn" @click="showDeleteAccountPopup()">
                     {{ $t('deleteAccount.button') }}
                   </button>
@@ -26,6 +29,7 @@
 
         <delete-account-popup v-if="deleteAccountPopup" @closePopup="hideDeleteAccountPopup"/>
         <restore-password-popup v-if="passwordResetPopup" :player-id="player.id" @closePopup="hidePasswordResetPopup"/>
+        <self-exclusion-popup v-if="selfExclusionPopup" @closePopup="hideSelfExclusionPopup"/>
 
       </div>
     </section>
@@ -37,10 +41,11 @@ import Navbar from '../../components/ui/Navbar.vue'
 import AcNav from '../../components/ui/AcNav.vue'
 import DeleteAccountPopup from "../../components/accounts/DeleteAccountPopup";
 import RestorePasswordPopup from "../../components/accounts/RestorePasswordPopup";
+import SelfExclusionPopup from "../../components/accounts/SelfExclusionPopup";
 import {mapGetters} from 'vuex'
 
 export default {
-  components: {Navbar, AcNav, DeleteAccountPopup, RestorePasswordPopup},
+  components: {Navbar, AcNav, DeleteAccountPopup, RestorePasswordPopup, SelfExclusionPopup},
   computed: {
     ...mapGetters({
       player: 'player/getCurrent',
@@ -49,10 +54,17 @@ export default {
   data() {
     return {
       deleteAccountPopup: false,
+      selfExclusionPopup: false,
       passwordResetPopup: false
     }
   },
   methods: {
+    showSelfExclusionPopup() {
+      this.selfExclusionPopup = true
+    },
+    hideSelfExclusionPopup() {
+      this.selfExclusionPopup = false
+    },
     showPasswordResetPopup() {
       this.passwordResetPopup = true
     },

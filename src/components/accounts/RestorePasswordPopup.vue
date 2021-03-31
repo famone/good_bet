@@ -5,7 +5,6 @@
       <h2>{{ $t('changePassword.title') }}</h2>
       <div class="col-lg-12">
         <p class="popup-content white-txt">{{ $t('changePassword.description') }}</p>
-
       </div>
 
       <div class="col-lg-12">
