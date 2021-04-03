@@ -46,7 +46,8 @@
     "title": "Delete account. Are you ABSOLUTELY SURE?",
     "description": "The account can be restored within 14 days after deletion. After 14 days, the account and associated data will be deleted permanently",
     "passwordField": "Please type password to confirm:",
-    "button": "DELETE ACCOUNT"
+    "button": "DELETE ACCOUNT",
+    "confirmationDescription": "Are you sure in deleting your account?"
   },
   "changePassword": {
     "title": "Change password",
@@ -64,7 +65,7 @@
     "password": "Password",
     "button": "Block account",
     "excludeButtonTitle": "Self-exclude",
-    "confirmationDescription": "Confirmation description"
+    "confirmationDescription": "Are you sure to block yyour account?"
   },
   "social": {
     "name": "Socials",

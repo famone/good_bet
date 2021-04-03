@@ -16,27 +16,40 @@
       </div>
       <div class="col-lg-12">
         <br>
-        <button class="delete-account-btn" @click="deleteAccount()">
+        <button class="delete-account-btn" @click="openConfirmPopup()">
           {{ $t('deleteAccount.button') }}
         </button>
       </div>
     </div>
 
+    <confirm-popup v-if="isOpenedConfirmPopup"
+                   :message="$t('deleteAccount.confirmationDescription')"
+                   @closePopup="closeConfirmPopup"
+                   @confirm="deleteAccount"/>
 
   </div>
 </template>
 
 
 <script>
+import ConfirmPopup from "../ConfirmPopup";
 
 export default {
+  components: {ConfirmPopup},
   data () {
     return {
       password: null,
       passwordError: false,
+      isOpenedConfirmPopup: false
     }
   },
   methods: {
+    openConfirmPopup() {
+      this.isOpenedConfirmPopup = true
+    },
+    closeConfirmPopup() {
+      this.isOpenedConfirmPopup = false
+    },
     closePopup () {
       this.$emit('closePopup')
     },
