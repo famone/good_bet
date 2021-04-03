@@ -67,6 +67,13 @@ export default {
       currentGroupId: null
     }
   },
+  watch: {
+    id(newValue, oldVersion) {
+      if (newValue !== oldVersion) {
+        this.updateDynPage(newValue)
+      }
+    }
+  },
   created() {
     this.$store.dispatch('gameProviders/loadAll')
     API.get('games', {
