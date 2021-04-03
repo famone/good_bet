@@ -99,7 +99,15 @@
   "pages": {
     "about": {
       "notificationSuccess": "Сообщение отправлено",
-      "notificationFail": "Ошибка при отправке сообщения"
+      "notificationFail": "Ошибка при отправке сообщения",
+      "send": "Отправить",
+      "title": "Свяжитесь с нами",
+      "selectCategory": "Выберите категорию",
+      "name": "Имя",
+      "topic": "Тема",
+      "paymentProblemDeposit": "Проблема при пополнении",
+      "paymentProblemWithdraw": "Проблема при выводе",
+      "message": "Сообщения"
     },
     "account": {
       "accountsUPPER": "СЧЕТА",

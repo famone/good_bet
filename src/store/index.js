@@ -35,6 +35,7 @@ import socialNetworks from "./SocialNetworks";
 import playerAvatar from "./PlayerAvatar";
 import bonusTransactions from "./BonusTransactions";
 import bonus from "./Bonus";
+import infoPages from "./InfoPages";
 
 export default new Vuex.Store({
 	modules: {
@@ -69,6 +70,7 @@ export default new Vuex.Store({
 		socialNetworks,
 		playerAvatar,
 		bonusTransactions,
-		bonus
+		bonus,
+		infoPages
 	}
 }) 

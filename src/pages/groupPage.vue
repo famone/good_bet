@@ -162,6 +162,7 @@ label.provider-select {
   height: 45px;
 }
 
+
 .provider-select:after {
   content: "▼";
   position: absolute;

@@ -20,7 +20,6 @@ const gameProviders = {
 					reject(error)
 				})
 			})
-
 		}
 	},
 	getters: {

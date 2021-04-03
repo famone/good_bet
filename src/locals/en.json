@@ -99,7 +99,15 @@
   "pages": {
     "about": {
       "notificationSuccess": "Message sent",
-      "notificationFail": "Failed to send message"
+      "notificationFail": "Failed to send message",
+      "send": "Send",
+      "title": "CONTACT US",
+      "selectCategory": "Select category",
+      "name": "Name",
+      "topic": "Topic",
+      "paymentProblemDeposit": "Problem in deposit",
+      "paymentProblemWithdraw": "Problem in withdraw",
+      "message": "Message text"
     },
     "account": {
       "accountsUPPER": "ACCOUNTS",
