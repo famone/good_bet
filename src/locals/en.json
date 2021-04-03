@@ -117,6 +117,10 @@
       "withdrawalMoney": "Withdrawal money",
       "withdrawalMoneyUpper": "WITHDRAWAL MONEY",
       "withdrawConfirmText": "<p class=\"white-txt\">Do you confirm withdraw: %{amount} <br>\nWith fee: 0</p>",
+      "settings": {
+        "title": "Settings",
+        "description": "Here you can find blocking methods of your account"
+      },
       "profile": {
         "editAvatar": "Edit avatar",
         "nickname": "Nickname",

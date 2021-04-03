@@ -37,7 +37,7 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
+        test: /\.(png|jpg|gif|svg|ico)$/,
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[hash]',
@@ -67,6 +67,7 @@ module.exports = {
       environment: process.env.NODE_ENV,
       template:  path.resolve(__dirname, 'index.html'),
       chunks: ["main"],
+      favicon: './src/assets/img/favicon.ico',
     }),
     new Dotenv({
       systemvars: true

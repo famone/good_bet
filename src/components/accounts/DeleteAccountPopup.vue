@@ -46,7 +46,9 @@ export default {
       }
 
       this.$store.dispatch('player/deleteAccount', payload).then(() => {
-        this.$store.dispatch('player/logOut')
+        this.$store.dispatch('auth/logOut').then(() => {
+          this.$router.replace("/");
+        });
       }).catch(() => {
         this.passwordError = true
       })

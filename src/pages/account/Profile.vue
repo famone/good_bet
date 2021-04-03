@@ -184,6 +184,10 @@
                   <button class="save-btn" @click="editorMode = true">
                     {{ $t('pages.account.profile.edit') }}
                   </button>
+
+                  <button class="password-reset-btn" @click="showPasswordResetPopup()">
+                    {{ $t('changePassword.resetButtonTitle') }}
+                  </button>
                 </div>
 
 
@@ -195,17 +199,20 @@
         </div>
       </div>
     </section>
+
+    <restore-password-popup v-if="passwordResetPopup" :player-id="player.id" @closePopup="hidePasswordResetPopup"/>
   </div>
 </template>
 
 <script>
 import Navbar from '../../components/ui/Navbar.vue'
 import AcNav from '../../components/ui/AcNav.vue'
+import RestorePasswordPopup from "../../components/accounts/RestorePasswordPopup";
 import AvatarCropper from "vue-avatar-cropper"
 import {mapGetters} from 'vuex'
 
 export default {
-  components: {Navbar, AcNav, AvatarCropper},
+  components: {Navbar, AcNav, AvatarCropper, RestorePasswordPopup},
   computed: {
     ...mapGetters({
       player: "player/getCurrent",
@@ -239,6 +246,7 @@ export default {
       file: null,
       inpArr: [],
       errors: null,
+      passwordResetPopup: false,
       avatarUploaderLabels: {
         submit: this.$t('main.ok'),
         cancel: this.$t('main.cancel')
@@ -246,6 +254,12 @@ export default {
     }
   },
   methods: {
+    showPasswordResetPopup() {
+      this.passwordResetPopup = true
+    },
+    hidePasswordResetPopup() {
+      this.passwordResetPopup = false
+    },
     updateField(e) {
 
       let attr = e.target.getAttribute('data-field')

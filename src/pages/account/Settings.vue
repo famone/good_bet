@@ -7,13 +7,20 @@
         <div class="row">
           <AcNav/>
           <div class="col-lg-9">
+            <h2>{{ $t('pages.account.settings.title') }}</h2>
             <div class="row">
-              <div class="row ma-0 profile-box2">
+              <br>
+              <br>
+              <div class="row ma-0">
+                <div class="col-lg-12">
+                  <div class="settings-main-description">
+                    {{ $t('pages.account.settings.description') }}
+                  </div>
+                </div>
+              </div>
+              <div class="row ma-0">
                 <div class="col-lg-12">
                   <br>
-                  <button class="password-reset-btn" @click="showPasswordResetPopup()">
-                    {{ $t('changePassword.resetButtonTitle') }}
-                  </button>
                   <button class="password-reset-btn" @click="showSelfExclusionPopup()">
                     {{ $t('selfExclusion.excludeButtonTitle') }}
                   </button>
@@ -28,7 +35,6 @@
         </div>
 
         <delete-account-popup v-if="deleteAccountPopup" @closePopup="hideDeleteAccountPopup"/>
-        <restore-password-popup v-if="passwordResetPopup" :player-id="player.id" @closePopup="hidePasswordResetPopup"/>
         <self-exclusion-popup v-if="selfExclusionPopup" @closePopup="hideSelfExclusionPopup"/>
 
       </div>
@@ -40,12 +46,11 @@
 import Navbar from '../../components/ui/Navbar.vue'
 import AcNav from '../../components/ui/AcNav.vue'
 import DeleteAccountPopup from "../../components/accounts/DeleteAccountPopup";
-import RestorePasswordPopup from "../../components/accounts/RestorePasswordPopup";
 import SelfExclusionPopup from "../../components/accounts/SelfExclusionPopup";
 import {mapGetters} from 'vuex'
 
 export default {
-  components: {Navbar, AcNav, DeleteAccountPopup, RestorePasswordPopup, SelfExclusionPopup},
+  components: {Navbar, AcNav, DeleteAccountPopup, SelfExclusionPopup},
   computed: {
     ...mapGetters({
       player: 'player/getCurrent',
@@ -55,7 +60,6 @@ export default {
     return {
       deleteAccountPopup: false,
       selfExclusionPopup: false,
-      passwordResetPopup: false
     }
   },
   methods: {
@@ -64,12 +68,6 @@ export default {
     },
     hideSelfExclusionPopup() {
       this.selfExclusionPopup = false
-    },
-    showPasswordResetPopup() {
-      this.passwordResetPopup = true
-    },
-    hidePasswordResetPopup() {
-      this.passwordResetPopup = false
     },
     showDeleteAccountPopup() {
       this.deleteAccountPopup = true
@@ -87,11 +85,12 @@ export default {
   margin: 20px 0;
 }
 
-.profile-box2 {
-  background-color: #272459;
-  padding: 25px;
-  border-radius: 15px;
-  margin: 15px;
+
+.settings-main-description {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
 }
 
 .password-reset-btn {

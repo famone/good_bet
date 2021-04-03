@@ -49,13 +49,13 @@
     "button": "Удалить аккаунт"
   },
   "changePassword": {
-    "title": "Поменять пороль",
-    "description": "После смены пороля, учетная запись не будет доступна по страрому поролью",
+    "title": "Поменять пароль",
+    "description": "После смены пароля, учетная запись не будет доступна по страрому поролью",
     "oldPassword": "Введите текущий пароль",
     "newPassword": "Новый пароль",
     "repeatPassword": "Новый пароль ещё раз",
     "button": "Поменять",
-    "resetButtonTitle": "Поменять пороль"
+    "resetButtonTitle": "Поменять пароль"
   },
   "selfExclusion": {
     "title": "Временно заблокировать профиль",
@@ -117,6 +117,10 @@
       "withdrawalMoney": "Вывести деньги",
       "withdrawalMoneyUpper": "ВЫВЕСТИ ДЕНЬГИ",
       "withdrawConfirmText": "<p class=\"white-txt\">Вы подтверждаете вывод: %{amount} <br>\nС коммисией: 0</p>",
+      "settings": {
+        "title": "Настройки",
+        "description": "На этой странице вы можете найти методы блакировки вашего профиля"
+      },
       "profile": {
         "editAvatar": "Изминить аватар",
         "nickname": "Никнейм",
@@ -166,7 +170,7 @@
     "email": "E-mail",
     "password": "Пароль",
     "rememberMe": "Запомнить меня",
-    "forgotPassword": "Забыли пороль?",
+    "forgotPassword": "Забыли пароль?",
     "loginUPPER": "ВОЙТИ",
     "registration": "Регистрация",
     "error": "Данные для входа неверны",
