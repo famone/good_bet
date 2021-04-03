@@ -43,7 +43,7 @@ const auth = {
 					}
 				}
 
-				params.scope = 'casino:read bonus:read bonus.settings:read bonus:write lab:read lab:write game:read game:write game.history:read game.wallet:write game.launch:write player:read player:write message:read message:write payment:read payment:write player:write:all winner:read faq:read news:read slider:read payment.callbacks:write counters';
+				params.scope = 'casino:read bonus:read bonus.settings:read bonus:write lab:read lab:write game:read game:write game.history:read game.wallet:write game.launch:write player:read player:write message:read message:write payment:read payment:write player:write:all winner:read faq:read news:read slider:read payment.callbacks:write counters info-page:read';
 				axios.post('oauth2/token', params, config).then(response => {
 					CasinoLocalStorage.deleteGuest()
 
