@@ -93,7 +93,8 @@
     "connectUs": "Связатся с нами",
     "seeAllLinkTitle": "Еще",
     "gamesUPPER": "ИГРЫ",
-    "gamesSearchFieldTitle": "Название игры"
+    "gamesSearchFieldTitle": "Название игры",
+    "providerSelectTitle": "Провайдер"
   },
   "pages": {
     "about": {

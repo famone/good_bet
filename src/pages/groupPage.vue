@@ -8,6 +8,19 @@
           <div class="games-row-box">
 
             <div class="row">
+              <div class="row">
+                <div class="col-lg-9"></div>
+                <div class="col-lg-3">
+                  <label class="provider-select">
+                    <select @change="handleProviderSelection($event)">
+                      <option value="0">{{$t('games.providerSelectTitle')}}</option>
+                      <option v-for="provider in gameProviders" :value="provider.id">{{provider.name}}</option>
+                    </select>
+                  </label>
+
+                </div>
+              </div>
+              <br>
               <Skeletons v-if="loader"  v-bind:row-count="4" />
 
               <div class="text-center" v-else-if="!gamesArr.length">
@@ -24,7 +37,6 @@
         </div>
       </div>
     </section>
-    <p class="hidden">{{loadgames}}</p>
 
   </div>
 
@@ -50,10 +62,13 @@ export default {
       pageCount: 1,
       page: 1,
       loader: true,
-      disableAutoLoading: false
+      disableAutoLoading: false,
+      currentProviderId: null,
+      currentGroupId: null
     }
   },
   created() {
+    this.$store.dispatch('gameProviders/loadAll')
     API.get('games', {
       params: {
         expand: API_GAMES_DEFAULT_FIELDS,
@@ -63,11 +78,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      currentLang: 'lang/getCurrent'
-    }),
-    loadgames(){
-      return this.updateDynPage(this.id.toString())
-    }
+      currentLang: 'lang/getCurrent',
+      gameProviders: 'gameProviders/getAll'
+    })
   },
   methods: {
     getGameList() {
@@ -87,12 +100,28 @@ export default {
       this.loader = true
       this.pageCount = 1
       this.page = 1
+      this.currentGroupId = id
+      let params = {
+        expand: API_GAMES_DEFAULT_FIELDS,
+        group_id: this.currentGroupId
+      }
+
+      if (this.currentProviderId !== null) {
+        params.provider_id = this.currentProviderId
+      }
+
       API.get('games', {
-        params: {
-          expand: API_GAMES_DEFAULT_FIELDS,
-          group_id: id
-        }
+        params: params
       }).then(this._resCallback.bind(this))
+    },
+    handleProviderSelection(event) {
+      if (event.target.value !== '0') {
+        this.currentProviderId = event.target.value
+        this.updateDynPage(this.id)
+      } else {
+        this.currentProviderId = null
+        this.updateDynPage(this.id)
+      }
     },
     _resCallback(res) {
       this.pageCount = parseInt(res.headers['x-pagination-page-count'])
@@ -103,3 +132,45 @@ export default {
   }
 }
 </script>
+
+<style>
+
+label.provider-select {
+  position: relative;
+  display: inline-block;
+  width: 270px;
+}
+
+.provider-select select {
+  display: inline-block;
+  padding: 4px 3px 3px 5px;
+  margin: 0;
+  font: inherit;
+  outline:none;
+  line-height: 1.2;
+  background: #000;
+  color:white;
+  border:0;
+  width: 270px;
+  height: 45px;
+}
+
+.provider-select:after {
+  content: "▼";
+  position: absolute;
+  top: 7px;
+  right: 0;
+  bottom: 0;
+  font-size: 160%;
+  line-height: 30px;
+  padding: 0 7px;
+  background: #000;
+  color: white;
+  pointer-events: none;
+}
+
+.no-pointer-events .provider-select:after {
+  content: none;
+}
+
+</style>

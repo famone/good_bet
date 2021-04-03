@@ -28,6 +28,7 @@ import playerUploadTypes from "./PlayerUploadTypes";
 import playerUpload from "./PlayerUpload";
 import game from "./Game";
 import gameLauncher from "./GameLauncher";
+import gameProviders from "./GameProviders";
 import counter from "./Counter";
 import password from "./Password";
 import socialNetworks from "./SocialNetworks";
@@ -62,6 +63,7 @@ export default new Vuex.Store({
 		playerUpload,
 		game,
 		gameLauncher,
+		gameProviders,
 		counter,
 		password,
 		socialNetworks,
