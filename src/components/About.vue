@@ -1,7 +1,7 @@
 <template>
 	<section id="aboutCasino">
 		<div class="container">
-			<div class="col-lg-12">
+			<div class="col-lg-12" v-if="infoPage">
 				<div class="about-box">
 				<h2>{{infoPage.name}}</h2>
 				<p class="white-txt" v-html="infoPage.body"></p>

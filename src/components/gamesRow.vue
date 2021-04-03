@@ -1,21 +1,29 @@
 <template>
-	<div class="games-row">
-		<div class="container">
-			<div class="games-row-box" >
-				<div class="games-row-top">
-					<h2>{{titleRow}}</h2>
-					<router-link class="see-all" tag="button" :to="link">{{ $t('games.seeAllLinkTitle')}}<img src="../assets/img/see.svg" alt=""></router-link>
-				</div>
+  <div class="games-row">
+    <div class="container">
+      <div class="games-row-box">
+        <div class="games-row-top">
+          <h2>{{ titleRow }}</h2>
+          <router-link class="see-all" tag="button" :to="link">{{ $t('games.seeAllLinkTitle') }}<img
+              src="../assets/img/see.svg" alt=""></router-link>
+        </div>
 
-				<div v-if="gamesArr.length" class="row">
-					<gameBox v-for="game in gamesArr.slice(0, 4)" v-bind:key="game.id" :game="game"/>
-				</div>
-        <Skeletons v-else />
-			</div>
+        <div v-if="gamesArr.length" class="row games-row-swiper-container">
+
+            <swiper ref="mySwiper2" :options="swiperOptions" v-if="gamesArr">
+              <swiper-slide v-for="item in gamesArr.slice(0, 16)" v-bind:key="item.id">
+                <div class="swiper-wrapper">
+                  <gameBox :game="item"/>
+                </div>
+              </swiper-slide>
+            </swiper>
+        </div>
+        <Skeletons v-else/>
+      </div>
 
 
-		</div>
-	</div>
+    </div>
+  </div>
 </template>
 
 
@@ -23,21 +31,62 @@
 import gameBox from '../components/ui/gameBox.vue'
 import Skeletons from '../components/Skeletons.vue'
 
-export default{
-	components: { gameBox, Skeletons },
-	props: {
-		gamesArr:{
-			required: true,
-			type: Array
-		},
-		titleRow: {
-			required: true,
-			type: String
-		},
-		link: {
-			required: false,
-			type: String
-		}
-	}
+export default {
+  components: {gameBox, Skeletons},
+  props: {
+    gamesArr: {
+      required: true,
+      type: Array
+    },
+    titleRow: {
+      required: true,
+      type: String
+    },
+    link: {
+      required: false,
+      type: String
+    }
+  },
+  data() {
+    return {
+      swiperOptions: {
+        slidesPerView: 4,
+        spaceBetween: 20,
+        loop: true,
+        infinite: true,
+        touchRatio: 1,
+        centeredSlides: false,
+        draggable: true,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
+        breakpoints: {
+          320: {
+            slidesPerView: 1.18,
+            centeredSlides: true,
+            spaceBetween: 15,
+            touchRatio: 1
+          },
+          768: {
+            slidesPerView: 2,
+            touchRatio: 1
+          },
+          1150: {
+            slidesPerView: 4,
+            spaceBetween: 20,
+            touchRatio: 1
+          }
+        }
+
+      }
+    }
+  }
 }
 </script>
+
+<style>
+.games-row-swiper-container {
+  overflow: hidden;
+}
+</style>

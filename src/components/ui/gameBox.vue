@@ -1,5 +1,4 @@
 <template>
-  <div class="col-lg-3 col-sm-6">
     <div class="game-box">
       <div class="game-image" :style="{'background-image': 'url(' + game.images[0].url + ')'}">
         <div class="play-layer">
@@ -25,7 +24,6 @@
 
       </div>
     </div>
-  </div>
 </template>
 
 <script>
