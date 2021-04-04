@@ -1,7 +1,7 @@
 <template>
   <div class="mes-pop settings-popup" @click="closePopup">
     <div class="mes-pop-box" @click.stop>
-      <div class="cross" @click="closePopup">✕</div>
+      <div class="cross" v-if="closable" @click="closePopup">✕</div>
       <h2>{{ $t('changePassword.title') }}</h2>
       <div class="col-lg-12">
         <p class="popup-content white-txt">{{ $t('changePassword.description') }}</p>
@@ -48,6 +48,11 @@ export default {
     playerId: {
       required: true,
       type: Number
+    },
+    closable: {
+      required: false,
+      type: Boolean,
+      default: true
     }
   },
   methods: {

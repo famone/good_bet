@@ -130,7 +130,7 @@
 
     <socket v-if="player"/>
 
-
+    <restore-password-popup v-if="openPasswordChangePopup" :player-id="player.id" :closable="false"/>
   </header>
 </template>
 
@@ -143,9 +143,10 @@ import accountSelect from '../ui/AccountSelect.vue'
 import Socket from "./Socket";
 import MessagesSmallPopup from "./MessagesSmallPopup";
 import MessagePopup from "./MessagePopup";
+import RestorePasswordPopup from "../../components/accounts/RestorePasswordPopup";
 
 export default {
-  components: {MessagePopup, MessagesSmallPopup, Socket, LangSwitcher, mobileSidebar, accountSelect},
+  components: {MessagePopup, MessagesSmallPopup, Socket, LangSwitcher, mobileSidebar, accountSelect, RestorePasswordPopup},
   computed: {
     ...mapGetters({
       player: "player/getCurrent",
@@ -153,7 +154,7 @@ export default {
       searchResults: "games/getSearchResult",
       unreadMessageCount: "messages/getUnread",
       isAuth: "auth/getAuthenticated",
-      counter: "counter/get"
+      counter: "counter/get",
     }),
     currentAccount() {
       if (this.player) {
@@ -224,6 +225,15 @@ export default {
   },
   watch: {
     counter(newVersion, oldVersion) {
+      if (newVersion.player.is_need_change_password === true) {
+        if (this.$router.currentRoute.path !== '/new-password') {
+          this.openPasswordChangePopup = true
+        }
+      }
+      else {
+        this.openPasswordChangePopup = false
+      }
+
       if (oldVersion) {
         if (newVersion.balance.current === oldVersion.balance.current) {
           return;
@@ -249,6 +259,7 @@ export default {
       showChat: false,
       search: '',
       stickyHeader: false,
+      openPasswordChangePopup: false,
       menuLinks: [
         {
           link: '/about',

@@ -31,12 +31,10 @@ const player = {
 						expand: 'avatars,accounts,country,timezone'
 					}
 				}).then(response => {
-					commit('SET_CURRENT', response.data[0])
-
-					CasinoLocalStorage.savePlayerData(response.data[0])
-
-					Socket.firePlayerOnlineEvent(this._vm.$socket, response.data[0])
-
+					let player = response.data[0];
+					commit('SET_CURRENT', player)
+					CasinoLocalStorage.savePlayerData(player)
+					Socket.firePlayerOnlineEvent(this._vm.$socket, player)
 					resolve(response)
 				}).catch(error => {
 					if (error.response.status === 401) {
