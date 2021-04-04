@@ -2,7 +2,7 @@
 	<div>
 		<Navbar />
 
-		<section id="policy">
+		<section id="policy" v-if="infoPage">
 			<div class="container">
 				<div class="col-lg-12">
 					<h2 class="mb-30">PRIVACY POLICY</h2>

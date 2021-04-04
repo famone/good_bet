@@ -4,7 +4,7 @@
 
     <section id="about">
       <div class="container">
-        <div class="col-lg-6">
+        <div class="col-lg-6" v-if="infoPage">
           <div class="white-txt" v-html="infoPage.body"></div>
         </div>
         <div class="col-lg-6">
