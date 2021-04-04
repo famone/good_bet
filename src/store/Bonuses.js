@@ -38,7 +38,7 @@ const bonuses = {
 						expand: 'banners, budgets, accrual_rules, wagering_rules, free_spin_rules',
 					}
 				}).then(response => {
-					commit('SET_REGISTRATION_BONUSES', response.data)
+					commit('SET_ALL', response.data)
 					resolve(response)
 				}).catch(error => {
 					reject(error)
@@ -48,7 +48,7 @@ const bonuses = {
 	},
 	getters: {
 		getAll(state) {
-			return state.registrationBonuses
+			return state.all
 		},
 		getRegistrationBonuses(state) {
 			return state.registrationBonuses

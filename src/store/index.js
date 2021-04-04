@@ -36,6 +36,7 @@ import playerAvatar from "./PlayerAvatar";
 import bonusTransactions from "./BonusTransactions";
 import bonus from "./Bonus";
 import infoPages from "./InfoPages";
+import winners from "./Winners";
 
 export default new Vuex.Store({
 	modules: {
@@ -71,6 +72,7 @@ export default new Vuex.Store({
 		playerAvatar,
 		bonusTransactions,
 		bonus,
-		infoPages
+		infoPages,
+		winners
 	}
 }) 

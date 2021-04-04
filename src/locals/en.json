@@ -77,8 +77,10 @@
     "contacts": "CONTACTS",
     "needAnyHelp": "NEED ANY HELP?"
   },
-  "navbar": {
-
+  "winners": {
+    "title": "LATEST WINNERS",
+    "justWon": "Just won",
+    "play": "Play"
   },
   "footer": {
     "slogan": "it’s always a good <span>bet</span><br>with GoodBet",

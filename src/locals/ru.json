@@ -77,8 +77,10 @@
     "contacts": "КОНТАКТЫ",
     "needAnyHelp": "НУЖНА ПОМОЩЬ?"
   },
-  "navbar": {
-
+  "winners": {
+    "title": "Последние выигриши",
+    "justWon": "Выигрышь",
+    "play": "Играть"
   },
   "footer": {
     "slogan": "Хорошо <span>играть</span><br>с GoodBet",

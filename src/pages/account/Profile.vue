@@ -29,7 +29,6 @@
 
                       </div>
                     </div>
-                    <!-- <input type="file" ref="file" @change="changeAvatar"> -->
                     <div class="edit-btn"></div>
                   </div>
                 </div>
