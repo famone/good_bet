@@ -13,21 +13,24 @@
                 <div class="col-lg-3">
                   <label class="provider-select">
                     <select @change="handleProviderSelection($event)">
-                      <option value="0">{{$t('games.providerSelectTitle')}}</option>
-                      <option v-for="provider in gameProviders" :value="provider.id">{{provider.name}}</option>
+                      <option value="0">{{ $t('games.providerSelectTitle') }}</option>
+                      <option v-for="provider in gameProviders" :value="provider.id">{{ provider.name }}</option>
                     </select>
                   </label>
 
                 </div>
               </div>
               <br>
-              <Skeletons v-if="loader"  v-bind:row-count="4" />
+              <Skeletons v-if="loader" v-bind:row-count="4"/>
 
               <div class="text-center" v-else-if="!gamesArr.length">
                 <h3>{{ $t('games.noGamesTextInList') }}</h3>
               </div>
 
-              <gameBox v-if="gamesArr.length" v-for="game in gamesArr" :game="game" v-bind:key="game.id"/>
+              <div class="col-lg-3 col-sm-6" v-if="gamesArr.length" v-for="game in gamesArr" v-bind:key="game.id">
+                <game-box :game="game"/>
+              </div>
+
 
             </div>
             <scroll-loader v-if="gamesArr.length" :loader-method="getGameList" :loader-disable="disableAutoLoading">
@@ -54,7 +57,7 @@ import {mapGetters} from "vuex";
 
 const API_GAMES_DEFAULT_FIELDS = 'details,launch_types,images,type,provider,canonical';
 export default {
-  components: {gameBox, Navbar, Skeletons, },
+  components: {gameBox, Navbar, Skeletons,},
   props: ["id"],
   data() {
     return {
@@ -153,11 +156,11 @@ label.provider-select {
   padding: 4px 3px 3px 5px;
   margin: 0;
   font: inherit;
-  outline:none;
+  outline: none;
   line-height: 1.2;
   background: #000;
-  color:white;
-  border:0;
+  color: white;
+  border: 0;
   width: 270px;
   height: 45px;
 }

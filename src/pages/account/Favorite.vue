@@ -8,15 +8,16 @@
 
 
             <div class="row">
-              <Skeletons v-if="loader" v-bind:row-count="2" />
+              <Skeletons v-if="loader" v-bind:row-count="2"/>
 
-              <div v-else-if="gamesArr < 1" class="text-center" >
+              <div v-else-if="gamesArr < 1" class="text-center">
                 <h3>{{ $t('games.noGamesTextInList') }}</h3>
               </div>
 
-              <gameBox v-else v-for="(game, index) in gamesArr" v-bind:key="game.id" :game="game" @updateFavs="favUpdate(index)" />
+              <div class="col-lg-3 col-sm-6" v-else v-for="(game, index) in gamesArr" v-bind:key="game.id">
+                <game-box :game="game" @updateFavs="favUpdate(index)"/>
+              </div>
             </div>
-
 
 
           </div>
@@ -46,7 +47,7 @@ export default {
     }
   },
   methods: {
-    favUpdate(index){
+    favUpdate(index) {
       delete this.gamesArr.splice(index, 1)
     }
   },

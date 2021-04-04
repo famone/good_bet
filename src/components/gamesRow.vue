@@ -13,7 +13,7 @@
             <swiper ref="mySwiper2" :options="swiperOptions" v-if="gamesArr">
               <swiper-slide v-for="item in gamesArr.slice(0, 16)" v-bind:key="item.id">
                 <div class="swiper-wrapper">
-                  <gameBox :game="item"/>
+                  <game-box :game="item"/>
                 </div>
               </swiper-slide>
             </swiper>
