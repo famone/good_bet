@@ -7,9 +7,9 @@
           <form>
             <input type="text" :placeholder="$t('newPass.passOne')" v-model="pass1">
             <input type="text" :placeholder="$t('newPass.passTwo')" v-model="pass2">
-           
+
             <p style="color: red;" class="text-center" v-if="errors">Passwords are incorrect</p>
-            <button type="submit"  class="reg-btn">{{ $t('newPass.loginUPPER') }}</button>
+            <button type="submit" class="reg-btn">{{ $t('newPass.loginUPPER') }}</button>
           </form>
         </div>
       </div>
@@ -17,16 +17,15 @@
   </section>
 </template>
 
-<script> 
-import {API} from "../api";
+<script>
 
-    export default{
-        data(){
-          return{
-            errors: false,
-            pass1: '',
-            pass2: ''
-          }
-        }
+export default {
+  data() {
+    return {
+      errors: false,
+      pass1: '',
+      pass2: ''
     }
+  }
+}
 </script> 
