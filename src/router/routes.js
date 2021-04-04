@@ -8,7 +8,7 @@ import Faq from '../pages/Faq.vue'
 import DemoGame from '../pages/DemoGame.vue'
 import News from '../pages/News.vue'
 import Newspage from '../pages/Newspage.vue'
-import groupPage from '../pages/groupPage.vue'
+import GroupedGames from '../pages/GroupedGames.vue'
 import Profile from '../pages/account/Profile.vue'
 import RealGame from '../pages/RealGame.vue'
 import Withdrawal from '../pages/account/Withdrawal.vue'
@@ -120,7 +120,7 @@ const routes = [
 	},
 	{
 		path: '/game-groups/:id',
-		component: groupPage,
+		component: GroupedGames,
 		props: true
 	},
 	{
