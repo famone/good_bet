@@ -3,7 +3,9 @@
     <div class="container">
       <div class="winners-row-box">
         <div class="winners-row-top">
-          <h2>{{ $t('winners.title') }}</h2>
+          <div class="winners-row-title-wrapper">
+            <h2>{{ $t('winners.title') }}</h2>
+          </div>
         </div>
 
         <div class="row winners-row-swiper-container" v-if="winners.length">
@@ -100,9 +102,24 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 33px;
+
 }
-.winners-row-top h2 {
+.winners-row-title-wrapper {
   color: #dfa945;
+  margin: auto;
+  background-image: url("../assets/img/winnersTitleBackground.svg");
+  background-size: cover;
+  height: 35px;
+  width: 300px;
+}
+
+.winners-row-title-wrapper h2 {
+  font-size: 19px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  text-align: center;
+  padding-top: 7px;
 }
 
 .winners-row-swiper-container {
