@@ -67,7 +67,7 @@ const games = {
 				API.get('games', {
 					params: {
 						expand: 'details,launch_types,images,type,provider,canonical',
-						group_id: 115,
+						popularity: 1,
 					}
 				}).then(response => {
 					commit('SET_POPULAR', response.data)
