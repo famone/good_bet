@@ -3,10 +3,13 @@
     <mainSlider/>
 
     <Navbar/>
-    <gamesRow v-view.once="loadPopularGames" :gamesArr="popularGames" :titleRow="$t('home.popularGames')" :link=" '/game-groups/115' "/>
-    <winners-row/>
-    <gamesRow v-view.once="loadSlotGames" :gamesArr="slotsGames" :titleRow="$t('home.slots')" :link=" '/game-groups/126' "/>
-    <gamesRow v-view.once="loadRecommendedGames" :gamesArr="recommendedGames" :titleRow="$t('home.recommended')" :link=" '/game-groups/124' "/>
+    <gamesRow v-view.once="loadPopularGames" :gamesArr="popularGames" :titleRow="$t('home.popularGames')"
+              :link=" '/game-groups/115' "/>
+    <winners-row v-view.once="loadWinners" :winners="winners"/>
+    <gamesRow v-view.once="loadSlotGames" :gamesArr="slotsGames" :titleRow="$t('home.slots')"
+              :link=" '/game-groups/126' "/>
+    <gamesRow v-view.once="loadRecommendedGames" :gamesArr="recommendedGames" :titleRow="$t('home.recommended')"
+              :link=" '/game-groups/124' "/>
     <newsRow/>
     <Banner/>
     <About/>
@@ -30,7 +33,8 @@ export default {
       popularGames: "games/getPopular",
       slotsGames: "games/getSlots",
       recommendedGames: "games/getRecommended",
-      currentLang: 'lang/getCurrent'
+      currentLang: 'lang/getCurrent',
+      winners: "winners/getAll"
     }),
   },
   watch: {
@@ -41,6 +45,9 @@ export default {
     },
   },
   methods: {
+    loadWinners() {
+      this.$store.dispatch('winners/loadAll')
+    },
     loadPopularGames() {
       this.$store.dispatch("games/loadPopular")
     },

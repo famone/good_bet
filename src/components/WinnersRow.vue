@@ -17,7 +17,7 @@
             </swiper-slide>
           </swiper>
         </div>
-        <Skeletons v-else/>
+        <Skeletons v-else v-bind:element-per-count="3" element-wrapper-class="col-lg-4 col-sm-6"/>
       </div>
 
 
@@ -26,15 +26,15 @@
 </template>
 <script>
 import Skeletons from '../components/Skeletons.vue'
-import {mapGetters} from "vuex";
 import WinnerBox from "./ui/WinnerBox";
 
 export default {
   components: {WinnerBox, Skeletons},
-  computed: {
-    ...mapGetters({
-      winners: "winners/getAll",
-    })
+  props: {
+    winners: {
+      required: true,
+      type: Array
+    },
   },
   data() {
     return {
@@ -70,9 +70,6 @@ export default {
 
       }
     }
-  },
-  created() {
-    this.$store.dispatch('winners/loadAll')
   }
 }
 </script>
