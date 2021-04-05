@@ -64,10 +64,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({slider: "slider/getAll"}),
+    ...mapGetters({slider: "slider/getMain"}),
   },
   created() {
-    this.$store.dispatch("slider/loadAll").then(() => {
+    this.$store.dispatch("slider/loadMain").then(() => {
       this.imagesLoaded = true
     })
   }
