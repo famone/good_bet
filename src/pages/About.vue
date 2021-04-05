@@ -39,7 +39,7 @@
               <button type="submit" class="reg-btn"><img src="../assets/img/icons/nv6.svg" class="spin" alt=""></button>
             </div>
             <div v-else>
-              <button type="submit" class="reg-btn">$t('pages.about.send')</button>
+              <button type="submit" class="reg-btn">{{ $t('pages.about.send') }}</button>
             </div>
 
             <template>
