@@ -26,28 +26,29 @@ const player = {
 		loadCurrent({commit, dispatch}) {
 			dispatch('auth/setAuthenticated', true, {root: true})
 			return new Promise((resolve, reject) => {
-				API.get('players', {
-					params: {
-						expand: 'avatars,accounts,country,timezone'
-					}
-				}).then(response => {
-					let player = response.data[0];
-					commit('SET_CURRENT', player)
-					CasinoLocalStorage.savePlayerData(player)
-					Socket.firePlayerOnlineEvent(this._vm.$socket, player)
-					resolve(response)
-				}).catch(error => {
-					if (error.response.status === 401) {
-						dispatch('auth/logOut', null, {root: true})
-						reject(new AuthException())
-					} else if(error.response.status === 403) {
-						reject(new AccessDeniedException())
-					} else {
-						reject(error)
-					}
+				dispatch('auth/refreshPlayerToken', true, {root: true}).then(() => {
+					API.get('players', {
+						params: {
+							expand: 'avatars,accounts,country,timezone'
+						}
+					}).then(response => {
+						let player = response.data[0];
+						commit('SET_CURRENT', player)
+						CasinoLocalStorage.savePlayerData(player)
+						Socket.firePlayerOnlineEvent(this._vm.$socket, player)
+						resolve(response)
+					}).catch(error => {
+						if (error.response.status === 401) {
+							dispatch('auth/logOut', null, {root: true})
+							reject(new AuthException())
+						} else if (error.response.status === 403) {
+							reject(new AccessDeniedException())
+						} else {
+							reject(error)
+						}
+					})
 				})
 			});
-
 		},
 		updateData({commit, dispatch}, data) {
 			return new Promise((resolve, reject) => {

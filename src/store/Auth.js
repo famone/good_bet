@@ -52,8 +52,49 @@ const auth = {
 						token: {
 							accessToken: response.data.access_token,
 							refreshToken: response.data.refresh_token,
-							expiresIn: currentTimeInTimestamp,
-							timestamp: new Date().getTime()
+							expiresIn: currentTimeInTimestamp + response.data.expires_in
+						}
+					}
+
+					CasinoLocalStorage.savePlayer(player)
+
+					resolve(response)
+				}).catch(error => {
+					reject(error)
+				});
+			});
+		},
+		refreshPlayerToken() {
+			let playerFromStorage = CasinoLocalStorage.getPlayer()
+			let currentTimeInTimestamp = new Date().getTime() / 1000 | 0;
+
+			if (playerFromStorage.token.expiresIn - currentTimeInTimestamp > 5) {
+				return;
+			}
+
+			return new Promise((resolve, reject) => {
+				let config = {
+					baseURL: process.env.CASINO_APP_API_URL,
+					headers: {
+						Authorization: 'Basic ' + process.env.CASINO_APP_API_AUTH_TOKEN,
+					}
+				}
+
+
+				let params = {
+					grant_type: 'refresh_token',
+					refresh_token: playerFromStorage.token.refreshToken
+				}
+
+				axios.post('oauth2/token', params, config).then(response => {
+
+					let currentTimeInTimestamp = new Date().getTime() / 1000 | 0;
+
+					let player = {
+						token: {
+							accessToken: response.data.access_token,
+							refreshToken: response.data.refresh_token,
+							expiresIn: currentTimeInTimestamp + response.data.expires_in
 						}
 					}
 
