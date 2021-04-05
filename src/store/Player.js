@@ -4,6 +4,7 @@ import AuthException from "./AuthException";
 import {CasinoLocalStorage} from "../CasinoLocalStorage";
 import AccessDeniedException from "./AccessDeniedException";
 import Socket from "../socket";
+import InvalidRereshTokenException from "./InvalidRereshTokenException";
 
 const player = {
 	namespaced: true,
@@ -47,6 +48,12 @@ const player = {
 							reject(error)
 						}
 					})
+				}).catch(error => {
+					if (error.response.data.code === 8) {
+						reject(new InvalidRereshTokenException())
+					} else {
+						reject(error)
+					}
 				})
 			});
 		},

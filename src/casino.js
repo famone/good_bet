@@ -20,6 +20,7 @@ import {CasinoLocalStorage} from "./CasinoLocalStorage";
 import AccessDeniedException from "./store/AccessDeniedException";
 import VueSocketIO from 'vue-socket.io'
 import io from 'socket.io-client'
+import InvalidRereshTokenException from "./store/InvalidRereshTokenException";
 
 export default class Casino {
 	constructor() {
@@ -37,7 +38,17 @@ export default class Casino {
 						CasinoLocalStorage.deleteUsers()
 						this.intiApplication()
 					})
+				} else if (error instanceof InvalidRereshTokenException) {
+					store.dispatch('auth/setAuthenticated', false, {root: true}).then(() => {
+						CasinoLocalStorage.deleteUsers()
+						this.intiApplication()
+					})
 				}
+				else {
+					//TODO here is not handled global errors
+					console.log(error);
+				}
+
 			})
 		}
 		else {
