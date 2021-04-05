@@ -8,15 +8,16 @@
               src="../assets/img/see.svg" alt=""></router-link>
         </div>
 
-        <div v-if="gamesArr.length" class="row games-row-swiper-container">
+        <div v-if="gamesArr.length" class="row games-row-swiper-container" v-on:mouseenter="stopAutoplay"
+             v-on:mouseleave="playAutoplay">
 
-            <swiper ref="mySwiper2" :options="swiperOptions" v-if="gamesArr">
-              <swiper-slide v-for="item in gamesArr.slice(0, 16)" v-bind:key="item.id">
-                <div class="swiper-wrapper">
-                  <game-box :game="item"/>
-                </div>
-              </swiper-slide>
-            </swiper>
+          <swiper ref="gamesSwiper" :options="swiperOptions" v-if="gamesArr">
+            <swiper-slide v-for="item in gamesArr.slice(0, 16)" v-bind:key="item.id">
+              <div class="swiper-wrapper">
+                <game-box :game="item"/>
+              </div>
+            </swiper-slide>
+          </swiper>
         </div>
         <Skeletons v-else/>
       </div>
@@ -47,6 +48,14 @@ export default {
       type: String
     }
   },
+  methods: {
+    stopAutoplay() {
+      this.$refs.gamesSwiper.$swiper.autoplay.stop()
+    },
+    playAutoplay() {
+      this.$refs.gamesSwiper.$swiper.autoplay.start()
+    }
+  },
   data() {
     return {
       swiperOptions: {
@@ -59,7 +68,7 @@ export default {
         draggable: true,
         autoplay: {
           delay: 2500,
-          disableOnInteraction: false,
+          disableOnInteraction: true,
         },
         breakpoints: {
           320: {

@@ -8,8 +8,9 @@
           </div>
         </div>
 
-        <div class="row winners-row-swiper-container" v-if="winners.length">
-          <swiper ref="mySwiper2" :options="swiperOptions">
+        <div class="row winners-row-swiper-container" v-if="winners.length" v-on:mouseenter="stopAutoplay"
+             v-on:mouseleave="playAutoplay">
+          <swiper ref="winnersSwiper" :options="swiperOptions">
             <swiper-slide v-for="winner in winners" v-bind:key="winner.id">
               <div class="swiper-wrapper">
                 <winner-box :winner="winner"/>
@@ -19,7 +20,6 @@
         </div>
         <Skeletons v-else v-bind:element-per-count="3" element-wrapper-class="col-lg-4 col-sm-6"/>
       </div>
-
 
     </div>
   </div>
@@ -35,6 +35,14 @@ export default {
       required: true,
       type: Array
     },
+  },
+  methods: {
+    stopAutoplay() {
+      this.$refs.winnersSwiper.$swiper.autoplay.stop()
+    },
+    playAutoplay() {
+      this.$refs.winnersSwiper.$swiper.autoplay.start()
+    }
   },
   data() {
     return {
