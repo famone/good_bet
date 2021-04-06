@@ -39,6 +39,8 @@ const auth = {
 					baseURL: process.env.CASINO_APP_API_URL,
 					headers: {
 						Authorization: 'Basic ' + process.env.CASINO_APP_API_AUTH_TOKEN,
+						'Access-Control-Request-Method': 'GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS',
+						Origin: '*'
 					}
 				}
 
@@ -77,6 +79,8 @@ const auth = {
 					baseURL: process.env.CASINO_APP_API_URL,
 					headers: {
 						Authorization: 'Basic ' + process.env.CASINO_APP_API_AUTH_TOKEN,
+						'Access-Control-Request-Method': 'GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS',
+						Origin: '*'
 					}
 				}
 

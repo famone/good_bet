@@ -78,9 +78,13 @@ API.interceptors.request.use(function (config) {
 
 	if (player) {
 		API.defaults.headers.common['Authorization'] = 'Bearer ' + player.token.accessToken
+		API.defaults.headers.common['Access-Control-Request-Method'] = 'GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS'
+		API.defaults.headers.common['Origin'] = '*'
 		isTokenReceived = true
 	} else if (guest) {
 		API.defaults.headers.common['Authorization'] = 'Bearer ' + guest.token.accessToken
+		API.defaults.headers.common['Access-Control-Request-Method'] = 'GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS'
+		API.defaults.headers.common['Origin'] = '*'
 		isTokenReceived = true
 	}
 
