@@ -12,7 +12,7 @@
         <div class="date">{{ new Date(news.publish_date * 1000).toLocaleDateString() }}</div>
       </div>
     </section>
-    <section v-if="news.image" class="news-img-section" :style="{backgroundImage: 'url(\'' + news.image.url + '\')'}"></section>
+    <section v-if="news && news.image" class="news-img-section" :style="{backgroundImage: 'url(\'' + news.image.url + '\')'}"></section>
     <section v-else class="news-img-section defaultImg"></section>
     <section v-if="news">
       <div class="container">
