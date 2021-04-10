@@ -8,7 +8,7 @@
         <div class="row">
           <AcNav/>
           <div class="col-lg-9">
-            <div v-if="networks">
+            <div v-if="networks.length">
               <h2>{{ $t('social.name') }}</h2>
 
               <div class="row">
