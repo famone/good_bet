@@ -131,10 +131,10 @@
       "withdrawConfirmText": "<p class=\"white-txt\">Вы подтверждаете вывод: %{amount} <br>\nС коммисией: 0</p>",
       "settings": {
         "title": "Настройки",
-        "description": "На этой странице вы можете найти методы блакировки вашего профиля"
+        "description": "На этой странице вы можете найти методы блокировки вашего профиля"
       },
       "profile": {
-        "editAvatar": "Изминить аватар",
+        "editAvatar": "Изменить аватар",
         "nickname": "Никнейм",
         "email": "Почта",
         "login": "Логин",
@@ -149,11 +149,11 @@
         "city": "Город",
         "timezone": "Часавой пояс",
         "saveButtonTitle": "СОХРАНИТЬ",
-        "profileEditSuccess": "Изминения сохранены",
+        "profileEditSuccess": "Изменения сохранены",
         "profileEditFail": "Произошла ошибка",
         "avatarUploadedSuccess": "Аватарка успешно обновлена",
         "avatarUploadedFailed": "Проблемы с обновлением аватарки",
-        "edit": "РЕДАКТИРОВАТЬ"
+        "edit": "Редактировать"
       }
     }
   },
@@ -170,7 +170,7 @@
   "home": {
     "popularGames": "Популярные игры",
     "slots": "Слот машины",
-    "recommended": "Рекамендовано вам"
+    "recommended": "Рекомендованно для вас"
   },
   "confirmPopup": {
     "title": "Подтвердите действие",
