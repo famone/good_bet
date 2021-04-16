@@ -69,6 +69,36 @@ const player = {
 				})
 			})
 		},
+		verifyByEmail({commit, dispatch}, verifyCode) {
+			return new Promise((resolve, reject) => {
+				let data = {
+					"type": "email"
+				}
+
+				API.patch('contact-confirm/' + verifyCode, data).then(response => {
+					dispatch('player/loadCurrent', null, {root: true})
+
+					resolve(response)
+				}).catch(error => {
+					reject(error)
+				})
+			})
+		},
+		verifyByPhone({commit, dispatch}, verifyCode) {
+			return new Promise((resolve, reject) => {
+				let data = {
+					"type": "phone"
+				}
+
+				API.patch('contact-confirm/' + verifyCode, data).then(response => {
+					dispatch('player/loadCurrent', null, {root: true})
+
+					resolve(response)
+				}).catch(error => {
+					reject(error)
+				})
+			})
+		},
 		logOut({commit}) {
 			commit('SET_CURRENT', null)
 		},

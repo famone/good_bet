@@ -122,8 +122,8 @@
     </div>
 
     <message-popup v-if="activeMessage !== '' "
-                :activeMessage="activeMessage"
-                @closeMessage="closeMessage"/>
+                   :activeMessage="activeMessage"
+                   @closeMessage="closeMessage"/>
 
 
     <mobileSidebar :class="{mobSideAc : mobileMenuOpened}" @closeMobileSidebar="closeMobileSidebar"/>
@@ -131,6 +131,8 @@
     <socket v-if="player"/>
 
     <restore-password-popup v-if="openPasswordChangePopup" :player-id="player.id" :closable="false"/>
+
+    <profile-verify-popup v-if="openProfileVerifyPopup" :player-id="player.id" :closable="false"/>
   </header>
 </template>
 
@@ -144,9 +146,19 @@ import Socket from "./Socket";
 import MessagesSmallPopup from "./MessagesSmallPopup";
 import MessagePopup from "./MessagePopup";
 import RestorePasswordPopup from "../../components/accounts/RestorePasswordPopup";
+import ProfileVerifyPopup from "../accounts/ProfileVerifyPopup";
 
 export default {
-  components: {MessagePopup, MessagesSmallPopup, Socket, LangSwitcher, mobileSidebar, accountSelect, RestorePasswordPopup},
+  components: {
+    MessagePopup,
+    MessagesSmallPopup,
+    Socket,
+    LangSwitcher,
+    mobileSidebar,
+    accountSelect,
+    RestorePasswordPopup,
+    ProfileVerifyPopup
+  },
   computed: {
     ...mapGetters({
       player: "player/getCurrent",
@@ -229,10 +241,11 @@ export default {
         if (this.$router.currentRoute.path !== '/new-password') {
           this.openPasswordChangePopup = true
         }
-      }
-      else {
+      } else {
         this.openPasswordChangePopup = false
       }
+
+      this.openProfileVerifyPopup = newVersion.player.is_verified === false;
 
       if (oldVersion) {
         if (newVersion.balance.current === oldVersion.balance.current) {
@@ -260,6 +273,7 @@ export default {
       search: '',
       stickyHeader: false,
       openPasswordChangePopup: false,
+      openProfileVerifyPopup: false,
       menuLinks: [
         {
           link: '/about',

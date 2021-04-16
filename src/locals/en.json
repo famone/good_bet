@@ -58,6 +58,12 @@
     "button": "Reset",
     "resetButtonTitle": "Change password"
   },
+  "profileVerify": {
+    "title": "Confirm contact",
+    "description": "Please confirm your contact",
+    "verifyCode": "Confirmation code",
+    "button": "Confirm"
+  },
   "selfExclusion": {
     "title": "Temporarily block the profile",
     "description": "You can block the profile until the selected date, the profile will be available from 00:00 on the selected date.",
