@@ -5,7 +5,7 @@
           <router-link tag="a" :to="realGameLink()" class="play-btn">
             <img src="../../assets/img/play.svg" alt="">
           </router-link>
-          <router-link tag="a" :to="'/demo-game/' + game.id.toString()" v-if="isDemoExist()">Demo</router-link>
+          <router-link class="hidden-xs" tag="a" :to="'/demo-game/' + game.id.toString()" v-if="isDemoExist()">Demo</router-link>
         </div>
       </div>
       <div class="game-body">

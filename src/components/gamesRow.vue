@@ -72,8 +72,8 @@ export default {
         },
         breakpoints: {
           320: {
-            slidesPerView: 1.18,
-            centeredSlides: true,
+            slidesPerView: 2,
+            centeredSlides: false,
             spaceBetween: 15,
             touchRatio: 1
           },

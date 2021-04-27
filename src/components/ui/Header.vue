@@ -127,6 +127,7 @@
 
 
     <mobileSidebar :class="{mobSideAc : mobileMenuOpened}" @closeMobileSidebar="closeMobileSidebar"/>
+    
 
     <socket v-if="player"/>
 
