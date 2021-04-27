@@ -16,7 +16,7 @@ body{
 	left: -300px;
 	top: 0;
 	transition: all .3s ease;
-	padding:35px;
+	padding:35px 18px;
 	overflow-y: scroll;
 }
 .mobSideAc{
@@ -1462,7 +1462,7 @@ tbody tr:nth-child(2n){
 		margin-left: 0;
 	}
 	.slider-banner{
-		height: 200px;
+		height: 190px!important;
 	}
 	.navbar-box{
 		display: flex;
@@ -1557,6 +1557,131 @@ tbody tr:nth-child(2n){
 	#gameSec{
 		padding-top: 100px;
 	}
+	/* new */
+	.games-row-box{
+		padding-bottom: 10px;
+	}
+	.games-row-box h3{
+		font-size: 11px;
+		min-height: 24px;
+		margin-bottom: 1px;
+	}
+	.games-row-box .game-body{
+		padding: 8px;
+	}
+	.game-image{
+		height: 90px!important;
+	}
+	.game-box{
+		border-radius: 15px;
+	}
+	.play-layer a.play-btn{
+		height: 35px;
+		width: 35px;
+	}
+	.play-layer .play-btn img{
+		height: 15px;
+	}
+	.button-next, .button-prev{
+		height: 22px!important;
+		width: 22px!important;
+		background-size:10px!important;
+	}
+	.button-next{
+		margin-right: -12px!important;
+	}
+	.button-prev{
+		margin-left: -12px!important;
+	}
+	.news-card{
+		border-radius:  15px;
+	}
+	.news-img{
+		height: 125px;
+	}
+	.news-body{
+		padding:12px 17px;
+		min-height: inherit;
+	}
+	.date{
+		font-size: 10px;
+	}
+	.news-body h3{
+		font-size: 16px;
+		margin-bottom: 5px;
+	}
+	.news-descr{
+		font-size: 10px;
+		line-height: 13px;
+	}
+	#banner{
+		padding-top: 0;
+	}
+	.banner-img{
+		height: 120px;
+		border-radius: 15px;
+	}
+	.slogan{
+		text-align: center;
+	}
+	footer .logo{
+		height: 36px;
+	}
+	.winner-box{
+		text-align: center;
+		padding-bottom: 0px!important;
+	}
+	.winner-body{
+		flex-wrap: wrap;
+	}
+	.winner-body{
+		justify-content: center;
+	}
+	.winner-game-play-btn{
+		margin-bottom: 20px;
+	}
+	.winner-game-demo-play-btn{
+		margin-left: 0!important;
+	}
+	.winner-action-buttons .col-lg-6{
+		margin-bottom: 10px;
+	}
+	.sidebar-box{
+		display: flex;
+		justify-content: flex-start;
+	}
+	.sidebar-box button{
+		font-size: 11px;
+		padding: 15px;
+	}
+	.mobile-games-btns{
+		display: flex!important;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+	.mobile-games-btns a{
+		width: 46%!important;
+		height: 100px;
+		width: 100px;
+		margin-bottom: 20px;
+		
+	}
+	.mobile-games-btns li{
+		background-color:#4D2ADC!important;
+		width: 100%!important;
+		height: 100%;
+		margin-right: 0;
+		border-radius: 15px;
+		font-size: 10px;
+		text-align: center;
+	}
+	.mobile-games-btns li img{
+		width: 100%;
+		margin-right: 0;
+		margin-top: 30px;
+		margin-bottom: 5px;
+		height: 26px;
+	}
 }
 @media (max-width: 390px) {
 	
@@ -1648,7 +1773,7 @@ a:focus{
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background: #0c0b25;
+	background: transparent;
 	border-radius: 4px;
 	cursor: pointer;
 	position: relative;
@@ -1664,6 +1789,9 @@ a:focus{
 	background: #0c0b25;
 	z-index: 120;
 	display: none;
+}
+.lang-flags:hover{
+	background: #0c0b25;
 }
 .lang-flags:hover .lang-drop{
 	display: block;

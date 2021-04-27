@@ -5,7 +5,7 @@
 				<img alt="$t('main.casinoName')" src="../../assets/img/logo.svg" class="logo">
 				<p class="slogan" v-html="$t('footer.slogan')"></p>
 			</div>
-			<div class="col-lg-2 col-lg-offset-1">
+			<div class="col-lg-2 col-lg-offset-1 hidden-xs">
 			 		<h5>{{ $t('main.casinoName') }}</h5>
 			 		<ul>
             <router-link tag="a" to="/about"><li>{{ $t('main.about') }}</li></router-link>
@@ -15,7 +15,7 @@
             <router-link tag="a" to="/bonuses"><li>{{ $t('main.bonuses') }}</li></router-link>
 			 		</ul>
 			 </div>
-			 <div class="col-lg-4">
+			 <div class="col-lg-4 hidden-xs">
 			 	<h5>GAMES</h5>
 			 	<div class="row">
 			 			<div class="col-lg-6">
