@@ -136,7 +136,13 @@ export default {
       }
     }
   },
-  created() {
+  mounted() {
+    let options = {
+      offset: -100,
+    }
+
+    this.$scrollTo('#gameSec', 300, options)
+
     this.gameId = parseInt(this.$route.params.id)
 
     this.$store.dispatch('gameLauncher/createReal', this.gameId).then(() => {
@@ -148,15 +154,8 @@ export default {
 
     this.$store.dispatch('game/loadById', this.gameId)
   },
-  mounted() {
-    let options = {
-      offset: -100,
-    }
-
-    this.$scrollTo('#gameSec', 300, options)
-  },
   beforeDestroy() {
-
+    this.$store.dispatch('gameLauncher/deleteLauncher');
   },
 }
 </script>

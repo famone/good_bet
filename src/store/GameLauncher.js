@@ -1,7 +1,5 @@
 import {API} from '../api'
-import game from "./Game";
 import Socket from "../socket";
-import player from "./Player";
 
 const gameLauncher = {
 	namespaced: true,
@@ -42,6 +40,9 @@ const gameLauncher = {
 					reject(error)
 				})
 			})
+		},
+		deleteLauncher({commit}) {
+			commit('SET_LAUNCHER', null)
 		}
 	},
 	getters: {
