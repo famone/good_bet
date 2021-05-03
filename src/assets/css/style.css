@@ -1549,7 +1549,8 @@ tbody tr:nth-child(2n){
 		overflow-y: scroll;
 	}
 	footer .logo{
-		height: 40px;
+		height: 30px;
+		margin-right: 0;
 	}
 	.news-row .row{
 		padding: 0 15px;
@@ -1625,7 +1626,8 @@ tbody tr:nth-child(2n){
 		text-align: center;
 	}
 	footer .logo{
-		height: 36px;
+		height: 25px;
+		margin-right: 0;
 	}
 	.winner-box{
 		text-align: center;
@@ -1681,6 +1683,12 @@ tbody tr:nth-child(2n){
 		margin-top: 30px;
 		margin-bottom: 5px;
 		height: 26px;
+	}
+	.main-slider{
+		margin-top: 100px;
+	}
+	.account-navigation{
+		display: none;
 	}
 }
 @media (max-width: 390px) {

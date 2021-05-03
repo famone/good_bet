@@ -23,11 +23,11 @@
 							link: '/profile',
 							icon: require('../../assets/img/icons/pr1.svg')
 						},
-          {
-            text: 'myProfile.socials',
-            link: '/account/socials',
-            icon: require('../../assets/img/icons/pr1.svg')
-          },
+						{
+							text: 'myProfile.socials',
+							link: '/account/socials',
+							icon: require('../../assets/img/icons/pr1.svg')
+						},
 						{
 							text: 'myProfile.deposit',
 							link: '/deposit',
@@ -58,11 +58,11 @@
 							link: '/documents',
 							icon: require('../../assets/img/icons/pr6.svg')
 						},
-          {
-            text: 'myProfile.settings',
-            link: '/settings',
-            icon: require('../../assets/img/icons/pr1.svg')
-          },
+						{
+							text: 'myProfile.settings',
+							link: '/settings',
+							icon: require('../../assets/img/icons/pr1.svg')
+						},
 				]
 			}
 		}

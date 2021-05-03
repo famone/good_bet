@@ -11,7 +11,7 @@
             <div class="row">
               <br>
               <br>
-              <div class="row ma-0">
+              <div class="row ma-0" style="padding-top: 85px;">
                 <div class="col-lg-12">
                   <div class="settings-main-description">
                     {{ $t('pages.account.settings.description') }}
