@@ -1429,7 +1429,7 @@ tbody tr:nth-child(2n){
 	align-items: center;
 }
 
-/*ADAPTIIIIIIIIIV*/
+/*ADAPTIVE*/
 
 @media (min-width: 1200px){
 	.container {
@@ -1440,12 +1440,84 @@ tbody tr:nth-child(2n){
 	.news-body{
 		min-height: 200px;
 	}
+
+	.mobile-sidebar {
+		width: 570px;
+		left: -570px;
+	}
+
+	.mobSideAc {
+		left: 0;
+	}
+
+	.mobile-games-btns{
+		display: flex!important;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+	.mobile-games-btns a{
+		height: 100px;
+		width: 100px;
+		margin-bottom: 20px;
+
+	}
+	.mobile-games-btns li{
+		background-color:#4D2ADC!important;
+		width: 100%!important;
+		height: 100%;
+		margin-right: 0;
+		border-radius: 15px;
+		font-size: 10px;
+		text-align: center;
+	}
+	.mobile-games-btns li img{
+		width: 100%;
+		margin-right: 0;
+		margin-top: 30px;
+		margin-bottom: 5px;
+		height: 26px;
+	}
 }
 @media (max-width: 991px) {
 	
 }
 @media (max-width: 786px) {
+	.mobile-sidebar {
+		width: 570px;
+		left: -570px;
+	}
 
+	.mobSideAc {
+		left: 0;
+	}
+
+	.mobile-games-btns{
+		display: flex!important;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+	.mobile-games-btns a{
+		height: 100px;
+		width: 100px;
+		margin-bottom: 20px;
+
+	}
+	.mobile-games-btns li{
+		background-color:#4D2ADC!important;
+		width: 100%!important;
+		height: 100%;
+		margin-right: 0;
+		border-radius: 15px;
+		font-size: 10px;
+		text-align: center;
+	}
+	.mobile-games-btns li img{
+		width: 100%;
+		margin-right: 0;
+		margin-top: 30px;
+		margin-bottom: 5px;
+		height: 26px;
+	}
 }
 @media (max-width: 767px) {
  
