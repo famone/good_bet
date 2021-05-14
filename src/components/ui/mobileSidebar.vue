@@ -5,40 +5,6 @@
       <img src="../../assets/img/logo.svg" class="logo" @click="closeMobileSidebar($emit)"><br><br>
     </router-link>
 
-
-    <!-- <div class="sidebar-box" @click="closeMobileSidebar($emit)" v-if="player">
-
-      <div class="account-box">
-        <div class="avatar" v-if="player.avatars.length !== 0"
-             @click="showChat = !showChat"
-             :style="{'background-image': 'url(' + player.avatars.items[0].url + ')'}">
-          <div v-if="unreadMessageCount > 0" class="ring"></div>
-        </div>
-
-        <div class="avatar" v-else @click="showChat = !showChat">
-          <div v-if="unreadMessageCount > 0" class="ring"></div>
-          <miniChat v-if="showChat"/>
-          <span>{{ player.nickname.substr(0, 1) }}</span>
-        </div>
-        <p class="small-white" style="font-size: 14px;">{{ player.nickname }}</p>
-      </div>
-
-
-      <router-link tag="a" to="/profile" class="settings">
-        <img src="../../assets/img/settings.svg" alt="">
-      </router-link>
-      <router-link tag="a" to="/deposit" class="coins">
-        <img src="../../assets/img/coinsgold.svg" alt="">
-      </router-link>
-      <router-link tag="a" to="/favorite" class="coins">
-        <img src="../../assets/img/like2.svg" alt="">
-      </router-link>
-      <button class="reg-btn" @click="logOut()">
-        <img src="../../assets/img/loguot.svg" style="margin: 0;" alt="">
-      </button>
-    </div> -->
-
-
     <div class="sidebar-box" @click="closeMobileSidebar($emit)" v-if="!player">
       <router-link tag="button" to="/enter" class="login-btn"><img src="../../assets/img/login.svg" alt="">
         {{ $t('main.loginUPPER') }}
@@ -52,35 +18,11 @@
 
     <h5>GAMES</h5>
     <ul @click="closeMobileSidebar($emit)" class="mobile-games-btns">
-      <router-link tag="a" to="/game-groups/124">
-        <li><img src="../../assets/img/icons/nv1.svg"><br>{{ $t('main.recommended') }}</li>
-      </router-link>
-      <router-link tag="a" to="/game-groups/125">
-        <li><img src="../../assets/img/icons/nv2.svg"><br>{{ $t('main.new') }}</li>
-      </router-link>
-      <router-link tag="a" to="/game-groups/115">
-        <li><img src="../../assets/img/icons/nv3.svg"><br>{{ $t('main.popular') }}</li>
-      </router-link>
-      <router-link tag="a" to="/game-groups/126">
-        <li><img src="../../assets/img/icons/nv4.svg"><br>{{ $t('main.slots') }}</li>
-      </router-link>
-      <router-link tag="a" to="/game-groups/127">
-        <li><img src="../../assets/img/icons/nv5.svg"><br>{{ $t('main.liveGame') }}</li>
-      </router-link>
-      <router-link tag="a" to="/game-groups/128">
-        <li><img src="../../assets/img/icons/nv6.svg"><br>{{ $t('main.roulette') }}</li>
-      </router-link>
-      <router-link tag="a" to="/game-groups/129">
-        <li><img src="../../assets/img/icons/nv7.svg"><br>{{ $t('main.card') }}</li>
-      </router-link>
-      <router-link tag="a" to="/game-groups/130">
-        <li><img src="../../assets/img/icons/nv8.svg"><br>{{ $t('main.virtualSport') }}</li>
-      </router-link>
-      <router-link tag="a" to="/game-groups/131">
-        <li><img src="../../assets/img/icons/nv9.svg"><br>{{ $t('main.loto') }}</li>
-      </router-link>
-      <router-link tag="a" to="/game-groups/132">
-        <li><img src="../../assets/img/icons/nv10.svg"><br>{{ $t('main.tableGames') }}</li>
+      <router-link v-if="groups.length" tag="a"
+          :to="'/game-groups/' + item.id"
+          v-for="item in groups"
+          v-bind:key="item.id">
+        <li><img  v-if="item.images.length" :src="item.images[0].url" alt=""><br>{{ item.name }}</li>
       </router-link>
     </ul>
     <br>
@@ -124,6 +66,13 @@
 import {mapGetters} from 'vuex'
 
 export default {
+  computed: {
+    ...mapGetters({
+      player: "player/getCurrent",
+      groups: "gameGroups/getMain",
+      currentLang: "lang/getCurrent"
+    }),
+  },
   data() {
     return {
       showChat: false
@@ -140,15 +89,13 @@ export default {
           });
     }
   },
-  computed: {
-    ...mapGetters({
-      player: "player/getCurrent",
-      messages: "messages/getMessages",
-      searchResults: "games/getSearchResult",
-      unreadMessageCount: "messages/getUnread",
-      isAuth: "auth/getAuthenticated",
-      counter: "counter/get"
-    }),
+  created() {
+    this.$store.dispatch('gameGroups/loadMain')
+  },
+  watch: {
+    currentLang() {
+      this.$store.dispatch('gameGroups/loadMain')
+    },
   }
 }
 </script>
