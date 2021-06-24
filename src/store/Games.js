@@ -83,7 +83,7 @@ const games = {
 				API.get('games', {
 					params: {
 						expand: 'details,launch_types,images,type,provider,canonical',
-						group_id: 126,
+						group_id: process.env.GAMES_SLOTS_GROUP_ID,
 					}
 				}).then(response => {
 					commit('SET_SLOTS', response.data)
@@ -99,7 +99,7 @@ const games = {
 				API.get('games', {
 					params: {
 						expand: 'details,launch_types,images,type,provider,canonical',
-						group_id: 124,
+						group_id: process.env.GAMES_RECOMENDED_GROUP_ID,
 					}
 				}).then(response => {
 					commit('SET_RECOMMENDED', response.data)
